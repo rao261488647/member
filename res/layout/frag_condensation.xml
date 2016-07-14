@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_title" />
+
+    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sv_conden_list_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        ptr:ptrDrawable="@drawable/default_ptr_rotate"
+        ptr:ptrMode="pullFromEnd" >
+
+        <LinearLayout
+            android:id="@+id/ll_main_container1"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_condensation"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/vp_condensation"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="50dp"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:id="@+id/dot_0"
+                        android:layout_width="8dip"
+                        android:layout_height="8dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/dot_focused" />
+
+                    <View
+                        android:id="@+id/dot_1"
+                        android:layout_width="8dip"
+                        android:layout_height="8dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/dot_normal" />
+
+                    <View
+                        android:id="@+id/dot_2"
+                        android:layout_width="8dip"
+                        android:layout_height="8dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/dot_normal" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            
+        </LinearLayout>
+    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+
+</LinearLayout>

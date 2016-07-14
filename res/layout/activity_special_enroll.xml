@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/im_rent_car_list"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/car" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+				 
+                
+                <TextView
+                    android:id="@+id/tv_item_rent_car_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="轩逸1.6经典版"
+                    android:textColor="#323232"
+                    android:textSize="20sp" />
+          
+                <TextView
+                    android:id="@+id/tv_item_rent_car_deposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_item_rent_car_name"
+                    android:paddingRight="10dp"
+                    android:visibility="gone"
+                    android:paddingTop="3dp"
+                    android:layout_alignParentRight="true"
+                    android:text="押金¥15000"
+                    android:textColor="#323232"
+                    android:textSize="18sp" />
+                     
+            </RelativeLayout>
+			
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名"
+                    android:textColor="#929292" />
+               
+                <TextView
+                    android:id="@+id/tv_rent_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号"
+                    android:textColor="#929292" />
+
+                <TextView
+                     android:id="@+id/tv_rent_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_plat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:layout_centerHorizontal="true"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+                 android:onClick="platChange" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="适用平台"
+                    android:textColor="#929292" />
+
+               <TextView
+                   android:id="@+id/tv_rent_plat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_conTrem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" 
+                android:onClick="contractTermChange">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合同期"
+                    android:textColor="#929292" />
+
+                <TextView
+                    android:id="@+id/tv_rent_conTrem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+            
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="每月租金"
+                    android:textColor="#929292" />
+
+                <TextView
+                    android:id="@+id/rl_rent_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                     android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+               
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="6dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预定上门签约日期"
+                    android:textColor="#929292" />
+
+                <TextView
+                    android:id="@+id/tv_rent_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+
+            <RelativeLayout
+                android:id="@+id/rl_rent_regTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" 
+                android:onClick="regTimeChange">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到场注册时间"
+                    android:visibility="gone"
+                    android:textColor="#929292" />
+
+                <TextView
+                    android:id="@+id/tv_rent_regTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_centerHorizontal="true"
+                     android:visibility="gone"
+                    android:text=""
+                    android:textColor="#323232" />
+                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:paddingRight="20dp"
+                    android:src="@drawable/btn_more_normal" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_rent_submit"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_green_bg_nor"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:text="预约报名" 
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+            
+            <TextView
+                    android:layout_width="match_parent"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_height="wrap_content"
+                    android:text="报名地址：深圳市罗湖区延芳路东益汽车广场A2-1号"
+                    android:textSize="12sp"
+                    android:textColor="#929292" />
+            
+            <TextView
+                    android:layout_width="match_parent"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="wrap_content"
+                    android:text="报名电话：13526058125"
+                    android:textSize="12sp"
+                    android:textColor="#929292" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="wrap_content"
+                    android:text="报名时间：9:00 - 18:00"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#929292" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/layout_title" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#d5d7dc"
+        />
+
+    <ImageView
+                android:id="@+id/im_about"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/about" 
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"/>
+    
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        >
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="#d5d7dc" />
+        
+        
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="途优汇隶属于深圳市通途汽车贸易服务有限公司，会广大司机车有提供汽车租赁、买卖、汽车金融服务，为广大的司机朋友提供活动交流的场所."
+        />
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="地址：深圳市罗湖区延芳路东益汽车广场A2-1号"
+        />
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="电话：82299300"
+        />
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="办公时间：每日9:00-18:00"
+        />
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="(法定节假日除外)"
+        />
+        
+    </LinearLayout>
+
+</LinearLayout>

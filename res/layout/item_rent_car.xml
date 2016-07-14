@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_main_container"
+    android:orientation="vertical" >
+    <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+    <ImageView
+        android:id="@+id/iv_item_rent_car"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/car" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_item_rent_car_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="轩逸1.6经典版"
+            android:textColor="#323232"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_item_rent_car_plat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_rent_car_name"
+            android:layout_marginTop="10dp"
+            android:text="适用平台：嘀嘀快车、人民优步"
+            android:textColor="#929292"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_item_rent_car_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_green_bg_nor"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="5dp"
+            android:text="预约报名"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+  
+    <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="#d5d7dc" />
+</LinearLayout>

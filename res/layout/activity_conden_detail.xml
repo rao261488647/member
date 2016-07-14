@@ -1,0 +1,320 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" 
+    >
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/layout_title" 
+        />
+    
+
+    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sv_conden_detail_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_title"
+        android:layout_marginBottom="45dp"
+        android:background="@color/color_gray_e"
+        android:fillViewport="true"
+        ptr:ptrDrawable="@drawable/default_ptr_rotate"
+        ptr:ptrMode="pullFromEnd" >
+
+        <RelativeLayout
+            android:id="@+id/rl_conden_detail_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white" >
+
+            <RelativeLayout
+                android:id="@+id/rl_conden_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" >
+
+                <com.kuqi.cookies.widget.RoundImageView
+                    android:id="@+id/iv_conden_detail_user"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/default_avatar_3x" />
+
+                <LinearLayout
+                    android:id="@+id/ll_conden_detail_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_conden_detail_user"
+                    android:layout_alignTop="@+id/iv_conden_detail_user"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iv_conden_detail_user"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_conden_detail_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxEms="11"
+                        android:singleLine="true"
+                        android:text="酷客特工组"
+                        android:textColor="@color/color_gray_txt_bold"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_conden_detail_user_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015.8.21"
+                        android:textColor="@color/color_gray_txt"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_conden_detail_user_attention"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="加关注"
+                    android:textColor="@color/color_purple"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+            
+                <LinearLayout 
+        			android:id="@+id/ll_conden_detail_mid"
+        			android:layout_width="match_parent"
+        			android:layout_height="wrap_content"
+        			android:layout_below="@+id/rl_conden_detail_user"
+        			android:orientation="vertical">
+        
+    			</LinearLayout>
+
+
+
+            <View
+                android:id="@+id/view_conden_detail_1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/ll_conden_detail_mid"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/color_gray_divider" />
+
+            <TextView
+                android:id="@+id/tv_conden_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_conden_detail_1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="难以置信的训练，体验最有效的速成燃脂运动。跟随旧金山当地最知名的健身教练..."
+                android:textColor="@color/color_gray_txt"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_conden_detail_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_conden_detail_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="7dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="7dp"
+                android:text="滑板"
+                android:textColor="@color/color_gray_9"
+                android:textSize="10sp"
+                android:visibility="invisible" />
+
+            <View
+                android:id="@+id/view_conden_detail_2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/tv_conden_detail_style"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/color_gray_divider"
+                android:visibility="invisible" />
+
+            <RelativeLayout
+                android:id="@+id/rl_conden_detail_communication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_conden_detail_2"
+                android:layout_marginTop="10dp"
+                android:background="@color/color_gray_e" >
+
+                <TextView
+                    android:id="@+id/tv_conden_detail_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="已赞的人"
+                    android:textColor="@color/color_gray_7"
+                    android:textSize="14sp" />
+                
+                 <LinearLayout
+                    android:id="@+id/ll_conden_detail_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_conden_detail_praise"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+                <ImageView android:id="@+id/iv_conden_detail_praise"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/btn_like_conden_normal"
+                    />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_conden_detail_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ll_conden_detail_praise"
+                    android:layout_alignTop="@+id/ll_conden_detail_praise"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+                    
+                     <!-- <com.kuqi.cookies.widget.HorizontialListView 
+                        android:id="@+id/hlz_conden_detail_profile"
+                        android:layout_width="match_parent"
+                    	android:layout_height="50dp"
+                    	android:scrollbars="none"
+                    	>
+                        
+                    </com.kuqi.cookies.widget.HorizontialListView> -->
+                    
+                </LinearLayout>
+                   
+
+                   
+                    <TextView
+                        android:id="@+id/tv_conden_detail_praise_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="200"
+                        android:textColor="@color/color_gray_txt"
+                        android:textSize="15sp"
+                        android:visibility="gone" /> -->
+
+                <TextView
+                    android:id="@+id/tv_conden_detail_reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_conden_detail_profile"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="精彩回复"
+                    android:textColor="@color/color_gray_7"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_conden_detail_reply_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_conden_detail_reply"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tv_conden_detail_reply"
+                    android:text="24"
+                    android:textColor="@color/color_gray_7"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_conden_detail_reply_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/tv_conden_detail_reply"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true"
+                    android:text="发送"
+                    android:textColor="@color/color_gray_txt"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <com.kuqi.cookies.widget.MyListView
+                    android:id="@+id/lv_conden_detail_reply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_conden_detail_praise"
+                    android:layout_marginTop="10dp"
+                    android:dividerHeight="0.5dp"
+                    android:scrollbars="none" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_comments_conden"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+
+        <EditText
+            android:id="@+id/et_comments_conden_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="80dp"
+            android:background="@null"
+            android:hint="输入评论..."
+            android:maxLength="100"
+            android:textColor="@color/color_gray_txt"
+            android:textColorHint="@color/color_gray_9"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_comments_conden_expression"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_comments_conden_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="发送"
+            android:textColor="@color/color_gray_txt"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</RelativeLayout>

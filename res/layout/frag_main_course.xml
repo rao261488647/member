@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_white_gap">
+
+    
+    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_course_list_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        ptr:ptrDrawable="@drawable/default_ptr_rotate"
+        ptr:ptrMode="pullFromEnd" >
+
+        <LinearLayout
+            android:id="@+id/main_course_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/main_course_condensation"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/main_course_condensation"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    >
+
+                    <View
+                        android:id="@+id/main_course_dot_0"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/dot_focused" />
+
+                    <View
+                        android:id="@+id/main_course_dot_1"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:layout_toRightOf="@id/main_course_dot_0"
+                        android:background="@drawable/dot_normal" />
+
+                    <View
+                        android:id="@+id/main_course_dot_2"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:layout_toRightOf="@id/main_course_dot_1"
+                        android:background="@drawable/dot_normal" />
+                </RelativeLayout>
+                
+            </RelativeLayout>
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:orientation="vertical"
+		        >
+		        <RelativeLayout 
+	                android:layout_width="match_parent"
+		            android:layout_height="100dp"
+	                >
+		            <ImageView
+		                android:id="@+id/courses_img1"
+			            android:layout_width="115dp"
+			            android:layout_height="73dp"
+			            android:layout_marginTop="10dp"
+			            android:layout_marginRight="10dp"
+			            android:layout_marginLeft="10dp"
+			            android:src="@drawable/main_icon_news1"
+			            />
+	                <TextView 
+	                    android:id="@+id/courses_text1"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_toRightOf="@id/courses_img1"
+			            android:layout_marginTop="18dp"
+			            android:layout_marginLeft="10dp"
+			            android:layout_marginBottom="8dp"
+			            android:text="滑雪前准备"
+			            android:textSize="16sp"
+			            android:textColor="#404040"
+			            />
+			        <TextView 
+			            android:id="@+id/courses_text2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_toRightOf="@id/courses_img1"
+			            android:layout_below="@id/courses_text1"
+			            android:layout_centerVertical="true"
+			            android:layout_marginLeft="10dp"
+			            android:text="滑雪运动是运动员把滑雪板装在靴底上在雪地上进行速度、跳跃和运动"
+			            android:textSize="12sp"
+			            android:textColor="#8f8f8f"
+			            />
+	            </RelativeLayout>
+		        <View
+	                android:layout_width="match_parent"
+	                android:layout_height="0.5dp"
+	                android:layout_marginLeft="10dp"
+	                android:layout_marginRight="10dp"
+	                android:background="#eeeeee" />
+		        <RelativeLayout 
+	                android:layout_width="match_parent"
+		            android:layout_height="100dp"
+	                >
+		            <ImageView
+		                android:id="@+id/courses_img3"
+			            android:layout_width="115dp"
+			            android:layout_height="73dp"
+			            android:layout_marginTop="10dp"
+			            android:layout_marginRight="10dp"
+			            android:layout_marginLeft="10dp"
+			            android:src="@drawable/main_icon_news2"
+			            />
+	                <TextView 
+	                    android:id="@+id/courses_text3"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_toRightOf="@id/courses_img3"
+			            android:layout_marginTop="18dp"
+			            android:layout_marginLeft="10dp"
+			            android:layout_marginBottom="8dp"
+			            android:text="如何选择滑雪服"
+			            android:textSize="16sp"
+			            android:textColor="#404040"
+			            />
+			        <TextView 
+			            android:id="@+id/courses_text4"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_toRightOf="@id/courses_img3"
+			            android:layout_below="@id/courses_text3"
+			            android:layout_centerVertical="true"
+			            android:layout_marginLeft="10dp"
+			            android:text="滑雪运动是运动员把滑雪板装在靴底上在雪地上进行速度、跳跃和运动"
+			            android:textSize="12sp"
+			            android:textColor="#8f8f8f"
+			            />
+			        <ImageView
+		                android:id="@+id/courses_img4"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_alignParentTop="true"
+			            android:layout_alignParentRight="true"
+			            android:src="@drawable/main_icon_hot2x"
+			            />
+	            </RelativeLayout>
+		    </LinearLayout>
+            
+            
+        </LinearLayout>
+
+
+    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+
+</LinearLayout>

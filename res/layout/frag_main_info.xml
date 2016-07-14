@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_white_gap">
+
+    
+    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sv_conden_list_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        ptr:ptrDrawable="@drawable/default_ptr_rotate"
+        ptr:ptrMode="pullFromEnd" >
+
+        <LinearLayout
+            android:id="@+id/main_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_condensation"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/vp_condensation"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    >
+
+                    <View
+                        android:id="@+id/dot_0"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:background="@drawable/dot_focused" />
+
+                    <View
+                        android:id="@+id/dot_1"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:layout_toRightOf="@id/dot_0"
+                        android:background="@drawable/dot_normal" />
+
+                    <View
+                        android:id="@+id/dot_2"
+                        android:layout_width="35dip"
+                        android:layout_height="4dip"
+                        android:layout_marginLeft="3dip"
+                        android:layout_marginRight="3dip"
+                        android:layout_toRightOf="@id/dot_1"
+                        android:background="@drawable/dot_normal" />
+                </RelativeLayout>
+                
+            </RelativeLayout>
+			<RelativeLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="37dp"
+		        android:background="#f3f3f3"
+		        >
+		        <TextView 
+		            android:id="@+id/main_class_text1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerVertical="true"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:text="推荐课程"
+		            android:textSize="14sp"
+		            android:textColor="#5d5d5d"
+		            />
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerVertical="true"
+		            android:layout_toRightOf="@id/main_class_text1"
+		            android:text="RECOMMEND"
+		            android:textSize="13sp"
+		            android:textColor="#a7a7a7"
+		            />
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerVertical="true"
+		            android:layout_alignParentRight="true"
+		            android:layout_marginRight="20dp"
+		            android:text="更多"
+		            android:textSize="14sp"
+		            android:textColor="#e95353"
+		            />
+		    </RelativeLayout>
+		   	<LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+		        >
+		        <RelativeLayout 
+		            android:layout_width="match_parent"
+		        	android:layout_height="85dp">
+		            <ImageView 
+		                android:id="@+id/main_class_img1"
+		                android:layout_width="55dp"
+		        		android:layout_height="55dp"
+		        		android:layout_centerVertical="true"
+		        		android:layout_marginLeft="15dp"
+		            	android:layout_marginRight="20dp"
+		            	android:src="@drawable/main_icon_one2x"
+		        		/>
+	                <TextView 
+	                    android:id="@+id/main_class_t1"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_marginTop="15dp"
+	        			android:layout_toRightOf="@id/main_class_img1"
+			            android:text="基础滑雪动作速成班"
+			            android:textSize="16sp"
+			            android:textColor="#5d5d5d"
+	        			/>
+	                <TextView 
+	                    android:id="@+id/main_class_t2"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_toRightOf="@id/main_class_img1"
+	        			android:layout_below="@id/main_class_t1"
+			            android:text="2016年1月8日~2016年1月12日"
+			            android:textSize="12sp"
+			            android:textColor="#6d6d6d"
+	        			/>
+	                <TextView 
+	                    android:id="@+id/main_class_t3"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_toRightOf="@id/main_class_img1"
+	        			android:layout_below="@id/main_class_t2"
+			            android:text="新西兰艾比利雪场"
+			            android:textSize="12sp"
+			            android:textColor="#bcbcbc"
+	        			/>
+			        <ImageView
+			            android:id="@+id/main_class_img2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="20dp"
+			            android:layout_centerVertical="true"
+		             	android:layout_alignParentRight="true"
+			            android:layout_marginRight="10dp"
+			            android:src="@drawable/main_icon_jiantou2x"
+			            />
+						            
+		        </RelativeLayout>
+		        <View
+	                android:layout_width="match_parent"
+	                android:layout_height="0.5dp"
+	                android:layout_marginLeft="10dp"
+	                android:layout_marginRight="10dp"
+	                android:background="#eeeeee" />
+		        <RelativeLayout 
+		            android:layout_width="match_parent"
+		        	android:layout_height="85dp">
+		            <ImageView 
+		                android:id="@+id/main_class_imgg1"
+		                android:layout_width="55dp"
+		        		android:layout_height="55dp"
+		        		android:layout_centerVertical="true"
+		        		android:layout_marginLeft="15dp"
+		            	android:layout_marginRight="20dp"
+		            	android:src="@drawable/main_icon_two2x"
+		        		/>
+	                <TextView 
+	                    android:id="@+id/main_class_tt1"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_marginTop="15dp"
+	        			android:layout_toRightOf="@id/main_class_imgg1"
+			            android:text="滑雪基本速成"
+			            android:textSize="16sp"
+			            android:textColor="#5d5d5d"
+	        			/>
+	                <TextView 
+	                    android:id="@+id/main_class_tt2"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_toRightOf="@id/main_class_imgg1"
+	        			android:layout_below="@id/main_class_tt1"
+			            android:text="2016年1月8日~2016年1月12日"
+			            android:textSize="12sp"
+			            android:textColor="#6d6d6d"
+	        			/>
+	                <TextView 
+	                    android:id="@+id/main_class_tt3"
+	                    android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"
+	        			android:layout_toRightOf="@id/main_class_imgg1"
+	        			android:layout_below="@id/main_class_tt2"
+			            android:text="大连新华利雪场"
+			            android:textSize="12sp"
+			            android:textColor="#bcbcbc"
+	        			/>
+			        <ImageView
+			            android:id="@+id/main_class_imgg2"
+			            android:layout_width="wrap_content"
+			            android:layout_height="20dp"
+			            android:layout_centerVertical="true"
+		             	android:layout_alignParentRight="true"
+			            android:layout_marginRight="10dp"
+			            android:src="@drawable/main_icon_jiantou2x"
+			            />
+						            
+		        </RelativeLayout>
+		   	</LinearLayout>
+            <RelativeLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="37dp"
+		        android:background="#f3f3f3"
+		        >
+		        <TextView 
+		            android:id="@+id/main_class_text2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerVertical="true"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:text="滑雪新闻"
+		            android:textSize="14sp"
+		            android:textColor="#5d5d5d"
+		            />
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerVertical="true"
+		            android:layout_toRightOf="@id/main_class_text2"
+		            android:text="SKI NEWS"
+		            android:textSize="13sp"
+		            android:textColor="#a7a7a7"
+		            />
+		    </RelativeLayout>
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:orientation="vertical"
+		        >
+		        <ListView 
+		            android:id="@+id/main_info_lv"
+		            android:layout_width="match_parent"
+		        	android:layout_height="wrap_content"
+		            >
+		            
+		        </ListView>
+		    </LinearLayout>
+            
+            
+        </LinearLayout>
+
+
+    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+
+</LinearLayout>

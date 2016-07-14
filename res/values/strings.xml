@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">通途</string>
+    <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
+    <string name="pull_to_refresh_release_label">松开刷新…</string>
+    <string name="pull_to_refresh_refreshing_label">Loading…</string>
+
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+    
+    <string-array name="main_tabs">
+        <item>首页</item>
+       <!--  <item>通知</item> -->
+        <item>求教</item>
+        <item>约课</item>
+        <item>我的</item>
+        <!--  <item>资讯，其实就是 首页</item> 
+        	以下标签为main页顶部标签
+        -->
+        <item>视频</item>
+        <item>教程</item>
+        <item>精华</item>
+    </string-array>
+    
+    <string-array name="main_top_tabs">
+        <item>资讯</item>
+        <item>视频</item>
+        <item>教程</item>
+        <item>精华</item>
+    </string-array>
+    
+    
+    <string name="title_alert">提示信息</string>
+    
+    <string name="ok">确定</string>
+    
+    <string name="cancel">取消</string>
+    
+    <string name="title_name">SKI SCHOOL</string>
+
+</resources>

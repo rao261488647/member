@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="#2d2e32" 
+    android:orientation="vertical">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+	     <TextView
+	        android:id="@+id/tv_title"
+	        android:text="@string/title_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:gravity="center"
+	        android:singleLine="true"
+	        android:ellipsize="end"
+	        android:textColor="@color/title_blue"
+	        android:textSize="17sp"
+	         />
+		<TextView
+	        android:id="@+id/tv_title_left"
+	        android:text="专车报名"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:gravity="center"
+	        android:singleLine="true"
+	        android:visibility="invisible"
+	        android:ellipsize="end"
+	        android:textColor="@color/white"
+	        android:textSize="17sp"
+	         />
+		
+		<ImageView
+		    android:id="@+id/iv_title_back"
+		    android:layout_width="47dp"
+		    android:layout_height="match_parent"
+		    android:scaleType="center"
+		    android:visibility="invisible"
+		    android:src="@drawable/btn_back_normal"
+		    />
+        
+    </RelativeLayout>
+
+</LinearLayout>

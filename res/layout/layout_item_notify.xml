@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_main_notify_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/selector_home_btm_bell" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="通知"
+            android:textColor="@color/tab_text_color"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <com.frame.member.widget.RedCircle
+        xmlns:yql="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rc_red_circle"
+        android:layout_width="2dp"
+        android:layout_height="2dp"
+        android:visibility="gone"
+        yql:radiusCircle="2"
+        yql:colorCircle="#FC5756"
+        android:layout_above="@id/ll_main_notify_container"
+        android:layout_toRightOf="@id/ll_main_notify_container" />
+
+</RelativeLayout>

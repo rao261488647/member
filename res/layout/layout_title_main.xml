@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="#2d2e32" 
+    android:orientation="vertical">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+	     <TextView
+	        android:id="@+id/tv_title"
+	        android:text="@string/title_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:gravity="center"
+	        android:singleLine="true"
+	        android:ellipsize="end"
+	        android:textColor="@color/title_blue"
+	        android:textSize="17sp"
+	         />
+		<TextView
+	        android:id="@+id/tv_title_left"
+	        android:text="专车报名"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:gravity="center"
+	        android:singleLine="true"
+	        android:visibility="invisible"
+	        android:ellipsize="end"
+	        android:textColor="@color/white"
+	        android:textSize="17sp"
+	         />
+		
+		<ImageView
+		    android:id="@+id/iv_title_back"
+		    android:layout_width="47dp"
+		    android:layout_height="match_parent"
+		    android:scaleType="center"
+		    android:visibility="invisible"
+		    android:src="@drawable/btn_back_normal"
+		    />
+
+    </RelativeLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/main_tab_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="26dp"
+                android:gravity="center"
+                android:text="资讯"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/main_tab_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="26dp"
+                android:gravity="center"
+                android:text="视频"
+                android:textColor="#84858a"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/main_tab_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="26dp"
+                android:gravity="center"
+                android:text="教程"
+                android:textColor="#84858a"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/main_tab_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="精华"
+                android:textColor="#84858a"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+</LinearLayout>

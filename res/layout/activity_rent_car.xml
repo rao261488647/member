@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/layout_title" />
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@color/white"
+        android:textSize="13sp"
+        android:textColor="#929292"
+        android:text="为各位提供以下车型，上滴滴或优步大家可以在平台接单"
+        />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#d5d7dc"
+        />
+
+    <ListView
+        android:id="@+id/lv_rentcar_list"
+        android:layout_marginTop="10dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@color/transparent"
+        android:fadingEdge="none" >
+    </ListView>
+
+</LinearLayout>

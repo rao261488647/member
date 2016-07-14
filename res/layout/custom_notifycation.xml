@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<ImageView 
+	    android:id="@+id/iv_notifycation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/app_icon_76"
+         />
+	<LinearLayout android:id="@+id/ll_notifycation"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:layout_centerVertical="true"
+	    android:gravity="center_vertical"
+	    android:layout_toRightOf="@id/iv_notifycation">
+	    
+    <TextView 
+        android:id="@+id/tv_notifycation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="agasdga"
+        style="@style/NotificationTitle"
+         />
+    
+    <TextView 
+        android:id="@+id/tv_notifycation_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="agasdga"
+        style="@style/NotificationText"
+         />
+	</LinearLayout>
+    
+</RelativeLayout>

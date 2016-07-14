@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/layout_title" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="#d5d7dc"
+        />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        >
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView 
+                android:id="@+id/tv_main_notify_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="14sp"
+                android:text="普通提醒"
+                />
+            
+            <TextView 
+                android:id="@+id/tv_main_notify_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="14sp"
+                android:text="2016-3-02 16:20:32"
+                android:layout_alignParentRight="true"
+                />
+            
+        </RelativeLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="#d5d7dc" />
+        
+        
+        <TextView 
+            android:id="@+id/tv_main_notify_detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:text="这里是详情内容这里是详情内容这里是详情内容这里是详情内容这里是详情内容这里是详情内容这里是详情内容这里是详情内容这里是详情内容"
+                />
+        
+    </LinearLayout>
+
+
+</LinearLayout>
