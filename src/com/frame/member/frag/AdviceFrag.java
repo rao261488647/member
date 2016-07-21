@@ -35,11 +35,11 @@ import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 
 /**
  * 
- * 租车报名
- * @author kun
+ * 求教
+ * @author Ron
  * 
  */
-public class RegisterFrag extends BaseFrag implements OnClickListener {
+public class AdviceFrag extends BaseFrag implements OnClickListener {
 
 	private PullToRefreshScrollView sv_conden_list_body;
 	
@@ -55,9 +55,9 @@ public class RegisterFrag extends BaseFrag implements OnClickListener {
 	
 	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
 
-	public static RegisterFrag newInstance(String title) {
+	public static AdviceFrag newInstance(String title) {
 
-		RegisterFrag fragment = new RegisterFrag();
+		AdviceFrag fragment = new AdviceFrag();
 		Bundle bundle = new Bundle();
 		bundle.putString(AppConstants.FRAG_TITLE_KEY, title);
 		fragment.setArguments(bundle);
@@ -69,39 +69,39 @@ public class RegisterFrag extends BaseFrag implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		rootView = inflater.inflate(R.layout.frag_rent_car, container,
+		rootView = inflater.inflate(R.layout.frag_advice, container,
 				false);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
-		tv_title.setText("预约报名专车");
-		
-		ll_main_container = (LinearLayout) findViewById(R.id.ll_main_container);
-		
-		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.sv_conden_list_body);
-		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
-
-		sv_conden_list_body
-				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase refreshView) {
-
-					}
-
-					@Override
-					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-						if (mainpage_data.size() < totalCount) {
-							sv_conden_list_body.setRefreshing(true);
-							getMainPageData();
-						} else {
-							Toast.makeText(mContext, "没有更多数据", 0).show();
-							sv_conden_list_body.onRefreshComplete();
-						}
-					}
-				});
-
-		getMainPageData();
+		tv_title.setText("求教");
+//		
+//		ll_main_container = (LinearLayout) findViewById(R.id.ll_main_container);
+//		
+//		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.sv_conden_list_body);
+//		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
+//
+//		sv_conden_list_body
+//				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+//
+//					@Override
+//					public void onPullDownToRefresh(
+//							PullToRefreshBase refreshView) {
+//
+//					}
+//
+//					@Override
+//					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+//						if (mainpage_data.size() < totalCount) {
+//							sv_conden_list_body.setRefreshing(true);
+//							getMainPageData();
+//						} else {
+//							Toast.makeText(mContext, "没有更多数据", 0).show();
+//							sv_conden_list_body.onRefreshComplete();
+//						}
+//					}
+//				});
+//
+//		getMainPageData();
 
 		return rootView;
 	}

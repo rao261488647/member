@@ -3,6 +3,7 @@ package com.frame.member.Utils;
 
 import com.frame.member.R;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +19,7 @@ import android.widget.TextView;
  * @author hanshengkun
  *
  */
+@SuppressLint("WrongViewCast")
 public class CustomDialog extends Dialog {
 
 	public CustomDialog(Context context) {

@@ -48,7 +48,7 @@
                 android:text="途优汇隶属于深圳市通途汽车贸易服务有限公司，会广大司机车有提供汽车租赁、买卖、汽车金融服务，为广大的司机朋友提供活动交流的场所."
         />
         <TextView 
-            android:id="@+id/tv_main_notify_detail_content"
+            android:id="@+id/tv_main_notify_detail_content1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#929292"
@@ -56,7 +56,7 @@
                 android:text="地址：深圳市罗湖区延芳路东益汽车广场A2-1号"
         />
         <TextView 
-            android:id="@+id/tv_main_notify_detail_content"
+            android:id="@+id/tv_main_notify_detail_content2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#929292"
@@ -64,7 +64,7 @@
                 android:text="电话：82299300"
         />
         <TextView 
-            android:id="@+id/tv_main_notify_detail_content"
+            android:id="@+id/tv_main_notify_detail_content3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#929292"
@@ -72,7 +72,7 @@
                 android:text="办公时间：每日9:00-18:00"
         />
         <TextView 
-            android:id="@+id/tv_main_notify_detail_content"
+            android:id="@+id/tv_main_notify_detail_content4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#929292"

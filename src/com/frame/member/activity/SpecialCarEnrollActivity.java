@@ -36,7 +36,7 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.bean.ContractTerm;
 import com.frame.member.bean.Plat;
 import com.frame.member.bean.Regtime;
-import com.frame.member.frag.RegisterFrag;
+import com.frame.member.frag.AdviceFrag;
 import com.frame.member.listener.AsyncHttpListener;
 
 public class SpecialCarEnrollActivity extends BaseActivity implements OnDateSetListener  {

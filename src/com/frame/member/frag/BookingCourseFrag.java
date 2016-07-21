@@ -27,11 +27,11 @@ import android.widget.TextView;
 
 /**
  * 
- * 我的缴费
- * @author long
+ * 预约课程
+ * @author Ron
  *
  */
-public class MyPaymentFrag extends BaseFrag implements OnClickListener {
+public class BookingCourseFrag extends BaseFrag implements OnClickListener {
 	
 	private TextView tv_mypayment_pay_commit,tv_money_lift_cur_month,
 	tv_pay_date_per_month,tv_payed_rent_month,tv_rent_per_month,tv_should_payment,tv_payed_deposit,
@@ -39,8 +39,8 @@ public class MyPaymentFrag extends BaseFrag implements OnClickListener {
 	
 	private LinearLayout ll_pay_rec_container;
 	
-	public static MyPaymentFrag newInstance(String title) {
-		MyPaymentFrag fragment = new MyPaymentFrag();
+	public static BookingCourseFrag newInstance(String title) {
+		BookingCourseFrag fragment = new BookingCourseFrag();
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.FRAG_TITLE_KEY, title);
         fragment.setArguments(bundle);
@@ -55,24 +55,8 @@ public class MyPaymentFrag extends BaseFrag implements OnClickListener {
 				false);
 		
 		tv_title = (TextView) findViewById(R.id.tv_title);
-		tv_title.setText("我的缴费");
+		tv_title.setText("约课");
 		
-		tv_mypayment_pay_commit = (TextView) findViewById(R.id.tv_mypayment_pay_commit);
-		tv_mypayment_pay_commit.setOnClickListener(this);
-		
-		tv_money_lift_cur_month = (TextView) findViewById(R.id.tv_money_lift_cur_month);
-		tv_pay_date_per_month = (TextView) findViewById(R.id.tv_pay_date_per_month);
-		tv_payed_rent_month = (TextView) findViewById(R.id.tv_payed_rent_month);
-		tv_rent_per_month = (TextView) findViewById(R.id.tv_rent_per_month);
-		tv_should_payment = (TextView) findViewById(R.id.tv_should_payment);
-		tv_payed_deposit = (TextView) findViewById(R.id.tv_payed_deposit);
-		tv_contract_validdate = (TextView) findViewById(R.id.tv_contract_validdate);
-		tv_signed_deposit_total = (TextView) findViewById(R.id.tv_signed_deposit_total);
-		tv_contract_startdate = (TextView) findViewById(R.id.tv_contract_startdate);
-		tv_charge_status = (TextView) findViewById(R.id.tv_charge_status);
-		tv_contract_deadline = (TextView) findViewById(R.id.tv_contract_deadline);
-		
-		ll_pay_rec_container = (LinearLayout) findViewById(R.id.ll_pay_rec_container);
 		
 		requestPayFeeList();
 		return rootView;

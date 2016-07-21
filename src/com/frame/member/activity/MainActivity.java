@@ -19,9 +19,9 @@ import com.frame.member.bean.NotifyBean;
 import com.frame.member.frag.BaseFrag;
 import com.frame.member.frag.InformFrag;
 import com.frame.member.frag.MainFrag;
-import com.frame.member.frag.MyPaymentFrag;
-import com.frame.member.frag.PerCenterFrag;
-import com.frame.member.frag.RegisterFrag;
+import com.frame.member.frag.BookingCourseFrag;
+import com.frame.member.frag.MyCenterFrag;
+import com.frame.member.frag.AdviceFrag;
 import com.frame.member.widget.MainNotifyView;
 
 public class MainActivity extends BaseActivity {
@@ -248,11 +248,11 @@ public class MainActivity extends BaseActivity {
 		if (main_tabs[0].equals(mCurFragTag)) // 首页
 			return MainFrag.newInstance(mCurFragTag);
 		else if (main_tabs[1].equals(mCurFragTag)) // 求教
-			return RegisterFrag.newInstance(mCurFragTag);
+			return AdviceFrag.newInstance(mCurFragTag);
 		else if (main_tabs[2].equals(mCurFragTag)) // 约课
-			return MyPaymentFrag.newInstance(mCurFragTag);
+			return BookingCourseFrag.newInstance(mCurFragTag);
 		else if (main_tabs[3].equals(mCurFragTag)) // 我的
-			return PerCenterFrag.newInstance(mCurFragTag);
+			return MyCenterFrag.newInstance(mCurFragTag);
 		return null;
 	}
 
