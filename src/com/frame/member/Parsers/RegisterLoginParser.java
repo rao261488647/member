@@ -23,11 +23,7 @@ public class RegisterLoginParser extends BaseParser<RegisterLoginResult> {
 			result.message = result_obj.optString("message");
 			if("200".equals(result.code)){
 				JSONObject obj_Json = result_obj.optJSONObject("data");
-				if(result.message.equals("注册成功")){
-					result.mobile = obj_Json.optString("mobile");
 					result.token = obj_Json.optString("token");
-					result.tokenTime = obj_Json.optString("tokenTime");
-				}else{
 					result.memberUserId = obj_Json.optString("memberUserId");
 					result.memberIden = obj_Json.optString("memberIden");
 					result.memberlLevel = obj_Json.optString("memberlLevel");
@@ -57,7 +53,6 @@ public class RegisterLoginParser extends BaseParser<RegisterLoginResult> {
 				}
 			}
 			
-		}
 		return result;
 	}
 

@@ -14,16 +14,19 @@ import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.LoginCodeParser;
 import com.frame.member.Parsers.RegisterLoginParser;
+import com.frame.member.Parsers.RegisterParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.Utils.TimeCount;
+import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.bean.LoginCodeResult;
 import com.frame.member.bean.RegisterLoginResult;
+import com.frame.member.bean.RegisterResult;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
-	TextView tv_code_send,tv_login_button;
+	TextView tv_code_send,tv_login_button,tv_login2_button;
 	EditText et_phone_num,et_code;
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
 	TimeCount timer;
@@ -37,6 +40,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	protected void findViewById() {
 		tv_code_send = (TextView) findViewById(R.id.tv_code_send);
 		tv_login_button = (TextView) findViewById(R.id.tv_login_button);
+		tv_login2_button = (TextView) findViewById(R.id.tv_login2_button);
 		et_phone_num = (EditText) findViewById(R.id.et_phone_num);
 		et_code = (EditText) findViewById(R.id.et_code);
 		iv_login_weixin = (ImageView) findViewById(R.id.iv_login_weixin);
@@ -51,6 +55,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		iv_login_qq.setOnClickListener(this);
 		tv_code_send.setOnClickListener(this);
 		tv_login_button.setOnClickListener(this);
+		tv_login2_button.setOnClickListener(this);
 	}
 
 	
@@ -82,14 +87,25 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			
 			break;
-		case R.id.tv_login_button:
-//			if(TextUtils.isEmpty(et_phone_num.getText().toString())){
-//				showToast("请输入手机号");
-//			}else if(TextUtils.isEmpty(et_code.getText().toString())){
-//				showToast("请输入验证码");
-//			}else{
-//			}
-			toLoginRegister();
+		case R.id.tv_login_button: 		//注册
+			if(TextUtils.isEmpty(et_phone_num.getText().toString())){
+				showToast("请输入手机号");
+			}else if(TextUtils.isEmpty(et_code.getText().toString())){
+				showToast("请输入验证码");
+			}else{
+				toLoginRegister();
+			}
+			
+			
+			break;
+		case R.id.tv_login2_button:		//登录
+			if(TextUtils.isEmpty(et_phone_num.getText().toString())){
+				showToast("请输入手机号");
+			}else if(TextUtils.isEmpty(et_code.getText().toString())){
+				showToast("请输入验证码");
+			}else{
+				toLogin();
+			}
 			
 			break;
 		}
@@ -99,10 +115,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void toGetCode(){
 		BaseParser<LoginCodeResult> parser = new LoginCodeParser();
 		HttpRequestImpl request = new HttpRequestImpl(LoginActivity.this,
-				AppConstants.APP_SORT_STUDENT+"/applogin", parser,HttpRequest.RequestMethod.post);
-		request.addParam("act", "verify")
-				.addParam("token", (String) SPUtils.getAppSpUtil().get(LoginActivity.this, SPUtils.KEY_TOKEN, ""))
-				.addParam("mobile", et_phone_num.getText().toString());
+				AppConstants.APP_SORT_STUDENT+"/getappverify", parser,HttpRequest.RequestMethod.post);
+		
+		request.addParam("mobile", et_phone_num.getText().toString());
 		getDataFromServer(request, callback);
 	}
 	private DataCallback<LoginCodeResult> callback = new DataCallback<LoginCodeResult>() {
@@ -120,20 +135,49 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 	};
 	
-	// 登录or注册
+	// 注册
 	private void toLoginRegister(){
-//		BaseParser<RegisterLoginResult> parser = new RegisterLoginParser();
-//		HttpRequestImpl request = new HttpRequestImpl(LoginActivity.this, 
-//				AppConstants.APP_SORT_STUDENT+"/applogin", parser);
-//		request.addParam("act", "login")
-//				.addParam("mobile", et_phone_num.getText().toString())
-//				.addParam("token", (String) SPUtils.getAppSpUtil().get(LoginActivity.this, SPUtils.KEY_TOKEN, ""))
-//				.addParam("verificationCode", et_code.getText().toString());
-//		getDataFromServer(request, callback1);
-		Intent it = new Intent(this,MainActivity.class);
-		startActivity(it);
+		BaseParser<RegisterResult> parser = new RegisterParser();
+		HttpRequestImpl request = new HttpRequestImpl(LoginActivity.this, 
+				AppConstants.APP_SORT_STUDENT+"/appregister", parser);
+		request.addParam("mobile", et_phone_num.getText().toString())
+				.addParam("verificationCode", et_code.getText().toString());
+//		request.addParam("mobile", et_code.getText().toString())
+//				.addParam("verificationCode", et_phone_num.getText().toString());
+		getDataFromServer(request, callback2);
+//		Intent it = new Intent(this,MainActivity.class);
+//		startActivity(it);
 	}
 	
+	private DataCallback<RegisterResult> callback2 = new DataCallback<RegisterResult>() {
+		
+		@Override
+		public void processData(RegisterResult object, RequestResult result) {
+			if(result == RequestResult.Success){
+				if(null != object){
+					if("200".equals(object.code)){
+						showToast(object.code);
+						SPUtils.getAppSpUtil().put(
+								LoginActivity.this, SPUtils.KEY_MEMBERTEL, object.mobile);
+						SPUtils.getAppSpUtil().put(
+								LoginActivity.this, SPUtils.KEY_TOKEN, object.token);
+						startActivity(new Intent(LoginActivity.this,MainActivity.class));
+					}
+				}
+			}
+		}
+	};
+	//登录
+	private void toLogin(){
+		BaseParser<RegisterLoginResult> parser = new RegisterLoginParser();
+		HttpRequestImpl request = new HttpRequestImpl(LoginActivity.this, 
+				AppConstants.APP_SORT_STUDENT+"/applogin", parser);
+		request.addParam("mobile", et_phone_num.getText().toString())
+				.addParam("verificationCode", et_code.getText().toString());
+//		request.addParam("mobile", et_code.getText().toString())
+//				.addParam("verificationCode", et_phone_num.getText().toString());
+		getDataFromServer(request, callback1);
+	}
 	private DataCallback<RegisterLoginResult> callback1 = new DataCallback<RegisterLoginResult>() {
 
 		@Override
@@ -142,13 +186,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				if(null != object){
 					if("200".equals(object.code)){
 						showToast(object.message);
-						if("注册成功".equals(object.message)){
-							SPUtils.getAppSpUtil().put(
-									LoginActivity.this, SPUtils.KEY_MEMBERTEL, object.memberTel);
-							SPUtils.getAppSpUtil().put(
-									LoginActivity.this, SPUtils.KEY_TOKENTIME, object.tokenTime);
-							startActivity(new Intent(LoginActivity.this,MainActivity.class));
-						}else{
+						
 							SPUtils.getAppSpUtil().put(
 									LoginActivity.this, SPUtils.KEY_MEMBERUSERID, object.memberUserId);
 							SPUtils.getAppSpUtil().put(
@@ -198,9 +236,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							SPUtils.getAppSpUtil().put(
 									LoginActivity.this, SPUtils.KEY_MEMBERFROM, object.memberFrom);
 							SPUtils.getAppSpUtil().put(
-									LoginActivity.this, SPUtils.KEY_TOKENTIME, object.tokenTime);
+									LoginActivity.this, SPUtils.KEY_TOKEN, object.token);
+							startActivity(new Intent(LoginActivity.this,MainActivity.class));
+							
 						}
-					}
 				}
 			}
 		}

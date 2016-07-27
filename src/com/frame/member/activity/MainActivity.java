@@ -271,7 +271,7 @@ public class MainActivity extends BaseActivity {
 				mExitTime = System.currentTimeMillis();
 
 			} else {
-				finish();
+				appManager.AppExit(this);
 				// System.exit(0);
 			}
 			return true;

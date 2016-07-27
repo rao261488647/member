@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.frame.member.R;
+import com.frame.member.Managers.AppManager;
 import com.frame.member.Managers.ThreadPoolManager;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.HttpRequest;
@@ -45,6 +46,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	private ThreadPoolManager threadPoolManager;
 
 	protected String mUniqueId;
+	protected AppManager appManager;
 
 	protected ImageView iv_title_back, iv_title_right, iv_title_right2;
 	protected TextView tv_title, tv_title_left, tv_title_right;
@@ -55,6 +57,9 @@ public abstract class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		appManager = AppManager.getAppManager();
+		appManager.addActivity(this);
 
 		threadPoolManager = ThreadPoolManager.getInstance();
 

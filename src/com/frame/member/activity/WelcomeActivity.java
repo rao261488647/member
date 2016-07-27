@@ -34,7 +34,7 @@ public class WelcomeActivity extends BaseActivity {
 	@Override
 	protected void processLogic() {
 		
-		toGetToken();
+//		toGetToken();
 		// 延迟两秒后执行run方法中的页面跳转
 		new Handler().postDelayed(new Runnable() {
 
