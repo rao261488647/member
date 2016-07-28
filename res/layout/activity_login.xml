@@ -3,6 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background">
+    <View android:id="@+id/view_title_gray"
+        android:layout_height="0.5dp"
+        android:layout_width="match_parent"
+        android:background="@color/gray_32"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"/>
+    
+    <LinearLayout android:id="@+id/ll_title_login"
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout android:id="@+id/rl_title_left"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            >
+            <TextView android:id="@+id/tv_title_left_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录"
+                android:textColor="@color/gray_87"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"/>
+            <View android:id="@+id/view_title_left"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue_1d"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+         <RelativeLayout android:id="@+id/rl_title_right"
+             android:layout_width="56dp"
+             android:layout_height="match_parent"
+            >
+            <TextView android:id="@+id/tv_title_right_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                />
+            <View android:id="@+id/view_title_right"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue_1d"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+    </LinearLayout>
     
     <ImageView android:id="@+id/iv_title_text"
         android:layout_width="200dp"
@@ -92,7 +141,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignLeft="@id/ll_login_input_box"
         android:layout_alignRight="@id/ll_login_input_box"/>
-    <TextView android:id="@+id/tv_login2_button"
+    <!-- <TextView android:id="@+id/tv_login2_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/shape_login_button_yellow"
@@ -104,11 +153,11 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:layout_alignLeft="@id/ll_login_input_box"
-        android:layout_alignRight="@id/ll_login_input_box"/>
+        android:layout_alignRight="@id/ll_login_input_box"/> -->
     <TextView android:id="@+id/tv_other_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_login2_button"
+        android:layout_below="@id/tv_login_button"
         android:layout_marginTop="50dp"
         android:textColor="@color/gray_5c"
         android:textSize="13sp"
