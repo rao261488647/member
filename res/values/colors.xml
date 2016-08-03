@@ -5,9 +5,14 @@
     <color name="gray_9b">#9b9b9b</color>
     <color name="gray_5c">#5c5c5c</color>
     <color name="gray_87">#878788</color>
+    <color name="gray_8d">#8d8d8d</color>
+    <color name="gray_d8">#d8d8d8</color>
     <color name="gray_32">#323436</color>
+    <color name="gray_f2">#f2f2f2</color>
+    <color name="gray_75">#757575</color>
     <color name="yellow_f9">#f9db15</color>
     <color name="blue_1d">#1da0fb</color>
+    <color name="bottom_black_tran">#cd000000</color>
     
     
 
