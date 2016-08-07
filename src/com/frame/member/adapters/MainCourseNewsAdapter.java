@@ -14,32 +14,32 @@ import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
-import com.frame.member.bean.MainInfoBean.MainNews;
+import com.frame.member.bean.MainCourseBean.MainCourseNews;
 
 /**
- * 主页新闻适配器
+ * 主页-教程——》新闻适配器
  * @author Ron
  * @date 2016-7-10  下午10:28:47
  */
-public class MainNewsAdapter extends BaseAdapter {
+public class MainCourseNewsAdapter extends BaseAdapter {
 
-	private List<MainNews> mainNewsList;
+	private List<MainCourseNews> mainCourseNewsList;
 	private Context context;
-	public MainNewsAdapter(Context context,
-			 List<MainNews> mainNewsList) {
+	public MainCourseNewsAdapter(Context context,
+			 List<MainCourseNews> mainCourseNewsList) {
 		this.context = context;
-		this.mainNewsList = mainNewsList;
+		this.mainCourseNewsList = mainCourseNewsList;
 	}
 	
 	
 	@Override
 	public int getCount() {
-		return mainNewsList == null ? 0 : mainNewsList.size();
+		return mainCourseNewsList == null ? 0 : mainCourseNewsList.size();
 	}
 
 	@Override
-	public MainNews getItem(int position) {
-		return mainNewsList.get(position);
+	public MainCourseNews getItem(int position) {
+		return mainCourseNewsList.get(position);
 	}
 
 	@Override
@@ -49,10 +49,10 @@ public class MainNewsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		MainNewsHolder holder;
+		MainCourseNewsHolder holder;
 		if (convertView == null) {
 			convertView = View.inflate(context, R.layout.item_main_info, null);
-			holder = new MainNewsHolder();
+			holder = new MainCourseNewsHolder();
 
 			holder.news_img1 = (ImageView) convertView
 					.findViewById(R.id.news_img1);
@@ -63,27 +63,23 @@ public class MainNewsAdapter extends BaseAdapter {
 					.findViewById(R.id.news_text2);
 			convertView.setTag(holder);
 		} else {
-			holder = (MainNewsHolder) convertView.getTag();
+			holder = (MainCourseNewsHolder) convertView.getTag();
 		}
 		
 		
-		MainNews news = getItem(position);
+		MainCourseNews news = getItem(position);
 
-		String url = news.newsPhoto;
+		String url = news.infoPhoto;
 		TTApplication.getInstance()
 				.disPlayImageDef(url, holder.news_img1);
-//		holder.news_img1.setText(news.name);
-		holder.news_text1.setText(news.newsTitle);
-		holder.news_text2.setText(news.newsIntro);
+		holder.news_text1.setText(news.infoTitle);
+		holder.news_text2.setText(news.infoIntro);
 		holder.news_text2.setEllipsize(TextUtils.TruncateAt.END);
-//		holder.news_text2.setSingleLine();
-//		holder.news_text1.setText("生活的意义");
-//		holder.news_text2.setText("生活不只有眼前的苟且");
 		
 		return convertView;
 	}
 
-	static class MainNewsHolder {
+	static class MainCourseNewsHolder {
 
 		private ImageView news_img1;
 		private TextView news_text1,news_text2;

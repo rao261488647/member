@@ -163,7 +163,7 @@
             android:name="com.frame.member.activity.BaseActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
+       <activity
             android:name="com.frame.member.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >

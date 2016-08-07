@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         >
 	     <TextView
-	        android:id="@+id/tv_title"
+	        android:id="@+id/my_title"
 	        android:text="@string/title_name"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -20,28 +20,14 @@
 	        android:textColor="@color/title_blue"
 	        android:textSize="17sp"
 	         />
-		<TextView
-	        android:id="@+id/tv_title_left"
-	        android:text="SKI SCHOOL"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:paddingLeft="10dp"
-	        android:paddingRight="10dp"
-	        android:gravity="center"
-	        android:singleLine="true"
-	        android:visibility="invisible"
-	        android:ellipsize="end"
-	        android:textColor="@color/white"
-	        android:textSize="17sp"
-	         />
-		
 		<ImageView
-		    android:id="@+id/iv_title_back"
+		    android:id="@+id/my_settings"
 		    android:layout_width="47dp"
 		    android:layout_height="match_parent"
+		    android:layout_alignParentRight="true"
 		    android:scaleType="center"
-		    android:visibility="invisible"
-		    android:src="@drawable/btn_back_normal"
+		    android:visibility="visible"
+		    android:src="@drawable/my_settings"
 		    />
         
     </RelativeLayout>

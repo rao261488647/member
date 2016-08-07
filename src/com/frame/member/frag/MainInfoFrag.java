@@ -3,9 +3,7 @@ package com.frame.member.frag;
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -20,8 +18,8 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
@@ -39,7 +37,6 @@ import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainNewsAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainInfoBean.MainInfoResult;
-import com.frame.member.bean.MainInfoBean.MainNews;
 import com.frame.member.bean.MainInfoBean.MainRemmendClass;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
@@ -55,13 +52,12 @@ import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
-	private PullToRefreshScrollView sv_conden_list_body;
+	private PullToRefreshScrollView mail_info_list_body;
 
 	CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
 			ll_sort_conden_classicAction;
 
-	protected TextView tv_title_left;
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
 
@@ -74,12 +70,11 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
 			this));
 
-	private LinearLayout main_info_container;
+	private LinearLayout main_info_container,main_linear_container;
 
 	private MainNewsAdapter sAdapter = null;
 	
 	private TextView main_class_t1,main_class_t2,main_class_t3,main_class_tt1,main_class_tt2,main_class_tt3;
-	private ImageView main_class_img1,main_class_img2,main_class_imgg1,main_class_imgg2;
 	
 	private ListView main_info_lv;
 	
@@ -107,10 +102,9 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 		findViewByIds(); //获取控件
 		initPhotoCarousel(); //初始化图片轮播控件
-		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.sv_conden_list_body);
-		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
-
-		sv_conden_list_body
+		mail_info_list_body = (PullToRefreshScrollView) findViewById(R.id.mail_info_list_body);
+		mail_info_list_body.setMode(Mode.PULL_FROM_END);
+		mail_info_list_body
 				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
 					@Override
@@ -121,22 +115,25 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 					@Override
 					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-//						if (mainBannerDate.size() < totalCount) {
-//							sv_conden_list_body.setRefreshing(true);
-//							getMainInfoData();
-//						} else {
-//							Toast.makeText(mContext, "没有更多数据", 0).show();
-//							sv_conden_list_body.onRefreshComplete();
-//						}
+						if (mainBannerDate.size() < totalCount) {
+							mail_info_list_body.setRefreshing(true);
+							getMainInfoData();
+						} else {
+							Toast.makeText(mContext, "没有更多数据", 0).show();
+							mail_info_list_body.onRefreshComplete();
+						}
 					}
 				});
 		
+//		将页面定位到头部
+		main_linear_container.setFocusable(true);
+		main_linear_container.setFocusableInTouchMode(true);
+		main_linear_container.requestFocus();
 
 		getMainInfoData();
 
 		return rootView;
 	}
-
 
 	/**
 	 * 获取首页资讯列表
@@ -179,21 +176,6 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-//					    HashMap<String, Object> map = null;
-//					    List<HashMap<String,Object>> mList = new ArrayList<HashMap<String,Object>>();
-//					    for(int i =0;i<object.mainNewsData.size();i++){
-//					    	MainNews news = object.mainNewsData.get(i);
-//					    	map = new HashMap<String, Object>();
-//					    	map.put("newsUrl", news.newsUrl);
-//					    	map.put("newsTitle", news.newsTitle);
-//					    	map.put("newsIntro", news.newsIntro.replace("\r\n", ""));
-//					    	mList.add(map);
-//					    }
-//						String itemStr[] = new String[]{"newsPhoto","newsTitle","newsIntro"};
-//						int itemRes[] = new int[] {R.id.news_img1,R.id.news_text1,R.id.news_text2};
-//						sAdapter = new SimpleAdapter(this, object.mainRemmendClassData, R.layout.item_main_info, new String[]{"newsTitle","newsIntro","newsPhoto"},new int[] {R.id.news_img1,R.id.news_text1,R.id.news_text2});
-//						sAdapter = new SimpleAdapter(this, mList , R.layout.item_main_info, new String[]{"newsTitle","newsIntro","newsPhoto"},new int[] {R.id.news_img1,R.id.news_text1,R.id.news_text2});
-//						sAdapter = new SimpleAdapter(getActivity(), mList, R.layout.item_main_info, itemStr, itemRes);
 						sAdapter = new MainNewsAdapter(getActivity(), object.mainNewsData);
 						main_info_lv.setAdapter(sAdapter);
 						setListViewHeight(main_info_lv);
@@ -274,15 +256,14 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		
 		// 显示的点
 		dots = new ArrayList<View>();
-		dots.add(findViewById(R.id.dot_0));
-		dots.add(findViewById(R.id.dot_1));
-		dots.add(findViewById(R.id.dot_2));
+		dots.add(findViewById(R.id.main_dot_0));
+		dots.add(findViewById(R.id.main_dot_1));
+		dots.add(findViewById(R.id.main_dot_2));
 
 		vp_condensation = (ViewPager) rootView
-				.findViewById(R.id.vp_condensation);
+				.findViewById(R.id.main_vp_condensation);
 
 		main_info_container = (LinearLayout) findViewById(R.id.main_info_container);
-
 		for (int i = 0; i < 3; i++) {
 			ImageView iv = new ImageView(getActivity());
 			iv.setScaleType(ScaleType.CENTER_CROP);
@@ -344,8 +325,12 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	
 	
 	
-	
-	protected void findViewByIds() {
+	/**
+	 * 初始化控件
+	 * @author Ron
+	 * @date 2016-8-4  上午12:28:26
+	 */
+	private void findViewByIds() {
 		main_class_t1 = (TextView) findViewById(R.id.main_class_t1);
 		main_class_t2 = (TextView) findViewById(R.id.main_class_t2);
 		main_class_t3 = (TextView) findViewById(R.id.main_class_t3);
@@ -353,13 +338,9 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		main_class_tt2 = (TextView) findViewById(R.id.main_class_tt2);
 		main_class_tt3 = (TextView) findViewById(R.id.main_class_tt3);
 		
-		main_class_img1 = (ImageView) findViewById(R.id.main_class_img1);
-		main_class_img2 = (ImageView) findViewById(R.id.main_class_img2);
-		
-		main_class_imgg1 = (ImageView) findViewById(R.id.main_class_imgg1);
-		main_class_imgg2 = (ImageView) findViewById(R.id.main_class_imgg2);
 		
 		main_info_lv = (ListView) findViewById(R.id.main_info_lv);
+		main_linear_container =  (LinearLayout) findViewById(R.id.main_linear_container);
 	}
 
 	

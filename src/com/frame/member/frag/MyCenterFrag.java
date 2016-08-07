@@ -36,11 +36,7 @@ import com.frame.member.activity.StatementsListActivity;
  */
 public class MyCenterFrag extends BaseFrag implements OnClickListener {
 
-	private RelativeLayout rl_my_account, rl_my_alterpwd, rl_my_info,
-			rl_my_commit, rl_my_contract_info, rl_my_qa, rl_my_fb, rl_my_about,
-			rl_get_statements,rl_my_logout;
 
-	private TextView rl_my_account_val;
 	
 	private boolean flag=true;
 
@@ -57,7 +53,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.frag_my, container, false);
 
-		tv_title = (TextView) findViewById(R.id.tv_title);
+		tv_title = (TextView) findViewById(R.id.my_title);
 		tv_title.setText("我的");
 
 
