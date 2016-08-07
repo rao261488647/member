@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <ImageView android:id="@+id/iv_cover_booking_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/booking_one_example_1"
+        android:scaleType="centerCrop"/>
+    <RelativeLayout android:id="@+id/rl_content_booking_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/bottom_black_tran">
+        
+        <TextView android:id="@+id/tv_name_coach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="张宇"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"/>
+        <TextView android:id="@+id/tv_title_coach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_75"
+            android:textSize="11sp"
+            android:text="联盟高级"
+            android:layout_below="@id/tv_name_coach"
+            android:layout_marginTop="9dp"
+            android:layout_alignLeft="@id/tv_name_coach"
+            android:layout_marginBottom="10dp"/>
+        
+        
+    </RelativeLayout>
+    
+
+</FrameLayout>

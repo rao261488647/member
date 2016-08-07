@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main_container"
+    android:orientation="vertical" >
+
+   
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/gray_f2">
+        <LinearLayout android:id="@+id/ll_item_1_booking"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+         <ImageView android:id="@+id/iv_item_1_booking"
+             android:layout_width="10dp"
+             android:layout_height="10dp"
+             android:src="@drawable/more_choices"/>
+         <TextView android:id="@+id/tv_item_1_booking"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:textColor="@color/gray_8d"
+             android:textSize="13sp"
+             android:text="雪区"/>
+         </LinearLayout>
+         <View android:layout_width="0.5dp"
+             android:layout_height="match_parent"
+             android:background="@color/gray_d8"/>
+         <LinearLayout android:id="@+id/ll_item_2_booking"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+         <ImageView android:id="@+id/iv_item_2_booking"
+             android:layout_width="10dp"
+             android:layout_height="10dp"
+             android:src="@drawable/more_choices"/>
+         <TextView android:id="@+id/tv_item_2_booking"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:textColor="@color/gray_8d"
+             android:textSize="13sp"
+             android:text="雪场"/>
+         </LinearLayout>
+         <View android:layout_width="0.5dp"
+             android:layout_height="match_parent"
+             android:background="@color/gray_d8"/>
+         <LinearLayout android:id="@+id/ll_item_3_booking"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+         <ImageView android:id="@+id/iv_item_3_booking"
+             android:layout_width="10dp"
+             android:layout_height="10dp"
+             android:src="@drawable/more_choices"/>
+         <TextView android:id="@+id/tv_item_3_booking"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:textColor="@color/gray_8d"
+             android:textSize="13sp"
+             android:text="类型"/>
+         </LinearLayout>
+         <View android:layout_width="0.5dp"
+             android:layout_height="match_parent"
+             android:background="@color/gray_d8"/>
+         <LinearLayout android:id="@+id/ll_item_4_booking"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+         <ImageView android:id="@+id/iv_item_4_booking"
+             android:layout_width="10dp"
+             android:layout_height="10dp"
+             android:src="@drawable/more_choices"/>
+         <TextView android:id="@+id/tv_item_4_booking"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:textColor="@color/gray_8d"
+             android:textSize="13sp"
+             android:text="单双板"/>
+         </LinearLayout>
+    </LinearLayout>
+    
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="滑雪班"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"/>
+     
+
+</LinearLayout>
