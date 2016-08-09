@@ -2,6 +2,7 @@ package com.frame.member.frag;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -17,14 +18,19 @@ import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshGridView;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 /**
@@ -35,7 +41,7 @@ import android.widget.TextView;
  */
 public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 	
-	private LinearLayout ll_item_1_booking,
+	private LinearLayout ll_booking_item,ll_item_1_booking,
 				ll_item_2_booking,ll_item_3_booking,ll_item_4_booking;
 	private TextView tv_item_1_booking,
 				tv_item_2_booking,tv_item_3_booking,tv_item_4_booking;
@@ -44,6 +50,11 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 	private int rank = -1;
 	private PullToRefreshGridView ptrg_booking;
 	private BookingOneAdapter adapter;
+	private PopupWindow mPop;
+	private View container_pop;
+	private ListView lv_booking_pop;
+	private ArrayAdapter<String> adapter_list ;
+	private View view_black_filter;
 	
 	private static BookingCourseOneFrag mFrag;
 	public static BookingCourseOneFrag newInstance() {
@@ -70,6 +81,7 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 		initProgress();
 	}
 	private void initView(){
+		ll_booking_item = (LinearLayout) findViewById(R.id.ll_booking_item);
 		ll_item_1_booking = (LinearLayout) findViewById(R.id.ll_item_1_booking);
 		ll_item_2_booking = (LinearLayout) findViewById(R.id.ll_item_2_booking);
 		ll_item_3_booking = (LinearLayout) findViewById(R.id.ll_item_3_booking);
@@ -83,6 +95,7 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 		iv_item_3_booking = (ImageView) findViewById(R.id.iv_item_3_booking);
 		iv_item_4_booking = (ImageView) findViewById(R.id.iv_item_4_booking);
 		ptrg_booking = (PullToRefreshGridView) findViewById(R.id.ptrg_booking);
+		view_black_filter = findViewById(R.id.view_black_filter);
 		
 	}
 	private void initOnclick(){
@@ -92,10 +105,29 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 		ll_item_4_booking.setOnClickListener(this);
 	}
 	int page = 1;
-	private ArrayList<BookingOneResult.Coach> list_coach = new ArrayList<BookingOneResult.Coach>();
-	
+	private ArrayList<BookingOneResult.Coach> list_coach = 
+			new ArrayList<BookingOneResult.Coach>();
+	private ArrayList<String> list_level = 
+			new ArrayList<String>(Arrays.asList(
+					"全部等级","专职导师","联盟高级","联盟中级","联盟初级"));
+	private ArrayList<String> list_skifield = 
+			new ArrayList<String>(Arrays.asList(
+					"全部雪区","北京","河北","辽宁","吉林","黑龙江","内蒙古","西藏"));
+	private ArrayList<String> list_sex = 
+			new ArrayList<String>(Arrays.asList("全部性别","男","女","未知"));
+	private ArrayList<String> list_sdplate  = 
+			new ArrayList<String>(Arrays.asList("全部板型","单板","双板"));
+	//所有的item的popwindow的数据全是用这个代替
+	private ArrayList<String> list_standard = new ArrayList<String>();
 	//主逻辑代码
 	private void initProgress(){
+		view_black_filter.setAlpha(0.0f);
+		container_pop = getActivity().getLayoutInflater().inflate(R.layout.item_booking_pop, null);
+		lv_booking_pop = (ListView) container_pop.findViewById(R.id.lv_booking_pop);
+		adapter_list = new ArrayAdapter<String>(
+				mContext, R.layout.item_pop_list,list_standard);
+		lv_booking_pop.setAdapter(adapter_list);
+		
 		ptrg_booking.setMode(Mode.BOTH);
 		ptrg_booking.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
@@ -135,6 +167,7 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 				if(object != null){
 					showToast(object.message);
 					if("200".equals(object.code)){
+						
 						if(object.coaches == null || object.coaches.size() == 0){
 							ptrg_booking.setMode(Mode.PULL_FROM_START);
 							if(page == 1){
@@ -167,63 +200,75 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
+		list_standard.clear();
 		
 		switch (v.getId()) {
 		
 		case R.id.ll_item_1_booking:
-			if(rank != 0){
-				changeItem(0);
-			}else{
-				tv_item_1_booking.setTextColor(0xff8d8d8d);
-				iv_item_1_booking.setImageResource(R.drawable.more_choices);
-				rank = -1;
-			}
+			list_standard.addAll(list_skifield);
+			adapter_list.notifyDataSetChanged();
+			setItem(0);
 			
 			break;
 		case R.id.ll_item_2_booking:
+			list_standard.addAll(list_level);
+			adapter_list.notifyDataSetChanged();
+			setItem(1);
 			
-			if(rank != 1){
-				changeItem(1);
-			}else{
-				tv_item_2_booking.setTextColor(0xff8d8d8d);
-				iv_item_2_booking.setImageResource(R.drawable.more_choices);
-				rank = -1;
-			}
 			break;
 		case R.id.ll_item_3_booking:
-			if(rank != 2){
-				changeItem(2);
-			}else{
-				tv_item_3_booking.setTextColor(0xff8d8d8d);
-				iv_item_3_booking.setImageResource(R.drawable.more_choices);
-				rank = -1;
-			}
+			list_standard.addAll(list_sdplate);
+			adapter_list.notifyDataSetChanged();
+			setItem(2);
+			
 			break;
 		case R.id.ll_item_4_booking:
-			if(rank != 3){
-				changeItem(3);
-			}else{
-				tv_item_4_booking.setTextColor(0xff8d8d8d);
-				iv_item_4_booking.setImageResource(R.drawable.more_choices);
-				rank = -1;
-			}
+			list_standard.addAll(list_sex);
+			adapter_list.notifyDataSetChanged();
+			setItem(3);
 			break;
 		
 
 		
 		}
 	}
+	private void showPopwindow(){
+		if(mPop == null){
+			mPop = new PopupWindow(container_pop, 
+					LinearLayout.LayoutParams.MATCH_PARENT, 
+					LinearLayout.LayoutParams.WRAP_CONTENT,true);
+		}
+		mPop.setBackgroundDrawable(
+				new BitmapDrawable(getResources(),(Bitmap)null));
+//		mPop.setOutsideTouchable(true);
+		mPop.setOnDismissListener(new OnDismissListener() {
+			
+			@Override
+			public void onDismiss() {
+				resetItem();
+				view_black_filter.setAlpha(0.0f);
+				
+			}
+		});
+		mPop.showAsDropDown(ll_booking_item,0,0);
+		view_black_filter.setAlpha(0.5f);
+	}
+	//通过position值来设置Item的状态效果
+	private void setItem(int position){
+		if(rank != position){
+			changeItem(position);
+			showPopwindow();
+		}else{
+			mPop.dismiss();
+			
+		}
+		
+	}
 
 	//通过点击按钮来进行状态变化
 	private void changeItem(int rank){
-		tv_item_1_booking.setTextColor(0xff8d8d8d);
-		tv_item_2_booking.setTextColor(0xff8d8d8d);
-		tv_item_3_booking.setTextColor(0xff8d8d8d);
-		tv_item_4_booking.setTextColor(0xff8d8d8d);
-		iv_item_1_booking.setImageResource(R.drawable.more_choices);
-		iv_item_2_booking.setImageResource(R.drawable.more_choices);
-		iv_item_3_booking.setImageResource(R.drawable.more_choices);
-		iv_item_4_booking.setImageResource(R.drawable.more_choices);
+		
+		resetItem();
 		switch (rank) {
 		case 0:
 			tv_item_1_booking.setTextColor(0xff5a5a5a);
@@ -247,6 +292,18 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 			break;
 
 		}
+	}
+	//重置Item
+	private void resetItem(){
+		tv_item_1_booking.setTextColor(0xff8d8d8d);
+		tv_item_2_booking.setTextColor(0xff8d8d8d);
+		tv_item_3_booking.setTextColor(0xff8d8d8d);
+		tv_item_4_booking.setTextColor(0xff8d8d8d);
+		iv_item_1_booking.setImageResource(R.drawable.more_choices);
+		iv_item_2_booking.setImageResource(R.drawable.more_choices);
+		iv_item_3_booking.setImageResource(R.drawable.more_choices);
+		iv_item_4_booking.setImageResource(R.drawable.more_choices);
+		rank = -1;
 	}
 	
 

@@ -33,7 +33,17 @@
             android:layout_marginTop="9dp"
             android:layout_alignLeft="@id/tv_name_coach"
             android:layout_marginBottom="10dp"/>
-        
+        <RatingBar android:id="@+id/rb_booking_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall" 
+            android:numStars="5"
+            android:rating="1"
+            android:layout_toRightOf="@id/tv_name_coach"
+            android:layout_alignBottom="@id/tv_name_coach"
+            android:layout_marginLeft="10dp"
+            android:isIndicator="true"/>
+        <!-- style="@style/roomRatingBar" -->
         
     </RelativeLayout>
     
