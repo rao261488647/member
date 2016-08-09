@@ -13,10 +13,10 @@ public class LoginCodeParser extends BaseParser<LoginCodeResult> {
 		JSONObject result_obj = new JSONObject(json);
 		if (json != null) {
 			result.code = result_obj.optString("code");
-			if("200".equals(result.code)){
-				JSONObject obj_Json = result_obj.optJSONObject("data");
-				result.verificationCode = obj_Json.optString("verificationCode");
-			}
+//			if("200".equals(result.code)){
+//				JSONObject obj_Json = result_obj.optJSONObject("data");
+//				result.verificationCode = obj_Json.optString("verificationCode");
+//			}
 			result.message = result_obj.optString("message");
 		}
 		return result;

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="10dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.frame.member.widget.RoundImageView
+            android:id="@+id/iv_member_profile"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/profile_example_1" />
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_member_profile"
+            android:text="我石化了"
+            android:textColor="#939393" />
+
+        <TextView
+             android:id="@+id/tv_member_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:background="@drawable/shape_member_level_yellow"
+             android:textSize="11sp"
+             android:textColor="@color/black"
+             android:text="LV.3"
+             android:layout_toRightOf="@id/tv_member_name"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/tv_info_item_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="这是一条个性签名~可以输入很多的文字，尽量控制在两行左右最美观"
+            android:textColor="@color/gray_47"
+            android:textSize="12sp"
+            android:paddingBottom="10dp"/>
+
+       
+    </RelativeLayout>
+
+   
+
+</LinearLayout>

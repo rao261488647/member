@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:paddingBottom="10dp"
         android:background="@color/bottom_black_tran">
         
         <TextView android:id="@+id/tv_name_coach"
@@ -32,18 +33,28 @@
             android:layout_below="@id/tv_name_coach"
             android:layout_marginTop="9dp"
             android:layout_alignLeft="@id/tv_name_coach"
-            android:layout_marginBottom="10dp"/>
+            />
         <RatingBar android:id="@+id/rb_booking_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/ratingBarStyleSmall" 
+            style="@style/roomRatingBar"
             android:numStars="5"
             android:rating="1"
             android:layout_toRightOf="@id/tv_name_coach"
             android:layout_alignBottom="@id/tv_name_coach"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:isIndicator="true"/>
-        <!-- style="@style/roomRatingBar" -->
+        <!-- style="?android:attr/ratingBarStyleSmall"  -->
+        <TextView android:id="@+id/tv_num_meet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="累计被约5次"
+            android:textColor="@color/gray_75"
+            android:textSize="11sp"
+            android:layout_alignBottom="@id/tv_title_coach"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
         
     </RelativeLayout>
     

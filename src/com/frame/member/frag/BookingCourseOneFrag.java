@@ -12,12 +12,14 @@ import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.CoachDetailActivity;
 import com.frame.member.adapters.BookingOneAdapter;
 import com.frame.member.bean.BookingOneResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshGridView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -127,7 +131,13 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 		adapter_list = new ArrayAdapter<String>(
 				mContext, R.layout.item_pop_list,list_standard);
 		lv_booking_pop.setAdapter(adapter_list);
-		
+		ptrg_booking.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(getActivity(),CoachDetailActivity.class));
+			}
+		});
 		ptrg_booking.setMode(Mode.BOTH);
 		ptrg_booking.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
