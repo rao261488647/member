@@ -243,6 +243,17 @@
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" >
         </activity>
-    </application>
-
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MyInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MyBillActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+	</application>
 </manifest>

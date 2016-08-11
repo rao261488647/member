@@ -17,6 +17,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="22dp"
 	        android:background="@drawable/layer_corner_head"
+	        android:src="@drawable/my_head"
 	        />
 	    <TextView 
 	        android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
 	        android:layout_height="28dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentRight="true"
-	        android:layout_marginTop="22dp"
+	        android:layout_marginTop="20dp"
 	        android:src="@color/blue"
 	        />
 	    <TextView 
@@ -55,7 +56,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/my_img1"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="14dp"
+	        android:layout_marginTop="10dp"
 	        android:textColor="@color/white"
 	        android:textSize="15sp"
 	        android:text="迈克尔·杰克逊"
@@ -65,7 +66,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@id/my_text1"
-	        android:layout_marginTop="14dp"
+	        android:layout_marginTop="10dp"
             android:gravity="center"
 	        >
 		    <ImageView 
@@ -90,8 +91,8 @@
 	        android:layout_height="40sp"
 	        android:layout_below="@id/my_linear_1"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="20dp"
-	        android:background="@drawable/shape_button_corner"
+	        android:layout_marginTop="10dp"
+	        android:background="@drawable/shape_my_button1_corner"
 	        android:gravity="center_vertical|center_horizontal"
 	        android:textColor="@color/black"
 	        android:textSize="17sp"
@@ -103,61 +104,176 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="30sp"
 	    >
-	    <ImageView 
-	        android:id="@+id/my_img_6"
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
-	        android:src="@drawable/my_icon_clock"
-	        />
-	    <TextView 
-	        android:id="@+id/my_text_3"
+	        >
+	        <ImageView 
+	            android:id="@+id/my_image_6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_clock"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_image_6"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginTop="15sp"
+		        android:textColor="@color/my_text_gray"
+		        android:text="预约"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/my_img_6"
+	        android:layout_toLeftOf="@id/my_relative_1"
+	        android:layout_marginRight="45sp"
+	        >
+	        <ImageView 
+		        android:id="@+id/my_img_7"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_study"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_4"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_img_7"
+		        android:layout_marginTop="15sp"
+		        android:layout_centerHorizontal="true"
+		        android:textColor="@color/my_text_gray"
+		        android:text="学习"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/my_relative_1"
+	        android:layout_marginLeft="45sp"
+	        >
+	        <ImageView 
+		        android:id="@+id/my_img_8"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_video"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_5"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_img_8"
+		        android:layout_marginTop="15sp"
+		        android:layout_centerHorizontal="true"
+		        android:textColor="@color/my_text_gray"
+		        android:text="视频"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="12sp"
-	        android:textColor="@color/my_text_gray"
-	        android:text="预约"
-	        android:textSize="14dp"
-	        />
-	    <ImageView 
-	        android:id="@+id/my_img_7"
+	        android:layout_below="@id/my_relative_1"
+	        android:layout_marginTop="15sp"
+	        >
+	        <ImageView 
+		        android:id="@+id/my_img_9"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_msg"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_img_9"
+		        android:layout_marginTop="15sp"
+		        android:layout_centerHorizontal="true"
+		        android:textColor="@color/my_text_gray"
+		        android:text="消息"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_5"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_toLeftOf="@id/my_img_6"
-        	android:layout_marginRight="34sp"
-	        android:src="@drawable/my_icon_study"
-	        />
-	    <TextView 
-	        android:id="@+id/my_text_4"
+	        android:layout_below="@id/my_relative_2"
+	        android:layout_alignLeft="@id/my_relative_2"
+	        android:layout_marginTop="15sp"
+	        >
+	        <ImageView 
+		        android:id="@+id/my_img_10"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_collection"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_7"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_img_10"
+		        android:layout_marginTop="15sp"
+		        android:layout_centerHorizontal="true"
+		        android:textColor="@color/my_text_gray"
+		        android:text="收藏"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    <RelativeLayout 
+	        android:id="@+id/my_relative_6"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@id/my_img_7"
-	        android:layout_marginTop="12sp"
-	        android:layout_alignLeft="@id/my_img_7"
-	        android:layout_centerVertical="true"
-	        android:textColor="@color/my_text_gray"
-	        android:text="学习"
-	        android:textSize="14dp"
-	        />
-	    <ImageView 
-	        android:id="@+id/my_img_8"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_toRightOf="@id/my_img_6"
-			android:layout_marginLeft="34sp"
-	        android:src="@drawable/my_icon_video"
-	        />
-	    <ImageView 
-	        android:id="@+id/my_img_9"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@id/my_text_3"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="12sp"
-	        android:src="@drawable/my_icon_msg"
-	        />
+	        android:layout_below="@id/my_relative_3"
+	        android:layout_alignRight="@id/my_relative_3"
+	        android:layout_marginTop="15sp"
+	        >
+	        <ImageView 
+		        android:id="@+id/my_img_11"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/my_icon_cost"
+		        />
+		    <TextView 
+		        android:id="@+id/my_text_8"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/my_img_11"
+		        android:layout_marginTop="15sp"
+		        android:layout_centerHorizontal="true"
+		        android:textColor="@color/my_text_gray"
+		        android:text="流水"
+		        android:textSize="14dp"
+		        />
+	    </RelativeLayout>
+	    
 	</RelativeLayout>
-
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:layout_marginTop="20sp"
+	    >
+	    <TextView 
+	        android:layout_width="160sp"
+	        android:layout_height="38sp"
+	        android:textColor="#565759"
+	        android:background="@drawable/shape_my_button2_corner"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="我要做教练"
+	        android:textSize="14dp"
+	        />
+	    
+	</RelativeLayout>
 </LinearLayout>
