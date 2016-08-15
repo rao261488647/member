@@ -4,6 +4,7 @@
     <!-- new_login-->
     <color name="gray_9b">#9b9b9b</color>
     <color name="gray_5c">#5c5c5c</color>
+    <color name="gray_d5">#d5d5d5</color>
     <color name="gray_87">#878788</color>
     <color name="gray_8d">#8d8d8d</color>
     <color name="gray_d8">#d8d8d8</color>
@@ -18,6 +19,7 @@
     <color name="gray_6e">#6e6e6e</color>
     <color name="gray_47">#474747</color>
     <color name="yellow_f9">#f9db15</color>
+    <color name="yellow_my">#ffd700</color>
     <color name="yellow_ff">#fff116</color>
     <color name="blue_1d">#1da0fb</color>
     <color name="bottom_black_tran">#cd000000</color>
@@ -112,4 +114,7 @@
 	
 	<color name="main_tab_check">#ffffff</color>
 	<color name="main_tab_uncheck">#84858a</color>
+	
+	<color name="my_text_gray">#c5c5c5</color>
+	
 </resources>

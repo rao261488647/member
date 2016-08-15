@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/background_booking_date" >
+
+                <ImageView
+                    android:id="@+id/iv_left_month"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/selector_coach_left" />
+
+                <ImageView
+                    android:id="@+id/iv_right_month"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_coach_right_normal" />
+
+                <TextView
+                    android:id="@+id/tv_date_coach_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="2016.5"
+                    android:textColor="@color/gray_d5"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/tv_date_coach_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_date_coach_big"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="May 2016"
+                    android:textColor="@color/gray_d5"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_date_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/tv_date_item_1"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date_item_2"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date_item_3"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date_item_4"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date_item_5"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_date_item_6"
+                        style="@style/dateStyle"
+                        android:layout_marginLeft="14dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_f3"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="日" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="一" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="二" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="三" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="四" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="五" />
+
+                <TextView
+                    style="@style/weekTextStyle"
+                    android:text="六" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="330dp"
+                android:background="@color/white" >
+            </android.support.v4.view.ViewPager>
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="70dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+                <ImageView android:id="@+id/iv_booking_place"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_booking_place"
+                    />
+                <TextView android:id="@+id/tv_booking_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#444444"
+                    android:textSize="14sp"
+                    android:text="河北崇礼雪区"
+                    android:layout_toRightOf="@id/iv_booking_place"
+                    android:layout_marginLeft="5dp"/>
+                <ImageView android:id="@+id/iv_more_place"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_more_right"
+                    android:layout_alignParentRight="true"
+                    />
+                <TextView android:id="@+id/tv_booking_snow_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#a7a7a7"
+                    android:layout_toLeftOf="@id/iv_more_place"
+                    android:layout_marginRight="5dp"
+                    android:text="新西兰奥比例学场"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_title2" />
+    <TextView android:id="@+id/tv_booking_now"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/yellow_f9"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="#474747"
+        android:text="预约"/>
+
+</RelativeLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+    android:id="@+id/main_linear_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +9,7 @@
     
     <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/sv_conden_list_body"
+        android:id="@+id/mail_info_list_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -28,20 +28,20 @@
                 android:layout_height="wrap_content" >
 
                 <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_condensation"
+                    android:id="@+id/main_vp_condensation"
                     android:layout_width="match_parent"
                     android:layout_height="90dp" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/vp_condensation"
+                    android:layout_alignBottom="@id/main_vp_condensation"
                     android:layout_marginBottom="10dp"
                     android:layout_centerHorizontal="true"
                     >
 
                     <View
-                        android:id="@+id/dot_0"
+                        android:id="@+id/main_dot_0"
                         android:layout_width="35dip"
                         android:layout_height="4dip"
                         android:layout_marginLeft="3dip"
@@ -49,21 +49,21 @@
                         android:background="@drawable/dot_focused" />
 
                     <View
-                        android:id="@+id/dot_1"
+                        android:id="@+id/main_dot_1"
                         android:layout_width="35dip"
                         android:layout_height="4dip"
                         android:layout_marginLeft="3dip"
                         android:layout_marginRight="3dip"
-                        android:layout_toRightOf="@id/dot_0"
+                        android:layout_toRightOf="@id/main_dot_0"
                         android:background="@drawable/dot_normal" />
 
                     <View
-                        android:id="@+id/dot_2"
+                        android:id="@+id/main_dot_2"
                         android:layout_width="35dip"
                         android:layout_height="4dip"
                         android:layout_marginLeft="3dip"
                         android:layout_marginRight="3dip"
-                        android:layout_toRightOf="@id/dot_1"
+                        android:layout_toRightOf="@id/main_dot_1"
                         android:background="@drawable/dot_normal" />
                 </RelativeLayout>
                 

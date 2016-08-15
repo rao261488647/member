@@ -1,19 +1,22 @@
 package com.frame.member.activity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.frame.member.R;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
 import com.frame.member.widget.MyListView;
 
-import android.widget.ScrollView;
+import android.content.Intent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 
-public class CoachDetailActivity extends BaseActivity{
+public class CoachDetailActivity extends BaseActivity implements OnClickListener{
 	
 	private MyListView lv_member_comments;
 	private CoachMemberCommentsAdapter mAdapter;
+	private TextView tv_coach_meet;
 
 	@Override
 	protected void loadViewLayout() {
@@ -23,12 +26,12 @@ public class CoachDetailActivity extends BaseActivity{
 	@Override
 	protected void findViewById() {
 		lv_member_comments = (MyListView) findViewById(R.id.lv_member_comments);
-		
+		tv_coach_meet = (TextView) findViewById(R.id.tv_coach_meet);
 	}
 
 	@Override
 	protected void setListener() {
-		
+		tv_coach_meet.setOnClickListener(this);
 	}
 
 	@Override
@@ -38,6 +41,18 @@ public class CoachDetailActivity extends BaseActivity{
 		tv_title_right.setText("查看评论");
 		mAdapter = new CoachMemberCommentsAdapter(this,Arrays.asList("李欢","李兴策","福城阳","周杰伦"));
 		lv_member_comments.setAdapter(mAdapter);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tv_coach_meet:
+			startActivity(new Intent(CoachDetailActivity.this,BookingDateActivity.class));
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }

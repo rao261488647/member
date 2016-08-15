@@ -4,25 +4,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.frame.member.R;
-import com.frame.member.TTApplication;
-import com.frame.member.AppConstants.AppConstants;
-import com.frame.member.Parsers.MainNotifyPaser;
-import com.frame.member.Utils.HttpRequest;
-import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.ImageHandler;
-import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.MainNotifyDetailActivity;
-import com.frame.member.activity.BaseActivity.DataCallback;
-import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.adapters.CondensationPagerAdapter;
-import com.frame.member.bean.MainNotifyBean;
-import com.frame.member.bean.MainNotifyBean.Notify;
-import com.frame.member.widget.refreshlistview.PullToRefreshBase;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
-import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -30,12 +11,35 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
+
+import com.frame.member.R;
+import com.frame.member.TTApplication;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.MainCourseParser;
+import com.frame.member.Parsers.MainNotifyPaser;
+import com.frame.member.Utils.HttpRequest;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.ImageHandler;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.adapters.CondensationPagerAdapter;
+import com.frame.member.adapters.MainCourseNewsAdapter;
+import com.frame.member.bean.MainCourseBean.MainCourseBanner;
+import com.frame.member.bean.MainCourseBean.MainCourseResult;
+import com.frame.member.bean.MainNotifyBean;
+import com.frame.member.bean.MainNotifyBean.Notify;
+import com.frame.member.widget.refreshlistview.PullToRefreshBase;
+import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
+import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
  * 首页-教程 frag
@@ -47,20 +51,20 @@ public class MainCourseFrag extends BaseFrag {
 	
 	// private PullToRefreshGridView mPullRefreshGridView;
 	private PullToRefreshScrollView sv_conden_list_body;
-
+	public List<MainCourseBanner> mainBannerData = new ArrayList<MainCourseBanner>();
 	CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
 			ll_sort_conden_classicAction;
-
+	private MainCourseNewsAdapter sAdapter = null;
 	protected TextView tv_title_left;
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
-
+	private ListView main_course_lv;
 	public ViewPager vp_condensation;
 	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
 			this));
 
-	private LinearLayout ll_main_container;
+	private LinearLayout ll_main_container ,main_course_container;
 
 	
 	public static MainCourseFrag newInstance(String title) {
@@ -78,6 +82,67 @@ public class MainCourseFrag extends BaseFrag {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.frag_main_course, container,
 				false);
+
+		findViewByIds(); //控件初始化
+		initPhotoCarousel(); //图片轮播初始化
+		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.main_course_list_body);
+		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
+
+		sv_conden_list_body
+				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+
+					@Override
+					public void onPullDownToRefresh(
+							PullToRefreshBase refreshView) {
+
+					}
+
+					@Override
+					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+						if (mainpage_data.size() < totalCount) {
+							sv_conden_list_body.setRefreshing(true);
+							getMainPageData();
+						} else {
+							Toast.makeText(mContext, "没有更多数据", 0).show();
+							sv_conden_list_body.onRefreshComplete();
+						}
+					}
+				});
+		//从服务器获取数据
+		getMainCourseData();
+		
+		return rootView;
+	}
+	/**
+	 * 初始化控件
+	 * @author Ron
+	 * @date 2016-8-3  上午1:02:25
+	 */
+	private void findViewByIds() {
+		main_course_lv = (ListView)findViewById(R.id.main_course_lv);
+	}
+
+	
+	/**
+	 * 获取首页教程列表
+	 * @author Ron
+	 * @date 2016-7-7  下午10:31:53
+	 */
+	BaseParser<MainCourseResult> parser = new MainCourseParser();
+	private void getMainCourseData() {
+		String url = AppConstants.APP_SORT_STUDENT+"/indexcourse";
+		HttpRequestImpl request = new HttpRequestImpl(getActivity(),
+				url, parser,HttpRequest.RequestMethod.post);
+		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+		mContext.getDataFromServer(request, callback);
+	}
+	
+	/**
+	 * 首页，资讯页面图片轮播初始化
+	 * @author Ron
+	 * @date 2016-7-8  上午12:27:42
+	 */
+	private void initPhotoCarousel(){
 		
 		// 显示的点
 		dots = new ArrayList<View>();
@@ -88,26 +153,24 @@ public class MainCourseFrag extends BaseFrag {
 		vp_condensation = (ViewPager) rootView
 				.findViewById(R.id.main_course_condensation);
 
-		ll_main_container = (LinearLayout) findViewById(R.id.main_course_container);
-
+		main_course_container = (LinearLayout) findViewById(R.id.main_course_container);
 		for (int i = 0; i < 3; i++) {
 			ImageView iv = new ImageView(getActivity());
 			iv.setScaleType(ScaleType.CENTER_CROP);
 			switch (i) {
-			case 0:
-				iv.setImageResource(R.drawable.banner_member_main1);
-				break;
-			case 1:
-				iv.setImageResource(R.drawable.banner_member_main2);
-				break;
-			case 2:
-				iv.setImageResource(R.drawable.banner_member_main1);
-				break;
+				case 0:
+					iv.setImageResource(R.drawable.banner_member_main1);
+					break;
+				case 1:
+					iv.setImageResource(R.drawable.banner_member_main2);
+					break;
+				case 2:
+					iv.setImageResource(R.drawable.banner_member_main1);
+					break;
 			}
 
 			condensation_pager_list.add(iv);
 		}
-
 		pagerAdapter = new CondensationPagerAdapter(condensation_pager_list);
 		vp_condensation.setAdapter(pagerAdapter);
 		vp_condensation.setOnPageChangeListener(new OnPageChangeListener() {
@@ -148,33 +211,6 @@ public class MainCourseFrag extends BaseFrag {
 		// 开始轮播效果
 		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
 				ImageHandler.MSG_DELAY);
-
-		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.main_course_list_body);
-		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
-
-		sv_conden_list_body
-				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase refreshView) {
-
-					}
-
-					@Override
-					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-						if (mainpage_data.size() < totalCount) {
-							sv_conden_list_body.setRefreshing(true);
-							getMainPageData();
-						} else {
-							Toast.makeText(mContext, "没有更多数据", 0).show();
-							sv_conden_list_body.onRefreshComplete();
-						}
-					}
-				});
-
-		
-		return rootView;
 	}
 	
 	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
@@ -210,11 +246,6 @@ public class MainCourseFrag extends BaseFrag {
 
 							mainpage_data.addAll(object.mainpage_data);
 
-							for (int i = 0; i < object.mainpage_data.size(); i++) {
-								ll_main_container
-										.addView(genNotifyLayout(object.mainpage_data
-												.get(i)));
-							}
 
 							if (pageCur == 1) {
 								for (int i = 0; i < 3; i++) {
@@ -232,30 +263,61 @@ public class MainCourseFrag extends BaseFrag {
 					}
 				}, "加载中...");
 	}
-	
 
-	private View genNotifyLayout(final Notify notify) {
-		View result = View.inflate(mContext, R.layout.item_main_notify, null);
-		TextView tv_main_page_item_title = (TextView) result
-				.findViewById(R.id.tv_main_page_item_title);
-		TextView tv_main_page_item_content = (TextView) result
-				.findViewById(R.id.tv_main_page_item_content);
+	/**
+	 * 回调方法
+	 */
+	private DataCallback<MainCourseResult> callback = new DataCallback<MainCourseResult>() {
 
-		tv_main_page_item_title.setText(notify.name);
-		tv_main_page_item_content.setText(notify.detail);
-		
-		result.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),MainNotifyDetailActivity.class);
-				intent.putExtra(MainNotifyDetailActivity.TAG_INTENT_MAIN_NOTIFY_DATA, notify);
-				getActivity().startActivity(intent);
+		@Override
+		public void processData(final MainCourseResult object, RequestResult result) {
+			if(result == RequestResult.Success){
+				if(object != null){
+					if("200".equals(object.code)){
+						mainBannerData.addAll(object.mainBannerData);
+						
+						for (int i = 0; i < object.mainBannerData.size(); i++) {
+							ImageView imageView = condensation_pager_list
+									.get(i);
+							if(object.mainBannerData.size()>0){
+								String url = object.mainBannerData.get(i).bannerPhoto;
+								TTApplication.getInstance()
+										.disPlayImageDef(url, imageView);
+							}
+						}
+						//加载课程信息到页面
+						sAdapter = new MainCourseNewsAdapter(getActivity(), object.mainNewsData);
+						main_course_lv.setAdapter(sAdapter);
+						setListViewHeight(main_course_lv);
+					
+					}
+				}
 			}
-		});
-		
-		return result;
-	}
-
+		}
+	};
 	
+	/**
+	 * 重新计算ListView的高度，解决ScrollView和ListView两个View都有滚动的效果，在嵌套使用时起冲突的问题
+	 * @param listView
+	 */
+	public void setListViewHeight(ListView listView) {  
+		  
+	    // 获取ListView对应的Adapter  
+	  
+	    ListAdapter listAdapter = listView.getAdapter();  
+	  
+	    if (listAdapter == null) {  
+	        return;  
+	    }  
+	    int totalHeight = 0;  
+	    for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目  
+	        View listItem = listAdapter.getView(i, null, listView);  
+	        listItem.measure(0, 0); // 计算子项View 的宽高  
+	        totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度  
+	    }  
+	  
+	    ViewGroup.LayoutParams params = listView.getLayoutParams();  
+	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));  
+	    listView.setLayoutParams(params);  
+	}  
 }

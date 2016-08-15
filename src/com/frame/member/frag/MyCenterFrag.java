@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,29 +21,25 @@ import com.frame.member.Utils.CustomDialog;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.AboutActivity;
-import com.frame.member.activity.AlterpwdActivity;
-import com.frame.member.activity.ContractActivity;
 import com.frame.member.activity.LoginActivity;
-import com.frame.member.activity.PersonalListActivity;
-import com.frame.member.activity.StatementsActivity;
-import com.frame.member.activity.StatementsListActivity;
+import com.frame.member.activity.MyBillActivity;
+import com.frame.member.activity.MyInfoActivity;
+import com.frame.member.activity.SettingsActivity;
 
 /**
  * 
  * 个人中心
  * 
- * @author hanshengkun
+ * @author Ron
+ * 
  * 
  */
 public class MyCenterFrag extends BaseFrag implements OnClickListener {
 
-	private RelativeLayout rl_my_account, rl_my_alterpwd, rl_my_info,
-			rl_my_commit, rl_my_contract_info, rl_my_qa, rl_my_fb, rl_my_about,
-			rl_get_statements,rl_my_logout;
 
-	private TextView rl_my_account_val;
-	
+	private ImageView settingView;
+	private TextView myInfoBtn; //编辑个人信息
+	private RelativeLayout my_relative_6;//消费流水
 	private boolean flag=true;
 
 	public static MyCenterFrag newInstance(String title) {
@@ -57,10 +55,11 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.frag_my, container, false);
 
-		tv_title = (TextView) findViewById(R.id.tv_title);
+		tv_title = (TextView) findViewById(R.id.my_title);
 		tv_title.setText("我的");
 
-
+		findViewByIds();
+		setOnClickListener();
 		return rootView;
 	}
 
@@ -83,35 +82,42 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 					
 				}), "");
 	}
+	/**
+	 * 初始化控件
+	 * @author Ron
+	 * @date 2016-8-3  上午1:02:25
+	 */
+	private void findViewByIds() {
+		settingView = (ImageView)findViewById(R.id.my_settings);
+		myInfoBtn = (TextView)findViewById(R.id.my_text2);
+		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
+	}
+	/**
+	 * 点击监听事件设置
+	 * @author Ron
+	 * @date 2016-8-11  上午12:56:56
+	 */
+	private void setOnClickListener(){
+		settingView.setOnClickListener(this);
+		myInfoBtn.setOnClickListener(this);
+		my_relative_6.setOnClickListener(this);
+	}
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.rl_my_alterpwd:
-			Intent alterpwd = new Intent(getActivity(), AlterpwdActivity.class);
-			getActivity().startActivity(alterpwd);
-			break;
-		case R.id.rl_my_info:
-			Intent my_info = new Intent(getActivity(),
-					PersonalListActivity.class);
-			getActivity().startActivity(my_info);
-			break;
-		case R.id.rl_my_commit:
-			Intent intent = new Intent(getActivity(), StatementsActivity.class);
+		case R.id.my_settings://设置
+			intent = new Intent(getActivity(), SettingsActivity.class);
 			getActivity().startActivity(intent);
 			break;
-		case R.id.rl_get_statements:
-			Intent getStatements = new Intent(getActivity(),
-					StatementsListActivity.class);
-			getActivity().startActivity(getStatements);
+		case R.id.my_text2: //个人基本信息
+			intent = new Intent(getActivity(), MyInfoActivity.class);
+			this.startActivity(intent);
 			break;
-		case R.id.rl_my_contract_info:
-			Intent getContract = new Intent(getActivity(), ContractActivity.class);
-			getActivity().startActivity(getContract);
-			break;
-		case R.id.rl_my_about:
-			Intent myAbout = new Intent(getActivity(), AboutActivity.class);
-			getActivity().startActivity(myAbout);
+		case R.id.my_relative_6: //消费流水
+			intent = new Intent(getActivity(), MyBillActivity.class);
+			this.startActivity(intent);
 			break;
 		case R.id.rl_my_logout:
 			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
