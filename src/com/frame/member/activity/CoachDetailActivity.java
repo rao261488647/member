@@ -1,13 +1,11 @@
 package com.frame.member.activity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.frame.member.R;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
 import com.frame.member.widget.MyListView;
 
-import android.widget.ScrollView;
 
 
 public class CoachDetailActivity extends BaseActivity{

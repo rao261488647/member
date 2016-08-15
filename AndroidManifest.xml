@@ -136,7 +136,6 @@
             android:name="com.tencent.android.tpush.service.XGDaemonService"
             android:process=":qq_push_daemon" />
         -->
-        -->
         <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
         <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
         <receiver android:name="com.frame.member.receiver.MessageReceiver" 
@@ -244,7 +243,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" >
         </activity>
@@ -256,12 +254,10 @@
             android:name=".activity.MyBillActivity"
             android:screenOrientation="portrait" >
         </activity>
-	</application>
-=======
+		<activity
             android:name=".activity.CoachDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>
 
->>>>>>> 685c7b4a26d49bc962ba928d7240107bbd921bfb
 </manifest>
