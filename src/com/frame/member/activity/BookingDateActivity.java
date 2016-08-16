@@ -4,11 +4,13 @@ import java.sql.Date;
 import java.util.LinkedList;
 
 import com.frame.member.R;
+import com.frame.member.frag.CoachBookingDialogFrag;
 import com.frame.member.widget.calendar.CalendarCard;
 import com.frame.member.widget.calendar.CalendarCard.OnCellClickListener;
 import com.frame.member.widget.calendar.CalendarViewAdapter;
 import com.frame.member.widget.calendar.CustomDate;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
@@ -62,6 +64,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 	protected void setListener() {
 		iv_left_month.setOnClickListener(this);
 		iv_right_month.setOnClickListener(this);
+		tv_booking_now.setOnClickListener(this);
 	}
 
 	@Override
@@ -180,10 +183,17 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 		case R.id.iv_right_month:
 			mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 			break;
-
+		case R.id.tv_booking_now:
+			showDialog();
+			break;
 		default:
 			break;
 		}
+	}
+	private void showDialog(){
+		CoachBookingDialogFrag frag = new CoachBookingDialogFrag();
+		frag.setStyle(DialogFragment.STYLE_NORMAL, R.style.YouDialog);
+		frag.show(getSupportFragmentManager(), "CoachBookingDialog");
 	}
 
 	//更新选中的日期

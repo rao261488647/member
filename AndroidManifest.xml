@@ -262,6 +262,10 @@
             android:name=".activity.BookingDateActivity"
             android:screenOrientation="portrait" >
         </activity>
+         <activity
+            android:name=".activity.BookingFinishedActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
     </application>
 
