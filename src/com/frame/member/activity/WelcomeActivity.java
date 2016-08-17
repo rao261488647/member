@@ -41,16 +41,17 @@ public class WelcomeActivity extends BaseActivity {
 			@Override
 			public void run() {
 
-				if (!TextUtils.isEmpty((String) SPUtils.getAppSpUtil().get(WelcomeActivity.this,
-						SPUtils.KEY_MEMBERUSERID, ""))) {
-					goMainPage();
-				} else {
-					Intent intent = new Intent(WelcomeActivity.this,
-							LoginActivity.class);
-					startActivity(intent);
-					WelcomeActivity.this.finish();
-					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-				}
+//				if (!TextUtils.isEmpty((String) SPUtils.getAppSpUtil().get(WelcomeActivity.this,
+//						SPUtils.KEY_MEMBERUSERID, ""))) {
+//					goMainPage();
+//				} else {
+//					Intent intent = new Intent(WelcomeActivity.this,
+//							LoginActivity.class);
+//					startActivity(intent);
+//					WelcomeActivity.this.finish();
+//					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+//				}
+				goMainPage();
 			}
 		}, 2000);
 	}

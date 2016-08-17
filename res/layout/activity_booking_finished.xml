@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:orientation="vertical" >
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/background_booking_date">
+        <ImageView android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:src="@drawable/booked_finished"
+            android:scaleType="centerInside"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="60dp"
+            >
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="预约教练"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                />
+            <com.frame.member.widget.RoundImageView android:id="@+id/iv_coach_profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/coach_profile"
+                round:type="round"
+                round:borderRadius="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
+            <TextView android:id="@+id/tv_coach_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_coach_profile"
+                android:layout_marginRight="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/gray_54"
+                android:layout_centerVertical="true"
+                android:text="王教练"/>
+        </RelativeLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_9f"
+            android:layout_marginLeft="14dp"/>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView android:id="@+id/tv_booked_date_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="预约时间"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+            <TextView android:id="@+id/tv_booked_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textColor="@color/gray_54"
+                android:text="2016/2/20、2016/2/8、2016/4/23、\n2016/3/3、2016/4/1"/>
+            
+        </RelativeLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_9f"
+            android:layout_marginLeft="14dp"/>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="学场"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+            <TextView android:id="@+id/tv_booked_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textColor="@color/gray_54"
+                android:text="新西兰奥比例滑雪场"
+                android:drawableRight="@drawable/btn_more_normal"
+                android:drawablePadding="5dp"/>
+            
+        </RelativeLayout>
+    </LinearLayout>
+    <TextView android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="13sp"
+        android:textColor="#a7a7a7"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="*课程开始日期前48小时，可做退订处理\n课程开始与过期则不予退订"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        >
+        <TextView android:id="@+id/tv_back_to_book"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#269bed"
+            android:gravity="center"
+            android:text="返回约课"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tv_coach_meet"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/yellow_f9"
+            android:gravity="center"
+            android:text="我的预约"
+            android:textColor="@color/gray_47"
+            android:textSize="16sp" />
+    </LinearLayout>
+    
+
+</LinearLayout>

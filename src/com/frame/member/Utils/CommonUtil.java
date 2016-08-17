@@ -21,6 +21,7 @@ import com.frame.member.listener.AsyncHttpListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -118,6 +119,26 @@ public class CommonUtil {
 		return -1;
 	}
 
+	/**
+	 * 获得状态栏的高度
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static int getStatusHeight(Context context) {
+	 
+	    int statusHeight = -1;
+	    try {
+	        Class<?> clazz = Class.forName("com.android.internal.R$dimen");
+	        Object object = clazz.newInstance();
+	        int height = Integer.parseInt(clazz.getField("status_bar_height")
+	                .get(object).toString());
+	        statusHeight = context.getResources().getDimensionPixelSize(height);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return statusHeight;
+	}
 	@SuppressWarnings("deprecation")
 	public static int getScreenHeight(Activity activity) {
 		return activity.getWindowManager().getDefaultDisplay().getHeight();
