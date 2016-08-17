@@ -23,6 +23,7 @@ import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.LoginActivity;
 import com.frame.member.activity.MyBillActivity;
+import com.frame.member.activity.MyCollectActivity;
 import com.frame.member.activity.MyInfoActivity;
 import com.frame.member.activity.SettingsActivity;
 
@@ -40,6 +41,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private ImageView settingView;
 	private TextView myInfoBtn; //编辑个人信息
 	private RelativeLayout my_relative_6;//消费流水
+	private RelativeLayout my_relative_5;//我的收藏
 	private boolean flag=true;
 
 	public static MyCenterFrag newInstance(String title) {
@@ -91,6 +93,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		settingView = (ImageView)findViewById(R.id.my_settings);
 		myInfoBtn = (TextView)findViewById(R.id.my_text2);
 		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
+		my_relative_5 = (RelativeLayout)findViewById(R.id.my_relative_5);
 	}
 	/**
 	 * 点击监听事件设置
@@ -101,6 +104,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		settingView.setOnClickListener(this);
 		myInfoBtn.setOnClickListener(this);
 		my_relative_6.setOnClickListener(this);
+		my_relative_5.setOnClickListener(this);
 	}
 	
 	@Override
@@ -113,6 +117,10 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			break;
 		case R.id.my_text2: //个人基本信息
 			intent = new Intent(getActivity(), MyInfoActivity.class);
+			this.startActivity(intent);
+			break;
+		case R.id.my_relative_5: //我的收藏
+			intent = new Intent(getActivity(), MyCollectActivity.class);
 			this.startActivity(intent);
 			break;
 		case R.id.my_relative_6: //消费流水

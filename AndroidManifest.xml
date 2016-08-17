@@ -244,7 +244,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" >
         </activity>
@@ -256,12 +255,14 @@
             android:name=".activity.MyBillActivity"
             android:screenOrientation="portrait" >
         </activity>
-	</application>
-=======
-            android:name=".activity.CoachDetailActivity"
+        <activity
+            android:name=".activity.ModifyNickNameActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MyCollectActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>
 
->>>>>>> 685c7b4a26d49bc962ba928d7240107bbd921bfb
 </manifest>
