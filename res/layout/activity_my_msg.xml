@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout 
+	        android:id="@+id/my_msg_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:background="@color/bottom_tab_black">
+	      	<LinearLayout 
+	        	android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:orientation="horizontal"
+		        android:layout_centerHorizontal="true">
+		        <LinearLayout android:id="@+id/my_msg_left_btn"
+		            android:layout_width="56dp"
+		            android:layout_height="match_parent"
+		            android:orientation="vertical"
+		           	android:gravity="center">
+		            <TextView android:id="@+id/my_msg_left_text"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="通知"
+		                android:textColor="@color/gray_87"
+		                android:textSize="14sp"
+		                />
+		            
+		        </LinearLayout>
+		        <LinearLayout android:id="@+id/my_msg_center_btn"
+		             android:layout_width="56dp"
+		             android:layout_height="match_parent"
+		             android:orientation="vertical"
+		             android:gravity="center">
+		            <TextView android:id="@+id/my_msg_center_text"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="评论"
+		                android:textColor="@color/white"
+		                android:textSize="16sp"
+		                />
+		            
+		        </LinearLayout>
+		        <LinearLayout android:id="@+id/my_msg_right_btn"
+		             android:layout_width="56dp"
+		             android:layout_height="match_parent"
+		             android:orientation="vertical"
+		             android:gravity="center">
+		            <TextView android:id="@+id/my_msg_right_text"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="点赞"
+		                android:textColor="@color/gray_87"
+		                android:textSize="16sp"
+		                />
+		            
+		        </LinearLayout>
+	    </LinearLayout>
+	    <ImageView
+		    android:id="@+id/my_msg_back"
+		    android:layout_width="47dp"
+		    android:layout_height="match_parent"
+		    android:scaleType="center"
+		    android:src="@drawable/btn_back_normal"
+		    />
+    </RelativeLayout>
+
+</LinearLayout>

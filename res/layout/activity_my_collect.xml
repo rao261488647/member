@@ -28,7 +28,7 @@
 	    <com.frame.member.widget.swipemenulistview.SwipeMenuListView
 	        android:id="@+id/my_collect_teacher_listView"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent" />
+	        android:layout_height="wrap_content" />
 	</RelativeLayout>
 	<RelativeLayout 
         android:layout_width="match_parent"
@@ -52,6 +52,6 @@
 	    <com.frame.member.widget.swipemenulistview.SwipeMenuListView
 	        android:id="@+id/my_collect_class_listView"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent" />
+	        android:layout_height="wrap_content" />
 	</RelativeLayout>
 </LinearLayout>
