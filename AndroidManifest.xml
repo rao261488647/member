@@ -254,8 +254,17 @@
             android:name=".activity.MyBillActivity"
             android:screenOrientation="portrait" >
         </activity>
+<<<<<<< HEAD
+        <activity
+            android:name=".activity.ModifyNickNameActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MyCollectActivity"
+=======
 		<activity
             android:name=".activity.CoachDetailActivity"
+>>>>>>> e81fbe251af82a62da9e5e06d5369c8efb71e76e
             android:screenOrientation="portrait" >
         </activity>
          <activity
@@ -266,6 +275,11 @@
             android:name=".activity.BookingFinishedActivity"
             android:screenOrientation="portrait" >
         </activity>
+        
+         <activity android:name=".activity.SearchCoachActivity"
+             android:screenOrientation="portrait"/>
+         <activity android:name=".activity.ClassDetailActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 
