@@ -58,7 +58,7 @@
 		    />
         <ImageView 
             android:id="@+id/my_bill_img_1"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
