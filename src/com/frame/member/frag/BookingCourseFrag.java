@@ -4,7 +4,6 @@ package com.frame.member.frag;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.activity.SearchCoachActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -47,7 +46,7 @@ public class BookingCourseFrag extends BaseFrag implements OnClickListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.frag_booking_course, container,
+		rootView = inflater.inflate(R.layout.frag_advice, container,
 				false);
 		
 		initView();

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efeff4"
+    android:orientation="vertical"
+    android:padding="5dp" >
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <com.frame.member.widget.RoundImageView 
+            android:id="@+id/iv_person_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            round:type="circle"
+            android:src="@drawable/coach_profile"
+            android:layout_centerVertical="true"/>
+        <RelativeLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_person_profile"
+            android:layout_marginLeft="10dp">
+            <TextView android:id="@+id/tv_name_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#545454"
+                android:text="烫手的山芋"
+                />
+            <TextView android:id="@+id/tv_time_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#b2b2b2"
+                android:textSize="10sp"
+                android:layout_alignLeft="@id/tv_name_person"
+                android:layout_below="@id/tv_name_person"
+                android:layout_marginTop="1dp"
+                android:text="10分钟前"/>
+            <TextView
+             android:id="@+id/tv_member_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:background="@drawable/shape_member_level_yellow"
+             android:textSize="11sp"
+             android:textColor="@color/black"
+             android:text="LV.3"
+             android:layout_toRightOf="@id/tv_name_person"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
+             android:layout_alignBottom="@id/tv_name_person"
+             android:layout_marginLeft="10dp"/>
+        </RelativeLayout>
+        <TextView android:id="@+id/tv_attention_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_hollow_yellow"
+            android:textSize="12sp"
+            android:textColor="#e8ce39"
+            android:text="+关注"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp">
+        <ImageView android:id="@+id/iv_vedio_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coach_skill_example"/>
+        <ImageView android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_review_video"
+            android:layout_marginLeft="5dp"/>
+        <ImageView android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icon_play_2x"
+            android:layout_centerInParent="true"/>
+        <ImageView android:id="@+id/iv_full_screen"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/full_screen_2x"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"/>
+        <TextView android:id="@+id/tv_vedio_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_full_screen"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="第一天滑雪感觉很不错,看我的动作是不是很帅"/>
+    </RelativeLayout>
+    
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+        <TextView android:id="@+id/tv_comments_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#c0c0c0"
+            android:textSize="11sp"
+            android:text="145"
+            android:drawableLeft="@drawable/leave_msg_2x"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"/>
+        <TextView android:id="@+id/tv_favour_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#c0c0c0"
+            android:textSize="11sp"
+            android:text="1200"
+            android:drawableLeft="@drawable/un_zan_2x"
+            android:layout_toLeftOf="@id/tv_comments_num"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"/>
+        <HorizontalScrollView android:id="@+id/hsv_person_favor_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tv_favour_num">
+            <LinearLayout android:id="@+id/ll_person_favor_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

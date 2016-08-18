@@ -6,6 +6,54 @@
     android:background="@color/bg_main_container"
     android:orientation="vertical" >
 
-    <include layout="@layout/layout_title" />
+    <RelativeLayout android:id="@+id/rl_title_booking"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bottom_tab_black">
+      <LinearLayout android:id="@+id/ll_title_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+        <LinearLayout android:id="@+id/ll_title_left_booking"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+           	android:gravity="center">
+            <TextView android:id="@+id/tv_title_left_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发现"
+                android:textColor="@color/gray_87"
+                android:textSize="14sp"
+                />
+            
+        </LinearLayout>
+         <LinearLayout android:id="@+id/ll_title_right_booking"
+             android:layout_width="56dp"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:gravity="center">
+            <TextView android:id="@+id/tv_title_right_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                />
+            
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView android:id="@+id/iv_search_coach"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/selector_video_release"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:padding="12dp"/>
+    </RelativeLayout>
+    <FrameLayout android:id="@+id/fragment_content_course"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

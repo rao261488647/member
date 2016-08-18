@@ -1,12 +1,10 @@
 package com.frame.member.frag;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,47 +12,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.frame.member.R;
-import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
-import com.frame.member.Parsers.RentCarListParser;
-import com.frame.member.Utils.HttpRequest;
-import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.SpecialCarEnrollActivity;
-import com.frame.member.activity.BaseActivity.DataCallback;
-import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.adapters.CondensationPagerAdapter;
-import com.frame.member.bean.RentCarListBean;
-import com.frame.member.bean.RentCarListBean.RentCarItem;
-import com.frame.member.widget.refreshlistview.PullToRefreshBase;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
-import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
+import com.frame.member.activity.SearchCoachActivity;
+
 
 /**
  * 
  * 求教
- * @author Ron
+ * @author long
  * 
  */
 public class AdviceFrag extends BaseFrag implements OnClickListener {
 
-	private PullToRefreshScrollView sv_conden_list_body;
+	private LinearLayout ll_title_left_booking,ll_title_right_booking;
+	private TextView tv_title_left_booking,tv_title_right_booking;
+	private ImageView iv_search_coach;
+//	private BookingCourseOneFrag mBookingCourseOneFrag;
+	private BookingCourseClassFrag mBookingCourseClassFrag;
+	private AdviceFindFrag mAdviceFindFrag;
+	private FragmentManager mFragmentManager;
+
+	boolean isRight;
 	
-	CondensationPagerAdapter pagerAdapter;
-	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
-			ll_sort_conden_classicAction;
-
-	protected TextView tv_title_left;
-
-	public ViewPager vp_condensation;
-
-	private LinearLayout ll_main_container;
-	
-	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
-
 	public static AdviceFrag newInstance(String title) {
 
 		AdviceFrag fragment = new AdviceFrag();
@@ -64,158 +44,111 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		return fragment;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.frag_advice, container,
 				false);
-
-		tv_title = (TextView) findViewById(R.id.tv_title);
-		tv_title.setText("求教");
-//		
-//		ll_main_container = (LinearLayout) findViewById(R.id.ll_main_container);
-//		
-//		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.sv_conden_list_body);
-//		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
-//
-//		sv_conden_list_body
-//				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
-//
-//					@Override
-//					public void onPullDownToRefresh(
-//							PullToRefreshBase refreshView) {
-//
-//					}
-//
-//					@Override
-//					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-//						if (mainpage_data.size() < totalCount) {
-//							sv_conden_list_body.setRefreshing(true);
-//							getMainPageData();
-//						} else {
-//							Toast.makeText(mContext, "没有更多数据", 0).show();
-//							sv_conden_list_body.onRefreshComplete();
-//						}
-//					}
-//				});
-//
-//		getMainPageData();
+		initView();
+		initOnclick();
+		initProgress();
 
 		return rootView;
 	}
-
-	//private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
-	public List<RentCarItem> mainpage_data = new ArrayList<RentCarItem>();
-
-	private int pageCur = 0, totalCount;
-
-	private void getMainPageData() {
-		HttpRequest request_main_data = new HttpRequestImpl(getActivity(), AppConstants.RENTCARLIST, new RentCarListParser());
-
-		request_main_data
-				.addParam(
-						"cell",
-						(String) SPUtils.getAppSpUtil().get(mContext,
-								SPUtils.KEY_PHONENUM, ""))
-				.addParam("currentPage", ++pageCur + "")
-				.addParam("loadCount", 5 + "");
-
-		mContext.getDataFromServer(request_main_data, pageCur == 1,
-				new DataCallback<RentCarListBean>() {
-
-					@Override
-					public void processData(RentCarListBean object,
-							RequestResult result) {
-						if (sv_conden_list_body.isRefreshing())
-							sv_conden_list_body.onRefreshComplete();
-						if (result == RequestResult.Success) {
-
-							if (pageCur > 1)
-								Toast.makeText(mContext, "加载成功", 0).show();
-							//总条数
-							//totalCount = object.totoalRecord;
-
-							//mainpage_data.add(object.rentCarList);
-							//lv_rentcar_list.setAdapter(adapter);
-							for (int i = 0; i < object.rentCarList.size(); i++) {
-								ll_main_container
-										.addView(setRentCarLayout(object.rentCarList.get(i)));
-							}
-						}
-					}
-				}, "加载中...");
+	private void initView(){
+		ll_title_left_booking = (LinearLayout) findViewById(R.id.ll_title_left_booking);
+		ll_title_right_booking = (LinearLayout) findViewById(R.id.ll_title_right_booking);
+		tv_title_left_booking = (TextView) findViewById(R.id.tv_title_left_booking);
+		tv_title_right_booking = (TextView) findViewById(R.id.tv_title_right_booking);
+		iv_search_coach = (ImageView) findViewById(R.id.iv_search_coach);
 	}
-
-	private View setRentCarLayout(final RentCarItem rentCarItem) {
-		View result = View.inflate(mContext, R.layout.item_rent_car, null);
-		
-		TextView tv_main_page_item_title = (TextView) result
-				.findViewById(R.id.tv_item_rent_car_name);
-		TextView tv_item_rent_car_plat = (TextView) result
-				.findViewById(R.id.tv_item_rent_car_plat);
-//		TextView tv_item_rent_car_deposit = (TextView) result
-//				.findViewById(R.id.tv_item_rent_car_deposit);
-//		TextView tv_item_rent_car_money = (TextView) result
-//				.findViewById(R.id.tv_item_rent_car_money);
-		TextView tv_item_rent_car_order = (TextView) result
-				.findViewById(R.id.tv_item_rent_car_order);
-//		TextView tv_item_rent_car_contract = (TextView) result
-//				.findViewById(R.id.tv_item_rent_car_contract);
-		
-		ImageView im_rent_car = (ImageView) result
-				.findViewById(R.id.iv_item_rent_car);
-		
-		TTApplication.getInstance()
-		.disPlayImageDef(rentCarItem.url, im_rent_car);
-		
-		tv_main_page_item_title.setText(rentCarItem.carType);
-		tv_item_rent_car_plat.setText("适用平台：" +rentCarItem.plat);
-		//tv_item_rent_car_deposit.setText("押金" + rentCarItem.deposit + "元");
-		//tv_item_rent_car_money.setText(rentCarItem.rentPerPay);
-//		tv_item_rent_car_contract.setText("合同期" + rentCarItem.contractTerm);
-		
-		tv_item_rent_car_order.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),SpecialCarEnrollActivity.class);
-				intent.putExtra("contractTermList", (Serializable) rentCarItem.contractTermList);
-				intent.putExtra("rentCarId", rentCarItem.rentCarId);
-				intent.putExtra("url", rentCarItem.url);
-				intent.putExtra("deposit", "押金¥"+rentCarItem.deposit);
-				intent.putExtra("plat", rentCarItem.plat);
-				intent.putExtra("carType", rentCarItem.carType);
-				getActivity().startActivity(intent);
-			}
-		});
-		
-		return result;
+	private void initOnclick(){
+		ll_title_left_booking.setOnClickListener(this);
+		ll_title_right_booking.setOnClickListener(this);
+		iv_search_coach.setOnClickListener(this);
+	}
+	//主逻辑代码
+	private void initProgress(){
+		tv_title_left_booking.setTextColor(0xffffffff);
+		tv_title_right_booking.setTextColor(0xff878788);
+		tv_title_left_booking.setTextSize(16);
+		tv_title_right_booking.setTextSize(14);
+		mFragmentManager = getActivity().getSupportFragmentManager();
+		FragmentTransaction mTransaction = mFragmentManager.beginTransaction();
+		hideFragment(mTransaction);
+		if(mAdviceFindFrag == null){
+			mAdviceFindFrag = AdviceFindFrag.newInstance();
+			mTransaction.add(R.id.fragment_content_course, mAdviceFindFrag).commit();
+		}else{
+			mTransaction.show(mAdviceFindFrag).commit();
+		}
+			
 	}
 
 	@Override
 	public void onClick(View v) {
+		FragmentTransaction mTransaction = mFragmentManager.beginTransaction();
 		switch (v.getId()) {
-		// 注意点击的控件id
-		case R.id.ll_title_left:
-			// Intent intent = new Intent(getActivity(),
-			// CondenFilterActivity.class);
-			// intent.putExtra("sportStyle", sportStyle);
-			// startActivityForResult(intent, Activity.RESULT_FIRST_USER);
-			// getActivity().overridePendingTransition(R.anim.zoomin,
-			// R.anim.zoomout);
+		case R.id.ll_title_left_booking:
+			if(isRight){
+				changeFrag();
+				hideFragment(mTransaction);
+				if(mAdviceFindFrag == null){
+					mAdviceFindFrag = AdviceFindFrag.newInstance();
+					mTransaction.add(R.id.fragment_content_course, mAdviceFindFrag).commit();
+				}else{
+					mTransaction.show(mAdviceFindFrag).commit();
+				}
+			}
 			break;
-		// case R.id.ll_title_right:
-		// // startActivityForResult(new Intent(getActivity(),
-		// // CondenCreateActivity.class), 1120);
-		// menuWindow = new CondenSortPopupWindow(getActivity(), itemsOnClick);
-		// menuWindow.showAtLocation(getActivity()
-		// .findViewById(R.id.container), Gravity.BOTTOM
-		// | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
-		// break;
+		case R.id.ll_title_right_booking:
+			if(!isRight){
+				changeFrag();
+				hideFragment(mTransaction);
+				if(mBookingCourseClassFrag == null){
+					mBookingCourseClassFrag = BookingCourseClassFrag.newInstance();
+					mTransaction.add(R.id.fragment_content_course, mBookingCourseClassFrag).commit();
+				}else{
+					mTransaction.show(mBookingCourseClassFrag).commit();
+				}
+			}
+			
+			break;
+		
+		case R.id.iv_search_coach:
+			startActivity(new Intent(getActivity(), SearchCoachActivity.class));
+			break;
 
+		
 		}
-	};
+	}
+	//通过点击进行Fragment的切换
+		private void changeFrag(){
+			if(isRight){
+				tv_title_left_booking.setTextColor(0xffffffff);
+				tv_title_right_booking.setTextColor(0xff878788);
+				tv_title_left_booking.setTextSize(16);
+				tv_title_right_booking.setTextSize(14);
+				isRight = false;
+			}else{
+				tv_title_right_booking.setTextColor(0xffffffff);
+				tv_title_left_booking.setTextColor(0xff878788);
+				tv_title_right_booking.setTextSize(16);
+				tv_title_left_booking.setTextSize(14);
+				isRight = true;
+			}
+		}
+		private void hideFragment(FragmentTransaction transaction) {
+			if (mAdviceFindFrag != null)
+				transaction.hide(mAdviceFindFrag);
+			if (mBookingCourseClassFrag != null)
+				transaction.hide(mBookingCourseClassFrag);
+			
+		}
 
+	
+		
+
+	
 }
