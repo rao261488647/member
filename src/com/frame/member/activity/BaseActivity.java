@@ -152,9 +152,13 @@ public abstract class BaseActivity extends FragmentActivity {
 			} else if (msg.what == RequestResult.ServerError.ordinal()) {
 				showToast(RequestResult.ServerError.toString());
 				callBack.processData(null, RequestResult.ServerError);
-			} else if (msg.what == RequestResult.ServerTimeout.ordinal())
+			} else if (msg.what == RequestResult.ServerTimeout.ordinal()){
 				showToast(RequestResult.ServerTimeout.toString());
 				callBack.processData(null, RequestResult.ServerTimeout);
+			} else if (msg.what == RequestResult.NoData.ordinal()){
+				showToast(RequestResult.NoData.toString());
+				callBack.processData(null, RequestResult.NoData);
+			}
 		}
 	}
 
@@ -190,7 +194,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				msg.what = RequestResult.Success.ordinal();
 				msg.obj = obj;
 				if (msg.obj == null) { // 如果返回结果为空 给予服务器错误提示
-					msg.what = RequestResult.ServerError.ordinal();
+					msg.what = RequestResult.NoData.ordinal();
 				}
 			} catch (ConnectTimeoutException e) { // 链接超时
 				System.out.println("ConnectTimeoutException----》"
@@ -206,6 +210,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				msg.what = RequestResult.ServerTimeout.ordinal();
 			} catch (JSONException e) {
 				e.printStackTrace(); // json 错误
+				System.out.println("Json解析错误------》");
 			} catch (Throwable e) {
 				msg.what = RequestResult.ServerError.ordinal();
 				StringWriter sw = new StringWriter();
@@ -355,7 +360,11 @@ public abstract class BaseActivity extends FragmentActivity {
 		/**
 		 * 请求服务器出错
 		 */
-		ServerError;
+		ServerError,
+		/**
+		 * 已无更多数据
+		 */
+		NoData;
 
 		@Override
 		public String toString() {
@@ -370,6 +379,9 @@ public abstract class BaseActivity extends FragmentActivity {
 			}
 			if (this == RequestError) {
 				return "";
+			}
+			if(this == NoData){
+				return "没有更多数据";
 			}
 			
 			return "请求成功";

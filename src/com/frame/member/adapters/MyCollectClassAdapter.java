@@ -11,9 +11,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.BaseSwipListAdapter;
 import com.frame.member.R;
 import com.frame.member.bean.MainVideoBean.MainVideoCategory;
+import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 
 public class MyCollectClassAdapter extends BaseSwipListAdapter {
 	private Context context;

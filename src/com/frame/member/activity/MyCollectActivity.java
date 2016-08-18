@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.frame.member.R;
 import com.frame.member.adapters.MyCollectClassAdapter;
 import com.frame.member.adapters.MyCollectTeacherAdapter;
+import com.frame.member.widget.swipemenulistview.SwipeMenu;
+import com.frame.member.widget.swipemenulistview.SwipeMenuCreator;
+import com.frame.member.widget.swipemenulistview.SwipeMenuItem;
+import com.frame.member.widget.swipemenulistview.SwipeMenuListView;
 /**
  * 我的收藏
  * Ron

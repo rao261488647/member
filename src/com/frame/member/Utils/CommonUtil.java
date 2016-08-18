@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -273,6 +274,8 @@ public class CommonUtil {
 		}
 		return fileSizeString;
 	}
+	
+	
 
 	//合同弹出框
 	public static void postSelectDialog(final List<ContractTerm> postList,

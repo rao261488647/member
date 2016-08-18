@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.frame.member.widget.RoundImageView 
+        android:id="@+id/iv_profile_above"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/coach_profile"
+        round:type="round"
+        round:borderRadius="20dp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView android:id="@+id/tv_name_below"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="10sp"
+        android:textColor="#393939"
+        android:layout_gravity="center_horizontal"
+        android:text="王教练"/>
+</LinearLayout>

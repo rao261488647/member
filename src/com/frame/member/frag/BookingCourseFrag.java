@@ -3,7 +3,9 @@ package com.frame.member.frag;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.activity.SearchCoachActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -113,7 +115,7 @@ public class BookingCourseFrag extends BaseFrag implements OnClickListener{
 			break;
 		
 		case R.id.iv_search_coach:
-	
+			startActivity(new Intent(getActivity(), SearchCoachActivity.class));
 			break;
 
 		

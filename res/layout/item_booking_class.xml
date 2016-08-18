@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="19dp" >
+    
+    <LinearLayout android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <RelativeLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/tv_booking_class_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                android:textColor="#28a5fe"
+                android:text="¥1980"
+                />
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_booking_class_price"
+                android:textSize="14sp"
+                android:textColor="#28a5fe"
+                android:text="/人"
+                android:layout_alignBottom="@id/tv_booking_class_price"
+                android:layout_marginBottom="2dp"/>
+            
+        </RelativeLayout>
+        <TextView android:id="@+id/tv_booking_person_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#a4a4a4"
+            android:textSize="12sp"
+            android:text="10人班 已报名4人"
+            android:layout_marginTop="10dp"/>
+        <TextView android:id="@+id/tv_categoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#ebe42f"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:padding="10dp"
+            android:maxLength="6"
+            android:ellipsize="end"
+            android:text="培训班"/>
+    </LinearLayout> 
+    <LinearLayout android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_weight="2">
+        <TextView android:id="@+id/tv_days_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#3c3c3c"
+            android:text="12月26日-12月30日 共4天"
+            android:textStyle="bold"/>
+        <TextView android:id="@+id/tv_class_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#3c3c3c"
+            android:textSize="14sp"
+            android:text="基础滑雪动作速成培训班 (双板)"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+        <TextView android:id="@+id/tv_class_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="#a4a4a4"
+            android:text="新西兰奥利奥滑雪场"/>
+        <TextView android:id="@+id/tv_class_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#a4a4a4"
+            android:textSize="12sp"
+            android:text="新西兰滑雪 班车接送，车上有饮料粮食方便面，免费开水，麻烦抬下脚哈哈哈哈"
+            android:ellipsize="end"
+            android:maxLines="2"/>
+    </LinearLayout>
+
+    
+
+</LinearLayout>
