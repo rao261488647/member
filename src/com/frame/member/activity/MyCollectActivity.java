@@ -1,12 +1,10 @@
 package com.frame.member.activity;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
-
 import com.frame.member.R;
 import com.frame.member.adapters.MyCollectClassAdapter;
 import com.frame.member.adapters.MyCollectTeacherAdapter;
