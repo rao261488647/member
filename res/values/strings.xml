@@ -31,7 +31,12 @@
         <item>教程</item>
         <item>精华</item>
     </string-array>
-    
+    <!-- 消息通知标签 -->
+    <string-array name="my_msg_tabs">
+        <item>通知</item>
+        <item>评论</item>
+        <item>点赞</item>
+    </string-array>
     
     <string name="title_alert">提示信息</string>
     

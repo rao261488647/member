@@ -25,6 +25,7 @@ import com.frame.member.activity.LoginActivity;
 import com.frame.member.activity.MyBillActivity;
 import com.frame.member.activity.MyCollectActivity;
 import com.frame.member.activity.MyInfoActivity;
+import com.frame.member.activity.MyMsgActivity;
 import com.frame.member.activity.SettingsActivity;
 
 /**
@@ -40,8 +41,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 
 	private ImageView settingView;
 	private TextView myInfoBtn; //编辑个人信息
-	private RelativeLayout my_relative_6;//消费流水
+	private RelativeLayout my_relative_4;//消息
 	private RelativeLayout my_relative_5;//我的收藏
+	private RelativeLayout my_relative_6;//消费流水
 	private boolean flag=true;
 
 	public static MyCenterFrag newInstance(String title) {
@@ -92,8 +94,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private void findViewByIds() {
 		settingView = (ImageView)findViewById(R.id.my_settings);
 		myInfoBtn = (TextView)findViewById(R.id.my_text2);
-		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
+		my_relative_4 = (RelativeLayout)findViewById(R.id.my_relative_4);
 		my_relative_5 = (RelativeLayout)findViewById(R.id.my_relative_5);
+		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
 	}
 	/**
 	 * 点击监听事件设置
@@ -103,8 +106,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private void setOnClickListener(){
 		settingView.setOnClickListener(this);
 		myInfoBtn.setOnClickListener(this);
-		my_relative_6.setOnClickListener(this);
+		my_relative_4.setOnClickListener(this);
 		my_relative_5.setOnClickListener(this);
+		my_relative_6.setOnClickListener(this);
 	}
 	
 	@Override
@@ -119,6 +123,10 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyInfoActivity.class);
 			this.startActivity(intent);
 			break;
+		case R.id.my_relative_4: //消息
+			intent = new Intent(getActivity(), MyMsgActivity.class);
+			this.startActivity(intent);
+			break;
 		case R.id.my_relative_5: //我的收藏
 			intent = new Intent(getActivity(), MyCollectActivity.class);
 			this.startActivity(intent);
@@ -127,32 +135,32 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyBillActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.rl_my_logout:
-			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
-			builder.setTitle("提示");
-			builder.setMessage("确定要退出？");
-			builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Intent myLogout = new Intent(getActivity(), LoginActivity.class);
-					getActivity().startActivity(myLogout);
-					
-					dialog.dismiss();
-					getActivity().finish();
-				}
-			});
-			builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					dialog.dismiss();
-				}
-			});
-			builder.create().show();
-			
-			break;
+//		case R.id.rl_my_logout:
+//			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
+//			builder.setTitle("提示");
+//			builder.setMessage("确定要退出？");
+//			builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					Intent myLogout = new Intent(getActivity(), LoginActivity.class);
+//					getActivity().startActivity(myLogout);
+//					
+//					dialog.dismiss();
+//					getActivity().finish();
+//				}
+//			});
+//			builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+//
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					// TODO Auto-generated method stub
+//					dialog.dismiss();
+//				}
+//			});
+//			builder.create().show();
+//			
+//			break;
 		}
 	}
 }

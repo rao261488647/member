@@ -3,6 +3,15 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
@@ -10,43 +19,34 @@ import com.frame.member.Parsers.BookingClassParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.activity.BaseActivity;
-import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.ClassDetailActivity;
+import com.frame.member.adapters.MyMsgCommentAdapter;
 import com.frame.member.bean.BookingClassResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
-import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 
 /**
- * 我的消息-通知页面
+ * 消息通知--评论页面
  * @author Ron
  * @date 2016-8-18  下午11:52:27
  */
-public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
+public class MyMsgCommentFrag extends BaseFrag implements OnClickListener {
 
-	private static MyMsgNoticeFrag mFrag;
-	public static MyMsgNoticeFrag newInstance(String title) {
+	public static MyMsgCommentFrag newInstance(String title) {
 
-		MyMsgNoticeFrag fragment = new MyMsgNoticeFrag();
+		MyMsgCommentFrag fragment = new MyMsgCommentFrag();
 		Bundle bundle = new Bundle();
 		bundle.putString(AppConstants.FRAG_TITLE_KEY, title);
 		fragment.setArguments(bundle);
         return fragment;
     }
 	
+	private MyMsgCommentAdapter adapter;
+	private List<String> tempList;
+	private PullToRefreshListView pullListView;
 	/**
 	 * 页面创建
 	 * @author Ron
@@ -55,15 +55,30 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.frag_my_msg_notice, container,
+		rootView = inflater.inflate(R.layout.frag_my_msg_comment, container,
 				false);
+		tempList = new ArrayList<String>();
+		tempList.add(new String("1"));
+		tempList.add(new String("2"));
+		tempList.add(new String("3"));
+		tempList.add(new String("4"));
+		tempList.add(new String("5"));
+		
+		
 		
 		initView();
 		initOnclick();
 		initProgress();
+		notifyAdapter();
 		return rootView;
 	}
+	/**
+	 * 初始化控件
+	 * @author Ron
+	 * @date 2016-8-20  上午12:24:35
+	 */
 	private void initView(){
+		pullListView = (PullToRefreshListView)findViewById(R.id.my_msg_comment_lv);
 	}
 	/**
 	 * 点击监听事件绑定
@@ -78,7 +93,30 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 	 * @date 2016-8-19  下午11:21:49
 	 */
 	private void initProgress(){
-		getData();
+		pullListView.setMode(Mode.BOTH);
+		pullListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
+			}
+		});
+		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+				page = 1;
+//				pullListView.setMode(Mode.BOTH);
+//				getData();
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+				page ++;
+//				getData();
+			}
+		});
+		//getData();
 	}
 	int page;
 	private List<BookingClassResult> list_result = new ArrayList<BookingClassResult>();
@@ -104,7 +142,19 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 		}
 		
 	};
-	
+	/**
+	 * 通知适配器展示数据
+	 * @author Ron
+	 * @date 2016-8-20  上午12:22:37
+	 */
+	private void notifyAdapter() {
+		if(adapter == null){
+			adapter = new MyMsgCommentAdapter(getActivity(),tempList );
+			pullListView.setAdapter(adapter);
+		}else{
+			adapter.notifyDataSetChanged();
+		}
+	}
 	/**
 	 *点击事件判断 
 	 * @author Ron

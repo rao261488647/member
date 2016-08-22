@@ -64,5 +64,8 @@
 		    android:src="@drawable/btn_back_normal"
 		    />
     </RelativeLayout>
-
+	<FrameLayout 
+	    android:id="@+id/my_msg_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

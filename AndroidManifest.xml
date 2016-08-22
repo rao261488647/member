@@ -260,6 +260,10 @@
         </activity>
         <activity
             android:name=".activity.MyCollectActivity"/>
+        <activity
+            android:name=".activity.MyMsgActivity"
+            android:screenOrientation="portrait" >
+        </activity>
 		<activity
             android:name=".activity.CoachDetailActivity">
         </activity>
