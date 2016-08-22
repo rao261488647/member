@@ -3,7 +3,7 @@
     xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efeff4"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="5dp" >
     <RelativeLayout android:layout_width="match_parent"

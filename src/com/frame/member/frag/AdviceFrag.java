@@ -29,8 +29,8 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 	private TextView tv_title_left_booking,tv_title_right_booking;
 	private ImageView iv_search_coach;
 //	private BookingCourseOneFrag mBookingCourseOneFrag;
-	private BookingCourseClassFrag mBookingCourseClassFrag;
 	private AdviceFindFrag mAdviceFindFrag;
+	private AdviceAttentionFrag mAdviceAttentionFrag;
 	private FragmentManager mFragmentManager;
 
 	boolean isRight;
@@ -79,7 +79,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		hideFragment(mTransaction);
 		if(mAdviceFindFrag == null){
 			mAdviceFindFrag = AdviceFindFrag.newInstance();
-			mTransaction.add(R.id.fragment_content_course, mAdviceFindFrag).commit();
+			mTransaction.add(R.id.fragment_content_advice, mAdviceFindFrag).commit();
 		}else{
 			mTransaction.show(mAdviceFindFrag).commit();
 		}
@@ -96,7 +96,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 				hideFragment(mTransaction);
 				if(mAdviceFindFrag == null){
 					mAdviceFindFrag = AdviceFindFrag.newInstance();
-					mTransaction.add(R.id.fragment_content_course, mAdviceFindFrag).commit();
+					mTransaction.add(R.id.fragment_content_advice, mAdviceFindFrag).commit();
 				}else{
 					mTransaction.show(mAdviceFindFrag).commit();
 				}
@@ -106,11 +106,11 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 			if(!isRight){
 				changeFrag();
 				hideFragment(mTransaction);
-				if(mBookingCourseClassFrag == null){
-					mBookingCourseClassFrag = BookingCourseClassFrag.newInstance();
-					mTransaction.add(R.id.fragment_content_course, mBookingCourseClassFrag).commit();
+				if(mAdviceAttentionFrag == null){
+					mAdviceAttentionFrag = AdviceAttentionFrag.newInstance();
+					mTransaction.add(R.id.fragment_content_advice, mAdviceAttentionFrag).commit();
 				}else{
-					mTransaction.show(mBookingCourseClassFrag).commit();
+					mTransaction.show(mAdviceAttentionFrag).commit();
 				}
 			}
 			
@@ -142,8 +142,8 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		private void hideFragment(FragmentTransaction transaction) {
 			if (mAdviceFindFrag != null)
 				transaction.hide(mAdviceFindFrag);
-			if (mBookingCourseClassFrag != null)
-				transaction.hide(mBookingCourseClassFrag);
+			if (mAdviceAttentionFrag != null)
+				transaction.hide(mAdviceAttentionFrag);
 			
 		}
 

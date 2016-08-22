@@ -52,7 +52,7 @@
         android:layout_alignParentRight="true"
         android:padding="12dp"/>
     </RelativeLayout>
-    <FrameLayout android:id="@+id/fragment_content_course"
+    <FrameLayout android:id="@+id/fragment_content_advice"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

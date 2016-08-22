@@ -19,7 +19,7 @@ import android.widget.TextView;
 /**
  * 
  * 预约课程
- * @author Ron
+ * @author long
  *
  */
 public class BookingCourseFrag extends BaseFrag implements OnClickListener{
@@ -46,7 +46,7 @@ public class BookingCourseFrag extends BaseFrag implements OnClickListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.frag_advice, container,
+		rootView = inflater.inflate(R.layout.frag_booking_course, container,
 				false);
 		
 		initView();
