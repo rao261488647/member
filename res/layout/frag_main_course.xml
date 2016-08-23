@@ -5,19 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_white_gap">
-
-    
-    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_course_list_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        ptr:ptrDrawable="@drawable/default_ptr_rotate"
-        ptr:ptrMode="pullFromEnd" >
-
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/main_course_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" 
@@ -68,24 +56,18 @@
                 </RelativeLayout>
                 
             </RelativeLayout>
-		    <LinearLayout 
+		    <com.frame.member.widget.refreshlistview.PullToRefreshListView
+		        android:id="@+id/main_course_lv"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
-		        android:orientation="vertical"
+		        android:scrollbars="none"
+		        android:stretchMode="columnWidth"
+		        android:divider="@drawable/list_divider_left"
 		        >
-                <ListView 
-		            android:id="@+id/main_course_lv"
-		            android:layout_width="match_parent"
-		        	android:layout_height="wrap_content"
-		            >
-		            
-		        </ListView>
-		    </LinearLayout>
+		
+		    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
             
             
         </LinearLayout>
-
-
-    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
 
 </LinearLayout>

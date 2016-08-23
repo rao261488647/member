@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -14,7 +15,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -31,15 +34,19 @@ import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainNewsAdapter;
+import com.frame.member.adapters.MyMsgNoticeAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainInfoBean.MainInfoResult;
+import com.frame.member.bean.MainInfoBean.MainNews;
 import com.frame.member.bean.MainInfoBean.MainRemmendClass;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
+import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
@@ -52,7 +59,7 @@ import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
-	private PullToRefreshScrollView mail_info_list_body;
+	private PullToRefreshListView pullListView;
 
 	CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
@@ -60,11 +67,11 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
-
+	private List<MainNews> tempList;
 
 	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
 	public List<MainBanner> mainBannerDate = new ArrayList<MainBanner>();
-	private int pageCur = 0, totalCount;
+	private int page;
 	
 	public ViewPager vp_condensation;
 	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
@@ -72,11 +79,10 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 	private LinearLayout main_info_container,main_linear_container;
 
-	private MainNewsAdapter sAdapter = null;
+	private MainNewsAdapter adapter;
 	
 	private TextView main_class_t1,main_class_t2,main_class_t3,main_class_tt1,main_class_tt2,main_class_tt3;
 	
-	private ListView main_info_lv;
 	
 	public static MainInfoFrag newInstance(String title) {
 
@@ -102,34 +108,36 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 		findViewByIds(); //获取控件
 		initPhotoCarousel(); //初始化图片轮播控件
-		mail_info_list_body = (PullToRefreshScrollView) findViewById(R.id.mail_info_list_body);
-		mail_info_list_body.setMode(Mode.PULL_FROM_END);
-		mail_info_list_body
-				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
-
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase refreshView) {
-
-					}
-
-					@Override
-					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-						if (mainBannerDate.size() < totalCount) {
-							mail_info_list_body.setRefreshing(true);
-							getMainInfoData();
-						} else {
-							Toast.makeText(mContext, "没有更多数据", 0).show();
-							mail_info_list_body.onRefreshComplete();
-						}
-					}
-				});
-		
-//		将页面定位到头部
+		//将页面定位到头部
 		main_linear_container.setFocusable(true);
 		main_linear_container.setFocusableInTouchMode(true);
 		main_linear_container.requestFocus();
 
+		
+		pullListView.setMode(Mode.BOTH);
+		pullListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
+			}
+		});
+		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+				page = 1;
+				pullListView.setMode(Mode.BOTH);
+//				getMainCourseData();
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+				page ++;
+//				getMainCourseData();
+			}
+		});
+		
 		getMainInfoData();
 
 		return rootView;
@@ -176,9 +184,9 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-						sAdapter = new MainNewsAdapter(getActivity(), object.mainNewsData);
-						main_info_lv.setAdapter(sAdapter);
-						setListViewHeight(main_info_lv);
+						tempList = object.mainNewsData;
+						notifyAdapter(); //适配器设置
+//						setListViewHeight(pullListView);
 					
 					}
 				}
@@ -338,12 +346,23 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		main_class_tt2 = (TextView) findViewById(R.id.main_class_tt2);
 		main_class_tt3 = (TextView) findViewById(R.id.main_class_tt3);
 		
-		
-		main_info_lv = (ListView) findViewById(R.id.main_info_lv);
+		pullListView = (PullToRefreshListView) findViewById(R.id.main_info_lv);
 		main_linear_container =  (LinearLayout) findViewById(R.id.main_linear_container);
 	}
 
-	
+	/**
+	 * 通知适配器展示数据
+	 * @author Ron
+	 * @date 2016-8-20  上午12:22:37
+	 */
+	private void notifyAdapter() {
+		if(adapter == null){
+			adapter = new MainNewsAdapter(getActivity(),tempList );
+			pullListView.setAdapter(adapter);
+		}else{
+			adapter.notifyDataSetChanged();
+		}
+	}
 	
 	@Override
 	public void onClick(View v) {

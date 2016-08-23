@@ -7,7 +7,7 @@
     android:layout_marginBottom="10dp"
        >
     <ImageView
-        android:id="@+id/news_img1"
+        android:id="@+id/main_course_img1"
 	    android:layout_width="115dp"
 	    android:layout_height="73dp"
 	    android:layout_marginTop="10dp"
@@ -16,10 +16,10 @@
 	    android:src="@drawable/main_icon_news1"
 	    />
      <TextView 
-         android:id="@+id/news_text1"
+         android:id="@+id/main_course_text1"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
-	     android:layout_toRightOf="@id/news_img1"
+	     android:layout_toRightOf="@id/main_course_img1"
 	     android:layout_marginTop="10dp"
 	     android:layout_marginLeft="10dp"
 	     android:layout_marginBottom="6dp"
@@ -30,11 +30,11 @@
 	     android:maxLines="2"
 	     />
 	 <TextView 
-	     android:id="@+id/news_text2"
+	     android:id="@+id/main_course_text2"
 	     android:layout_width="wrap_content"
 	     android:layout_height="wrap_content"
-	     android:layout_toRightOf="@id/news_img1"
-	     android:layout_below="@id/news_text1"
+	     android:layout_toRightOf="@id/main_course_img1"
+	     android:layout_below="@id/main_course_text1"
 	     android:layout_marginLeft="10dp"
 	     android:text="滑雪运动是运动员把滑雪板装在靴底上在雪地上进行速度、跳跃和运动"
 	     android:textSize="12sp"

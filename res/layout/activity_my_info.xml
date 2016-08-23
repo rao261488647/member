@@ -11,7 +11,7 @@
         android:layout_height="80dp"
         android:background="@color/white"
         >
-        <ImageView 
+        <com.frame.member.widget.RoundImageView 
             android:id="@+id/my_info_img_1"
             android:layout_width="60dp"
             android:layout_height="60dp"

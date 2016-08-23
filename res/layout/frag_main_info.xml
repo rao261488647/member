@@ -4,18 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:scrollbars="vertical"
     android:background="@color/color_white_gap">
-
-    
-    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mail_info_list_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        ptr:ptrDrawable="@drawable/default_ptr_rotate"
-        ptr:ptrMode="pullFromEnd" >
 
         <LinearLayout
             android:id="@+id/main_info_container"
@@ -248,24 +238,15 @@
 		            android:textColor="#a7a7a7"
 		            />
 		    </RelativeLayout>
-		    <LinearLayout 
+	        <com.frame.member.widget.refreshlistview.PullToRefreshListView
+		        android:id="@+id/main_info_lv"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
-		        android:orientation="vertical"
-		        >
-		        <ListView 
-		            android:id="@+id/main_info_lv"
-		            android:layout_width="match_parent"
-		        	android:layout_height="wrap_content"
-		            >
-		            
-		        </ListView>
-		    </LinearLayout>
+		        android:scrollbars="none"
+		        android:stretchMode="columnWidth"
+		        android:divider="@drawable/list_divider_left">
+		    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
             
             
         </LinearLayout>
-
-
-    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
-
 </LinearLayout>

@@ -6,22 +6,20 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.bean.MainCourseBean.MainCourseNews;
+import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 
 /**
  * 主页-教程——》新闻适配器
  * @author Ron
  * @date 2016-7-10  下午10:28:47
  */
-public class MainCourseNewsAdapter extends BaseAdapter {
+public class MainCourseNewsAdapter extends BaseSwipListAdapter {
 
 	private List<MainCourseNews> mainCourseNewsList;
 	private Context context;
@@ -51,16 +49,16 @@ public class MainCourseNewsAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MainCourseNewsHolder holder;
 		if (convertView == null) {
-			convertView = View.inflate(context, R.layout.item_main_info, null);
+			convertView = View.inflate(context, R.layout.item_main_course, null);
 			holder = new MainCourseNewsHolder();
 
 			holder.news_img1 = (ImageView) convertView
-					.findViewById(R.id.news_img1);
+					.findViewById(R.id.main_course_img1);
 			
 			holder.news_text1 = (TextView) convertView
-					.findViewById(R.id.news_text1);
+					.findViewById(R.id.main_course_text1);
 			holder.news_text2 = (TextView) convertView
-					.findViewById(R.id.news_text2);
+					.findViewById(R.id.main_course_text2);
 			convertView.setTag(holder);
 		} else {
 			holder = (MainCourseNewsHolder) convertView.getTag();

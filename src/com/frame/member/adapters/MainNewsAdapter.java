@@ -15,13 +15,14 @@ import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.bean.MainInfoBean.MainNews;
+import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 
 /**
  * 主页新闻适配器
  * @author Ron
  * @date 2016-7-10  下午10:28:47
  */
-public class MainNewsAdapter extends BaseAdapter {
+public class MainNewsAdapter extends BaseSwipListAdapter{
 
 	private List<MainNews> mainNewsList;
 	private Context context;

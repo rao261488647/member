@@ -34,7 +34,10 @@ import com.frame.member.widget.refreshlistview.PullToRefreshListView;
  * @date 2016-8-18  下午11:52:27
  */
 public class MyMsgCommentFrag extends BaseFrag implements OnClickListener {
-
+	int page;
+	private MyMsgCommentAdapter adapter;
+	private List<String> tempList;
+	private PullToRefreshListView pullListView;
 	public static MyMsgCommentFrag newInstance(String title) {
 
 		MyMsgCommentFrag fragment = new MyMsgCommentFrag();
@@ -43,10 +46,6 @@ public class MyMsgCommentFrag extends BaseFrag implements OnClickListener {
 		fragment.setArguments(bundle);
         return fragment;
     }
-	
-	private MyMsgCommentAdapter adapter;
-	private List<String> tempList;
-	private PullToRefreshListView pullListView;
 	/**
 	 * 页面创建
 	 * @author Ron
@@ -118,7 +117,7 @@ public class MyMsgCommentFrag extends BaseFrag implements OnClickListener {
 		});
 		//getData();
 	}
-	int page;
+	
 	private List<BookingClassResult> list_result = new ArrayList<BookingClassResult>();
 	//请求获取服务端数据
 	private void getData(){

@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -12,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,6 +32,7 @@ import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.CondensationPagerAdapter;
@@ -39,7 +43,7 @@ import com.frame.member.bean.MainNotifyBean;
 import com.frame.member.bean.MainNotifyBean.Notify;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
+import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 
 /**
  * 首页-教程 frag
@@ -50,7 +54,7 @@ public class MainCourseFrag extends BaseFrag {
 	
 	
 	// private PullToRefreshGridView mPullRefreshGridView;
-	private PullToRefreshScrollView sv_conden_list_body;
+	private PullToRefreshListView pullListView;
 	public List<MainCourseBanner> mainBannerData = new ArrayList<MainCourseBanner>();
 	CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
@@ -59,8 +63,8 @@ public class MainCourseFrag extends BaseFrag {
 	protected TextView tv_title_left;
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
-	private ListView main_course_lv;
 	public ViewPager vp_condensation;
+	private int page;
 	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
 			this));
 
@@ -85,30 +89,31 @@ public class MainCourseFrag extends BaseFrag {
 
 		findViewByIds(); //控件初始化
 		initPhotoCarousel(); //图片轮播初始化
-		sv_conden_list_body = (PullToRefreshScrollView) findViewById(R.id.main_course_list_body);
-		sv_conden_list_body.setMode(Mode.PULL_FROM_END);
+		
+		pullListView.setMode(Mode.BOTH);
+		pullListView.setOnItemClickListener(new OnItemClickListener() {
 
-		sv_conden_list_body
-				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
+			}
+		});
+		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase refreshView) {
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+				page = 1;
+				pullListView.setMode(Mode.BOTH);
+//				getMainCourseData();
+			}
 
-					}
-
-					@Override
-					public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-						if (mainpage_data.size() < totalCount) {
-							sv_conden_list_body.setRefreshing(true);
-							getMainPageData();
-						} else {
-							Toast.makeText(mContext, "没有更多数据", 0).show();
-							sv_conden_list_body.onRefreshComplete();
-						}
-					}
-				});
-		//从服务器获取数据
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+				page ++;
+//				getMainCourseData();
+			}
+		});
+		
 		getMainCourseData();
 		
 		return rootView;
@@ -119,7 +124,7 @@ public class MainCourseFrag extends BaseFrag {
 	 * @date 2016-8-3  上午1:02:25
 	 */
 	private void findViewByIds() {
-		main_course_lv = (ListView)findViewById(R.id.main_course_lv);
+		pullListView = (PullToRefreshListView) findViewById(R.id.main_course_lv);
 	}
 
 	
@@ -236,8 +241,8 @@ public class MainCourseFrag extends BaseFrag {
 					@Override
 					public void processData(MainNotifyBean object,
 							RequestResult result) {
-						if (sv_conden_list_body.isRefreshing())
-							sv_conden_list_body.onRefreshComplete();
+						if (pullListView.isRefreshing())
+							pullListView.onRefreshComplete();
 						if (result == RequestResult.Success) {
 
 							if (pageCur > 1)
@@ -274,6 +279,10 @@ public class MainCourseFrag extends BaseFrag {
 			if(result == RequestResult.Success){
 				if(object != null){
 					if("200".equals(object.code)){
+						//加载课程信息到页面
+						sAdapter = new MainCourseNewsAdapter(getActivity(), object.mainNewsData);
+						pullListView.setAdapter(sAdapter);
+						//setListViewHeight(pullListView);
 						mainBannerData.addAll(object.mainBannerData);
 						
 						for (int i = 0; i < object.mainBannerData.size(); i++) {
@@ -285,10 +294,6 @@ public class MainCourseFrag extends BaseFrag {
 										.disPlayImageDef(url, imageView);
 							}
 						}
-						//加载课程信息到页面
-						sAdapter = new MainCourseNewsAdapter(getActivity(), object.mainNewsData);
-						main_course_lv.setAdapter(sAdapter);
-						setListViewHeight(main_course_lv);
 					
 					}
 				}
