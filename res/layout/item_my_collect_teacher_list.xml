@@ -7,11 +7,11 @@
     android:background="@color/white"
     >
 
-    <ImageView
+    <com.frame.member.widget.RoundImageView
         android:id="@+id/my_collect_item_img_1"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/my_head" />
 
     <TextView
         android:id="@+id/my_collect_item_text_1"

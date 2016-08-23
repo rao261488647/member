@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    >
+    <TextView 
+        android:id="@+id/item_my_msg_notice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="18dp"
+        android:text="系统通知"
+        />
+    <TextView 
+        android:id="@+id/item_my_msg_notice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_my_msg_notice_1"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/gray"
+        android:textSize="16dp"
+        android:text="巴黎埃菲尔铁塔模型摆件欧式家居装饰品创意生日结婚礼物[交易快照]"
+        />
+    <TextView 
+        android:id="@+id/item_my_msg_notice_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/gray"
+        android:textSize="14dp"
+        android:text="2016-12-12"
+        />
+
+</RelativeLayout>
