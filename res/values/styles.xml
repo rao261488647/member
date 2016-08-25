@@ -94,5 +94,15 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+   
+    <style name="style_attention_button_no">
+        <item name="android:background">@drawable/shape_hollow_yellow</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">@color/my_attention_yellow</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 
 </resources>

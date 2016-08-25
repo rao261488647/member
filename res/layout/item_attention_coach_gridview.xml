@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <com.frame.member.widget.RoundImageView 
+        android:id="@+id/iv_attention_gv_profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        round:type="round"
+        round:borderRadius="30dp"
+        android:src="@drawable/coach_profile"/>
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp">
+        <TextView android:id="@+id/tv_name_coach_gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#4e4e4e"
+            android:text="王教练"
+            />
+        <TextView android:id="@+id/tv_level_coach_gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#bfbfbf"
+            android:text="专职教练"
+            />
+        <TextView android:id="@+id/tv_attention_coach_gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#e7d038"
+            android:text="+关注"
+            android:background="@drawable/shape_hollow_yellow"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            />
+    </LinearLayout>
+    
+
+    
+
+</LinearLayout>

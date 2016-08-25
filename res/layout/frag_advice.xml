@@ -51,6 +51,15 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:padding="12dp"/>
+    <TextView android:id="@+id/tv_change_view_attention"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="改变"
+        android:gravity="center"/>
     </RelativeLayout>
     <FrameLayout android:id="@+id/fragment_content_advice"
         android:layout_width="match_parent"

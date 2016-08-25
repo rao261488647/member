@@ -11,8 +11,8 @@
         android:layout_marginTop="5dp">
         <com.frame.member.widget.RoundImageView 
             android:id="@+id/iv_person_profile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             round:type="circle"
             android:src="@drawable/coach_profile"
             android:layout_centerVertical="true"/>
@@ -45,24 +45,19 @@
              android:textColor="@color/black"
              android:text="LV.3"
              android:layout_toRightOf="@id/tv_name_person"
-             android:paddingLeft="5dp"
-             android:paddingRight="5dp"
+             android:paddingLeft="7dp"
+             android:paddingRight="7dp"
              android:layout_alignBottom="@id/tv_name_person"
              android:layout_marginLeft="10dp"/>
         </RelativeLayout>
         <TextView android:id="@+id/tv_attention_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_hollow_yellow"
-            android:textSize="12sp"
-            android:textColor="#e8ce39"
             android:text="+关注"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"/>
+            style="@style/style_attention_button_no"
+            />
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="200dp"

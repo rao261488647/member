@@ -280,6 +280,8 @@
              android:screenOrientation="portrait"/>
          <activity android:name=".activity.ClassDetailActivity"
              android:screenOrientation="portrait"/>
+          <activity android:name=".activity.AdviceDetailActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 

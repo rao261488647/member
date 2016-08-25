@@ -3,12 +3,10 @@ package com.frame.member.frag;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.frame.member.R;
 import com.frame.member.adapters.AdviceFindAdapter;
 import com.frame.member.adapters.CoachSearchAdapter.ImageAndText;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +54,7 @@ public class AdviceFindFrag extends BaseFrag{
 		list.add(new ImageAndText(R.drawable.coach_profile, "老王"));
 		adapter = new AdviceFindAdapter(mContext, list);
 		lv_advice_find.setAdapter(adapter);
+		
 	}
 
 	

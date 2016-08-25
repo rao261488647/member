@@ -26,12 +26,14 @@ import com.frame.member.activity.SearchCoachActivity;
 public class AdviceFrag extends BaseFrag implements OnClickListener {
 
 	private LinearLayout ll_title_left_booking,ll_title_right_booking;
-	private TextView tv_title_left_booking,tv_title_right_booking;
+	private TextView tv_title_left_booking,tv_title_right_booking,tv_change_view_attention;
 	private ImageView iv_search_coach;
 //	private BookingCourseOneFrag mBookingCourseOneFrag;
 	private AdviceFindFrag mAdviceFindFrag;
 	private AdviceAttentionFrag mAdviceAttentionFrag;
 	private FragmentManager mFragmentManager;
+	private BaseFrag mCurrentFrag;
+	private int rank = 0;
 
 	boolean isRight;
 	
@@ -61,12 +63,14 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		ll_title_right_booking = (LinearLayout) findViewById(R.id.ll_title_right_booking);
 		tv_title_left_booking = (TextView) findViewById(R.id.tv_title_left_booking);
 		tv_title_right_booking = (TextView) findViewById(R.id.tv_title_right_booking);
+		tv_change_view_attention = (TextView) findViewById(R.id.tv_change_view_attention);
 		iv_search_coach = (ImageView) findViewById(R.id.iv_search_coach);
 	}
 	private void initOnclick(){
 		ll_title_left_booking.setOnClickListener(this);
 		ll_title_right_booking.setOnClickListener(this);
 		iv_search_coach.setOnClickListener(this);
+		tv_change_view_attention.setOnClickListener(this);
 	}
 	//主逻辑代码
 	private void initProgress(){
@@ -83,6 +87,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		}else{
 			mTransaction.show(mAdviceFindFrag).commit();
 		}
+		mCurrentFrag = mAdviceFindFrag;
 			
 	}
 
@@ -100,6 +105,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 				}else{
 					mTransaction.show(mAdviceFindFrag).commit();
 				}
+				mCurrentFrag = mAdviceFindFrag;
 			}
 			break;
 		case R.id.ll_title_right_booking:
@@ -112,12 +118,22 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 				}else{
 					mTransaction.show(mAdviceAttentionFrag).commit();
 				}
+				mCurrentFrag = mAdviceAttentionFrag;
 			}
 			
 			break;
 		
 		case R.id.iv_search_coach:
 			startActivity(new Intent(getActivity(), SearchCoachActivity.class));
+			break;
+		case R.id.tv_change_view_attention:
+			if(mCurrentFrag == mAdviceAttentionFrag){
+				if(rank > 2)
+					rank = 0;
+				mAdviceAttentionFrag.setStates(rank++);
+			}else{
+				showToast("请在关注界面操作");
+			}
 			break;
 
 		

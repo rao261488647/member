@@ -85,7 +85,7 @@ public abstract class BaseActivity extends FragmentActivity {
 //		ll_title_right2 = (LinearLayout) findViewById(R.id.ll_title_right2);
 
 		iv_title_back = (ImageView) findViewById(R.id.iv_title_back);
-//		iv_title_right = (ImageView) findViewById(R.id.iv_title_right);
+		iv_title_right = (ImageView) findViewById(R.id.iv_title_right);
 //		iv_title_right2 = (ImageView) findViewById(R.id.iv_title_right2);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
