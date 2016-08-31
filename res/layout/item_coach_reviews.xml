@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <com.frame.member.widget.RoundImageView
+            android:id="@+id/iv_person_profile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/profile_example_1"
+            round:type="circle" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_person_profile" >
+
+            <TextView
+                android:id="@+id/tv_name_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="烫手的山芋"
+                android:textColor="#545454"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_time_release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tv_name_person"
+                android:layout_below="@id/tv_name_person"
+                android:layout_marginTop="1dp"
+                android:text="10分钟前"
+                android:textColor="#b2b2b2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_member_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_name_person"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_name_person"
+                android:background="@drawable/shape_member_level_yellow"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:text="LV.3"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_attention_button"
+            style="@style/style_attention_button_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="+关注" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp" >
+
+        <ImageView
+            android:id="@+id/iv_vedio_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coach_skill_example" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/icon_review_video" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_play_2x" />
+
+        <ImageView
+            android:id="@+id/iv_full_screen"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/full_screen_2x" />
+
+        <TextView
+            android:id="@+id/tv_vedio_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_full_screen"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="第一天滑雪感觉很不错,看我的动作是不是很帅"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <TextView
+            android:id="@+id/tv_comments_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:drawableLeft="@drawable/leave_msg_2x"
+            android:text="145"
+            android:textColor="#c0c0c0"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_favour_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_comments_num"
+            android:drawableLeft="@drawable/un_zan_2x"
+            android:text="1200"
+            android:textColor="#c0c0c0"
+            android:textSize="11sp" />
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_person_favor_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tv_favour_num" >
+
+            <LinearLayout
+                android:id="@+id/ll_person_favor_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_f3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" >
+
+            <com.frame.member.widget.RoundImageView
+                android:id="@+id/iv_profile_coach"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/coach_profile"
+                round:borderRadius="10dp"
+                round:type="round" />
+
+            <TextView
+                android:id="@+id/tv_name_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_profile_coach"
+                android:text="吴老四"
+                android:textColor="#363636"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_level_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_name_coach"
+                android:text="三级教练"
+                android:textColor="#bebebe"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_icon_coach"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_level_coach"
+                android:src="@drawable/icon_train_2x" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_comments_coach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/leave_msg_bg"
+            android:lineSpacingExtra="3dp"
+            android:padding="20dp"
+            android:text="几个基础动作做的都很标准，转弯时腿部力量稍显不足，平时可加强腿部肌肉的训练"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/tv_time_published"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="1小时前"
+                android:textColor="#b4b4b4"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_favour_coach_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="1200"
+                android:textColor="#b4b4b4"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/iv_coach_favour"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_favour_coach_num"
+                android:padding="5dp"
+                android:src="@drawable/zan_2x" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

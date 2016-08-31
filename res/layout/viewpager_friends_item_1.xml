@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    >
+    <com.frame.member.widget.RoundImageView 
+        android:id="@+id/iv_friends_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        round:type="circle"
+        android:src="@drawable/profile_friends"
+        android:layout_centerHorizontal="true"
+        />
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_friends_profile"
+        android:layout_marginTop="10dp">
+        <TextView android:id="@+id/tv_name_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:text="贾斯丁比伯"
+            />
+        <TextView android:id="@+id/tv_level_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_name_friends"
+            android:layout_toRightOf="@id/tv_name_friends"
+            android:layout_marginLeft="10dp"
+            android:textSize="11sp"
+            android:textColor="@color/white"
+            android:text="LV.6"/>
+    </RelativeLayout>
+    
+    
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp" >
+
+    <com.frame.member.widget.RoundImageView
+        android:id="@+id/iv_member_profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_example_1"
+        round:type="round"
+        round:borderRadius="20dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_member_profile" >
+        <RelativeLayout
+            android:id="@+id/rl_coach_attention_info" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我石化了"
+            android:textColor="#4e4e4e"
+            android:layout_centerVertical="true"
+            android:textSize="17sp" />
+
+       <TextView
+                android:id="@+id/tv_level_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_member_name"
+                android:text="三级教练"
+                android:textColor="#bebebe"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_icon_coach"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_level_coach"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_train_2x" />
+        </RelativeLayout>
+
+        
+
+        <TextView
+            android:id="@+id/tv_info_item_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_coach_attention_info"
+            android:layout_marginTop="5dp"
+            android:text="人称学疯子"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_attention_button"
+        style="@style/style_attention_button_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:text="已关注"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

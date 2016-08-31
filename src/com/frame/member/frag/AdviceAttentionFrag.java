@@ -3,6 +3,7 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 import com.frame.member.R;
+import com.frame.member.activity.MyAttentionActivity;
 import com.frame.member.adapters.AdviceFindAdapter;
 import com.frame.member.adapters.AttentionCoachAdapter;
 import com.frame.member.adapters.AttentionCoachAdapter.AttentionCoachHolder;
@@ -10,9 +11,12 @@ import com.frame.member.adapters.AttentionFriendsAdapter;
 import com.frame.member.adapters.AttentionFriendsAdapter.AttentionFriendsHolder;
 import com.frame.member.adapters.CoachSearchAdapter.ImageAndText;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -35,6 +39,7 @@ public class AdviceAttentionFrag extends BaseFrag {
 	private List<ImageAndText> list_iv_text = new ArrayList<ImageAndText>();
 	// STATES_NOATTENTION
 	private RelativeLayout rl_nothing_background,rl_content_advice_attention;
+	
 	// STATES_NOBODY
 	private ScrollView sv_attention_nobody;
 	private GridView gv_coach_instructor;
@@ -78,6 +83,13 @@ public class AdviceAttentionFrag extends BaseFrag {
 	private void initData() {
 		
 		changeViewByStates();
+		rl_content_advice_attention.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(mContext, MyAttentionActivity.class));
+			}
+		});
 	}
 	
 	private void initView() {

@@ -1,8 +1,6 @@
 package com.frame.member.activity;
 
-import java.sql.Date;
 import java.util.LinkedList;
-
 import com.frame.member.R;
 import com.frame.member.frag.CoachBookingDialogFrag;
 import com.frame.member.widget.calendar.CalendarCard;
@@ -10,13 +8,20 @@ import com.frame.member.widget.calendar.CalendarCard.OnCellClickListener;
 import com.frame.member.widget.calendar.CalendarViewAdapter;
 import com.frame.member.widget.calendar.CustomDate;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.PopupWindow.OnDismissListener;
 
 public class BookingDateActivity extends BaseActivity implements OnCellClickListener, OnClickListener {
 
@@ -77,6 +82,8 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 		}
 		adapter = new CalendarViewAdapter<CalendarCard>(views);
 		setViewPager();
+		
+		
 	}
 
 	private void setViewPager() {
@@ -101,6 +108,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			}
 		});
 	}
+	
 
 	/**
 	 * 计算方向

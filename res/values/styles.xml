@@ -104,5 +104,14 @@
         <item name="android:textColor">@color/my_attention_yellow</item>
         <item name="android:textSize">13sp</item>
     </style>
+    <style name="style_attention_button_yes">
+        <item name="android:background">@drawable/shape_solid_yellow</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">#505050</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 
 </resources>

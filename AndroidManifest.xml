@@ -282,6 +282,12 @@
              android:screenOrientation="portrait"/>
           <activity android:name=".activity.AdviceDetailActivity"
              android:screenOrientation="portrait"/>
+          <activity android:name=".activity.FriendsSpaceActivity"
+             android:screenOrientation="portrait"/>
+          <activity android:name=".activity.CoachSpaceActivity"
+             android:screenOrientation="portrait"/>
+          <activity android:name=".activity.MyAttentionActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 

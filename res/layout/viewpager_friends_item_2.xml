@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    >
+   <TextView 
+     android:id="@+id/tv_friends_info"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:textSize="14sp"
+     android:textColor="#d6d6d6"
+     android:layout_alignParentBottom="true"
+     android:layout_marginBottom="10dp"
+     android:gravity="center"
+     android:text="PageAdapter是一个抽象类，直接继承于Object，导入包android.support.v4.view.PagerAdapter即可使用。"/>
+    
+</RelativeLayout>

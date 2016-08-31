@@ -1,67 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="5dp" >
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <com.frame.member.widget.RoundImageView 
-            android:id="@+id/iv_person_profile"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            round:type="circle"
-            android:src="@drawable/profile_example_1"
-            android:layout_centerVertical="true"/>
-        <RelativeLayout android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_person_profile"
-            android:layout_marginLeft="10dp">
-            <TextView android:id="@+id/tv_name_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="#545454"
-                android:text="烫手的山芋"
-                />
-            <TextView android:id="@+id/tv_time_release"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#b2b2b2"
-                android:textSize="10sp"
-                android:layout_alignLeft="@id/tv_name_person"
-                android:layout_below="@id/tv_name_person"
-                android:layout_marginTop="1dp"
-                android:text="10分钟前"/>
-            <TextView
-             android:id="@+id/tv_member_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:background="@drawable/shape_member_level_yellow"
-             android:textSize="11sp"
-             android:textColor="@color/black"
-             android:text="LV.3"
-             android:layout_toRightOf="@id/tv_name_person"
-             android:paddingLeft="7dp"
-             android:paddingRight="7dp"
-             android:layout_alignBottom="@id/tv_name_person"
-             android:layout_marginLeft="10dp"/>
-        </RelativeLayout>
-        <TextView android:id="@+id/tv_attention_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+关注"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            style="@style/style_attention_button_no"
-            />
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
+    android:orientation="vertical" 
+    android:padding="5dp">
+    
+       <RelativeLayout android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="5dp">
+        >
         <ImageView android:id="@+id/iv_vedio_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

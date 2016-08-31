@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp" >
+
+    <com.frame.member.widget.RoundImageView
+        android:id="@+id/iv_member_profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_example_1" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_member_profile" >
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我石化了"
+            android:textColor="#4e4e4e"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_member_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_member_name"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_member_name"
+            android:background="@drawable/shape_member_level_yellow"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="LV.3"
+            android:textColor="#4e4e4e"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_info_item_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_member_name"
+            android:layout_below="@id/tv_member_name"
+            android:layout_marginTop="5dp"
+            android:text="人称学疯子"
+            android:textColor="#aaaaaa"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_attention_button"
+        style="@style/style_attention_button_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:text="已关注"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

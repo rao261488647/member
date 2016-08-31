@@ -11,4 +11,5 @@
 	    android:listSelector="@drawable/selector_listview_item_gray"
 	    android:dividerHeight="0.5dp"/>
 	
+	
 </LinearLayout>
