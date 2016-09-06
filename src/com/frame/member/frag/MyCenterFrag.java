@@ -95,8 +95,8 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		settingView = (ImageView)findViewById(R.id.my_settings);
 		myInfoBtn = (TextView)findViewById(R.id.my_text2);
 		my_relative_4 = (RelativeLayout)findViewById(R.id.my_relative_4);
-		my_relative_5 = (RelativeLayout)findViewById(R.id.my_relative_5);
-		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
+//		my_relative_5 = (RelativeLayout)findViewById(R.id.my_relative_5);
+//		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
 	}
 	/**
 	 * 点击监听事件设置
@@ -107,8 +107,8 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		settingView.setOnClickListener(this);
 		myInfoBtn.setOnClickListener(this);
 		my_relative_4.setOnClickListener(this);
-		my_relative_5.setOnClickListener(this);
-		my_relative_6.setOnClickListener(this);
+//		my_relative_5.setOnClickListener(this);
+//		my_relative_6.setOnClickListener(this);
 	}
 	
 	@Override
@@ -127,10 +127,10 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyMsgActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.my_relative_5: //我的收藏
-			intent = new Intent(getActivity(), MyCollectActivity.class);
-			this.startActivity(intent);
-			break;
+//		case R.id.my_relative_5: //我的收藏
+//			intent = new Intent(getActivity(), MyCollectActivity.class);
+//			this.startActivity(intent);
+//			break;
 		case R.id.my_relative_6: //消费流水
 			intent = new Intent(getActivity(), MyBillActivity.class);
 			this.startActivity(intent);
