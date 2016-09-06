@@ -3,11 +3,13 @@ package com.frame.member.frag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.BookingOneParser;
+import com.frame.member.Parsers.BookingOneSelectedParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
@@ -15,6 +17,9 @@ import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.CoachDetailActivity;
 import com.frame.member.adapters.BookingOneAdapter;
 import com.frame.member.bean.BookingOneResult;
+import com.frame.member.bean.BookingOneSelectedResult;
+import com.frame.member.bean.BookingOneSelectedResult.LevelChoice;
+import com.frame.member.bean.BookingOneSelectedResult.SkifieldChoice;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshGridView;
@@ -111,6 +116,7 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 	int page = 1;
 	private ArrayList<BookingOneResult.Coach> list_coach = 
 			new ArrayList<BookingOneResult.Coach>();
+	
 	private ArrayList<String> list_level = 
 			new ArrayList<String>(Arrays.asList(
 					"全部等级","专职导师","联盟高级","联盟中级","联盟初级"));
@@ -155,8 +161,10 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 			}
 		});
 		getData();
+		getSelectData();
 		
 	}
+	
 	private void getData(){
 		if(page < 1){
 			page = 1;
@@ -197,6 +205,36 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 				}else{
 					ptrg_booking.setMode(Mode.PULL_FROM_START);
 				}
+			}
+		}
+	};
+	//筛选接口
+	private void getSelectData(){
+		BaseParser<BookingOneSelectedResult> parser = new BookingOneSelectedParser();
+		HttpRequestImpl request = new HttpRequestImpl(getActivity(), 
+				AppConstants.APP_SORT_STUDENT +"/otocoachselect", parser);
+		((BaseActivity)getActivity()).getDataFromServer(request, callback1);
+	}
+	private DataCallback<BookingOneSelectedResult> callback1 = new DataCallback<BookingOneSelectedResult>() {
+
+		@Override
+		public void processData(BookingOneSelectedResult object, RequestResult result) {
+			if(object != null){
+				list_level.clear();
+				list_sdplate.clear();
+				list_sex.clear();
+				list_skifield.clear();
+				for(LevelChoice level:object.levelChoices){
+					list_level.add(level.levelName);
+				}
+				
+				for(SkifieldChoice field:object.skifieldChoices){
+					list_skifield.add(field.skifieldName);
+				}
+				list_sdplate.addAll(object.sdplateChoices);
+				list_sex.addAll(object.sexChoices);
+				
+				
 			}
 		}
 	};
