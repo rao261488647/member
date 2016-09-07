@@ -20,7 +20,7 @@ public class SPUtils {
 	// "account": "8",
 	// "gender": "男"
 	// }
-	public static final String KEY_USERID = "key_userid";
+//	public static final String KEY_USERID = "key_userid";
 	public static final String KEY_PHONENUM = "key_phonenum";
 	
 	//登录成功
@@ -32,7 +32,7 @@ public class SPUtils {
 	public static final String KEY_WXOPENID = "key_wxOpenId";			//微信openid
 	public static final String KEY_WXHEAD = "key_wxHead";				//微信头像
 	public static final String KEY_WXNICHENG = "key_wxNiCheng";			//微信昵称
-	public static final String KEY_MEMBERTEL = "key_memberTel";			//会员手机号
+//	public static final String KEY_MEMBERTEL = "key_memberTel";			//会员手机号
 	public static final String KEY_MEMBERNAME = "key_memberName";		//会员姓名
 	public static final String KEY_MEMBERSEX = "key_memberSex";			//会员性别
 	public static final String KEY_MEMBERSIGN = "key_memberSign";		//会员签名
@@ -56,6 +56,7 @@ public class SPUtils {
 	public static final String KEY_FRIENDSCOUNT = "key_friendsCount";
 	public static final String KEY_NICKNAME = "key_nickName";
 	public static final String KEY_TOKEN = "key_token";
+	public static final String KEY_TOKEN_LOGIN = "key_token_login";
 	public static final String KEY_DESC = "key_desc";
 	public static final String KEY_LOCATION = "key_location";
 	public static final String KEY_BRITHDAY = "key_brithday";

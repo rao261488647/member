@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
+  
+
+    
+    <ImageView android:id="@+id/iv_title_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/icon_login"/>
+    <RelativeLayout android:id="@+id/rl_name_person"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/iv_title_text"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_login_input_box"
+        >
+        
+       
+        <EditText android:id="@+id/et_name_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入您的昵称"
+            android:textColorHint="@color/gray_9b"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:maxLength="20"
+            android:layout_toRightOf="@id/tv_phone_mark"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:textCursorDrawable="@drawable/shape_et_cursor_white"
+            />
+        
+        
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/rl_birthday_person"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/rl_name_person"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_input_box"
+        >
+        
+        
+        <EditText android:id="@+id/et_birthday_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="选择您的年龄"
+            android:textColorHint="@color/gray_9b"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:maxLength="3"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:inputType="phone"
+            android:textCursorDrawable="@drawable/shape_et_cursor_white"
+            />
+        
+        
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/rl_sex_person"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/rl_birthday_person"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_login_input_box"
+        >
+        
+        
+        <TextView android:id="@+id/tv_sex_person_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:text="男"
+            android:layout_marginLeft="10dp"/>
+        <ImageView android:id="@+id/iv_sex_choice"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_sex_man"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
+        
+        
+    </RelativeLayout>
+    
+    
+    
+    <TextView android:id="@+id/tv_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_login_button_yellow"
+        android:textColor="@color/gray_5c"
+        android:textSize="16sp"
+        android:text="开启FLOWER SKI之旅"
+        android:gravity="center"
+        android:layout_below="@id/rl_sex_person"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@id/rl_birthday_person"
+        android:layout_alignRight="@id/rl_birthday_person"/>
+   
+  
+</RelativeLayout>

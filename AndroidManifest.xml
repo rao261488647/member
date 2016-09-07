@@ -288,6 +288,10 @@
              android:screenOrientation="portrait"/>
           <activity android:name=".activity.MyAttentionActivity"
              android:screenOrientation="portrait"/>
+          <activity android:name=".activity.PasswordConfigActivity"
+             android:screenOrientation="portrait"/>
+          <activity android:name=".activity.PersonInfoActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 

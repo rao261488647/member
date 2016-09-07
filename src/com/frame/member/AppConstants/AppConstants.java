@@ -31,6 +31,9 @@ public class AppConstants {
     public static final String CONTRACTINFO = "contractInfo";
     public static final String DISSCONTRACT = "dissContract";
     public static final String PAYFEELIST = "payFeeList";
+    
+    public static final String APP_ID = "app001h23c9h16";
+    public static final String APP_KEY = "e7d5fdb8180d25362292f84528395af5";
 	
 	/*获取当前系统的android系统版本*/
 	public static final String currentapiVersion = "Android " + android.os.Build.VERSION.RELEASE;
@@ -45,17 +48,7 @@ public class AppConstants {
 			+ "/image_cache";
 	public final static String IMAGE_CHCHE_COMPRESSED = CACHE_DIR
 			+ "/image_chche_compressed";
-	//QQid
-	public static final String QQ_ID="1104844553";
-	//微信id
-	public static final String WX_ID = "wxa687db4285341669";
-	public static final String WX_SECRET = "84d80894731ebfa5701e5da8a2871117";
-	//微博key
-	public static final String APP_KEY = "1660431280";
-	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
-	public static final String SCOPE = "email,direct_messages_read,direct_messages_write,"
-			+ "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
-			+ "follow_app_official_microblog," + "invitation_write";
+
 	
 	public static final String ACTION_LOGIN_SUCC = "action_login_succ";
 

@@ -12,10 +12,14 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.TokenParser;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
 import com.frame.member.bean.NotifyBean;
+import com.frame.member.bean.TokenResult;
 import com.frame.member.frag.BaseFrag;
 import com.frame.member.frag.InformFrag;
 import com.frame.member.frag.MainFrag;
@@ -210,7 +214,29 @@ public class MainActivity extends BaseActivity {
 		if (intent != null) {
 //			onNotifyClicked(intent);
 		}
+		getToken();
 	}
+
+	//获取token接口
+	private void getToken() {
+		BaseParser<TokenResult> parser = new TokenParser();
+		HttpRequestImpl request = new HttpRequestImpl(MainActivity.this, 
+				AppConstants.APP_SORT_STUDENT+"/gettoken", parser);
+		request.addParam("mobile", (String) SPUtils.getAppSpUtil()
+					.get(MainActivity.this, SPUtils.KEY_PHONENUM, ""))
+				.addParam("appid", AppConstants.APP_ID)
+				.addParam("appkey", AppConstants.APP_KEY);
+		getDataFromServer(request, callback);
+	}
+	private DataCallback<TokenResult> callback = new DataCallback<TokenResult>() {
+
+		@Override
+		public void processData(TokenResult object, RequestResult result) {
+			if(object != null){
+				SPUtils.getAppSpUtil().put(MainActivity.this, SPUtils.KEY_TOKEN, object.token);
+			}
+		}
+	};
 
 	private void restoreTitle() {
 		if (savedInstanceState != null)

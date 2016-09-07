@@ -110,7 +110,7 @@ public class RegActivity extends BaseActivity implements OnClickListener {
 							//保存注册信息
 							String uid = object.optString("uid");
 							if(!TextUtils.isEmpty(uid)){
-								SPUtils.getAppSpUtil().put(RegActivity.this, SPUtils.KEY_USERID, uid);
+								SPUtils.getAppSpUtil().put(RegActivity.this, SPUtils.KEY_MEMBERUSERID, uid);
 								SPUtils.getAppSpUtil().put(RegActivity.this, SPUtils.KEY_PHONENUM, phone_reg);
 								Intent intent = new Intent(RegActivity.this,MainActivity.class);
 								startActivity(intent);
