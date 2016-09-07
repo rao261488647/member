@@ -41,9 +41,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 
 	private ImageView settingView;
 	private TextView myInfoBtn; //编辑个人信息
-	private RelativeLayout my_relative_4;//消息
-	private RelativeLayout my_relative_5;//我的收藏
-	private RelativeLayout my_relative_6;//消费流水
+	private RelativeLayout my_layout_msg;//消息
+	private RelativeLayout my_layout_collection;//我的收藏
+	private RelativeLayout my_layout_cost;//消费流水
 	private boolean flag=true;
 
 	public static MyCenterFrag newInstance(String title) {
@@ -94,9 +94,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private void findViewByIds() {
 		settingView = (ImageView)findViewById(R.id.my_settings);
 		myInfoBtn = (TextView)findViewById(R.id.my_text2);
-		my_relative_4 = (RelativeLayout)findViewById(R.id.my_relative_4);
-//		my_relative_5 = (RelativeLayout)findViewById(R.id.my_relative_5);
-//		my_relative_6 = (RelativeLayout)findViewById(R.id.my_relative_6);
+		my_layout_msg = (RelativeLayout)findViewById(R.id.my_layout_msg);
+		my_layout_collection = (RelativeLayout)findViewById(R.id.my_layout_collection);
+		my_layout_cost = (RelativeLayout)findViewById(R.id.my_layout_cost);
 	}
 	/**
 	 * 点击监听事件设置
@@ -106,9 +106,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private void setOnClickListener(){
 		settingView.setOnClickListener(this);
 		myInfoBtn.setOnClickListener(this);
-		my_relative_4.setOnClickListener(this);
-//		my_relative_5.setOnClickListener(this);
-//		my_relative_6.setOnClickListener(this);
+		my_layout_msg.setOnClickListener(this);
+		my_layout_collection.setOnClickListener(this);
+		my_layout_cost.setOnClickListener(this);
 	}
 	
 	@Override
@@ -123,15 +123,15 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyInfoActivity.class);
 			this.startActivity(intent);
 			break;
-		case R.id.my_relative_4: //消息
+		case R.id.my_layout_msg: //消息
 			intent = new Intent(getActivity(), MyMsgActivity.class);
 			this.startActivity(intent);
 			break;
-//		case R.id.my_relative_5: //我的收藏
-//			intent = new Intent(getActivity(), MyCollectActivity.class);
-//			this.startActivity(intent);
-//			break;
-		case R.id.my_relative_6: //消费流水
+		case R.id.my_layout_collection: //我的收藏
+			intent = new Intent(getActivity(), MyCollectActivity.class);
+			this.startActivity(intent);
+			break;
+		case R.id.my_layout_cost: //消费流水
 			intent = new Intent(getActivity(), MyBillActivity.class);
 			this.startActivity(intent);
 			break;

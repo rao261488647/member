@@ -41,14 +41,16 @@
 	        android:textSize="15sp"
 	        android:text="1628 积分"
 	        />
-	    <ImageView 
-	        android:id="@+id/my_img2"
-	        android:layout_width="60dp"
-	        android:layout_height="28dp"
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentRight="true"
 	        android:layout_marginTop="20dp"
-	        android:src="@color/blue"
+	        android:padding="5dp"
+	        android:background="#1E90FF"
+	        android:textColor="@color/white"
+	        android:text="VIP蓝卡"
 	        />
 	    <TextView 
 	        android:id="@+id/my_text1"
@@ -104,30 +106,35 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="20sp" >
-
-	    <RelativeLayout
+		<RelativeLayout
 	        android:id="@+id/my_relative_1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_centerHorizontal="true" >
-
-	        <ImageButton
-	            android:id="@+id/my_image_6"
-	            android:layout_width="65dp"
-	            android:layout_height="65dp"
-            	android:background="@drawable/selector_my"
-	            android:src="@drawable/my_icon_clock" />
-
-	        <TextView
-	            android:id="@+id/my_text_3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_image_6"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="15sp"
-	            android:text="预约"
-	            android:textColor="@color/my_text_gray"
-	            android:textSize="14dp" />
+		    <RelativeLayout
+	            android:id="@+id/my_layout_clock"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+	
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_clock" />
+	
+		    </RelativeLayout>
+		       <TextView
+		            android:id="@+id/my_text_3"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_below="@id/my_layout_clock"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="15sp"
+		            android:text="预约"
+		            android:textColor="@color/my_text_gray"
+		            android:textSize="14dp" /> 
 	    </RelativeLayout>
 
 	    <RelativeLayout
@@ -136,19 +143,24 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginRight="35sp"
 	        android:layout_toLeftOf="@id/my_relative_1" >
-
-	        <ImageButton
-	            android:id="@+id/my_img_7"
-	            android:layout_width="65dp"
-	            android:layout_height="65dp"
-            	android:background="@drawable/selector_my"
-	            android:src="@drawable/my_icon_study" >
-			</ImageButton> 
+			<RelativeLayout
+	            android:id="@+id/my_layout_study"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_study" />
+			    
+			</RelativeLayout>
 	        <TextView
 	            android:id="@+id/my_text_4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_img_7"
+	            android:layout_below="@id/my_layout_study"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="15sp"
 	            android:text="学习"
@@ -162,19 +174,26 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="35sp"
 	        android:layout_toRightOf="@id/my_relative_1" >
-
-	        <ImageButton
-	            android:id="@+id/my_img_8"
-	            android:layout_width="65dp"
-	            android:layout_height="65dp"
-            	android:background="@drawable/selector_my"
-	            android:src="@drawable/my_icon_video" />
+	        <RelativeLayout
+	            android:id="@+id/my_layout_video"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+	
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_video" />
+	
+		    </RelativeLayout>
 
 	        <TextView
 	            android:id="@+id/my_text_5"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_img_8"
+	            android:layout_below="@id/my_layout_video"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="15sp"
 	            android:text="视频"
@@ -190,18 +209,26 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="15sp" >
 
-	        <ImageButton
-	            android:id="@+id/my_img_9"
-	            android:layout_width="65dp"
-		        android:layout_height="65dp"
-		        android:background="@drawable/selector_my"
-	            android:src="@drawable/my_icon_msg" />
+	        <RelativeLayout
+	            android:id="@+id/my_layout_msg"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+	
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_msg" />
+	
+		    </RelativeLayout>
 
 	        <TextView
 	            android:id="@+id/my_text_6"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_img_9"
+	            android:layout_below="@id/my_layout_msg"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="15sp"
 	            android:text="消息"
@@ -217,19 +244,24 @@
 	        android:layout_alignRight="@id/my_relative_3"
 	        android:layout_below="@id/my_relative_3"
 	        android:layout_marginTop="15sp" >
-
-	        <ImageButton
-	            android:id="@+id/my_img_11"
-	            android:layout_width="65dp"
-		        android:layout_height="65dp"
-		        android:background="@drawable/selector_my"
-	            android:src="@drawable/my_icon_cost" />
-
+			<RelativeLayout
+	            android:id="@+id/my_layout_cost"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_cost" />
+	
+		    </RelativeLayout>
 	        <TextView
 	            android:id="@+id/my_text_8"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_img_11"
+	            android:layout_below="@id/my_layout_cost"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="15sp"
 	            android:text="流水"
@@ -243,17 +275,25 @@
 	        android:layout_alignLeft="@+id/my_relative_2"
 	        android:layout_below="@+id/my_relative_2"
 	        android:layout_marginTop="15sp" >
-		    <ImageButton
-		        android:id="@+id/my_img_10"
-		        android:layout_width="65dp"
-		        android:layout_height="65dp"
-		        android:background="@drawable/selector_my"
-		        android:src="@drawable/my_icon_collection" />
+		    <RelativeLayout
+	            android:id="@+id/my_layout_collection"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+	           	android:background="@drawable/selector_my"
+		        >
+	
+		        <ImageView
+		            android:layout_width="35dp"
+		            android:layout_height="35dp"
+		            android:src="@drawable/my_icon_collection" />
+	
+		    </RelativeLayout>
 		    <TextView
 	            android:id="@+id/my_text_7"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@id/my_img_10"
+	            android:layout_below="@id/my_layout_collection"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="15sp"
 	            android:text="收藏"
