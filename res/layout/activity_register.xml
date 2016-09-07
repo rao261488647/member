@@ -113,36 +113,56 @@
         
         
     </RelativeLayout>
-    <RelativeLayout android:id="@+id/rl_login_password"
+    
+    <RelativeLayout android:id="@+id/rl_code"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ll_login_input_box"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape_login_input_box"
-        >
+        android:layout_alignLeft="@id/ll_login_input_box">
         
-        
-        <EditText android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入密码"
+         <EditText android:id="@+id/et_code"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:hint="请输入验证码"
             android:textColorHint="@color/gray_9b"
             android:textColor="@color/white"
             android:textSize="15sp"
-            android:maxLength="20"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:inputType="numberPassword"
+            android:maxLength="10"
+            android:background="@drawable/shape_login_input_box"
+            android:paddingLeft="20dp"
+            android:inputType="number"
             android:textCursorDrawable="@drawable/shape_et_cursor_white"
             />
-        
-        
+    <TextView android:id="@+id/tv_code_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/et_code"
+        android:layout_marginLeft="30dp"
+        android:text="发送验证码"
+        android:layout_centerVertical="true"/>
     </RelativeLayout>
-    
-    
+    <LinearLayout android:id="@+id/ll_register_agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_login_button"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/gray_9b"
+            android:text="点击注册代表已经同意"/>
+        <TextView android:id="@+id/tv_register_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="#2d6487"
+            android:text="《郝世花滑雪服务协议》"/>
+    </LinearLayout>
     
     <TextView android:id="@+id/tv_login_button"
         android:layout_width="match_parent"
@@ -150,9 +170,9 @@
         android:background="@drawable/shape_login_button_yellow"
         android:textColor="@color/gray_5c"
         android:textSize="16sp"
-        android:text="登录"
+        android:text="注册"
         android:gravity="center"
-        android:layout_below="@id/rl_login_password"
+        android:layout_below="@id/rl_code"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:layout_alignLeft="@id/ll_login_input_box"
