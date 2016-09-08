@@ -18,7 +18,7 @@ public class RegisterParser extends BaseParser<RegisterResult> {
 				JSONObject obj_Json = result_obj.optJSONObject("data");
 				result.token = obj_Json.optString("token");
 				result.mobile = obj_Json.optString("mobile");
-				result.memberUserId = obj_Json.optString("memberUserId");
+				result.memberUserId = obj_Json.optInt("memberUserId");
 			}
 			result.message = result_obj.optString("message");
 		}

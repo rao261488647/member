@@ -1,14 +1,10 @@
 package com.frame.member.activity;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.TextView;
 
 import com.frame.member.R;

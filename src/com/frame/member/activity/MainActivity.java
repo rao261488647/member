@@ -15,9 +15,13 @@ import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Parsers.TokenParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.NotifyBean;
 import com.frame.member.bean.TokenResult;
 import com.frame.member.frag.BaseFrag;
@@ -304,5 +308,6 @@ public class MainActivity extends BaseActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
 
 }

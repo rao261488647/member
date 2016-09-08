@@ -7,21 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
-import com.frame.member.Parsers.LoginCodeParser;
 import com.frame.member.Parsers.RegisterLoginParser;
-import com.frame.member.Parsers.RegisterParser;
-import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.Utils.TimeCount;
-import com.frame.member.bean.LoginCodeResult;
 import com.frame.member.bean.RegisterLoginResult;
-import com.frame.member.bean.RegisterResult;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
 

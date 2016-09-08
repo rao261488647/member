@@ -84,12 +84,12 @@ public class PersonInfoActivity extends BaseActivity implements OnClickListener{
 	private void setMyinfo() {
 		BaseParser<BaseBean> parser = new NoBackParser();
 		HttpRequestImpl request = new HttpRequestImpl(
-				this, AppConstants.APP_SORT_STUDENT+"/setpwd", parser);
+				this, AppConstants.APP_SORT_STUDENT+"/myinputinfo", parser);
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
 			.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN_LOGIN, ""))
 			.addParam("nickName", et_name_person.getText().toString())
 			.addParam("sex", sex)
-			.addParam("birth", et_birthday_person.getText().toString());
+			.addParam("age", et_birthday_person.getText().toString());
 		getDataFromServer(request, callBack);
 	}
 	private DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
@@ -97,7 +97,6 @@ public class PersonInfoActivity extends BaseActivity implements OnClickListener{
 		@Override
 		public void processData(BaseBean object, RequestResult result) {
 			if(object != null){
-				showToast(object.message);
 				toLogin();
 				
 				
@@ -122,7 +121,6 @@ public class PersonInfoActivity extends BaseActivity implements OnClickListener{
 				if(result == RequestResult.Success){
 					if(null != object){
 						if("200".equals(object.code)){
-							showToast(object.message);
 							
 								SPUtils.getAppSpUtil().put(
 										PersonInfoActivity.this, SPUtils.KEY_MEMBERUSERID, object.memberUserId);

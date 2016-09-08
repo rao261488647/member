@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -26,6 +27,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	EditText et_phone_num,et_code;
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
 	TimeCount timer;
+	private LinearLayout ll_back_login;
 
 	@Override
 	protected void loadViewLayout() {
@@ -48,6 +50,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 //		rl_title_right = (RelativeLayout) findViewById(R.id.rl_title_right);
 //		view_title_left = findViewById(R.id.view_title_left);
 //		view_title_right = findViewById(R.id.view_title_right);
+		ll_back_login = (LinearLayout) findViewById(R.id.ll_back_login);
 	}
 
 	@Override
@@ -57,6 +60,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		iv_login_qq.setOnClickListener(this);
 		tv_code_send.setOnClickListener(this);
 		tv_login_button.setOnClickListener(this);
+		ll_back_login.setOnClickListener(this);
 		
 	}
 
@@ -101,6 +105,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			}
 			
 			
+			break;
+		case R.id.ll_back_login:
+			finish();
 			break;
 //		case R.id.tv_login2_button:		//登录
 //			if(TextUtils.isEmpty(et_phone_num.getText().toString())){
@@ -188,7 +195,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 						SPUtils.getAppSpUtil().put(
 								RegisterActivity.this, SPUtils.KEY_TOKEN_LOGIN, object.token);
 						SPUtils.getAppSpUtil().put(
-								RegisterActivity.this, SPUtils.KEY_MEMBERUSERID, object.memberUserId);
+								RegisterActivity.this, SPUtils.KEY_MEMBERUSERID, ""+object.memberUserId);
 						startActivity(new Intent(RegisterActivity.this,PasswordConfigActivity.class));
 					}
 				}

@@ -15,7 +15,7 @@ public class RegisterResult extends BaseBean {
 	
 	public String token;
 	public String mobile;
-	public String memberUserId;
+	public int memberUserId;
 	
 	@Override
 	public String toString() {
