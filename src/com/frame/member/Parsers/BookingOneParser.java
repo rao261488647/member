@@ -30,8 +30,10 @@ public class BookingOneParser extends BaseParser<BookingOneResult> {
 						coach.coachId = jsonObject.optString("coachId");
 						coach.coachName = jsonObject.optString("coachName");
 						coach.headImg = jsonObject.optString("headImg");
-						coach.badgeName = jsonObject.optString("badgeName");
+						coach.coachBadge = jsonObject.optString("coachBadge");
 						coach.levelName = jsonObject.optString("levelName");
+						coach.meetNum = jsonObject.optString("meetNum");
+						coach.coachStar = (float) jsonObject.optDouble("coachStar");
 						result.coaches.add(coach);
 					}
 				}

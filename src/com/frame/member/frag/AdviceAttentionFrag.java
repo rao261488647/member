@@ -10,6 +10,8 @@ import com.frame.member.adapters.AttentionCoachAdapter.AttentionCoachHolder;
 import com.frame.member.adapters.AttentionFriendsAdapter;
 import com.frame.member.adapters.AttentionFriendsAdapter.AttentionFriendsHolder;
 import com.frame.member.adapters.CoachSearchAdapter.ImageAndText;
+import com.frame.member.bean.AdviceFindResult;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 
 import android.content.Intent;
@@ -36,7 +38,7 @@ public class AdviceAttentionFrag extends BaseFrag {
 	private PullToRefreshListView lv_advice_attention;
 	private LinearLayout ll_content_advice_attention;
 	private AdviceFindAdapter adapter;
-	private List<ImageAndText> list_iv_text = new ArrayList<ImageAndText>();
+	private List<AdviceFindResult> list_iv_text = new ArrayList<AdviceFindResult>();
 	// STATES_NOATTENTION
 	private RelativeLayout rl_nothing_background,rl_content_advice_attention;
 	
@@ -138,10 +140,10 @@ public class AdviceAttentionFrag extends BaseFrag {
 			ll_content_advice_attention.setVisibility(View.VISIBLE);
 			rl_content_advice_attention.setVisibility(View.VISIBLE);
 			lv_advice_attention.setVisibility(View.VISIBLE);
-			list_iv_text.clear();
-			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老李"));
-			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老孙"));
-			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老王"));
+//			list_iv_text.clear();
+//			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老李"));
+//			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老孙"));
+//			list_iv_text.add(new ImageAndText(R.drawable.coach_profile, "老王"));
 			adapter = new AdviceFindAdapter(mContext, list_iv_text);
 			lv_advice_attention.setAdapter(adapter);
 			

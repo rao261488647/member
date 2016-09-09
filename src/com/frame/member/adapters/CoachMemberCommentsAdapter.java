@@ -3,7 +3,9 @@ package com.frame.member.adapters;
 import java.util.ArrayList;
 import java.util.List;
 import com.frame.member.R;
+import com.frame.member.TTApplication;
 import com.frame.member.activity.FriendsSpaceActivity;
+import com.frame.member.bean.CoachMembersCommentsResult;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +19,9 @@ import android.widget.TextView;
 
 public class CoachMemberCommentsAdapter extends BaseAdapter{
 	private Context mContext;
-	private List<String> list_name = new ArrayList<String>();
+	private List<CoachMembersCommentsResult> list_name = new ArrayList<CoachMembersCommentsResult>();
 	
-	public CoachMemberCommentsAdapter(Context context,List<String> list_name){
+	public CoachMemberCommentsAdapter(Context context,List<CoachMembersCommentsResult> list_name){
 		this.mContext = context;
 		this.list_name = list_name;
 	}
@@ -30,7 +32,7 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public String getItem(int position) {
+	public CoachMembersCommentsResult getItem(int position) {
 		return list_name.get(position);
 	}
 
@@ -42,16 +44,24 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View view, ViewGroup viewGroup) {
 		ViewHolder holder = new ViewHolder();
+		CoachMembersCommentsResult result = list_name.get(position);
 		if(view == null){
 			view = LayoutInflater.from(mContext).inflate(
 					R.layout.item_coach_member_comments, null);
 			holder.tv_member_name = (TextView) view.findViewById(R.id.tv_member_name);
+			holder.tv_member_level = (TextView) view.findViewById(R.id.tv_member_level);
+			holder.tv_info_item_detail = (TextView) view.findViewById(R.id.tv_info_item_detail);
+			holder.tv_time_publish = (TextView) view.findViewById(R.id.tv_time_publish);
 			holder.iv_member_profile = (ImageView) view.findViewById(R.id.iv_member_profile);
 			view.setTag(holder);
 		}else{
 			holder = (ViewHolder) view.getTag();
 		}
-		holder.tv_member_name.setText(list_name.get(position));
+		holder.tv_member_name.setText(result.memberName);
+		holder.tv_member_level.setText("LV."+result.appHeadThumbnail);
+		holder.tv_info_item_detail.setText(result.commentContent);
+		holder.tv_time_publish.setText(result.commentTime);
+		TTApplication.getInstance().disPlayImageDef(result.appHeadThumbnail, holder.iv_member_profile);
 		holder.iv_member_profile.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -60,13 +70,11 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 			}
 		});
 		
-		
-		
 		return view;
 	}
 	
 	private static class ViewHolder{
-		private TextView tv_member_name; 
+		private TextView tv_member_name,tv_member_level,tv_info_item_detail,tv_time_publish; 
 		private ImageView iv_member_profile;
 	}
 	

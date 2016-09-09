@@ -3,6 +3,7 @@ package com.frame.member.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -23,7 +24,7 @@ import com.frame.member.bean.RegisterResult;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 
-	TextView tv_code_send,tv_login_button;
+	TextView tv_code_send,tv_login_button,tv_register_agreement;
 	EditText et_phone_num,et_code;
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
 	TimeCount timer;
@@ -38,6 +39,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	protected void findViewById() {
 		tv_code_send = (TextView) findViewById(R.id.tv_code_send);
 		tv_login_button = (TextView) findViewById(R.id.tv_login_button);
+		tv_register_agreement = (TextView) findViewById(R.id.tv_register_agreement);
 //		tv_login2_button = (TextView) findViewById(R.id.tv_login2_button);
 //		tv_title_left_login = (TextView) findViewById(R.id.tv_title_left_login);
 //		tv_title_right_login = (TextView) findViewById(R.id.tv_title_right_login);
@@ -61,6 +63,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		tv_code_send.setOnClickListener(this);
 		tv_login_button.setOnClickListener(this);
 		ll_back_login.setOnClickListener(this);
+		tv_register_agreement.setOnClickListener(this);
 		
 	}
 
@@ -108,6 +111,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.ll_back_login:
 			finish();
+			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+			break;
+		case R.id.tv_register_agreement:
+			startActivity(new Intent(RegisterActivity.this,RegisterAgreementActivity.class));
 			break;
 //		case R.id.tv_login2_button:		//登录
 //			if(TextUtils.isEmpty(et_phone_num.getText().toString())){
@@ -202,6 +209,16 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	};
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			finish();
+			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+			
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 	
 
 

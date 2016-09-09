@@ -65,7 +65,7 @@
         <ImageView android:id="@+id/iv_vedio_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/coach_skill_example"/>
         <ImageView android:layout_width="20dp"
             android:layout_height="20dp"
@@ -123,8 +123,9 @@
             android:layout_toLeftOf="@id/tv_favour_num">
             <LinearLayout android:id="@+id/ll_person_favor_profile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"></LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>
 

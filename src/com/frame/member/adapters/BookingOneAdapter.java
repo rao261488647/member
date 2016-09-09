@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class BookingOneAdapter extends BaseAdapter{
@@ -50,6 +51,8 @@ public class BookingOneAdapter extends BaseAdapter{
 			holder.iv_cover_booking_one = (ImageView) view.findViewById(R.id.iv_cover_booking_one);
 			holder.tv_name_coach = (TextView) view.findViewById(R.id.tv_name_coach);
 			holder.tv_title_coach = (TextView) view.findViewById(R.id.tv_title_coach);
+			holder.tv_num_meet = (TextView) view.findViewById(R.id.tv_num_meet);
+			holder.rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
 			view.setTag(holder);
 		}else{
 			holder = (ViewHolder) view.getTag();
@@ -60,11 +63,14 @@ public class BookingOneAdapter extends BaseAdapter{
 		TTApplication.getInstance().disPlayImageDef(list_coach.get(position).headImg, holder.iv_cover_booking_one);
 		holder.tv_name_coach.setText(list_coach.get(position).coachName);
 		holder.tv_title_coach.setText(list_coach.get(position).levelName);
+		holder.tv_num_meet.setText("累计被约"+list_coach.get(position).meetNum+"次");
+		holder.rb_booking_one.setRating(list_coach.get(position).coachStar);
 		return view;
 	}
 	static class ViewHolder{
 		ImageView iv_cover_booking_one;
-		TextView tv_name_coach,tv_title_coach;
+		TextView tv_name_coach,tv_title_coach,tv_num_meet;
+		RatingBar rb_booking_one;
 	}
 
 }

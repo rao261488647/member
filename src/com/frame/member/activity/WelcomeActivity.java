@@ -63,6 +63,7 @@ public class WelcomeActivity extends BaseActivity {
 
 				if (!TextUtils.isEmpty((String) SPUtils.getAppSpUtil().get(WelcomeActivity.this,
 						SPUtils.KEY_MEMBERUSERID, ""))) {
+					
 					goMainPage();
 				} else {
 //					Intent intent = new Intent(WelcomeActivity.this,

@@ -3,15 +3,29 @@ package com.frame.member.activity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import com.frame.member.R;
+import com.frame.member.TTApplication;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.AdviceDetailParser;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.CoachCommentsParser;
+import com.frame.member.Parsers.CoachMembersCommentsParser;
+import com.frame.member.Utils.CommonUtil;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.adapters.CoachCommentsAdapter;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
+import com.frame.member.bean.AdviceDetailResult;
+import com.frame.member.bean.AdviceDetailResult.Friends;
+import com.frame.member.bean.CoachCommentsResult;
+import com.frame.member.bean.CoachMembersCommentsResult;
+import com.frame.member.widget.RoundImageView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,14 +38,17 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
 
 public class AdviceDetailActivity extends BaseActivity {
 
-	private ListView lv_member_comments;
+	private ListView lv_member_comments,lv_coach_comments;
 	private CoachMemberCommentsAdapter mAdapter;
+	private CoachCommentsAdapter mCoachAdapter;
 	private PopupWindow mPop;
 	private View container_pop;
 	private ListView lv_booking_pop;
@@ -39,7 +56,10 @@ public class AdviceDetailActivity extends BaseActivity {
 	private ArrayAdapter<String> adapter_list_share ;
 	private View view_black_filter;
 	private List<String> list_str = new ArrayList<String>();
-	private ImageView iv_person_profile;
+	private ImageView iv_person_profile,iv_vedio_cover;
+	private TextView tv_name_person,tv_time_release,tv_member_level,tv_attention_button,
+					tv_content_advice_detail,tv_comments_num,tv_favour_num;
+	private LinearLayout ll_person_favor_profile; 
 
 	@Override
 	protected void loadViewLayout() {
@@ -49,8 +69,19 @@ public class AdviceDetailActivity extends BaseActivity {
 	@Override
 	protected void findViewById() {
 		lv_member_comments = (ListView) findViewById(R.id.lv_member_comments);
+		lv_coach_comments = (ListView) findViewById(R.id.lv_coach_comments);
 		view_black_filter = findViewById(R.id.view_black_filter);
 		iv_person_profile = (ImageView) findViewById(R.id.iv_person_profile);
+		iv_vedio_cover = (ImageView) findViewById(R.id.iv_vedio_cover);
+		tv_name_person = (TextView) findViewById(R.id.tv_name_person);
+		tv_time_release = (TextView) findViewById(R.id.tv_time_release);
+		tv_member_level = (TextView) findViewById(R.id.tv_member_level);
+		tv_attention_button = (TextView) findViewById(R.id.tv_attention_button);
+		tv_content_advice_detail = (TextView) findViewById(R.id.tv_content_advice_detail);
+		tv_comments_num = (TextView) findViewById(R.id.tv_comments_num);
+		tv_favour_num = (TextView) findViewById(R.id.tv_favour_num);
+		ll_person_favor_profile = (LinearLayout) findViewById(R.id.ll_person_favor_profile);
+		
 	}
 
 	@Override
@@ -62,13 +93,7 @@ public class AdviceDetailActivity extends BaseActivity {
 				showPopwindow(1);
 			}
 		});
-		iv_person_profile.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(AdviceDetailActivity.this, CoachSpaceActivity.class));
-			}
-		});
+		
 	}
 
 	@Override
@@ -76,7 +101,7 @@ public class AdviceDetailActivity extends BaseActivity {
 		tv_title.setText("动态详情");
 		iv_title_right.setImageResource(R.drawable.btn_more_normal3x);
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
-		mAdapter = new CoachMemberCommentsAdapter(this, Arrays.asList("李欢", "李兴策", "福城阳", "周杰伦"));
+//		mAdapter = new CoachMemberCommentsAdapter(this, Arrays.asList("李欢", "李兴策", "福城阳", "周杰伦"));
 		lv_member_comments.setAdapter(mAdapter);
 		lv_member_comments.setOnItemClickListener(new OnItemClickListener() {
 
@@ -93,7 +118,129 @@ public class AdviceDetailActivity extends BaseActivity {
 		adapter_list = new ArrayAdapter<String>(
 				this, R.layout.item_pop_list,list_str);
 		lv_booking_pop.setAdapter(adapter_list);
+		
+		getData();
+		getCoachComments();
+		getMembersComments();
+	}
+	//获取主数据
+	private void getData(){
+		BaseParser<AdviceDetailResult> parser = new AdviceDetailParser();
+		HttpRequestImpl request = new HttpRequestImpl(
+				this, AppConstants.APP_SORT_STUDENT+"/dynamicdetail", parser);
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		getDataFromServer(request, callBack);
+	}
+	private DataCallback<AdviceDetailResult> callBack = new DataCallback<AdviceDetailResult>() {
 
+		@Override
+		public void processData(AdviceDetailResult object, RequestResult result) {
+			if(object != null){
+				TTApplication.getInstance().disPlayImageDef(object.user.appHeadThumbnail, iv_person_profile);
+				iv_person_profile.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						
+					}
+				});
+				TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_vedio_cover);
+				tv_name_person.setText(object.user.memberName);
+				tv_time_release.setText(object.sendTime);
+				tv_member_level.setText("LV."+object.user.memberGrade);
+				if("0".equals(object.followAuthor)){
+					tv_attention_button.setText("+关注");
+					tv_attention_button.setBackgroundResource(R.drawable.shape_hollow_yellow);
+					tv_attention_button.setTextColor(0xffe8ce39);
+				}else{
+					tv_attention_button.setText("已关注");
+					tv_attention_button.setBackgroundResource(R.drawable.shape_solid_yellow);
+					tv_attention_button.setTextColor(0xff505050);
+				}
+				tv_content_advice_detail.setText(object.subjectName);
+				tv_comments_num.setText(object.commentNum);
+				tv_favour_num.setText(object.praiseNum);
+				
+				//动态加载点赞头像
+				if(object.list_friends != null && object.list_friends.size() > 0){
+					ll_person_favor_profile.removeAllViews();
+					int rank = 0;
+					for(Friends friend:object.list_friends){
+						RoundImageView child = new RoundImageView(AdviceDetailActivity.this);
+						LayoutParams params = new LayoutParams(
+								CommonUtil.dip2px(AdviceDetailActivity.this, 35),
+								CommonUtil.dip2px(AdviceDetailActivity.this, 35));
+						if(rank != 0){
+							params.leftMargin = CommonUtil.dip2px(AdviceDetailActivity.this, -5);
+							
+						}
+						child.setImageResource(R.drawable.profile_example_1);
+						if(!TextUtils.isEmpty(friend.appHeadThumbnail)){
+							TTApplication.getInstance().disPlayImageDef(
+									friend.appHeadThumbnail, child);
+						}
+						ll_person_favor_profile.addView(child,params);
+						rank++;
+					}
+				}
+				
+			}
+		}
+	};
+	// 获取教练评论数据
+	private void getCoachComments(){
+		BaseParser<List<CoachCommentsResult>> parser = new CoachCommentsParser();
+		HttpRequestImpl request = new HttpRequestImpl(
+				this, AppConstants.APP_SORT_STUDENT+"/coachcomment", parser);
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		getDataFromServer(request, callback1);
+	}
+	private DataCallback<List<CoachCommentsResult>> callback1 = 
+			new DataCallback<List<CoachCommentsResult>>() {
+
+		@Override
+		public void processData(List<CoachCommentsResult> object, RequestResult result) {
+			if(object != null){
+				notifyCoachAdapter(object);
+			}
+		}
+	}; 
+	//刷新教练评论的数据
+	private void notifyCoachAdapter(List<CoachCommentsResult> object){
+		if(mCoachAdapter == null){
+			mCoachAdapter = new CoachCommentsAdapter(AdviceDetailActivity.this, object);
+			lv_coach_comments.setAdapter(mCoachAdapter);
+		}else{
+			mCoachAdapter.notifyDataSetChanged();
+		}
+	}
+	
+	//获取学员评论数据
+	private void getMembersComments(){
+		BaseParser<List<CoachMembersCommentsResult>> parser = new CoachMembersCommentsParser();
+		HttpRequestImpl request = new HttpRequestImpl(
+				this, AppConstants.APP_SORT_STUDENT+"/studentcomment", parser);
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		getDataFromServer(request, callback2);
+	}
+	private DataCallback<List<CoachMembersCommentsResult>> callback2 = 
+			new DataCallback<List<CoachMembersCommentsResult>>() {
+
+		@Override
+		public void processData(List<CoachMembersCommentsResult> object, RequestResult result) {
+			if(object != null){
+				notifyMembersAdapter(object);
+			}
+		}
+	}; 
+	//刷新学员评论的数据
+	private void notifyMembersAdapter(List<CoachMembersCommentsResult> object){
+		if(mAdapter == null){
+			mAdapter = new CoachMemberCommentsAdapter(AdviceDetailActivity.this, object);
+			lv_member_comments.setAdapter(mAdapter);
+		}else{
+			mAdapter.notifyDataSetChanged();
+		}
 	}
 	
 	private void showPopwindow(int rank){

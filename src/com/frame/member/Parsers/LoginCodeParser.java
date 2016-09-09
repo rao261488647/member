@@ -11,7 +11,7 @@ public class LoginCodeParser extends BaseParser<LoginCodeResult> {
 	public LoginCodeResult parseJSON(String json) throws JSONException {
 		LoginCodeResult result = new LoginCodeResult();
 		JSONObject result_obj = new JSONObject(json);
-		if (json != null) {
+		if (result_obj != null) {
 			result.code = result_obj.optString("code");
 //			if("200".equals(result.code)){
 //				JSONObject obj_Json = result_obj.optJSONObject("data");

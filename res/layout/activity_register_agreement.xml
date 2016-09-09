@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_title2" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="20dp" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" >
+
+                <ImageView
+                    android:id="@+id/iv_icon_register_agreement"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_register" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_icon_register_agreement"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_beginning"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+             <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_1"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_confirm"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_1_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+             <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_2"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_service"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_2_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_3"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_info"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_3_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_4"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_word"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_4_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_own"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_5"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_own"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_5_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" 
+                android:layout_marginTop="5dp">
+
+                <TextView android:id="@+id/tv_register_teach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_6"
+                    android:textColor="#434343"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_teach"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/register_item_6_content"
+                    android:textColor="#707070"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

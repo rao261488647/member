@@ -292,6 +292,8 @@
              android:screenOrientation="portrait"/>
           <activity android:name=".activity.PersonInfoActivity"
              android:screenOrientation="portrait"/>
+           <activity android:name=".activity.RegisterAgreementActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 

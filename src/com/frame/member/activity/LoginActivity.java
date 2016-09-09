@@ -3,10 +3,12 @@ package com.frame.member.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -21,6 +23,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	TextView tv_login_button;
 	EditText et_phone_num,et_password;
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
+	LinearLayout ll_back_login;
 
 	@Override
 	protected void loadViewLayout() {
@@ -42,6 +45,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 //		rl_title_right = (RelativeLayout) findViewById(R.id.rl_title_right);
 //		view_title_left = findViewById(R.id.view_title_left);
 //		view_title_right = findViewById(R.id.view_title_right);
+		ll_back_login = (LinearLayout) findViewById(R.id.ll_back_login);
 	}
 
 	@Override
@@ -51,6 +55,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		iv_login_qq.setOnClickListener(this);
 		tv_login_button.setOnClickListener(this);
 //		tv_login2_button.setOnClickListener(this);
+		ll_back_login.setOnClickListener(this);
 		
 	}
 
@@ -84,6 +89,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				
 			}
 			
+			
+			break;
+		case R.id.ll_back_login: 		//登录
+			finish();
+			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
 			
 			break;
 //		case R.id.tv_login2_button:		//登录
@@ -256,6 +266,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	};
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			finish();
+			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+			
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 
 
 }

@@ -3,8 +3,6 @@ package com.frame.member.frag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
@@ -23,7 +21,6 @@ import com.frame.member.bean.BookingOneSelectedResult.SkifieldChoice;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshGridView;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,6 +38,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -141,7 +139,10 @@ public class BookingCourseOneFrag extends BaseFrag implements OnClickListener{
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startActivity(new Intent(getActivity(),CoachDetailActivity.class));
+				Intent intent = new Intent(mContext, CoachDetailActivity.class);
+				intent.putExtra("coachId", list_coach.get(position).coachId);
+				intent.putExtra("meetNum", list_coach.get(position).meetNum);
+				startActivity(intent);
 			}
 		});
 		ptrg_booking.setMode(Mode.BOTH);
