@@ -13,7 +13,7 @@ import com.frame.member.activity.AdviceDetailActivity;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.bean.AdviceFindResult;
+import com.frame.member.bean.AdviceFollowResult;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.widget.RoundImageView;
 import android.content.Context;
@@ -27,15 +27,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
-public class AdviceFindAdapter extends BaseAdapter{
+public class AdviceFollowAdapter extends BaseAdapter{
 	private Context context;
-	private List<AdviceFindResult> list;
+	private List<AdviceFollowResult> list;
 //	private int isAttention;
 
-	public AdviceFindAdapter(Context context,List<AdviceFindResult> list) {
+	public AdviceFollowAdapter(Context context,List<AdviceFollowResult> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -45,7 +44,7 @@ public class AdviceFindAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public AdviceFollowResult getItem(int position) {
 		return list.get(position);
 	}
 
@@ -57,7 +56,7 @@ public class AdviceFindAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		final AdviceFindResult result = list.get(position);
+		final AdviceFollowResult result = list.get(position);
 		if(convertView == null){
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_advice_find, null);
@@ -128,7 +127,7 @@ public class AdviceFindAdapter extends BaseAdapter{
 		if(result.list_friends != null && result.list_friends.size() > 0){
 			holder.ll_person_favor_profile.removeAllViews();
 			int rank = 0;
-			for(com.frame.member.bean.AdviceFindResult.Friends friend:result.list_friends){
+			for(com.frame.member.bean.AdviceFollowResult.Friends friend:result.list_friends){
 				RoundImageView child = new RoundImageView(context);
 				LayoutParams params = new LayoutParams(
 						CommonUtil.dip2px(context, 35),

@@ -1,6 +1,5 @@
 package com.frame.member.activity;
 
-import java.util.Arrays;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;

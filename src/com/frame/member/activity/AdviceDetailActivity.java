@@ -1,7 +1,6 @@
 package com.frame.member.activity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
@@ -10,18 +9,19 @@ import com.frame.member.Parsers.AdviceDetailParser;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.CoachCommentsParser;
 import com.frame.member.Parsers.CoachMembersCommentsParser;
+import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
 import com.frame.member.adapters.CoachCommentsAdapter;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
 import com.frame.member.bean.AdviceDetailResult;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.AdviceDetailResult.Friends;
 import com.frame.member.bean.CoachCommentsResult;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.widget.RoundImageView;
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.IBinder;
@@ -56,10 +56,11 @@ public class AdviceDetailActivity extends BaseActivity {
 	private ArrayAdapter<String> adapter_list_share ;
 	private View view_black_filter;
 	private List<String> list_str = new ArrayList<String>();
-	private ImageView iv_person_profile,iv_vedio_cover;
+	private ImageView iv_person_profile,iv_vedio_cover,iv_favour_num;
 	private TextView tv_name_person,tv_time_release,tv_member_level,tv_attention_button,
 					tv_content_advice_detail,tv_comments_num,tv_favour_num;
 	private LinearLayout ll_person_favor_profile; 
+	private String friendId,subjectId;
 
 	@Override
 	protected void loadViewLayout() {
@@ -73,6 +74,7 @@ public class AdviceDetailActivity extends BaseActivity {
 		view_black_filter = findViewById(R.id.view_black_filter);
 		iv_person_profile = (ImageView) findViewById(R.id.iv_person_profile);
 		iv_vedio_cover = (ImageView) findViewById(R.id.iv_vedio_cover);
+		iv_favour_num = (ImageView) findViewById(R.id.iv_favour_num);
 		tv_name_person = (TextView) findViewById(R.id.tv_name_person);
 		tv_time_release = (TextView) findViewById(R.id.tv_time_release);
 		tv_member_level = (TextView) findViewById(R.id.tv_member_level);
@@ -91,6 +93,20 @@ public class AdviceDetailActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				showPopwindow(1);
+			}
+		});
+		tv_attention_button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toAttention(friendId, v);
+			}
+		});
+		iv_favour_num.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toPaiseFriends(friendId, subjectId, v);
 			}
 		});
 		
@@ -119,16 +135,93 @@ public class AdviceDetailActivity extends BaseActivity {
 				this, R.layout.item_pop_list,list_str);
 		lv_booking_pop.setAdapter(adapter_list);
 		
+		
 		getData();
 		getCoachComments();
 		getMembersComments();
 	}
+	
+	//点赞雪友
+		private void toPaiseFriends(String friendId,String subjectId,final View v){
+			int status;
+			if(R.drawable.zan_2x == (Integer)v.getTag()){
+				status = 0;
+				
+			}else{
+				status = 1;
+			}
+			BaseParser<BaseBean> parser = new NoBackParser();
+			HttpRequestImpl request = new HttpRequestImpl(
+					this, AppConstants.APP_SORT_STUDENT + "/praisefriend", parser);
+			request.addParam("memberUserId", 
+					(String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+					.addParam("friendId", friendId)
+					.addParam("status", ""+status)
+					.addParam("subjectId", subjectId)
+					.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
+			DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+				@Override
+				public void processData(BaseBean object, RequestResult result) {
+					if(object != null){
+//						Toast.makeText(context, object.message, Toast.LENGTH_SHORT).show();
+						if(R.drawable.zan_2x == (Integer)v.getTag()){
+							((ImageView)v).setImageResource(R.drawable.un_zan_2x);
+							((ImageView)v).setTag(R.drawable.un_zan_2x);
+						}else{
+							((ImageView)v).setImageResource(R.drawable.zan_2x);
+							((ImageView)v).setTag(R.drawable.zan_2x);
+						}
+					}
+				}
+			};
+			getDataFromServer(request,false, callBack);
+		}
+	
+	//关注\取消关注friends接口
+		private void toAttention(String friendId,final View v){
+			int status;
+			if("已关注".equals(((TextView)v).getText().toString())){
+				status = 0;
+			}else{
+				status = 1;
+			}
+			BaseParser<BaseBean> parser = new NoBackParser();
+			HttpRequestImpl request = new HttpRequestImpl(
+					this, AppConstants.APP_SORT_STUDENT + "/followfriend", parser);
+			request.addParam("memberUserId", 
+					(String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+					.addParam("friendId", friendId)
+					.addParam("status", ""+status)
+					.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
+			DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+				@Override
+				public void processData(BaseBean object, RequestResult result) {
+					if(object != null){
+						if("已关注".equals(((TextView)v).getText().toString())){
+							((TextView)v).setText("+关注");
+							((TextView)v).setBackgroundResource(R.drawable.shape_hollow_yellow);
+							((TextView)v).setTextColor(0xffe8ce39);
+						}else{
+							((TextView)v).setText("已关注");
+							((TextView)v).setBackgroundResource(R.drawable.shape_solid_yellow);
+							((TextView)v).setTextColor(0xff505050);
+						}
+					}
+				}
+			};
+			getDataFromServer(request,false, callBack);
+			
+		} 
 	//获取主数据
 	private void getData(){
 		BaseParser<AdviceDetailResult> parser = new AdviceDetailParser();
 		HttpRequestImpl request = new HttpRequestImpl(
 				this, AppConstants.APP_SORT_STUDENT+"/dynamicdetail", parser);
-		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"))
+		.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+		.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
 		getDataFromServer(request, callBack);
 	}
 	private DataCallback<AdviceDetailResult> callBack = new DataCallback<AdviceDetailResult>() {
@@ -136,6 +229,8 @@ public class AdviceDetailActivity extends BaseActivity {
 		@Override
 		public void processData(AdviceDetailResult object, RequestResult result) {
 			if(object != null){
+				friendId = object.friendId;
+				subjectId = object.subjectId;
 				TTApplication.getInstance().disPlayImageDef(object.user.appHeadThumbnail, iv_person_profile);
 				iv_person_profile.setOnClickListener(new OnClickListener() {
 					
@@ -156,6 +251,13 @@ public class AdviceDetailActivity extends BaseActivity {
 					tv_attention_button.setText("已关注");
 					tv_attention_button.setBackgroundResource(R.drawable.shape_solid_yellow);
 					tv_attention_button.setTextColor(0xff505050);
+				}
+				if("1".equals(object.praiseAuthor)){
+					iv_favour_num.setImageResource(R.drawable.zan_2x);
+					iv_favour_num.setTag(R.drawable.zan_2x);
+				}else{
+					iv_favour_num.setImageResource(R.drawable.un_zan_2x);
+					iv_favour_num.setTag(R.drawable.un_zan_2x);
 				}
 				tv_content_advice_detail.setText(object.subjectName);
 				tv_comments_num.setText(object.commentNum);
@@ -192,7 +294,9 @@ public class AdviceDetailActivity extends BaseActivity {
 		BaseParser<List<CoachCommentsResult>> parser = new CoachCommentsParser();
 		HttpRequestImpl request = new HttpRequestImpl(
 				this, AppConstants.APP_SORT_STUDENT+"/coachcomment", parser);
-		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"))
+				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
 		getDataFromServer(request, callback1);
 	}
 	private DataCallback<List<CoachCommentsResult>> callback1 = 
@@ -208,7 +312,7 @@ public class AdviceDetailActivity extends BaseActivity {
 	//刷新教练评论的数据
 	private void notifyCoachAdapter(List<CoachCommentsResult> object){
 		if(mCoachAdapter == null){
-			mCoachAdapter = new CoachCommentsAdapter(AdviceDetailActivity.this, object);
+			mCoachAdapter = new CoachCommentsAdapter(AdviceDetailActivity.this, object,getIntent().getStringExtra("subjectId"));
 			lv_coach_comments.setAdapter(mCoachAdapter);
 		}else{
 			mCoachAdapter.notifyDataSetChanged();
@@ -220,7 +324,9 @@ public class AdviceDetailActivity extends BaseActivity {
 		BaseParser<List<CoachMembersCommentsResult>> parser = new CoachMembersCommentsParser();
 		HttpRequestImpl request = new HttpRequestImpl(
 				this, AppConstants.APP_SORT_STUDENT+"/studentcomment", parser);
-		request.addParam("subjectId", getIntent().getStringExtra("subjectId"));
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"))
+		.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+		.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
 		getDataFromServer(request, callback2);
 	}
 	private DataCallback<List<CoachMembersCommentsResult>> callback2 = 

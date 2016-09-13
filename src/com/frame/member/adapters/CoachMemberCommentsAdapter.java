@@ -44,7 +44,7 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View view, ViewGroup viewGroup) {
 		ViewHolder holder = new ViewHolder();
-		CoachMembersCommentsResult result = list_name.get(position);
+		final CoachMembersCommentsResult result = list_name.get(position);
 		if(view == null){
 			view = LayoutInflater.from(mContext).inflate(
 					R.layout.item_coach_member_comments, null);
@@ -66,7 +66,9 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				mContext.startActivity(new Intent(mContext, FriendsSpaceActivity.class));
+				Intent intent = new Intent(mContext, FriendsSpaceActivity.class);
+				intent.putExtra("friendId", result.friendId);
+				mContext.startActivity(intent);
 			}
 		});
 		

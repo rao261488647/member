@@ -10,7 +10,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         round:type="round"
-        round:borderRadius="30dp"
+        round:borderRadius="20dp"
         android:src="@drawable/coach_profile"/>
     <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"

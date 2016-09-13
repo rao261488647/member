@@ -13,7 +13,6 @@ public class NoBackParser extends BaseParser<BaseBean> {
 		JSONObject result_obj = new JSONObject(json);
 		if (json != null) {
 			result.code = result_obj.optString("code");
-			if(!"200".equals(result.code))
 			result.message = result_obj.optString("message");
 		}
 		return result;

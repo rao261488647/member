@@ -3,8 +3,8 @@
     xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_f3" 
-    android:focusableInTouchMode="true">
+    android:background="@color/gray_f3"
+    android:focusableInTouchMode="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -156,10 +156,18 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="5dp"
-                            android:drawableLeft="@drawable/leave_msg_2x"
                             android:text="145"
                             android:textColor="#c0c0c0"
                             android:textSize="11sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_comments_num"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@id/tv_comments_num"
+                            android:src="@drawable/leave_msg_2x" />
 
                         <TextView
                             android:id="@+id/tv_favour_num"
@@ -167,24 +175,33 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
-                            android:layout_toLeftOf="@id/tv_comments_num"
-                            android:drawableLeft="@drawable/un_zan_2x"
+                            android:layout_toLeftOf="@id/iv_comments_num"
                             android:text="1200"
                             android:textColor="#c0c0c0"
                             android:textSize="11sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_favour_num"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@id/tv_favour_num"
+                            android:clickable="true"
+                            android:src="@drawable/un_zan_2x" />
 
                         <HorizontalScrollView
                             android:id="@+id/hsv_person_favor_profile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_toLeftOf="@id/tv_favour_num" >
+                            android:layout_toLeftOf="@id/iv_favour_num" >
 
                             <LinearLayout
                                 android:id="@+id/ll_person_favor_profile"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" 
-                                android:layout_gravity="center_vertical">
+                                android:layout_gravity="center_vertical"
+                                android:orientation="horizontal" >
                             </LinearLayout>
                         </HorizontalScrollView>
                     </RelativeLayout>
@@ -211,15 +228,17 @@
                         android:textColor="@color/gray_a6"
                         android:textSize="13sp" />
                 </LinearLayout>
-                <com.frame.member.widget.MyListView 
+
+                <com.frame.member.widget.MyListView
                     android:id="@+id/lv_coach_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:divider="@color/gray_f3"
-                    android:dividerHeight="2dp"/>
+                    android:dividerHeight="2dp" />
 
-   <!--              <LinearLayout
+                <!--
+                     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -322,7 +341,8 @@
                             android:padding="5dp"
                             android:src="@drawable/zan_2x" />
                     </RelativeLayout>
-                </LinearLayout> -->
+                </LinearLayout>
+                -->
 
                 <LinearLayout
                     android:layout_width="match_parent"

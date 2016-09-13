@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.NoBackParser;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.CoachSpaceActivity;
-import com.frame.member.activity.FriendsSpaceActivity;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.CoachCommentsResult;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,14 +24,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CoachCommentsAdapter extends BaseAdapter{
 	private Context mContext;
 	private List<CoachCommentsResult> list_name = new ArrayList<CoachCommentsResult>();
+	private String subjectId;
 	
-	public CoachCommentsAdapter(Context context,List<CoachCommentsResult> list_name){
+	public CoachCommentsAdapter(Context context,List<CoachCommentsResult> list_name,String subjectId){
 		this.mContext = context;
 		this.list_name = list_name;
+		this.subjectId = subjectId;
 	}
 
 	@Override
@@ -77,8 +87,10 @@ public class CoachCommentsAdapter extends BaseAdapter{
 		holder.tv_favour_coach_num.setText(result.praiseNum);
 		if("0".equals(result.praiseCoach)){
 			holder.iv_coach_favour.setImageResource(R.drawable.un_zan_2x);
+			holder.iv_coach_favour.setTag(R.drawable.un_zan_2x);
 		}else{
 			holder.iv_coach_favour.setImageResource(R.drawable.zan_2x);
+			holder.iv_coach_favour.setTag(R.drawable.zan_2x);
 		}
 		TTApplication.getInstance().disPlayImageDef(result.headImg, holder.iv_profile_coach);
 		holder.iv_profile_coach.setOnClickListener(new OnClickListener() {
@@ -90,8 +102,98 @@ public class CoachCommentsAdapter extends BaseAdapter{
 				mContext.startActivity(intent);
 			}
 		});
+		holder.tv_attention_coach.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toAttention(result.coachId, v);
+			}
+		});
+		holder.iv_coach_favour.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toPaiseFriends(result.coachId, subjectId, v);
+				
+			}
+		});
 		
 		return view;
+	}
+	
+	//点赞教练
+		private void toPaiseFriends(String coachId,String subjectId,final View v){
+			int status;
+			if(R.drawable.zan_2x == (Integer)v.getTag()){
+				status = 0;
+				
+			}else{
+				status = 1;
+			}
+			BaseParser<BaseBean> parser = new NoBackParser();
+			HttpRequestImpl request = new HttpRequestImpl(
+					mContext, AppConstants.APP_SORT_STUDENT + "/praisecoach", parser);
+			request.addParam("memberUserId", 
+					(String) SPUtils.getAppSpUtil().get(mContext, SPUtils.KEY_MEMBERUSERID, ""))
+					.addParam("coachId", coachId)
+					.addParam("status", ""+status)
+					.addParam("subjectId", subjectId)
+					.addParam("token", (String) SPUtils.getAppSpUtil().get(mContext, SPUtils.KEY_TOKEN, ""));
+			DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+				@Override
+				public void processData(BaseBean object, RequestResult result) {
+					if(object != null){
+//						Toast.makeText(context, object.message, Toast.LENGTH_SHORT).show();
+						if(R.drawable.zan_2x == (Integer)v.getTag()){
+							((ImageView)v).setImageResource(R.drawable.un_zan_2x);
+							((ImageView)v).setTag(R.drawable.un_zan_2x);
+							
+						}else{
+							((ImageView)v).setImageResource(R.drawable.zan_2x);
+							((ImageView)v).setTag(R.drawable.zan_2x);
+						}
+					}
+				}
+			};
+			((BaseActivity) mContext).getDataFromServer(request,false, callBack);
+		}
+	
+	//关注\取消关注Coach接口
+	private void toAttention(String coachId,final View v){
+		int status;
+		if("已关注".equals(((TextView)v).getText().toString())){
+			status = 0;
+		}else{
+			status = 1;
+		}
+		BaseParser<BaseBean> parser = new NoBackParser();
+		HttpRequestImpl request = new HttpRequestImpl(
+				mContext, AppConstants.APP_SORT_STUDENT + "/followcoach", parser);
+		request.addParam("memberUserId", 
+				(String) SPUtils.getAppSpUtil().get(mContext, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("coachId", coachId)
+				.addParam("status", ""+status)
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(mContext, SPUtils.KEY_TOKEN, ""));
+		DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+			@Override
+			public void processData(BaseBean object, RequestResult result) {
+				if(object != null){
+					if("已关注".equals(((TextView)v).getText().toString())){
+						((TextView)v).setText("+关注");
+						((TextView)v).setBackgroundResource(R.drawable.shape_hollow_yellow);
+						((TextView)v).setTextColor(0xffe8ce39);
+					}else{
+						((TextView)v).setText("已关注");
+						((TextView)v).setBackgroundResource(R.drawable.shape_solid_yellow);
+						((TextView)v).setTextColor(0xff505050);
+					}
+				}
+			}
+		};
+		((BaseActivity) mContext).getDataFromServer(request,false, callBack);
+		
 	}
 	
 	private static class ViewHolder{

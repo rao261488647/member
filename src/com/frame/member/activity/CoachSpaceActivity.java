@@ -2,7 +2,6 @@ package com.frame.member.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
@@ -11,7 +10,6 @@ import com.frame.member.Parsers.CoachInfoParser;
 import com.frame.member.Parsers.CoachSpaceParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.adapters.CoachReviewsAdapter;
-import com.frame.member.adapters.CoachSearchAdapter.ImageAndText;
 import com.frame.member.bean.CoachInfoResult;
 import com.frame.member.bean.CoachSpaceResult;
 
@@ -26,7 +24,7 @@ import android.widget.TextView;
 public class CoachSpaceActivity extends BaseActivity {
 	private ListView lv_coach_reviews;
 	private CoachReviewsAdapter mAdapter;
-	private List<ImageAndText> list_reviews;
+//	private List<ImageAndText> list_reviews;
 	private ImageView iv_coach_profile;
 	private TextView tv_level_coach,tv_name_coach;
 	
@@ -52,12 +50,12 @@ public class CoachSpaceActivity extends BaseActivity {
 	protected void processLogic() {
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
 		tv_title.setText("教练主页");
-		list_reviews = new ArrayList<ImageAndText>();
-		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "阴三儿"));
-		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "赵四"));
-		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "王五"));
-		mAdapter = new CoachReviewsAdapter(this, list_reviews);
-		lv_coach_reviews.setAdapter(mAdapter);
+//		list_reviews = new ArrayList<ImageAndText>();
+//		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "阴三儿"));
+//		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "赵四"));
+//		list_reviews.add(new ImageAndText(R.drawable.profile_friends, "王五"));
+//		mAdapter = new CoachReviewsAdapter(this, list_reviews);
+//		lv_coach_reviews.setAdapter(mAdapter);
 		getCoachInfo();
 		getCoachComments();
 	}
@@ -94,14 +92,27 @@ public class CoachSpaceActivity extends BaseActivity {
 		request.addParam("coachId", getIntent().getStringExtra("coachId"));
 		getDataFromServer(request, callback1);
 	}
+	private List<CoachSpaceResult> list_result = new ArrayList<CoachSpaceResult>();
 	private DataCallback<List<CoachSpaceResult>> callback1 = 
 			new DataCallback<List<CoachSpaceResult>>() {
 
 		@Override
 		public void processData(List<CoachSpaceResult> object, RequestResult result) {
 			if(object != null){
-				
+				list_result.clear();
+				list_result.addAll(object);
+				notifyAdapter();
 			}
 		}
+		
 	};
+	private void notifyAdapter() {
+		if(mAdapter == null){
+			mAdapter = new CoachReviewsAdapter(this, list_result);
+			lv_coach_reviews.setAdapter(mAdapter);
+		}else{
+			mAdapter.notifyDataSetChanged();
+			
+		}
+	}
 }

@@ -4,21 +4,15 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 import com.frame.member.R;
-import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.AdviceFindParser;
 import com.frame.member.Parsers.BaseParser;
-import com.frame.member.Parsers.CoachDetailParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.AdviceFindAdapter;
-import com.frame.member.adapters.CoachSearchAdapter.ImageAndText;
 import com.frame.member.bean.AdviceFindResult;
-import com.frame.member.bean.BaseBean;
-import com.frame.member.bean.CoachDetailResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
@@ -132,6 +126,7 @@ public class AdviceFindFrag extends BaseFrag{
 			adapter.notifyDataSetChanged();
 		}
 	}
+
 
 	
 	
