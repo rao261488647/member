@@ -78,7 +78,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
-                            android:id="@+id/price_per_day"
+                            android:id="@+id/tv_price_per_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="¥1980"
@@ -115,7 +115,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:text="价格"
+                        android:text="时间"
                         android:textColor="@color/gray_a6"
                         android:textSize="13sp" />
 					<TextView android:id="@+id/tv_item_time_num"
@@ -201,7 +201,9 @@
                         android:textColor="@color/gray_6e"
                         android:textSize="15sp" 
                         android:drawableRight="@drawable/btn_more_normal"
-                        android:drawablePadding="5dp"/>
+                        android:drawablePadding="5dp"
+                        android:maxLength="15"
+                        android:ellipsize="end"/>
                 </RelativeLayout>
 
 

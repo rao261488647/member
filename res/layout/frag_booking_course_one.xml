@@ -102,7 +102,8 @@
        	android:numColumns="2"
        	android:scrollbars="none"
        	android:layout_below="@id/ll_booking_item"
-        android:stretchMode="columnWidth">
+        android:stretchMode="columnWidth"
+        android:background="@color/white">
         
     </com.frame.member.widget.refreshlistview.PullToRefreshGridView>
     <View android:id="@+id/view_black_filter"

@@ -15,11 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CoachSearchAdapter extends BaseAdapter{
+public class CoachSearchResultAdapter extends BaseAdapter{
 	private Context context;
-	private List<Coach> list;
+	private List<CoachSearchResult> list;
 
-	public CoachSearchAdapter(Context context,List<Coach> list) {
+	public CoachSearchResultAdapter(Context context,List<CoachSearchResult> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -41,19 +41,22 @@ public class CoachSearchAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		Coach result = list.get(position);
+		CoachSearchResult result = list.get(position);
 		if(convertView == null){
-			View view = LayoutInflater.from(context).inflate(R.layout.item_image_and_text, null);
+			View view = LayoutInflater.from(context).inflate(R.layout.item_my_attention_coach, null);
 			holder = new ViewHolder();
-			holder.iv_profile_above = (ImageView) view.findViewById(R.id.iv_profile_above);
-			holder.tv_name_below = (TextView) view.findViewById(R.id.tv_name_below);
+			holder.iv_member_profile = (ImageView) view.findViewById(R.id.iv_member_profile);
+			holder.tv_member_name = (TextView) view.findViewById(R.id.tv_member_name);
+			holder.tv_level_coach = (TextView) view.findViewById(R.id.tv_level_coach);
 			convertView = view;
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		TTApplication.getInstance().disPlayImageDef(result.headImg, holder.iv_profile_above);
-		holder.tv_name_below.setText(result.coachName);
+		TTApplication.getInstance().disPlayImageDef(result.headImg, holder.iv_member_profile);
+		holder.tv_member_name.setText(result.coachName);
+		holder.tv_level_coach.setText(result.coachTitle);
+		
 		return convertView;
 	}
 	public static class ImageAndText{
@@ -66,8 +69,8 @@ public class CoachSearchAdapter extends BaseAdapter{
 		}
 	}
 	public class ViewHolder{
-		ImageView iv_profile_above;
-		TextView tv_name_below;
+		ImageView iv_member_profile;
+		TextView tv_member_name,tv_level_coach,tv_info_item_detail,tv_attention_button;
 	}
 
 }
