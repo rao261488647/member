@@ -18,7 +18,7 @@
         android:focusableInTouchMode="true"
         >
 
-        <EditText
+        <com.frame.member.widget.ClearEditText.ClearEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -29,16 +29,8 @@
             android:textSize="16dp" 
             android:text="张大山"
             >
-
-        </EditText>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/icon_nick_cancle" />
+			<requestFocus />
+        </com.frame.member.widget.ClearEditText.ClearEditText>
     </RelativeLayout>
 
 	<RelativeLayout
