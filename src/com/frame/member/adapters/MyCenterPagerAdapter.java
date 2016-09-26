@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 public class MyCenterPagerAdapter extends FragmentPagerAdapter {
 	 ArrayList<Fragment> list;  
+	 Fragment currentFragment;
     public MyCenterPagerAdapter(FragmentManager fm,ArrayList<Fragment> list) {  
         super(fm);  
         this.list = list;  
@@ -24,4 +26,9 @@ public class MyCenterPagerAdapter extends FragmentPagerAdapter {
 		return list.size();
 	}
 
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) {
+		currentFragment = (Fragment) object;
+		super.setPrimaryItem(container, position, object);
+	}
 }

@@ -29,7 +29,7 @@
             android:background="@null"
             android:singleLine="true" 
             android:textSize="16dp" 
-            android:text=""
+            android:text="张大山"
             >
 			<requestFocus />
         </com.frame.member.widget.ClearEditText.ClearEditText>

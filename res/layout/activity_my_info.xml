@@ -107,6 +107,7 @@
 	            android:text="昵称"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_nickname"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
@@ -131,6 +132,7 @@
             android:layout_marginLeft="70dp"
             android:background="@color/backColor" />
 	    <RelativeLayout 
+	        android:id="@+id/my_info_relative_name"
 	        android:layout_width="match_parent"
 	        android:layout_height="50dp"
 	        android:background="@color/white"
@@ -146,6 +148,7 @@
 	            android:text="姓名"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_name"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
@@ -170,6 +173,7 @@
             android:layout_marginLeft="70dp"
             android:background="@color/backColor" />
 	    <RelativeLayout 
+	        android:id="@+id/my_info_relative_sex"
 	        android:layout_width="match_parent"
 	        android:layout_height="50dp"
 	        android:background="@color/white"
@@ -185,6 +189,7 @@
 	            android:text="性别"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_sex"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
@@ -194,7 +199,7 @@
 	            android:text="男"
 	            />
 	        <ImageView
-	            android:id="@+id/my_info_img6"
+	            android:id="@+id/my_info_img7"
 	            android:layout_width="wrap_content"
 	            android:layout_height="20dp"
 	            android:layout_centerVertical="true"
@@ -203,13 +208,13 @@
 	            android:src="@drawable/main_icon_jiantou2x"
 	            />
 	        <ImageView
-	            android:id="@+id/my_info_img7"
+	            android:id="@+id/my_info_img_sex"
 	            android:layout_width="wrap_content"
 	            android:layout_height="20dp"
 	            android:layout_centerVertical="true"
-	            android:layout_toLeftOf="@id/my_info_img6"
+	            android:layout_toLeftOf="@id/my_info_img7"
 	            android:layout_marginRight="10dp"
-	            android:src="@drawable/icon_sex_m"
+	            android:src="@drawable/icon_sex_man"
 	            />
 	    </RelativeLayout>
 	    <View
@@ -233,6 +238,7 @@
 	            android:text="生日"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_birthday"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
@@ -257,6 +263,7 @@
             android:layout_marginLeft="70dp"
             android:background="@color/backColor" />
 	    <RelativeLayout 
+	        android:id="@+id/my_info_relative_signature"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@color/white"
@@ -272,6 +279,7 @@
 	            android:text="签名"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_signature"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
@@ -279,6 +287,7 @@
 	            android:layout_marginLeft="30dp"
 	            android:layout_marginTop="20dp"
 	            android:layout_marginBottom="20dp"
+	            android:layout_marginRight="32dp"
 	            android:textSize="16sp"
 	            android:text="这个网站不知道有多少人来过，这家专业的摄影师图片社区在2003年创建于加拿大，为大家分享和发现精彩的图片"
 	            />
@@ -298,8 +307,9 @@
             android:layout_marginLeft="70dp"
             android:background="@color/backColor" />
 	    <RelativeLayout 
+	        android:id="@+id/my_info_relative_address"
 	        android:layout_width="match_parent"
-	        android:layout_height="50dp"
+	        android:layout_height="wrap_content"
 	        android:background="@color/white"
 	        >
 	        <TextView 
@@ -313,11 +323,13 @@
 	            android:text="地址"
 	            />
 	        <TextView 
+	            android:id="@+id/my_baseinfo_address"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:layout_toRightOf="@id/my_info_text_8"
 	            android:layout_marginLeft="30dp"
+	            android:layout_marginRight="32dp"
 	            android:textSize="16sp"
 	            android:text="辽宁省大连市沙河口区"
 	            />

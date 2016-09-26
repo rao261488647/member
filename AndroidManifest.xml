@@ -259,6 +259,18 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.ModifyNameActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ModifySignatureActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ModifyAddressActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.MyCollectActivity"/>
         <activity
             android:name=".activity.MyMsgActivity"

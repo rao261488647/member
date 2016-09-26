@@ -18,19 +18,19 @@ import com.ta.utdid2.android.utils.StringUtils;
  * Ron
  */
 
-public class ModifyNickNameActivity extends BaseActivity  implements OnClickListener{
+public class ModifyNameActivity extends BaseActivity  implements OnClickListener{
 	
 	private TextView submit;
 	private EditText nickName;
 	@Override
 	protected void loadViewLayout() {
-		setContentView(R.layout.activity_my_info_modify_nick);
+		setContentView(R.layout.activity_my_info_modify_name);
 		
 	}
 
 	@Override
 	protected void findViewById() {
-		tv_title.setText("更改昵称");
+		tv_title.setText("更改姓名");
 		submit = (TextView) findViewById(R.id.my_nick_submit);
 		nickName = (EditText) findViewById(R.id.my_nick_name);
 	}
@@ -45,7 +45,7 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 		iv_title_back.setVisibility(0);
 
 		Intent intent = getIntent();
-        String message = intent.getStringExtra("nickName").toString().trim();
+        String message = intent.getStringExtra("name").toString().trim();
         nickName.setText(message);
 		
 	}
@@ -57,11 +57,11 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 	 */
 	private void submitData(){
 		BaseParser<CommonBean> parser = new CommonParser();
-		HttpRequestImpl request = new HttpRequestImpl(ModifyNickNameActivity.this, 
+		HttpRequestImpl request = new HttpRequestImpl(ModifyNameActivity.this, 
 				AppConstants.APP_SORT_STUDENT+"/mychangeinfo", parser);
-		request.addParam("token", (String) SPUtils.getAppSpUtil().get(ModifyNickNameActivity.this, SPUtils.KEY_TOKEN, ""));
+		request.addParam("token", (String) SPUtils.getAppSpUtil().get(ModifyNameActivity.this, SPUtils.KEY_TOKEN, ""));
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
-		request.addParam("appNiCheng", nickName.getText().toString()); //昵称
+		request.addParam("memberName", nickName.getText().toString()); //昵称
 		getDataFromServer(request, callback1);
 	}
 	private DataCallback<CommonBean> callback1 = new DataCallback<CommonBean>() {
@@ -71,10 +71,11 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 			if(result == RequestResult.Success){
 				if(null != object){
 					if("200".equals(object.code)){
+						//showToast("修改成功！");
 						Intent intent = new Intent();
-						intent.setClass(ModifyNickNameActivity.this, MyInfoActivity.class);
-		                intent.putExtra("nickName", nickName.getText().toString());
-		                setResult(1001, intent);
+						intent.setClass(ModifyNameActivity.this, MyInfoActivity.class);
+		                intent.putExtra("name", nickName.getText().toString());
+		                setResult(1002, intent);
 						finish();
 					}
 				}
@@ -86,7 +87,7 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 		switch (v.getId()) {
 		case R.id.my_nick_submit:
 			if(StringUtils.isEmpty(nickName.getText().toString())){
-				showToast("昵称不能为空！");
+				showToast("姓名不能为空！");
 			}else{
 				submitData();
 			}

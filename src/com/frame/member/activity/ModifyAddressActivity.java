@@ -14,25 +14,25 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.bean.CommonBean;
 import com.ta.utdid2.android.utils.StringUtils;
 /**
- * 个人消费流水
+ * 修改地址
  * Ron
  */
 
-public class ModifyNickNameActivity extends BaseActivity  implements OnClickListener{
+public class ModifyAddressActivity extends BaseActivity  implements OnClickListener{
 	
 	private TextView submit;
-	private EditText nickName;
+	private EditText my_modify_address;
 	@Override
 	protected void loadViewLayout() {
-		setContentView(R.layout.activity_my_info_modify_nick);
+		setContentView(R.layout.activity_my_info_modify_address);
 		
 	}
 
 	@Override
 	protected void findViewById() {
-		tv_title.setText("更改昵称");
+		tv_title.setText("更改地址");
 		submit = (TextView) findViewById(R.id.my_nick_submit);
-		nickName = (EditText) findViewById(R.id.my_nick_name);
+		my_modify_address = (EditText) findViewById(R.id.my_modify_address);
 	}
 	
 	@Override
@@ -45,8 +45,8 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 		iv_title_back.setVisibility(0);
 
 		Intent intent = getIntent();
-        String message = intent.getStringExtra("nickName").toString().trim();
-        nickName.setText(message);
+        String message = intent.getStringExtra("address").toString().trim();
+        my_modify_address.setText(message);
 		
 	}
 
@@ -57,11 +57,11 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 	 */
 	private void submitData(){
 		BaseParser<CommonBean> parser = new CommonParser();
-		HttpRequestImpl request = new HttpRequestImpl(ModifyNickNameActivity.this, 
+		HttpRequestImpl request = new HttpRequestImpl(ModifyAddressActivity.this, 
 				AppConstants.APP_SORT_STUDENT+"/mychangeinfo", parser);
-		request.addParam("token", (String) SPUtils.getAppSpUtil().get(ModifyNickNameActivity.this, SPUtils.KEY_TOKEN, ""));
+		request.addParam("token", (String) SPUtils.getAppSpUtil().get(ModifyAddressActivity.this, SPUtils.KEY_TOKEN, ""));
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
-		request.addParam("appNiCheng", nickName.getText().toString()); //昵称
+		request.addParam("address", my_modify_address.getText().toString()); 
 		getDataFromServer(request, callback1);
 	}
 	private DataCallback<CommonBean> callback1 = new DataCallback<CommonBean>() {
@@ -71,10 +71,11 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 			if(result == RequestResult.Success){
 				if(null != object){
 					if("200".equals(object.code)){
+						//showToast("修改成功！");
 						Intent intent = new Intent();
-						intent.setClass(ModifyNickNameActivity.this, MyInfoActivity.class);
-		                intent.putExtra("nickName", nickName.getText().toString());
-		                setResult(1001, intent);
+						intent.setClass(ModifyAddressActivity.this, MyInfoActivity.class);
+		                intent.putExtra("address", my_modify_address.getText().toString());
+		                setResult(1004, intent);
 						finish();
 					}
 				}
@@ -85,8 +86,8 @@ public class ModifyNickNameActivity extends BaseActivity  implements OnClickList
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.my_nick_submit:
-			if(StringUtils.isEmpty(nickName.getText().toString())){
-				showToast("昵称不能为空！");
+			if(StringUtils.isEmpty(my_modify_address.getText().toString())){
+				showToast("地址不能为空！");
 			}else{
 				submitData();
 			}

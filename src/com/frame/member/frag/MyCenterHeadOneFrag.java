@@ -49,7 +49,7 @@ public class MyCenterHeadOneFrag extends BaseFrag {
 		grade = (TextView)findViewById(R.id.my_center_grade); //等级
 		level = (TextView)findViewById(R.id.my_center_level); //会员等级
 		point = (TextView)findViewById(R.id.my_center_point);
-		nickname = (TextView)findViewById(R.id.my_center_nickname);
+		nickname = (TextView)findViewById(R.id.my_center_name);
 		headimg = (ImageView)findViewById(R.id.my_center_headimg);
 		
 	}

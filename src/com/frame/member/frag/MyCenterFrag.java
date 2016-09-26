@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.MainActivity;
+import com.frame.member.activity.ModifyNickNameActivity;
 import com.frame.member.activity.MyBillActivity;
 import com.frame.member.activity.MyCollectActivity;
 import com.frame.member.activity.MyInfoActivity;
@@ -63,7 +65,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private int currIndex;//当前页卡编号  
     private int bmpW;//横线图片宽度  
     private int offset;//图片移动的偏移量  
-	private TextView grade,level,point,nickname,sign; //个人中心上部分的数据
+	private TextView grade,level,point,name,sign; //个人中心上部分的数据
 	private ImageView my_center_tag_1,my_center_tag_2; //轮播头部下面的原点
 	
 	private ImageView headimg;//头像
@@ -103,7 +105,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		HttpRequestImpl request = new HttpRequestImpl(getActivity(),
 				url, parser,HttpRequest.RequestMethod.post);
 		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
-		request.addParam("memberUserId", "2257"); //用户id 暂时写死
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
 		mContext.getDataFromServer(request, callback);
 	}
 	
@@ -126,7 +128,24 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			}
 		}
 	};
-	
+	/**
+     * 所有的Activity对象的返回值都是由这个方法来接收
+     * requestCode:    表示的是启动一个Activity时传过去的requestCode值
+     * resultCode：表示的是启动后的Activity回传值时的resultCode值
+     * data：表示的是启动后的Activity回传过来的Intent对象
+     */
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1001){
+        	Bundle bundle = data.getExtras(); 
+            String names = bundle.getString("name");
+            String signature = bundle.getString("signature");
+            name.setText(names);
+            sign.setText(signature);
+            
+        }
+    }
 	/**
 	 * 通过从接口返回的数据初始化个人中心页面
 	 * @author Ron
@@ -152,7 +171,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			}
 			point.setText(user.memberPoints+" 积分");
 			if(!StringUtils.isEmpty(user.memberName)){
-				nickname.setText(user.memberName);
+				name.setText(user.memberName);
 			}
 			if(!StringUtils.isEmpty(user.memberSign)){
 				sign.setText(user.memberSign);
@@ -170,11 +189,22 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
         Fragment two = new MyCenterHeadTwoFrag(user);  
         fragmentList.add(one);  
         fragmentList.add(two);  
-          
         //给ViewPager设置适配器  
         mPager.setAdapter(new MyCenterPagerAdapter(getFragmentManager(), fragmentList));  
         mPager.setCurrentItem(0);//设置当前显示标签页为第一页  
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());//页面变化时的监听器  
+        
+        //加载viewpager管理的fragment里的控件
+		FragmentPagerAdapter adapter = (FragmentPagerAdapter) mPager.getAdapter();
+		MyCenterHeadOneFrag frag = (MyCenterHeadOneFrag) adapter.instantiateItem(mPager, 0);
+		MyCenterHeadTwoFrag frag2 = (MyCenterHeadTwoFrag) adapter.instantiateItem(mPager, 1);
+	    if(frag != null){
+	    	name = (TextView)frag.getView().findViewById(R.id.my_center_name);
+	    }
+	    if(frag2 != null){
+	    	sign = (TextView)findViewById(R.id.my_center_signature);
+	    }
+        
     } 
 	
     public class MyOnPageChangeListener implements OnPageChangeListener{  
@@ -207,7 +237,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
         		my_center_tag_2.setBackgroundResource(R.drawable.my_write_round);
         	}
         	
-            Log.e("个人中心-viewpager", "当前tag----"+arg0);
+//            Log.e("个人中心-viewpager", "当前tag----"+arg0);
         }  
     }  
 	
@@ -226,11 +256,18 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		grade = (TextView)findViewById(R.id.my_center_grade); //等级
 		level = (TextView)findViewById(R.id.my_center_level); //会员等级
 		point = (TextView)findViewById(R.id.my_center_point);
-		nickname = (TextView)findViewById(R.id.my_center_nickname);
-		sign = (TextView)findViewById(R.id.my_center_signature);
+		
 		headimg = (ImageView)findViewById(R.id.my_center_headimg);
-		
-		
+//		Fragment fragment = getFragmentManager().findFragmentByTag(
+//		"android:switcher:"+R.id.my_center_pager+":0");
+//	    if(fragment != null)  // could be null if not instantiated yet
+//	    {
+//	         if(fragment.getView() != null) {
+//	         }
+//
+//	    }
+//		Fragment fragment = getFragmentManager().
+
 		my_center_tag_1 = (ImageView) findViewById(R.id.my_center_tag_1);
 		my_center_tag_2 = (ImageView) findViewById(R.id.my_center_tag_2);
 		
@@ -258,7 +295,8 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			break;
 		case R.id.my_text2: //个人基本信息
 			intent = new Intent(getActivity(), MyInfoActivity.class);
-			this.startActivity(intent);
+//			intent.putExtra("name", name.getText().toString());
+			startActivityForResult(intent,1001);
 			break;
 		case R.id.my_layout_msg: //消息
 			intent = new Intent(getActivity(), MyMsgActivity.class);
