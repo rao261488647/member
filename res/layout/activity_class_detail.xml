@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f3f3f3"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"  >
 
     <include
         android:id="@+id/layout_title_class"
@@ -13,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -247,6 +249,44 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/icon_play_2x"/>
             </RelativeLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="14dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="学员评论"
+                    android:textColor="@color/gray_6e"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="COMMENT"
+                    android:textColor="@color/gray_a6"
+                    android:textSize="13sp" />
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp" >
+
+                <com.frame.member.widget.MyListView
+                    android:id="@+id/lv_member_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/gray_f3"
+                    android:dividerHeight="2dp"
+                    android:background="@color/white" >
+                </com.frame.member.widget.MyListView>
+            </LinearLayout>
+            
 
         </LinearLayout>
     </ScrollView>

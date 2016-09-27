@@ -25,7 +25,8 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_member_profile"
             android:text="我石化了"
-            android:textColor="#939393" />
+            android:textColor="#939393" 
+            android:textSize="13sp"/>
 
         <TextView
              android:id="@+id/tv_member_level"
@@ -63,11 +64,14 @@
             android:layout_centerVertical="true"
             android:text="这是一条个性签名~可以输入很多的文字，尽量控制在两行左右最美观"
             android:textColor="@color/gray_47"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:paddingBottom="10dp"/>
 
-       
     </RelativeLayout>
+    <com.frame.member.widget.XCFlowLayout
+        android:id="@+id/xcflowlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
    
 

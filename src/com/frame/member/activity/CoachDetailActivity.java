@@ -1,14 +1,19 @@
 package com.frame.member.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.CoachDetailParser;
+import com.frame.member.Parsers.CoachMembersCommentsParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
 import com.frame.member.bean.CoachDetailResult;
+import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.widget.MyListView;
 import android.content.Intent;
 import android.view.View;
@@ -55,9 +60,10 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
 		tv_title.setText("教练详情");
 		tv_title_right.setText("查看评论");
-		mAdapter = new CoachMemberCommentsAdapter(this,null);
-		lv_member_comments.setAdapter(mAdapter);
+//		mAdapter = new CoachMemberCommentsAdapter(this,null);
+//		lv_member_comments.setAdapter(mAdapter);
 		getData();
+		getComments();
 	}
 
 	@Override
@@ -96,5 +102,34 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 			}
 		}
 	};
+	private List<CoachMembersCommentsResult> list_comments = new ArrayList<CoachMembersCommentsResult>();
+	private void getComments(){
+		BaseParser<List<CoachMembersCommentsResult>> parser = new CoachMembersCommentsParser();
+		HttpRequestImpl request = new HttpRequestImpl(this, 
+				AppConstants.APP_SORT_STUDENT + "/studentcommentcoach", parser);
+		request.addParam("coachId", getIntent().getStringExtra("coachId"))
+				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
+		DataCallback<List<CoachMembersCommentsResult>> callback = new DataCallback<List<CoachMembersCommentsResult>>() {
+
+			@Override
+			public void processData(List<CoachMembersCommentsResult> object, RequestResult result) {
+				if(object != null){
+					list_comments.clear();
+					list_comments.addAll(object);
+					notifyAdapter();
+				}
+			}
+		};
+		getDataFromServer(request, callback);
+	}
+	private void notifyAdapter(){
+		if(mAdapter == null){
+			mAdapter = new CoachMemberCommentsAdapter(CoachDetailActivity.this,list_comments);
+			lv_member_comments.setAdapter(mAdapter);
+		}else{
+			mAdapter.notifyDataSetChanged();
+		}
+	}
 
 }
