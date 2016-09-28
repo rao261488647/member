@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="86dp" 
+	        android:background="@color/white"
+	        >
+	        <TextView 
+	            android:id="@+id/my_bill_name"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="10dp"
+			    android:layout_marginLeft="20dp"
+			    android:textStyle="bold"
+			    android:textSize="17sp"
+			    android:text="郝世花滑雪”职业教练培训班（双板）"
+			    />
+	        <TextView 
+	            android:id="@+id/my_bill_money"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@id/my_bill_name"
+			    android:layout_marginTop="12dp"
+			    android:layout_marginLeft="20dp"
+			    android:textColor="@color/gray_b4"
+			    android:textStyle="bold"
+			    android:textSize="19sp"
+			    android:text="-￥2.200.00"
+			    />
+	        <TextView 
+	            android:id="@+id/my_bill_cancel"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginTop="20dp"
+	            android:layout_marginRight="20dp"
+	            android:textSize="12dp"
+	            android:textColor="@color/red"
+	            android:text="预约取消"
+	            />
+	        <TextView 
+	            android:id="@+id/my_bill_date"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@id/my_bill_cancel"
+			    android:layout_marginTop="20dp"
+			    android:layout_marginRight="20dp"
+			    android:layout_alignParentRight="true"
+			    android:textSize="12sp"
+			    android:textColor="@color/gray"
+			    android:text="2016年1月8日"
+			    />
+	    </RelativeLayout>
+
+</RelativeLayout>

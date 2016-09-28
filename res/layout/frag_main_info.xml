@@ -238,6 +238,7 @@
 		            android:textColor="#a7a7a7"
 		            />
 		    </RelativeLayout>
+        </LinearLayout>
 	        <com.frame.member.widget.refreshlistview.PullToRefreshListView
 		        android:id="@+id/main_info_lv"
 		        android:layout_width="match_parent"
@@ -246,7 +247,4 @@
 		        android:stretchMode="columnWidth"
 		        android:divider="@drawable/list_divider_left">
 		    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
-            
-            
-        </LinearLayout>
 </LinearLayout>

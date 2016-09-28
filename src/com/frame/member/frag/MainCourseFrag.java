@@ -89,7 +89,13 @@ public class MainCourseFrag extends BaseFrag {
 
 		findViewByIds(); //控件初始化
 		initPhotoCarousel(); //图片轮播初始化
+		initPullView(); //初始化下拉view控件
+		getMainCourseData();
 		
+		return rootView;
+	}
+	
+	private void initPullView(){
 		pullListView.setMode(Mode.BOTH);
 		pullListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -113,11 +119,8 @@ public class MainCourseFrag extends BaseFrag {
 //				getMainCourseData();
 			}
 		});
-		
-		getMainCourseData();
-		
-		return rootView;
 	}
+	
 	/**
 	 * 初始化控件
 	 * @author Ron
