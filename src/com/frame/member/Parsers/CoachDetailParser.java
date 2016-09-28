@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.frame.member.bean.CoachDetailResult;
-import com.frame.member.bean.CoachDetailResult.Date;
+import com.frame.member.bean.CoachDetailResult.Photo;
 
 public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 
@@ -21,23 +21,34 @@ public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 				result.coachId = obj.optString("coachId");
 				result.headImg = obj.optString("headImg");
 				result.coachName = obj.optString("coachName");
+				result.teacher = obj.optString("teacher");
+				result.titlename = obj.optString("titlename");
+				result.levelName = obj.optString("levelName");
 				result.trainfee = obj.optString("trainfee");
-				result.coachBadge = obj.optString("coachBadge");
-				result.areaId = obj.optString("areaId");
-				result.titleName = obj.optString("titleName");
 				result.skifieldName = obj.optString("skifieldName");
-				result.coachStar = obj.optString("coachStar");
+				result.goal = obj.optInt("goal");
+				result.intro = obj.optString("intro");
+				result.skifieldName = obj.optString("skifieldName");
+				result.honor = obj.optString("honor");
+				result.specialty = obj.optString("specialty");
+				result.isSigned = obj.optString("isSigned");
+				result.collect = obj.optString("collect");
+				JSONObject obj_video = obj.optJSONObject("video");
+				if(obj_video != null){
+					result.videoFileId = obj_video.optString("videoFileId");
+					result.videoPhoto = obj_video.optString("videoPhoto");
+					result.videoUrl = obj_video.optString("videoUrl");
+				}
 				
-				JSONArray array_Json = obj_json.optJSONArray("date");
+				JSONArray array_Json = obj.optJSONArray("photo");
 				if(array_Json !=null && array_Json.length() > 0){
-					Date mDate;
+					Photo mPhoto;
 					for(int i = 0;i< array_Json.length();i++){
 						JSONObject obj_arr = array_Json.optJSONObject(i);
-						mDate = new Date();
-						mDate.value = obj_arr.optString("value");
-						mDate.status = obj_arr.optString("status");
-						result.list_date.add(mDate);
-						mDate = null;
+						mPhoto = new Photo();
+						mPhoto.photoURL = obj_arr.optString("photoURL");
+						result.photo.add(mPhoto);
+						mPhoto = null;
 					}
 				}
 				

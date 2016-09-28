@@ -8,10 +8,14 @@ import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.ClassDetailParser;
 import com.frame.member.Parsers.CoachMembersCommentsParser;
+import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.ClassDetailResult;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.frag.ClassBookingDialogFrag;
@@ -25,11 +29,12 @@ import android.widget.TextView;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener{
 	private TextView tv_class_meet,tv_class_name,tv_members_price,tv_price_per_day,
-					tv_item_time_num,tv_skifield_info;
+					tv_item_time_num,tv_skifield_info,tv_class_collection;
 	private RatingBar rb_booking_class;
 	private ImageView iv_class_vedio_cover;
 	private ListView lv_member_comments;
 	private CoachMemberCommentsAdapter mAdapter;
+	private String collect = "";
 	
 	@Override
 	protected void loadViewLayout() {
@@ -44,6 +49,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 		tv_price_per_day = (TextView) findViewById(R.id.tv_price_per_day);
 		tv_item_time_num = (TextView) findViewById(R.id.tv_item_time_num);
 		tv_skifield_info = (TextView) findViewById(R.id.tv_skifield_info);
+		tv_class_collection = (TextView) findViewById(R.id.tv_class_collection);
 		rb_booking_class = (RatingBar) findViewById(R.id.rb_booking_class);
 		iv_class_vedio_cover = (ImageView) findViewById(R.id.iv_class_vedio_cover);
 		lv_member_comments = (ListView) findViewById(R.id.lv_member_comments);
@@ -52,6 +58,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 	@Override
 	protected void setListener() {
 		tv_class_meet.setOnClickListener(this);
+		tv_class_collection.setOnClickListener(this);
 	}
 
 	@Override
@@ -73,11 +80,47 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 			frag.setStyle(DialogFragment.STYLE_NORMAL, R.style.YouDialog);
 			frag.show(getSupportFragmentManager(), "ClassBookingDialog");
 			break;
+		case R.id.tv_class_collection:
+			toCollect(collect);
+			break;
 
 		default:
 			break;
 		}
 	}
+	
+	//调用收藏接口
+		private void toCollect(String collect){
+			BaseParser<BaseBean> parser = new NoBackParser();
+			HttpRequestImpl request = new HttpRequestImpl(this, 
+					AppConstants.APP_SORT_STUDENT + "/collect", parser);
+			request.addParam("courseId", getIntent().getStringExtra("courseId"))
+					.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+					.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
+					.addParam("type", "2")
+					.addParam("status", collect);
+			DataCallback<BaseBean> callback = new DataCallback<BaseBean>() {
+
+				@Override
+				public void processData(BaseBean object, RequestResult result) {
+					if(object != null){
+						showToast(object.message);
+						if(ClassDetailActivity.this.collect != null){
+							if(ClassDetailActivity.this.collect == "0"){
+								ClassDetailActivity.this.collect = "1";
+								tv_class_collection.setText("收藏");
+							}else{
+								ClassDetailActivity.this.collect = "0";
+								tv_class_collection.setText("已收藏");
+							}
+						}
+						
+					}
+				}
+			};
+			getDataFromServer(request, callback);
+		}
+	
 	//获取主数据
 	private void getData(){
 		BaseParser<ClassDetailResult> parser = new ClassDetailParser();
@@ -101,6 +144,13 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 					rb_booking_class.setRating(object.goal);
 					TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_class_vedio_cover);
 					tv_skifield_info.setText(object.skifieldAddr);
+					if("0".equals(object.collect)){
+						tv_class_collection.setText("收藏");
+						collect = "1";
+					}else{
+						tv_class_collection.setText("已收藏");
+						collect = "0";
+					}
 				}
 				
 			}

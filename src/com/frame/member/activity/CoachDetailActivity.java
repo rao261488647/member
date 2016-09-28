@@ -2,25 +2,32 @@ package com.frame.member.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.CoachDetailParser;
 import com.frame.member.Parsers.CoachMembersCommentsParser;
+import com.frame.member.Parsers.NoBackParser;
+import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.CoachDetailResult;
+import com.frame.member.bean.CoachDetailResult.Photo;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.widget.MyListView;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 
 public class CoachDetailActivity extends BaseActivity implements OnClickListener{
@@ -28,9 +35,12 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 	private MyListView lv_member_comments;
 	private CoachMemberCommentsAdapter mAdapter;
 	private TextView tv_coach_meet,tv_name_coach,tv_level_coach,
-					tv_num_meet,tv_price_num,tv_skifield_info;
-	private ImageView iv_coach_profile;
+					tv_num_meet,tv_price_num,tv_skifield_info,
+					tv_coach_collection,tv_coach_content_info;
+	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor;
 	private RatingBar rb_booking_one;
+	private LinearLayout ll_coach_picture;
+	private String collect = "";
 
 	@Override
 	protected void loadViewLayout() {
@@ -46,13 +56,19 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		tv_num_meet = (TextView) findViewById(R.id.tv_num_meet);
 		tv_price_num = (TextView) findViewById(R.id.tv_price_num);
 		tv_skifield_info = (TextView) findViewById(R.id.tv_skifield_info);
+		tv_coach_content_info = (TextView) findViewById(R.id.tv_coach_content_info);
+		tv_coach_collection = (TextView) findViewById(R.id.tv_coach_collection);
 		iv_coach_profile = (ImageView) findViewById(R.id.iv_coach_profile);
+		iv_coach_video_cover = (ImageView) findViewById(R.id.iv_coach_video_cover);
+		iv_coach_honor = (ImageView) findViewById(R.id.iv_coach_honor);
 		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
+		ll_coach_picture = (LinearLayout) findViewById(R.id.ll_coach_picture);
 	}
 
 	@Override
 	protected void setListener() {
 		tv_coach_meet.setOnClickListener(this);
+		tv_coach_collection.setOnClickListener(this);
 	}
 
 	@Override
@@ -72,15 +88,50 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		case R.id.tv_coach_meet:
 			startActivity(new Intent(CoachDetailActivity.this,BookingDateActivity.class));
 			break;
+		case R.id.tv_coach_collection:
+			toCollect(collect);
+			break;
 
 		default:
 			break;
 		}
 	}
+	//调用收藏接口
+	private void toCollect(String collect){
+		BaseParser<BaseBean> parser = new NoBackParser();
+		HttpRequestImpl request = new HttpRequestImpl(this, 
+				AppConstants.APP_SORT_STUDENT + "/collect", parser);
+		request.addParam("coachId", getIntent().getStringExtra("coachId"))
+				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
+				.addParam("type", "1")
+				.addParam("status", collect);
+		DataCallback<BaseBean> callback = new DataCallback<BaseBean>() {
+
+			@Override
+			public void processData(BaseBean object, RequestResult result) {
+				if(object != null){
+					showToast(object.message);
+					if(CoachDetailActivity.this.collect != null){
+						if(CoachDetailActivity.this.collect == "0"){
+							CoachDetailActivity.this.collect = "1";
+							tv_coach_collection.setText("收藏");
+						}else{
+							CoachDetailActivity.this.collect = "0";
+							tv_coach_collection.setText("已收藏");
+						}
+					}
+					
+				}
+			}
+		};
+		getDataFromServer(request, callback);
+	}
+	//获取主数据
 	private void getData(){
 		BaseParser<CoachDetailResult> parser = new CoachDetailParser();
 		HttpRequestImpl request = new HttpRequestImpl(
-				this, AppConstants.APP_SORT_STUDENT + "/otocoachmeet", parser);
+				this, AppConstants.APP_SORT_STUDENT + "/coachdetail", parser);
 		request.addParam("memberUserId", 
 				(String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
 				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
@@ -94,15 +145,48 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 			if(object != null){
 				tv_num_meet.setText("累计被约"+getIntent().getStringExtra("meetNum")+"次");
 				TTApplication.getInstance().disPlayImageDef(object.headImg, iv_coach_profile);
-				tv_level_coach.setText(object.titleName);
+				tv_level_coach.setText(object.levelName);
 				tv_price_num.setText("¥"+object.trainfee);
-				rb_booking_one.setRating(Float.parseFloat(object.coachStar));
+				rb_booking_one.setRating(object.goal);
 				tv_name_coach.setText(object.coachName);
-				
+				tv_coach_content_info.setText(object.intro);
+				tv_skifield_info.setText(object.skifieldName);
+				TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_coach_video_cover);
+				TTApplication.getInstance().disPlayImageDef(object.honor, iv_coach_honor);
+				if("0".equals(object.collect)){
+					tv_coach_collection.setText("收藏");
+					collect = "1";
+				}else{
+					tv_coach_collection.setText("已收藏");
+					collect = "0";
+				}
+				//动态加载coach照片
+				if(object.photo != null && object.photo.size() > 0){
+					ll_coach_picture.setVisibility(View.VISIBLE);
+					ll_coach_picture.removeAllViews();
+					for(Photo photo:object.photo){
+						ImageView child = new ImageView(CoachDetailActivity.this);
+						LayoutParams params = new LayoutParams(
+								LinearLayout.LayoutParams.MATCH_PARENT,
+								CommonUtil.dip2px(CoachDetailActivity.this, 200));
+						params.topMargin = CommonUtil.dip2px(CoachDetailActivity.this, 10);
+						
+						child.setImageResource(R.drawable.coach_skill_picture_1);
+						child.setScaleType(ScaleType.CENTER_CROP);
+						if(!TextUtils.isEmpty(photo.photoURL)){
+							TTApplication.getInstance().disPlayImageDef(
+									photo.photoURL, child);
+						}
+						ll_coach_picture.addView(child,params);
+					}
+				}else{
+					ll_coach_picture.setVisibility(View.GONE);
+				}
 			}
 		}
 	};
 	private List<CoachMembersCommentsResult> list_comments = new ArrayList<CoachMembersCommentsResult>();
+	//获取评论列表
 	private void getComments(){
 		BaseParser<List<CoachMembersCommentsResult>> parser = new CoachMembersCommentsParser();
 		HttpRequestImpl request = new HttpRequestImpl(this, 
