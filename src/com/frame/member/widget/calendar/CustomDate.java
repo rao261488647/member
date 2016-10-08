@@ -37,7 +37,27 @@ public class CustomDate implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return year+"-"+month+"-"+day;
+		String str_month = month+"";
+		String str_day = day+"";
+		if(month < 10){
+			 str_month = "0"+month; 
+		}
+		if(day < 10){
+			 str_day = "0"+day;
+		}
+		return year+"-"+str_month+"-"+str_day;
+	}
+	//换一种显示格式
+	public String toSecString(){
+		String str_month = month+"";
+		String str_day = day+"";
+		if(month < 10){
+			 str_month = "0"+month; 
+		}
+		if(day < 10){
+			 str_day = "0"+day;
+		}
+		return year+"."+str_month+"."+str_day;
 	}
 	@Override
 	public boolean equals(Object o) {

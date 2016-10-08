@@ -50,6 +50,7 @@ public class CoachMembersCommentsParser extends BaseParser<List<CoachMembersComm
 						CoachMembersCommentsResult result = new CoachMembersCommentsResult();
 						result.friendId = obj_coach.optString("friendId");
 						result.appHeadThumbnail = obj_coach.optString("appHeadThumbnail");
+						result.goal = obj_coach.optString("goal");
 						result.memberName = obj_coach.optString("memberName");
 						result.evaluateContent = obj_coach.optString("evaluateContent");
 						result.evaluateTime = obj_coach.optString("evaluateTime");

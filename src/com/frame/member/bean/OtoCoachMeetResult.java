@@ -23,27 +23,42 @@ public class OtoCoachMeetResult extends BaseBean {
 //		      "skifieldName": "",
 //		      "coachStar": "0"
 //		    },
+//			snowArea": {
+//				"areaName": "崇礼"
+//			},
+//	-		"skifieldChoices": [
+//	-			{
+//					"skifieldId": "1",
+//					"skifieldName": "长城岭滑雪场"
+//				},
+//	
+//			],
 //		    "date": [
 //		      {
 //		        "value": "2016-09-01",
 //		        "status": "expire_dates"
 //		      },
 //			]
-	public String coachId,headImg,coachName,trainfee,coachBadge,areaId,titleName,skifieldName,coachStar;
+	public String coachId,headImg,coachName,trainfee,coachBadge,areaId,titleName,skifieldName,
+					coachStar,areaName;
 	public List<Date> list_date = new ArrayList<Date>();
+	public List<SkifieldChoices> skifieldChoices = new ArrayList<OtoCoachMeetResult.SkifieldChoices>();
+	public static class SkifieldChoices{
+		public String skifieldId;
+		public String skifieldName;
+	}
 	public static class Date{
 		public String value;
 		public String status;
 	}
-	
 	@Override
 	public String toString() {
-		return "CoachDetailResult [coachId=" + coachId + ", headImg=" + headImg + ", coachName=" + coachName
+		return "OtoCoachMeetResult [coachId=" + coachId + ", headImg=" + headImg + ", coachName=" + coachName
 				+ ", trainfee=" + trainfee + ", coachBadge=" + coachBadge + ", areaId=" + areaId + ", titleName="
-				+ titleName + ", skifieldName=" + skifieldName + ", coachStar=" + coachStar + ", list_date=" + list_date
-				+ "]";
+				+ titleName + ", skifieldName=" + skifieldName + ", coachStar=" + coachStar + ", areaName=" + areaName
+				+ ", list_date=" + list_date + ", skifieldChoices=" + skifieldChoices + "]";
 	}
-
+	
 	
 	
 	

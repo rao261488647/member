@@ -2,10 +2,21 @@ package com.frame.member.frag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.frame.member.R;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.OtoCoachMeetParser;
 import com.frame.member.Utils.CommonUtil;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BookingDateActivity;
 import com.frame.member.activity.BookingFinishedActivity;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.bean.OtoCoachMeetResult;
+import com.frame.member.widget.calendar.CustomDate;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,7 +37,8 @@ import android.widget.TextView;
 public class CoachBookingDialogFrag extends DialogFragment implements OnClickListener{
 	
 	private GridView gv_days_booking;
-	private TextView tv_weixin_pay,tv_cancel;
+	private TextView tv_weixin_pay,tv_cancel,tv_coach_price_num;
+	private List<String> list_date = new ArrayList<String>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
@@ -34,9 +46,15 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 		View view = inflater.inflate(R.layout.dialog_frag_booking_date, container);
 		gv_days_booking = (GridView) view.findViewById(R.id.gv_days_booking);
 		tv_weixin_pay = (TextView) view.findViewById(R.id.tv_weixin_pay);
+		tv_coach_price_num = (TextView) view.findViewById(R.id.tv_coach_price_num);
 		tv_weixin_pay.setOnClickListener(this);
 		tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
 		tv_cancel.setOnClickListener(this);
+		for(CustomDate date:((BookingDateActivity)getActivity()).mDateList){
+			String str_date = date.toSecString();
+			list_date.add(str_date);
+			str_date = null;
+		}
 		initView();
 		return view;
 	}
@@ -57,8 +75,7 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 		
 		gv_days_booking.setAdapter(new ArrayAdapter<String>(getActivity(), 
 				R.layout.text_nopadding, 
-				new ArrayList<String>(Arrays.asList(
-						"2016.11.12","2016.11.13","2016.11.15","2016.11.18","2016.12.11"))));
+				list_date));
 	}
 	@Override
 	public void onClick(View v) {
@@ -74,5 +91,6 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 			break;
 		}
 	}
+
 	
 }

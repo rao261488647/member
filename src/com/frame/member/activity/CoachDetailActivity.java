@@ -86,7 +86,9 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_coach_meet:
-			startActivity(new Intent(CoachDetailActivity.this,BookingDateActivity.class));
+			Intent intent = new Intent(CoachDetailActivity.this,BookingDateActivity.class);
+			intent.putExtra("coachId", getIntent().getStringExtra("coachId"));
+			startActivity(intent);
 			break;
 		case R.id.tv_coach_collection:
 			toCollect(collect);

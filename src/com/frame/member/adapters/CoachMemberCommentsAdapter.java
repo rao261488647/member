@@ -65,7 +65,7 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 			holder = (ViewHolder) view.getTag();
 		}
 		holder.tv_member_name.setText(result.memberName);
-		holder.tv_member_level.setText("LV."+result.appHeadThumbnail);
+		holder.tv_member_level.setText("LV."+result.goal);
 		holder.tv_info_item_detail.setText(result.evaluateContent);
 		holder.tv_time_publish.setText(result.evaluateTime);
 		TTApplication.getInstance().disPlayImageDef(result.appHeadThumbnail, holder.iv_member_profile);

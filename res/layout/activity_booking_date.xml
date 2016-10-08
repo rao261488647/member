@@ -173,7 +173,7 @@
                     android:textColor="#a7a7a7"
                     android:layout_toLeftOf="@id/iv_more_place"
                     android:layout_marginRight="5dp"
-                    android:text="新西兰奥比例学场"/>
+                    android:text="请选择预约雪场"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
@@ -188,5 +188,11 @@
         android:textSize="15sp"
         android:textColor="#474747"
         android:text="预约"/>
+     <View
+        android:id="@+id/view_black_filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.0"
+        android:background="@color/black" />
 
 </RelativeLayout>

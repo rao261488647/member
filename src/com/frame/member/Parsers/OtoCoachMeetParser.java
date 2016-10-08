@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.frame.member.bean.OtoCoachMeetResult;
 import com.frame.member.bean.OtoCoachMeetResult.Date;
+import com.frame.member.bean.OtoCoachMeetResult.SkifieldChoices;
 
 public class OtoCoachMeetParser extends BaseParser<OtoCoachMeetResult> {
 
@@ -28,6 +29,23 @@ public class OtoCoachMeetParser extends BaseParser<OtoCoachMeetResult> {
 				result.skifieldName = obj.optString("skifieldName");
 				result.coachStar = obj.optString("coachStar");
 				
+				JSONObject json_area = obj_json.optJSONObject("snowArea");
+				if(json_area != null){
+					result.areaName = json_area.optString("areaName");
+				}
+				JSONArray array_field = obj_json.optJSONArray("skifieldChoices");
+				if(array_field!= null && array_field.length()>0){
+					for(int j = 0;j< array_field.length();j++){
+						JSONObject obj_field = array_field.optJSONObject(j);
+						if(obj_field!= null){
+							SkifieldChoices field = new SkifieldChoices();
+							field.skifieldId = obj_field.optString("skifieldId");
+							field.skifieldName = obj_field.optString("skifieldName");
+							result.skifieldChoices.add(field);
+							field = null;
+						}
+					}
+				}
 				JSONArray array_Json = obj_json.optJSONArray("date");
 				if(array_Json !=null && array_Json.length() > 0){
 					Date mDate;

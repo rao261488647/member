@@ -33,7 +33,7 @@ public class CoachMembersCommentsResult extends BaseBean {
 //	}
 	
 	public String friendId,appHeadThumbnail,memberName,evaluateContent,
-					evaluateTime;
+					evaluateTime,goal;
 	public List<Tag> tags = new ArrayList<Tag>();
 
 	public static class Tag{
@@ -44,7 +44,9 @@ public class CoachMembersCommentsResult extends BaseBean {
 	public String toString() {
 		return "CoachMembersCommentsResult [friendId=" + friendId + ", appHeadThumbnail=" + appHeadThumbnail
 				+ ", memberName=" + memberName + ", evaluateContent=" + evaluateContent + ", evaluateTime="
-				+ evaluateTime + ", tags=" + tags + "]";
+				+ evaluateTime + ", goal=" + goal + ", tags=" + tags + "]";
 	}
+
+	
 	
 }
