@@ -43,8 +43,10 @@ public class CondensationPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
-		return mListViews.size();// 返回页卡的数量
+//		return mListViews.size();// 返回页卡的数量
 //		 return Integer.MAX_VALUE;
+		//设置成最大，使用户看不到边界  
+        return Integer.MAX_VALUE; 
 	}
 
 	@Override

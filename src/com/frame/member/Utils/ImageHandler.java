@@ -29,7 +29,7 @@ public class ImageHandler extends Handler{
     public static final int MSG_PAGE_CHANGED  = 4;
       
     //轮播间隔时间
-    public static final long MSG_DELAY = 3000;
+    public static final long MSG_DELAY = 500;
       
     //使用弱引用避免Handler泄露.这里的泛型参数可以不是Activity，也可以是Fragment等
     private WeakReference<BaseFrag> weakReference;

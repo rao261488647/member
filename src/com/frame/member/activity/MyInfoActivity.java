@@ -81,6 +81,9 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 		String url = AppConstants.APP_SORT_STUDENT+"/mybase";
 		HttpRequestImpl request = new HttpRequestImpl(this,
 				url, parser,HttpRequest.RequestMethod.post);
+		//测试使用
+		SPUtils.getAppSpUtil().put(
+				this, SPUtils.KEY_MEMBERUSERID, "2257");
 		request.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
 		getDataFromServer(request, callback);

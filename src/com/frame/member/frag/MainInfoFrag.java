@@ -14,15 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView.ScaleType;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
@@ -34,12 +33,11 @@ import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainNewsAdapter;
-import com.frame.member.adapters.MyMsgNoticeAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainInfoBean.MainInfoResult;
 import com.frame.member.bean.MainInfoBean.MainNews;
@@ -47,7 +45,6 @@ import com.frame.member.bean.MainInfoBean.MainRemmendClass;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
  * 
@@ -64,7 +61,6 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
 			ll_sort_conden_classicAction;
-
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
 	private List<MainNews> tempList;
@@ -308,7 +304,6 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 
 			}
-
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				switch (arg0) {
@@ -330,7 +325,6 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
 				ImageHandler.MSG_DELAY);
 	}
-	
 	
 	
 	/**
