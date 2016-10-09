@@ -15,18 +15,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
-import com.frame.member.Parsers.BookingClassParser;
+import com.frame.member.Parsers.MyMsgNoticeParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
-import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.adapters.MyMsgNoticeAdapter;
-import com.frame.member.bean.BookingClassResult;
+import com.frame.member.bean.MyMsgNoticeBean.MyMsgNoticeResult;
+import com.frame.member.bean.MyMsgNoticeBean.Notice;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
-import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
+import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 
 /**
  * 我的消息-通知页面
@@ -37,6 +39,7 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 
 	private MyMsgNoticeAdapter adapter;
 	private List<String> tempList;
+	private List<Notice> dateList = new ArrayList<Notice>();
 	private PullToRefreshListView pullListView;
 	public static MyMsgNoticeFrag newInstance(String title) {
 
@@ -57,13 +60,13 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.frag_my_msg_notice, container,
 				false);
-		
-		tempList = new ArrayList<String>();
-		tempList.add(new String("1"));
-		tempList.add(new String("2"));
-		tempList.add(new String("3"));
-		tempList.add(new String("4"));
-		tempList.add(new String("5"));
+//		
+//		tempList = new ArrayList<String>();
+//		tempList.add(new String("1"));
+//		tempList.add(new String("2"));
+//		tempList.add(new String("3"));
+//		tempList.add(new String("4"));
+//		tempList.add(new String("5"));
 		
 		initView();
 		initOnclick();
@@ -100,39 +103,55 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
-//				pullListView.setMode(Mode.BOTH);
-//				getData();
+				pullListView.setMode(Mode.BOTH);
+				getData();
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
-//				getData();
+				getData();
 			}
 		});
-		//getData();
+		getData();
 	}
 	int page;
-	private List<BookingClassResult> list_result = new ArrayList<BookingClassResult>();
+	private List<MyMsgNoticeResult> list_result = new ArrayList<MyMsgNoticeResult>();
 	//请求获取服务端数据
 	private void getData(){
 		if(page == 0)
 			page = 1;
-		BaseParser<List<BookingClassResult>> parser = new BookingClassParser();
+		BaseParser parser = new MyMsgNoticeParser();
 		HttpRequest request = new HttpRequestImpl(getActivity(), 
-				AppConstants.APP_SORT_STUDENT +"/skiingclass", parser);
-		request.addParam("page_size", "10")
-				.addParam("page_num", ""+page);
+				AppConstants.APP_SORT_STUDENT +"/myappnotice", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
+		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack);
 		
 	}
 	/**
 	 * 网络请求回调事件
 	 */
-	private DataCallback<List<BookingClassResult>> callBack = new DataCallback<List<BookingClassResult>>() {
+	private DataCallback<MyMsgNoticeResult> callBack = new DataCallback<MyMsgNoticeResult>() {
 
 		@Override
-		public void processData(List<BookingClassResult> object, RequestResult result) {
+		public void processData(MyMsgNoticeResult object, RequestResult result) {
+			pullListView.onRefreshComplete();
+			if(null != object){
+				if("200".equals(object.code)){
+					if(page == 1){
+						dateList.clear();
+					}
+					if(object.noticeList != null && object.noticeList.size() > 0){
+						dateList.addAll(object.noticeList);
+						notifyAdapter();
+					}else{
+						showToast("没有更多数据！");
+					}
+				}else{
+					showToast("服务器正忙，请稍后尝试！");
+				}
+			}
 		}
 		
 	};
@@ -144,7 +163,7 @@ public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 	 */
 	private void notifyAdapter() {
 		if(adapter == null){
-			adapter = new MyMsgNoticeAdapter(getActivity(),tempList );
+			adapter = new MyMsgNoticeAdapter(getActivity(),dateList );
 			pullListView.setAdapter(adapter);
 		}else{
 			adapter.notifyDataSetChanged();

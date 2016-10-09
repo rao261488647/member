@@ -4,18 +4,18 @@ import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -35,7 +35,6 @@ import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainNewsAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
@@ -44,7 +43,7 @@ import com.frame.member.bean.MainInfoBean.MainNews;
 import com.frame.member.bean.MainInfoBean.MainRemmendClass;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
-import com.frame.member.widget.refreshlistview.PullToRefreshListView;
+import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
  * 
@@ -56,9 +55,11 @@ import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 
 public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
-	private PullToRefreshListView pullListView;
+//	private PullToRefreshListView pullListView;
+	private ListView listView;
+	private PullToRefreshScrollView pullListView;
 
-	CondensationPagerAdapter pagerAdapter;
+	public CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
 			ll_sort_conden_classicAction;
 	private int oldPosition = 0;// 记录上一次点的位置
@@ -70,7 +71,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	private int page;
 	
 	public ViewPager vp_condensation;
-	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
+	public ImageHandler handler = new ImageHandler(new WeakReference<MainInfoFrag>(
 			this));
 
 	private LinearLayout main_info_container,main_linear_container;
@@ -101,7 +102,6 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.frag_main_info, container,
 				false);
-
 		findViewByIds(); //获取控件
 		initPhotoCarousel(); //初始化图片轮播控件
 		//将页面定位到头部
@@ -111,13 +111,13 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 		
 		pullListView.setMode(Mode.BOTH);
-		pullListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
-			}
-		});
+//		pullListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
+//			}
+//		});
 		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
 			@Override
@@ -182,7 +182,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 						}
 						tempList = object.mainNewsData;
 						notifyAdapter(); //适配器设置
-//						setListViewHeight(pullListView);
+						setListViewHeight(listView);
 					
 					}
 				}
@@ -311,19 +311,19 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 					handler.sendEmptyMessage(ImageHandler.MSG_KEEP_SILENT);
 					break;
 				case ViewPager.SCROLL_STATE_IDLE:
-					handler.sendEmptyMessageDelayed(
-							ImageHandler.MSG_UPDATE_IMAGE,
-							ImageHandler.MSG_DELAY);
+//					handler.sendEmptyMessageDelayed(
+//							ImageHandler.MSG_UPDATE_IMAGE,
+//							ImageHandler.MSG_DELAY);
 					break;
 				default:
 					break;
 				}
 			}
 		});
-		vp_condensation.setCurrentItem(Integer.MAX_VALUE / 2);// 默认在中间，使用户看不到边界
+//		vp_condensation.setCurrentItem(Integer.MAX_VALUE / 2);// 默认在中间，使用户看不到边界
 		// 开始轮播效果
-		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
-				ImageHandler.MSG_DELAY);
+//		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
+//				ImageHandler.MSG_DELAY);
 	}
 	
 	
@@ -340,7 +340,8 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		main_class_tt2 = (TextView) findViewById(R.id.main_class_tt2);
 		main_class_tt3 = (TextView) findViewById(R.id.main_class_tt3);
 		
-		pullListView = (PullToRefreshListView) findViewById(R.id.main_info_lv);
+		listView = (ListView) findViewById(R.id.main_info_lv);
+		pullListView = (PullToRefreshScrollView) findViewById(R.id.main_info_scroll_lv);
 		main_linear_container =  (LinearLayout) findViewById(R.id.main_linear_container);
 	}
 
@@ -352,7 +353,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	private void notifyAdapter() {
 		if(adapter == null){
 			adapter = new MainNewsAdapter(getActivity(),tempList );
-			pullListView.setAdapter(adapter);
+			listView.setAdapter(adapter);
 		}else{
 			adapter.notifyDataSetChanged();
 		}
@@ -367,5 +368,10 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	
 		}
 	};
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+	}
 
 }

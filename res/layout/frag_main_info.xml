@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.frame.member.widget.refreshlistview.PullToRefreshScrollView 
+   	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_info_scroll_lv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:divider="@drawable/list_divider_left">
+<LinearLayout 
     android:id="@+id/main_linear_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="vertical"
     android:background="@color/color_white_gap">
-
         <LinearLayout
             android:id="@+id/main_info_container"
             android:layout_width="match_parent"
@@ -20,7 +27,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/main_vp_condensation"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="190dp" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -239,12 +246,13 @@
 		            />
 		    </RelativeLayout>
         </LinearLayout>
-	        <com.frame.member.widget.refreshlistview.PullToRefreshListView
+	        <ListView
 		        android:id="@+id/main_info_lv"
 		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
+		        android:layout_height="150dp"
 		        android:scrollbars="none"
 		        android:stretchMode="columnWidth"
 		        android:divider="@drawable/list_divider_left">
-		    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
-</LinearLayout>
+		    </ListView>
+	</LinearLayout>
+</com.frame.member.widget.refreshlistview.PullToRefreshScrollView>

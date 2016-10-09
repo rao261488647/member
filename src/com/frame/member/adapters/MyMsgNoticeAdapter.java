@@ -3,17 +3,15 @@ package com.frame.member.adapters;
 import java.util.List;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
-import com.frame.member.bean.MainVideoBean.MainVideoCategory;
+import com.frame.member.adapters.MyBillAdapter.ViewHolder;
+import com.frame.member.bean.MyMsgNoticeBean.Notice;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 /**
  * 消息通知-评论适配器
@@ -22,9 +20,9 @@ import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
  */
 public class MyMsgNoticeAdapter extends BaseSwipListAdapter {
 	private Context context;
-	private List<String> mAppList;
+	private List<Notice> mAppList;
 	public MyMsgNoticeAdapter(Context context,
-			 List<String> mAppList) {
+			 List<Notice> mAppList) {
 		this.context = context;
 		this.mAppList = mAppList;
 	}
@@ -37,7 +35,7 @@ public class MyMsgNoticeAdapter extends BaseSwipListAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public Notice getItem(int position) {
         return mAppList.get(position);
     }
 
@@ -48,25 +46,24 @@ public class MyMsgNoticeAdapter extends BaseSwipListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+    	ViewHolder holder = null;
         if (convertView == null) {
             convertView = View.inflate(context,
                     R.layout.item_my_msg_notice, null);
-            new ViewHolder(convertView);
+            holder = new ViewHolder();
+            holder.title = (TextView) convertView.findViewById(R.id.item_my_msg_notice_1);
+            holder.content = (TextView) convertView.findViewById(R.id.item_my_msg_notice_2);
+            holder.date = (TextView) convertView.findViewById(R.id.item_my_msg_notice_3);
+            convertView.setTag(holder);
+        }else{
+        	holder = (ViewHolder) convertView.getTag();
         }
-        ViewHolder holder = (ViewHolder) convertView.getTag();
-        String item = getItem(position);
-//        holder.my_collect_class_img_1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, "iv_icon_click", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        holder.my_collect_class_text_1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context,"iv_icon_click",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Notice item = getItem(position);
+        
+        holder.title.setText(item.noticeTitle);
+        holder.content.setText(item.noticeContent);
+        holder.date.setText(item.noticeTime);
+        
         return convertView;
     }
 
@@ -80,14 +77,6 @@ public class MyMsgNoticeAdapter extends BaseSwipListAdapter {
     }
 
     class ViewHolder {
-        ImageView my_collect_class_img_1;
-        TextView my_collect_class_text_1,my_collect_class_text_2,my_collect_class_text_3,
-        my_collect_class_text_4,my_collect_class_text_5,my_collect_class_text_6,
-        my_collect_class_text_7;
-        RatingBar my_collect_ratingBar1;
-
-        public ViewHolder(View view) {
-            view.setTag(this);
-        }
+        TextView title,content,date;
     }
 }

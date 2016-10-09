@@ -66,6 +66,7 @@ public class MyBillAdapter extends BaseSwipListAdapter {
         BillInfo item = getItem(position);
         
         holder.my_bill_name.setText(item.remarks);
+        holder.my_bill_money.setText(item.money);
         if(!item.money.contains("-")){
         	holder.my_bill_money.setTextColor(R.color.yellow_e6);
         }

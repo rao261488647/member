@@ -70,6 +70,7 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void processLogic() {
 		iv_title_back.setVisibility(0);
+		iv_title_back.setOnClickListener(this);
 	}
 
 	/**
@@ -81,9 +82,6 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 		String url = AppConstants.APP_SORT_STUDENT+"/mybase";
 		HttpRequestImpl request = new HttpRequestImpl(this,
 				url, parser,HttpRequest.RequestMethod.post);
-		//测试使用
-		SPUtils.getAppSpUtil().put(
-				this, SPUtils.KEY_MEMBERUSERID, "2257");
 		request.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
 		getDataFromServer(request, callback);
@@ -234,6 +232,14 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 				gender = "男";
 			}
 			submitData();//调用接口修改性别
+			break;
+		//返回，需要返回信息
+		case R.id.iv_title_back:
+			Bundle bundle = new Bundle(); 
+			bundle.putString("name", name.getText().toString()); 
+			bundle.putString("signature", signature.getText().toString()); 
+			setResult(1001, this.getIntent().putExtras(bundle)); 
+			this.finish();
 			break;
 		default:
 			break;

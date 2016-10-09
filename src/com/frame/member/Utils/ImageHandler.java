@@ -3,9 +3,11 @@ package com.frame.member.Utils;
 import java.lang.ref.WeakReference;
 
 import com.frame.member.frag.BaseFrag;
+import com.frame.member.frag.MainInfoFrag;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class ImageHandler extends Handler{
     
@@ -29,31 +31,40 @@ public class ImageHandler extends Handler{
     public static final int MSG_PAGE_CHANGED  = 4;
       
     //轮播间隔时间
-    public static final long MSG_DELAY = 500;
+    public static final long MSG_DELAY = 4000;
       
     //使用弱引用避免Handler泄露.这里的泛型参数可以不是Activity，也可以是Fragment等
-    private WeakReference<BaseFrag> weakReference;
+    private WeakReference<MainInfoFrag> weakReference;
     private int currentItem = 0;
       
-    public ImageHandler(WeakReference<BaseFrag> wk){
+    public ImageHandler(WeakReference<MainInfoFrag> wk){
         weakReference = wk;
     }
       
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
-        BaseFrag activity = weakReference.get();
+        MainInfoFrag activity = weakReference.get();
         if (activity==null){
             //Activity已经回收，无需再处理UI了
             return ;
         }
+        Log.e("imagehandler", msg.what+"");
         //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
 //        if (activity.handler.hasMessages(MSG_UPDATE_IMAGE)){
 //            activity.handler.removeMessages(MSG_UPDATE_IMAGE);
 //        }
         switch (msg.what) {
         case MSG_UPDATE_IMAGE:
-            currentItem++;
+        	int tempIndex = currentItem + 1;
+        	if(tempIndex > activity.pagerAdapter.getCount()){
+        		currentItem = 0;
+        	}else{
+        		currentItem++;
+        	}
+            activity.vp_condensation.setCurrentItem(currentItem);  
+            //准备下次播放  
+            activity.handler.sendEmptyMessageDelayed(MSG_UPDATE_IMAGE, MSG_DELAY);  
             break;
         case MSG_KEEP_SILENT:
             //只要不发送消息就暂停了

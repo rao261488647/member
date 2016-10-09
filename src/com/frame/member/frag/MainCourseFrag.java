@@ -65,9 +65,9 @@ public class MainCourseFrag extends BaseFrag {
 	private ArrayList<View> dots;
 	public ViewPager vp_condensation;
 	private int page;
-	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
-			this));
-
+//	public ImageHandler handler = new ImageHandler(new WeakReference<BaseFrag>(
+//			this));
+	public ImageHandler handler = null;
 	private LinearLayout ll_main_container ,main_course_container;
 
 	

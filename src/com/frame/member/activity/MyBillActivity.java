@@ -3,6 +3,7 @@ package com.frame.member.activity;
  * 个人消费流水
  * Ron
  */
+import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
@@ -31,6 +32,7 @@ public class MyBillActivity extends BaseActivity {
 	private int page;
 	private MyBillAdapter adapter;
 	private TextView billYear,totalAmount;
+	private List<BillInfo> infoList = new ArrayList<BillInfo>();
 	BaseParser<MyBillResult> parser = new MyBillParser();
 	@Override
 	protected void loadViewLayout() {
@@ -53,24 +55,31 @@ public class MyBillActivity extends BaseActivity {
 	 * @date 2016-9-19  上午12:01:27
 	 */
 	private void getData() {
+		if (page == 0)
+			page = 1;
 		String url = AppConstants.APP_SORT_STUDENT+"/myconsumption";
 		HttpRequestImpl request = new HttpRequestImpl(this,
 				url, parser,HttpRequest.RequestMethod.post);
 		request.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""));
-//		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
-		request.addParam("memberUserId","89"); //写死
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, "")); //用户id 
+//		request.addParam("memberUserId","89"); //写死
+		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		getDataFromServer(request, callback1);
 	}
 	private DataCallback<MyBillResult> callback1 = new DataCallback<MyBillResult>() {
 
 		@Override
 		public void processData(MyBillResult object, RequestResult result) {
+			pullListView.onRefreshComplete();
 			if(result == RequestResult.Success){
 				if(null != object){
 					if("200".equals(object.code)){
 						if(object.consumptionList != null){
 							Consumption c = object.consumptionList.get(0);
-							notifyAdapter(c.info);
+							if (page == 1)
+								infoList.clear();
+							infoList.addAll(c.info);
+							notifyAdapter();
 							billYear.setText(c.year+"雪季总消费");
 							totalAmount.setText("￥"+c.totalAmount+".00元");
 						}
@@ -87,7 +96,7 @@ public class MyBillActivity extends BaseActivity {
 	 * @author Ron
 	 * @date 2016-8-20  上午12:22:37
 	 */
-	private void notifyAdapter(List<BillInfo> infoList) {
+	private void notifyAdapter() {
 		if(adapter == null){
 			adapter = new MyBillAdapter(this,infoList );
 			pullListView.setAdapter(adapter);
@@ -111,13 +120,13 @@ public class MyBillActivity extends BaseActivity {
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				pullListView.setMode(Mode.BOTH);
-//				getMainCourseData();
+				getData();
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
-//				getMainCourseData();
+				getData();
 			}
 		});
 	}
