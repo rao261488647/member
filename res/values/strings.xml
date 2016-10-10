@@ -37,6 +37,11 @@
         <item>评论</item>
         <item>点赞</item>
     </string-array>
+    <!-- 收藏标签 -->
+    <string-array name="my_collect_tabs">
+        <item>教练</item>
+        <item>课程</item>
+    </string-array>
     
     <string name="title_alert">提示信息</string>
     

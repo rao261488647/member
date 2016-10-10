@@ -28,7 +28,7 @@
         android:layout_alignLeft="@+id/item_my_msg_comment_tv_1"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/item_my_msg_comment_tv_1"
-		android:src="@drawable/icon_my_collect_full"
+		android:src="@drawable/icon_my_msg_coach"
         />
      <TextView 
         android:id="@+id/item_my_msg_comment_tv_2"

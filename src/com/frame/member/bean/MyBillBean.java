@@ -25,6 +25,8 @@ public class MyBillBean extends BaseBean {
 		public String remarks;//备注
 		public Long time;//时间，毫秒数
 		public String unsubscribe;//是否取消   0：否， 1：是
+		public int fundType; //资金类型1:支出 5:扣款---正数   资金类型2:充值 3:提现 4:收入 6:返还学费---负数
+
 	}
 	/**
 	 * 返回结果集

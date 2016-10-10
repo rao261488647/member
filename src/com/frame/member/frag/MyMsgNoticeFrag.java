@@ -24,8 +24,8 @@ import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.adapters.MyMsgNoticeAdapter;
-import com.frame.member.bean.MyMsgNoticeBean.MyMsgNoticeResult;
-import com.frame.member.bean.MyMsgNoticeBean.Notice;
+import com.frame.member.bean.MyMsgBean.MyMsgNoticeResult;
+import com.frame.member.bean.MyMsgBean.Notice;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
@@ -38,7 +38,6 @@ import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 public class MyMsgNoticeFrag extends BaseFrag implements OnClickListener {
 
 	private MyMsgNoticeAdapter adapter;
-	private List<String> tempList;
 	private List<Notice> dateList = new ArrayList<Notice>();
 	private PullToRefreshListView pullListView;
 	public static MyMsgNoticeFrag newInstance(String title) {

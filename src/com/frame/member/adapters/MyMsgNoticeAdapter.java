@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.adapters.MyBillAdapter.ViewHolder;
-import com.frame.member.bean.MyMsgNoticeBean.Notice;
+import com.frame.member.bean.MyMsgBean.Notice;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 /**
  * 消息通知-评论适配器

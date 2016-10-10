@@ -18,7 +18,7 @@
 		    android:layout_marginLeft="20dp"
 		    android:textColor="#aaaaaa"
 		    android:textSize="14sp"
-		    android:text="2016-2017雪季总消费"
+		    android:text=""
 		    />
 		<TextView 
 		    android:id="@+id/my_bill_total"
@@ -29,7 +29,7 @@
 		    android:layout_marginRight="20dp"
 		    android:textColor="#aaaaaa"
 		    android:textSize="14sp"
-		    android:text="￥36.000.00元"
+		    android:text=""
 		    />
         
     </RelativeLayout>

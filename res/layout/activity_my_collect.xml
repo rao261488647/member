@@ -5,53 +5,55 @@
     android:orientation="vertical" 
     android:background="#EFEFED"
     >
-    <include layout="@layout/layout_title"/>
     <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        >
-		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_marginLeft="20dp"
-		    android:textColor="#aaaaaa"
-		    android:textSize="14sp"
-		    android:text="教练"
-		    />
-        
-    </RelativeLayout>
-	<RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    >
-	    <com.frame.member.widget.swipemenulistview.SwipeMenuListView
-	        android:id="@+id/my_collect_teacher_listView"
+	        android:id="@+id/my_msg_title"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" />
-	</RelativeLayout>
-	<RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        >
-		<TextView 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_marginLeft="20dp"
-		    android:textColor="#aaaaaa"
-		    android:textSize="14sp"
-		    android:text="课程"
+	        android:layout_height="50dp"
+	        android:background="@color/bottom_tab_black">
+	      	<LinearLayout 
+	        	android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:orientation="horizontal"
+		        android:layout_centerHorizontal="true">
+		        <LinearLayout android:id="@+id/my_msg_left_btn"
+		            android:layout_width="56dp"
+		            android:layout_height="match_parent"
+		            android:orientation="vertical"
+		           	android:gravity="center">
+		            <TextView android:id="@+id/my_msg_left_text"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="教练"
+		                android:textColor="@color/gray_87"
+		                android:textSize="14sp"
+		                />
+		            
+		        </LinearLayout>
+		        <LinearLayout android:id="@+id/my_msg_right_btn"
+		             android:layout_width="56dp"
+		             android:layout_height="match_parent"
+		             android:orientation="vertical"
+		             android:gravity="center">
+		            <TextView android:id="@+id/my_msg_right_text"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="课程"
+		                android:textColor="@color/gray_87"
+		                android:textSize="16sp"
+		                />
+		            
+		        </LinearLayout>
+	    </LinearLayout>
+	    <ImageView
+		    android:id="@+id/my_msg_back"
+		    android:layout_width="47dp"
+		    android:layout_height="match_parent"
+		    android:scaleType="center"
+		    android:src="@drawable/btn_back_normal"
 		    />
-        
     </RelativeLayout>
-    <RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    >
-	    <com.frame.member.widget.swipemenulistview.SwipeMenuListView
-	        android:id="@+id/my_collect_class_listView"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" />
-	</RelativeLayout>
+	<FrameLayout 
+	    android:id="@+id/my_msg_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

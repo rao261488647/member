@@ -74,7 +74,7 @@ public class MyBillActivity extends BaseActivity {
 			if(result == RequestResult.Success){
 				if(null != object){
 					if("200".equals(object.code)){
-						if(object.consumptionList != null){
+						if(object.consumptionList != null && object.consumptionList.size() > 0){
 							Consumption c = object.consumptionList.get(0);
 							if (page == 1)
 								infoList.clear();
@@ -82,6 +82,8 @@ public class MyBillActivity extends BaseActivity {
 							notifyAdapter();
 							billYear.setText(c.year+"雪季总消费");
 							totalAmount.setText("￥"+c.totalAmount+".00元");
+						}else{
+							showToast("没有更多的数据！");
 						}
 					}else{
 						showToast("服务器正忙，请稍后尝试！");
