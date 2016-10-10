@@ -24,7 +24,12 @@
                 android:id="@+id/rl_cover_coach"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:background="@drawable/coach_cover" >
+                >
+                <ImageView android:id="@+id/iv_coach_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/coach_cover"
+                    android:scaleType="centerCrop"/>
 
                 <com.frame.member.widget.RoundImageView
                     android:id="@+id/iv_coach_profile"
@@ -262,6 +267,7 @@
                 android:paddingTop="10dp" >
 
                 <FrameLayout
+                    android:id="@+id/fl_coach_video_cover"
                     android:layout_width="match_parent"
                     android:layout_height="200dp" >
 

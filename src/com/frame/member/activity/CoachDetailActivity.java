@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -37,9 +38,10 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_coach_meet,tv_name_coach,tv_level_coach,
 					tv_num_meet,tv_price_num,tv_skifield_info,
 					tv_coach_collection,tv_coach_content_info;
-	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor;
+	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor,iv_coach_cover;
 	private RatingBar rb_booking_one;
 	private LinearLayout ll_coach_picture;
+	private FrameLayout fl_coach_video_cover;
 	private String collect = "";
 
 	@Override
@@ -61,8 +63,10 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_coach_profile = (ImageView) findViewById(R.id.iv_coach_profile);
 		iv_coach_video_cover = (ImageView) findViewById(R.id.iv_coach_video_cover);
 		iv_coach_honor = (ImageView) findViewById(R.id.iv_coach_honor);
+		iv_coach_cover = (ImageView) findViewById(R.id.iv_coach_cover);
 		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
 		ll_coach_picture = (LinearLayout) findViewById(R.id.ll_coach_picture);
+		fl_coach_video_cover = (FrameLayout) findViewById(R.id.fl_coach_video_cover);
 	}
 
 	@Override
@@ -76,6 +80,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
 		tv_title.setText("教练详情");
 		tv_title_right.setText("查看评论");
+		tv_title_right.setVisibility(View.INVISIBLE);
 //		mAdapter = new CoachMemberCommentsAdapter(this,null);
 //		lv_member_comments.setAdapter(mAdapter);
 		getData();
@@ -147,13 +152,20 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 			if(object != null){
 				tv_num_meet.setText("累计被约"+getIntent().getStringExtra("meetNum")+"次");
 				TTApplication.getInstance().disPlayImageDef(object.headImg, iv_coach_profile);
+				TTApplication.getInstance().disPlayImageDef(object.headImg, iv_coach_cover);
+				iv_coach_cover.setColorFilter(0x30000000);
 				tv_level_coach.setText(object.levelName);
 				tv_price_num.setText("¥"+object.trainfee);
 				rb_booking_one.setRating(object.goal);
 				tv_name_coach.setText(object.coachName);
-				tv_coach_content_info.setText(object.intro);
-				tv_skifield_info.setText(object.skifieldName);
-				TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_coach_video_cover);
+				tv_coach_content_info.setText(object.specialty);
+				tv_skifield_info.setText(object.areaName);
+				if(!TextUtils.isEmpty(object.videoUrl)){
+					TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_coach_video_cover);
+				}else{
+					fl_coach_video_cover.setVisibility(View.GONE);
+				}
+				
 				TTApplication.getInstance().disPlayImageDef(object.honor, iv_coach_honor);
 				if("0".equals(object.collect)){
 					tv_coach_collection.setText("收藏");

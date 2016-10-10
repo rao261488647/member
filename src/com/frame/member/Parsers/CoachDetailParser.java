@@ -28,6 +28,7 @@ public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 				result.skifieldName = obj.optString("skifieldName");
 				result.goal = obj.optInt("goal");
 				result.intro = obj.optString("intro");
+				result.areaName = obj.optString("areaName");
 				result.skifieldName = obj.optString("skifieldName");
 				result.honor = obj.optString("honor");
 				result.specialty = obj.optString("specialty");

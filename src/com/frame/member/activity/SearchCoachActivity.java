@@ -14,6 +14,8 @@ import com.frame.member.adapters.CoachSearchResultAdapter;
 import com.frame.member.bean.CoachSearchResult;
 import com.frame.member.bean.IntroduceAttentionResult;
 import com.frame.member.bean.IntroduceAttentionResult.Coach;
+
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.Spannable;
@@ -22,6 +24,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -102,6 +106,7 @@ public class SearchCoachActivity extends BaseActivity {
 		et_search_coach.setHint(ss);
 		//获得推荐教练数据
 		getRandCoach();
+		
 	}
 
 	// 获得搜索的教练数据
@@ -129,6 +134,16 @@ public class SearchCoachActivity extends BaseActivity {
 		if(mAdapter_result == null){
 			mAdapter_result = new CoachSearchResultAdapter(this, list_result);
 			lv_search_coach.setAdapter(mAdapter_result);
+			lv_search_coach.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent = new Intent(SearchCoachActivity.this,CoachDetailActivity.class);
+					intent.putExtra("coachId", list_result.get(position).coachId);
+					startActivity(intent);
+					
+				}
+			});
 		}else{
 			mAdapter_result.notifyDataSetChanged();
 		}

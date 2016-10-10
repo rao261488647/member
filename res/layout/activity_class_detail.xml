@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@drawable/background_booking_date"
@@ -39,11 +39,13 @@
                     android:textSize="16sp" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_class_states"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="25dp"
+                    android:layout_below="@id/tv_class_name"
                     android:background="@drawable/shape_corner_green"
                     android:padding="10dp" >
 
@@ -97,7 +99,21 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </RelativeLayout>
-            </LinearLayout>
+                <TextView android:id="@+id/tv_class_states_full"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/rl_class_states"
+                        android:layout_alignTop="@id/rl_class_states"
+                        android:layout_alignRight="@id/rl_class_states"
+                        android:layout_alignBottom="@id/rl_class_states"
+                        android:background="@drawable/shape_corner_gray"
+                        android:visibility="gone"
+                        android:text="已满员"
+                        android:textSize="25sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"/> 
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/ll_class_info"
                 android:layout_width="match_parent"
@@ -249,6 +265,18 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/icon_play_2x"/>
             </RelativeLayout>
+            <TextView
+                    android:id="@+id/tv_class_content_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:paddingLeft="14dp"
+                    android:paddingRight="14dp"
+                    android:paddingTop="16dp"
+                    android:background="@color/white"
+                    android:text="但是这样的图片看起来是有直角的，是生硬的，给用户一种强硬的感觉。"
+                    android:textColor="@color/gray_6e"
+                    android:textSize="13sp" />
             
             <LinearLayout
                 android:layout_width="match_parent"

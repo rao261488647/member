@@ -1,6 +1,7 @@
 package com.frame.member.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class BookingOneResult extends BaseBean {
@@ -10,13 +11,16 @@ public class BookingOneResult extends BaseBean {
 	
 	public static class Coach{
 		public String coachId,coachName,headImg,coachBadge,levelName,meetNum;
-		public float coachStar;
+		public float goal;
+		public List<Badges> badges = new ArrayList<Badges>();
+		
+	}
+	public static class Badges{
+		public String badgeId;
+		public String badgeName;
 	}
 
-	@Override
-	public String toString() {
-		return "BookingOneResult [totalItems=" + totalItems + ", coaches=" + coaches + "]";
-	}
+	
 
 	
 	

@@ -1,15 +1,15 @@
 package com.frame.member.adapters;
 
 import java.util.List;
-
 import com.frame.member.R;
 import com.frame.member.TTApplication;
-import com.frame.member.bean.CoachSearchResult;
+import com.frame.member.activity.CoachDetailActivity;
 import com.frame.member.bean.IntroduceAttentionResult.Coach;
-
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -41,7 +41,7 @@ public class CoachSearchAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		Coach result = list.get(position);
+		final Coach result = list.get(position);
 		if(convertView == null){
 			View view = LayoutInflater.from(context).inflate(R.layout.item_image_and_text, null);
 			holder = new ViewHolder();
@@ -53,6 +53,15 @@ public class CoachSearchAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		TTApplication.getInstance().disPlayImageDef(result.headImg, holder.iv_profile_above);
+		holder.iv_profile_above.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context,CoachDetailActivity.class);
+				intent.putExtra("coachId", result.coachId);
+				context.startActivity(intent);
+			}
+		});
 		holder.tv_name_below.setText(result.coachName);
 		return convertView;
 	}

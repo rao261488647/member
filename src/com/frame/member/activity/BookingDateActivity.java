@@ -23,6 +23,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +56,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 	enum SildeDirection {
 		RIGHT, LEFT, NO_SILDE;
 	}
-	public String skifieldId;
+	public String skifieldId,skifieldName;
 
 //	// 已经选中的日期数量
 //	private int num_selected = 0;
@@ -117,6 +118,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				tv_booking_snow_area.setText(list_field.get(position));
 				skifieldId = list_ski.get(position).skifieldId;
+				skifieldName = list_ski.get(position).skifieldName;
 				mPop.dismiss();
 				
 			}
@@ -127,6 +129,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 	
 	private List<String> list_field = new ArrayList<String>();
 	private List<SkifieldChoices> list_ski = new ArrayList<SkifieldChoices>();
+	public OtoCoachMeetResult result_coach = new OtoCoachMeetResult();
 	//获取主数据
 	private void getData(){
 		BaseParser<OtoCoachMeetResult> parser = new OtoCoachMeetParser();
@@ -141,6 +144,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			@Override
 			public void processData(OtoCoachMeetResult object, RequestResult result) {
 				if(object != null){
+					result_coach = object;
 					tv_booking_place.setText(object.areaName);
 					tv_booking_snow_area.setText("请选择预约雪场");
 					list_field.clear();
@@ -286,7 +290,14 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 			break;
 		case R.id.tv_booking_now:
-			showDialog();
+			if(mDateList == null || mDateList.size() < 1){
+				showToast("请选择日期");
+			}else if(TextUtils.isEmpty(skifieldId)){
+				showToast("请选择预约雪场");
+			}else{
+				showDialog();
+			}
+			
 			break;
 		case R.id.tv_booking_snow_area:
 			showPopwindow();

@@ -1,6 +1,7 @@
 package com.frame.member.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
@@ -12,8 +13,6 @@ import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.BaseActivity.DataCallback;
-import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.ClassDetailResult;
@@ -25,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener{
@@ -33,8 +33,11 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 	private RatingBar rb_booking_class;
 	private ImageView iv_class_vedio_cover;
 	private ListView lv_member_comments;
+	private RelativeLayout rl_class_states;
+	private TextView tv_class_states_full,tv_class_content_info;
 	private CoachMemberCommentsAdapter mAdapter;
 	private String collect = "";
+	public ClassDetailResult result_class = new ClassDetailResult();
 	
 	@Override
 	protected void loadViewLayout() {
@@ -50,9 +53,12 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 		tv_item_time_num = (TextView) findViewById(R.id.tv_item_time_num);
 		tv_skifield_info = (TextView) findViewById(R.id.tv_skifield_info);
 		tv_class_collection = (TextView) findViewById(R.id.tv_class_collection);
+		tv_class_states_full = (TextView) findViewById(R.id.tv_class_states_full);
+		tv_class_content_info = (TextView) findViewById(R.id.tv_class_content_info);
 		rb_booking_class = (RatingBar) findViewById(R.id.rb_booking_class);
 		iv_class_vedio_cover = (ImageView) findViewById(R.id.iv_class_vedio_cover);
 		lv_member_comments = (ListView) findViewById(R.id.lv_member_comments);
+		rl_class_states = (RelativeLayout) findViewById(R.id.rl_class_states);
 	}
 	
 	@Override
@@ -65,6 +71,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 	protected void processLogic() {
 		tv_title.setText("课程详情");
 		tv_title_right.setText("查看评论");
+		tv_title_right.setVisibility(View.INVISIBLE);
 		tv_title_right.setTextColor(0xffffffff);
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
 		getData();
@@ -134,6 +141,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void processData(ClassDetailResult object, RequestResult result) {
 				if(object != null){
+					result_class = object;
 					tv_class_name.setText(object.courseName);
 					tv_members_price.setText("蓝卡价： "+object.discountPrice+"元/人");
 					tv_price_per_day.setText("¥"+object.originalPrice);
@@ -151,6 +159,12 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 						tv_class_collection.setText("已收藏");
 						collect = "0";
 					}
+					if(Integer.parseInt(object.signedUpNum) < Integer.parseInt(object.personNumber)){
+						tv_class_states_full.setVisibility(View.GONE);
+					}else{
+						tv_class_states_full.setVisibility(View.VISIBLE);
+					}
+					tv_class_content_info.setText(object.courseIntro);
 				}
 				
 			}

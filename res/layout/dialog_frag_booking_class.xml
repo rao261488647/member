@@ -26,8 +26,9 @@
                 android:textColor="#464646"
                 android:text="【教练认证】"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"/>
-            <TextView android:id="@+id/name_class"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"/>
+            <TextView android:id="@+id/tv_name_class"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -35,14 +36,14 @@
                 android:layout_centerHorizontal="true"
                 android:text="基础滑雪动作速成培训班（单板）"
                 android:layout_below="@id/tv_coach_approve"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="20dp"/>
 
             <RelativeLayout
                 android:id="@+id/rl_coach_evaluation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_below="@id/name_class"
+                android:layout_below="@id/tv_name_class"
                 android:gravity="center_vertical" >
 
                 <RatingBar

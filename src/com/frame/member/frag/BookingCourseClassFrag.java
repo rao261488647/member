@@ -60,12 +60,17 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 	private View view_black_filter;
 	private int rank = -1;
 
-	private ArrayList<String> list_area = new ArrayList<String>();
-	private ArrayList<String> list_skifield = new ArrayList<String>();
-	private ArrayList<String> list_category = new ArrayList<String>();
+	private List<AreaChoices> list_area = new ArrayList<BookingClassSelectedResult.AreaChoices>();
+	private List<SkifieldChoices> list_skifield = new ArrayList<BookingClassSelectedResult.SkifieldChoices>();
+	private List<CategoryChoices> list_category = new ArrayList<BookingClassSelectedResult.CategoryChoices>();
+	private ArrayList<String> list_area_str = new ArrayList<String>();
+	private ArrayList<String> list_skifield_str = new ArrayList<String>();
+	private ArrayList<String> list_category_str = new ArrayList<String>();
 	private ArrayList<String> list_sdplate = new ArrayList<String>();
 	// 所有的item的popwindow的数据全是用这个代替
 	private ArrayList<String> list_standard = new ArrayList<String>();
+	
+	private String areaId="",skifieldId="",categoryId="",sdplate="";//雪区，雪场，职称类型，单双板
 
 	private static BookingCourseClassFrag mFrag;
 
@@ -118,13 +123,62 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 		lv_booking_pop = (ListView) container_pop.findViewById(R.id.lv_booking_pop);
 		adapter_list = new ArrayAdapter<String>(mContext, R.layout.item_pop_list, list_standard);
 		lv_booking_pop.setAdapter(adapter_list);
+		lv_booking_pop.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				switch (rank) {
+				case 0:
+					if(position != 0){
+						areaId = list_area.get(position).areaId;
+						tv_item_1_booking.setText(list_standard.get(position));
+					}else{
+						areaId = "";
+						tv_item_1_booking.setText("雪区");
+					}
+					break;
+				case 1:
+					if(position != 0){
+						skifieldId = list_skifield.get(position).skifieldId;
+						tv_item_2_booking.setText(list_standard.get(position));
+					}else{
+						skifieldId = "";
+						tv_item_2_booking.setText("雪场");
+					}
+					break;
+				case 2:
+					if(position != 0){
+						categoryId = list_category.get(position).categoryId;
+						tv_item_3_booking.setText(list_standard.get(position));
+					}else{
+						categoryId = "";
+						tv_item_3_booking.setText("类型");
+					}
+					break;
+				case 3:
+					if(position != 0){
+						sdplate = list_sdplate.get(position);
+						tv_item_4_booking.setText(list_standard.get(position));
+					}else{
+						sdplate = "";
+						tv_item_4_booking.setText("单双板");
+					}
+					break;
+			
+				}
+				mPop.dismiss();
+				page = 1;
+				lv_booking_course_class.setMode(Mode.BOTH);
+				getData(areaId,skifieldId,categoryId,sdplate);
+			}
+		});
 		lv_booking_course_class.setMode(Mode.BOTH);
 		lv_booking_course_class.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getActivity(), ClassDetailActivity.class);
-				intent.putExtra("courseId", list_result.get(position).courseId);
+				intent.putExtra("courseId", list_result.get(position-1).courseId);
 				startActivity(intent);
 			}
 		});
@@ -134,16 +188,16 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				lv_booking_course_class.setMode(Mode.BOTH);
-				getData();
+				getData(areaId,skifieldId,categoryId,sdplate);
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page++;
-				getData();
+				getData(areaId,skifieldId,categoryId,sdplate);
 			}
 		});
-		getData();
+		getData(areaId,skifieldId,categoryId,sdplate);
 		getSelectedChoice();
 	}
 
@@ -151,14 +205,18 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 	private List<BookingClassResult> list_result = new ArrayList<BookingClassResult>();
 
 	// 请求获取主数据
-	private void getData() {
+	private void getData(String areaId,String skifieldId,String categoryId,String sdplate) {
 		if (page == 0)
 			page = 1;
 		BaseParser<List<BookingClassResult>> parser = new BookingClassParser();
 		HttpRequest request = new HttpRequestImpl(getActivity(), AppConstants.APP_SORT_STUDENT + "/skiingclass",
 				parser);
-		request.addParam("page_size", "10").addParam("page_num", "" + page);
-		((BaseActivity) getActivity()).getDataFromServer(request, false, callBack);
+		request.addParam("page_size", "10").addParam("page_num", "" + page)
+				.addParam("areaId", areaId)
+				.addParam("skifieldId", skifieldId)
+				.addParam("sdplate", sdplate)
+				.addParam("categoryId", categoryId);
+		((BaseActivity) getActivity()).getDataFromServer(request, true, callBack);
 
 	}
 
@@ -167,9 +225,8 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 		@Override
 		public void processData(List<BookingClassResult> object, RequestResult result) {
 			lv_booking_course_class.onRefreshComplete();
-			if (result == RequestResult.Success) {
-				if (object != null) {
-					showToast(object.get(0).message);
+				if (object != null && object.size()>0) {
+//					showToast(object.get(0).message);
 					if ("200".equals(object.get(0).code)) {
 						if (page == 1)
 							list_result.clear();
@@ -185,7 +242,6 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 						notifyAdapter();
 					}
 				}
-			}
 		}
 
 	};
@@ -210,19 +266,25 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 			public void processData(BookingClassSelectedResult object, RequestResult result) {
 				lv_booking_course_class.onRefreshComplete();
 				if (object != null) {
-					list_area.clear();
+					list_area_str.clear();
 					list_sdplate.clear();
+					list_category_str.clear();
+					list_skifield_str.clear();
+					list_area.clear();
 					list_category.clear();
 					list_skifield.clear();
+					list_area.addAll(object.areaChoices);
+					list_skifield.addAll(object.skifieldChoices);
+					list_category.addAll(object.categoryChoices);
 					for(AreaChoices area:object.areaChoices){
-						list_area.add(area.areaName);
+						list_area_str.add(area.areaName);
 					}
 					
 					for(SkifieldChoices field:object.skifieldChoices){
-						list_skifield.add(field.skifieldName);
+						list_skifield_str.add(field.skifieldName);
 					}
 					for(CategoryChoices field:object.categoryChoices){
-						list_category.add(field.categoryName);
+						list_category_str.add(field.categoryName);
 					}
 					list_sdplate.addAll(object.sdplateChoices);
 				}
@@ -258,19 +320,19 @@ public class BookingCourseClassFrag extends BaseFrag implements OnClickListener 
 		switch (v.getId()) {
 
 		case R.id.ll_item_1_booking:
-			list_standard.addAll(list_area);
+			list_standard.addAll(list_area_str);
 			adapter_list.notifyDataSetChanged();
 			setItem(0);
 
 			break;
 		case R.id.ll_item_2_booking:
-			list_standard.addAll(list_skifield);
+			list_standard.addAll(list_skifield_str);
 			adapter_list.notifyDataSetChanged();
 			setItem(1);
 
 			break;
 		case R.id.ll_item_3_booking:
-			list_standard.addAll(list_category);
+			list_standard.addAll(list_category_str);
 			adapter_list.notifyDataSetChanged();
 			setItem(2);
 

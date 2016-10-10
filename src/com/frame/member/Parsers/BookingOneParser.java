@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.frame.member.bean.BookingOneResult;
+import com.frame.member.bean.BookingOneResult.Badges;
 import com.frame.member.bean.BookingOneResult.Coach;
 
 public class BookingOneParser extends BaseParser<BookingOneResult> {
@@ -33,7 +34,21 @@ public class BookingOneParser extends BaseParser<BookingOneResult> {
 						coach.coachBadge = jsonObject.optString("coachBadge");
 						coach.levelName = jsonObject.optString("levelName");
 						coach.meetNum = jsonObject.optString("meetNum");
-						coach.coachStar = (float) jsonObject.optDouble("coachStar");
+						coach.goal = (float) jsonObject.optDouble("goal");
+						JSONArray arr_badges = jsonObject.optJSONArray("badges");
+						if(arr_badges != null && arr_badges.length() > 0){
+							for(int j = 0;j<arr_badges.length();j++){
+								JSONObject obj_badges = arr_badges.optJSONObject(j);
+								if(obj_badges != null){
+									Badges badge = new Badges();
+									badge.badgeId = obj_badges.optString("badgeId");
+									badge.badgeName = obj_badges.optString("badgeName");
+									coach.badges.add(badge);
+									badge = null;
+								}
+							}
+							
+						}
 						result.coaches.add(coach);
 					}
 				}

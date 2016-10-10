@@ -32,8 +32,12 @@ public class AppConstants {
     public static final String DISSCONTRACT = "dissContract";
     public static final String PAYFEELIST = "payFeeList";
     
+    
     public static final String APP_ID = "app001h23c9h16";
     public static final String APP_KEY = "e7d5fdb8180d25362292f84528395af5";
+    
+    //微信的
+    public static final String APP_ID_WX = "wxaff36b3a7ba66e5f";
 	
 	/*获取当前系统的android系统版本*/
 	public static final String currentapiVersion = "Android " + android.os.Build.VERSION.RELEASE;

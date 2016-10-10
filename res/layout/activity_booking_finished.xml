@@ -16,12 +16,14 @@
             android:src="@drawable/booked_finished"
             android:scaleType="centerInside"/>
     </LinearLayout>
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout android:id="@+id/ll_coach_booked_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
         <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             >
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +57,7 @@
             android:background="@color/gray_9f"
             android:layout_marginLeft="14dp"/>
         <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             >
             <TextView android:id="@+id/tv_booked_date_tag"
                 android:layout_width="wrap_content"
@@ -75,6 +77,8 @@
                 android:layout_centerVertical="true"
                 android:textSize="13sp"
                 android:textColor="@color/gray_54"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="2016/2/20、2016/2/8、2016/4/23、\n2016/3/3、2016/4/1"/>
             
         </RelativeLayout>
@@ -83,7 +87,7 @@
             android:background="@color/gray_9f"
             android:layout_marginLeft="14dp"/>
         <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             >
             <TextView 
                 android:layout_width="wrap_content"
@@ -96,6 +100,95 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"/>
             <TextView android:id="@+id/tv_booked_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textColor="@color/gray_54"
+                android:text="新西兰奥比例滑雪场"
+                android:drawableRight="@drawable/btn_more_normal"
+                android:drawablePadding="5dp"/>
+            
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/ll_class_booked_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="课程"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+           
+            <TextView android:id="@+id/tv_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/gray_54"
+                android:layout_centerVertical="true"
+                android:text="王教练"/>
+        </RelativeLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_9f"
+            android:layout_marginLeft="14dp"/>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="时间"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+            <TextView android:id="@+id/tv_booked_date_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textColor="@color/gray_54"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="2016/2/20、2016/2/8、2016/4/23"/>
+            
+        </RelativeLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_9f"
+            android:layout_marginLeft="14dp"/>
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray_9f"
+                android:text="雪区"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+            <TextView android:id="@+id/tv_booked_place_class"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

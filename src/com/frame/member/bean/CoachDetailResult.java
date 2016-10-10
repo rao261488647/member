@@ -46,7 +46,7 @@ public class CoachDetailResult extends BaseBean {
 //		}
 	public String coachId,headImg,coachName,teacher,titlename,levelName,
 				trainfee,skifieldName,intro,honor,specialty,isSigned,collect,
-				videoPhoto,videoFileId,videoUrl;
+				videoPhoto,videoFileId,videoUrl,areaName;
 	public int goal;
 	public List<Photo> photo = new ArrayList<CoachDetailResult.Photo>();
 	public static class Photo{
@@ -58,9 +58,10 @@ public class CoachDetailResult extends BaseBean {
 				+ ", teacher=" + teacher + ", titlename=" + titlename + ", levelName=" + levelName + ", trainfee="
 				+ trainfee + ", skifieldName=" + skifieldName + ", intro=" + intro + ", honor=" + honor + ", specialty="
 				+ specialty + ", isSigned=" + isSigned + ", collect=" + collect + ", videoPhoto=" + videoPhoto
-				+ ", videoFileId=" + videoFileId + ", videoUrl=" + videoUrl + ", goal=" + goal + ", photo=" + photo
-				+ "]";
+				+ ", videoFileId=" + videoFileId + ", videoUrl=" + videoUrl + ", areaName=" + areaName + ", goal="
+				+ goal + ", photo=" + photo + "]";
 	}
+	
 	
 	
 }

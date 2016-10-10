@@ -1,14 +1,10 @@
 package com.frame.member.adapters;
 
 import java.util.ArrayList;
-
-import javax.crypto.spec.IvParameterSpec;
-
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.bean.BookingOneResult;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -64,7 +60,7 @@ public class BookingOneAdapter extends BaseAdapter{
 		holder.tv_name_coach.setText(list_coach.get(position).coachName);
 		holder.tv_title_coach.setText(list_coach.get(position).levelName);
 		holder.tv_num_meet.setText("累计被约"+list_coach.get(position).meetNum+"次");
-		holder.rb_booking_one.setRating(list_coach.get(position).coachStar);
+		holder.rb_booking_one.setRating(list_coach.get(position).goal);
 		return view;
 	}
 	static class ViewHolder{

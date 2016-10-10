@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.frame.member.R;
 import com.frame.member.TTApplication;
-import com.frame.member.Utils.CommonUtil;
 import com.frame.member.activity.FriendsSpaceActivity;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.widget.XCFlowLayout;
-import com.frame.member.widget.XRTextView;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
