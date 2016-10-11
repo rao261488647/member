@@ -3,15 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <com.frame.member.widget.refreshlistview.PullToRefreshListView 
-        android:id="@+id/my_collect_coach_lv"
+    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView 
+        android:id="@+id/my_collect_coach_sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
         android:divider="@drawable/list_divider_left"
         >
-        
-    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
+        <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+        	<RelativeLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		        >
+			<TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerVertical="true"
+			    android:layout_marginLeft="20dp"
+			    android:textColor="#aaaaaa"
+			    android:textSize="14sp"
+			    android:text="教练"
+			    />
+		        
+		    </RelativeLayout>
+			<RelativeLayout 
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    >
+			    <com.frame.member.widget.swipemenulistview.SwipeMenuListView
+			        android:id="@+id/my_collect_coach_listView"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content" />
+			</RelativeLayout>
+        </RelativeLayout>
+    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
 
 </LinearLayout>

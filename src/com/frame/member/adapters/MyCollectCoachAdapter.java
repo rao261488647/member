@@ -7,20 +7,24 @@ import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.frame.member.R;
+import com.frame.member.TTApplication;
 import com.frame.member.bean.MainVideoBean.MainVideoCategory;
+import com.frame.member.bean.MyCollectBean.Badge;
+import com.frame.member.bean.MyCollectBean.CollectCoach;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 
-public class MyCollectTeacherAdapter extends BaseSwipListAdapter {
+public class MyCollectCoachAdapter extends BaseSwipListAdapter {
 	private Context context;
-	private List<String> mAppList;
+	private List<CollectCoach> mAppList;
 	
-	public MyCollectTeacherAdapter(Context context,
-			 List<String> mAppList) {
+	public MyCollectCoachAdapter(Context context,
+			 List<CollectCoach> mAppList) {
 		this.context = context;
 		this.mAppList = mAppList;
 	}
@@ -33,7 +37,7 @@ public class MyCollectTeacherAdapter extends BaseSwipListAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public CollectCoach getItem(int position) {
         return mAppList.get(position);
     }
 
@@ -46,27 +50,30 @@ public class MyCollectTeacherAdapter extends BaseSwipListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = View.inflate(context,
-                    R.layout.item_my_collect_teacher_list, null);
+                    R.layout.item_my_collect_coach, null);
             new ViewHolder(convertView);
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        String item = getItem(position);
-        holder.my_collect_item_img_1.setImageResource(R.drawable.my_head);
-        holder.my_collect_item_img_2.setImageResource(R.drawable.icon_training);
-        holder.my_collect_item_text_1.setText("亚特兰大");
-        holder.my_collect_item_text_2.setText("擅长双板（大回转、小回转）野雪，猫跳公园系列，个人爱雪徒步");
-        holder.my_collect_item_img_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "iv_icon_click", Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.my_collect_item_text_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"iv_icon_click",Toast.LENGTH_SHORT).show();
-            }
-        });
+        CollectCoach item = getItem(position);
+        TTApplication.getInstance().disPlayImageDef(item.headImg, holder.my_collect_item_img_1);
+        if(item.badges != null && item.badges.size() > 0){
+        	for(Badge b : item.badges){
+        		ImageView v = new ImageView(context);
+        		if(b.badgeName.equals("表演队")){
+        			v.setImageResource(R.drawable.icon_act_2x);
+        		}
+        		if(b.badgeName.equals("裁判队")){
+        			v.setImageResource(R.drawable.icon_referee_2x);
+        		}
+        		if(b.badgeName.equals("培训队")){
+        			v.setImageResource(R.drawable.icon_train_2x);
+        		}
+        		holder.badgeLayout.addView(v);
+        	}
+        }
+        holder.my_collect_item_text_1.setText(item.coachName);
+        holder.my_collect_item_text_2.setText(item.specialty);
+        holder.my_collect_ratingBar1.setRating(new Float(item.hshLevel));
         return convertView;
     }
 
@@ -80,13 +87,14 @@ public class MyCollectTeacherAdapter extends BaseSwipListAdapter {
     }
 
     class ViewHolder {
-        ImageView my_collect_item_img_1,my_collect_item_img_2;
+        ImageView my_collect_item_img_1;
+        LinearLayout badgeLayout;
         TextView my_collect_item_text_1,my_collect_item_text_2;
         RatingBar my_collect_ratingBar1;
 
         public ViewHolder(View view) {
         	my_collect_item_img_1 = (ImageView) view.findViewById(R.id.my_collect_item_img_1);
-        	my_collect_item_img_2 = (ImageView) view.findViewById(R.id.my_collect_item_img_2);
+        	badgeLayout =  (LinearLayout) view.findViewById(R.id.my_collect_item_ll);
         	my_collect_item_text_1 = (TextView) view.findViewById(R.id.my_collect_item_text_1);
         	my_collect_item_text_2 = (TextView) view.findViewById(R.id.my_collect_item_text_2);
         	my_collect_ratingBar1 = (RatingBar) view.findViewById(R.id.my_collect_ratingBar1);

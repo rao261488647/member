@@ -21,6 +21,7 @@ public class MyCollectBean extends BaseBean {
 		public String hshLevel;//郝世花级别
 		public int istutor;//专职导师,0:不是 1:是
 		public String coachTitle;//教练职称
+		public String specialty; //擅长
 		public List<Badge> badges; //徽章集合
 	}
 	/**
@@ -62,7 +63,7 @@ public class MyCollectBean extends BaseBean {
 	 * @date 2016-9-18  下午11:51:26
 	 */
 	public static class MyCollectCoachResult extends BaseBean{
-		public List<CollectCoach> menuList = new ArrayList<CollectCoach>();
+		public List<CollectCoach> collectCoachList = new ArrayList<CollectCoach>();
 	}
 	
 
@@ -72,6 +73,6 @@ public class MyCollectBean extends BaseBean {
 	 * @date 2016-9-18  下午11:51:26
 	 */
 	public static class MyCollectClassResult extends BaseBean{
-		public List<CollectClass> menuList = new ArrayList<CollectClass>();
+		public List<CollectClass> collectClassList = new ArrayList<CollectClass>();
 	}
 }

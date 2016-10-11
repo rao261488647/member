@@ -6,7 +6,7 @@
     android:background="#EFEFED"
     >
     <RelativeLayout 
-	        android:id="@+id/my_msg_title"
+	        android:id="@+id/my_collect_title"
 	        android:layout_width="match_parent"
 	        android:layout_height="50dp"
 	        android:background="@color/bottom_tab_black">
@@ -15,12 +15,12 @@
 		        android:layout_height="match_parent"
 		        android:orientation="horizontal"
 		        android:layout_centerHorizontal="true">
-		        <LinearLayout android:id="@+id/my_msg_left_btn"
+		        <LinearLayout android:id="@+id/my_collect_left_btn"
 		            android:layout_width="56dp"
 		            android:layout_height="match_parent"
 		            android:orientation="vertical"
 		           	android:gravity="center">
-		            <TextView android:id="@+id/my_msg_left_text"
+		            <TextView android:id="@+id/my_collect_left_text"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:text="教练"
@@ -29,12 +29,12 @@
 		                />
 		            
 		        </LinearLayout>
-		        <LinearLayout android:id="@+id/my_msg_right_btn"
+		        <LinearLayout android:id="@+id/my_collect_right_btn"
 		             android:layout_width="56dp"
 		             android:layout_height="match_parent"
 		             android:orientation="vertical"
 		             android:gravity="center">
-		            <TextView android:id="@+id/my_msg_right_text"
+		            <TextView android:id="@+id/my_collect_right_text"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:text="课程"
@@ -45,7 +45,7 @@
 		        </LinearLayout>
 	    </LinearLayout>
 	    <ImageView
-		    android:id="@+id/my_msg_back"
+		    android:id="@+id/my_collect_back"
 		    android:layout_width="47dp"
 		    android:layout_height="match_parent"
 		    android:scaleType="center"
@@ -53,7 +53,7 @@
 		    />
     </RelativeLayout>
 	<FrameLayout 
-	    android:id="@+id/my_msg_framelayout"
+	    android:id="@+id/my_collect_framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
