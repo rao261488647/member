@@ -1,5 +1,6 @@
 package com.frame.member.Utils;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -44,5 +45,21 @@ public class MD5 {
 			ex.printStackTrace();
 		}
 		return resultString;
+	}
+	
+	public static String md5(String plain) {
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(plain.getBytes());
+			byte[] digest = m.digest();
+			BigInteger bigInt = new BigInteger(1, digest);
+			String hashtext = bigInt.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }
