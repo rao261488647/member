@@ -77,10 +77,11 @@
             android:exported="false" >
         </service>
 
-        <!-- 微信分享回调 -->
+        <!-- 微信登录回调 -->
         <activity
             android:name="com.frame.member.wxapi.WXEntryActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
 
         
         
@@ -210,6 +211,7 @@
             android:exported="true"
             android:launchMode="singleTop" >
         </activity>
+        
         <activity
             android:name=".activity.StatementsActivity"
             android:screenOrientation="portrait" >
