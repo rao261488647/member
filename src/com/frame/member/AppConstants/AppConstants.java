@@ -44,6 +44,8 @@ public class AppConstants {
 			.getExternalStorageDirectory().getAbsolutePath();
 
 	public final static String CACHE_DIR = EXT_PATH + "/TT_Cache";
+	public final static String CLIP_VIDEO_CACHE = CACHE_DIR
+			+ "/clip_video_cache/";
 	public final static String IMAGE_CHCHE = CACHE_DIR
 			+ "/image_cache";
 	public final static String IMAGE_CHCHE_COMPRESSED = CACHE_DIR

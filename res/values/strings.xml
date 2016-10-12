@@ -44,6 +44,8 @@
     
     <string name="cancel">取消</string>
     
+    <string name="record_check_available_faild">手机满了！至少需要%sM存储空间才能继续拍摄！</string>
+    
     <string name="title_name">SKI SCHOOL</string>
     
     <!-- 注册用户协议 -->

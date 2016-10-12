@@ -291,6 +291,10 @@
             android:name=".activity.BookingFinishedActivity"
             android:screenOrientation="portrait" >
         </activity>
+         <activity
+            android:name=".activity.ImportVideoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
          <activity android:name=".activity.SearchCoachActivity"
              android:screenOrientation="portrait"/>

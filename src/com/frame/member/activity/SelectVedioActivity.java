@@ -20,15 +20,19 @@ import com.yixia.weibo.sdk.util.StringUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -39,6 +43,9 @@ import android.widget.ImageView;
 public class SelectVedioActivity extends BaseActivity {
 
 	private static Map<ImageView, String> mImageViews;
+	
+	private List<Video> local_videos;
+	
 	private GridView gv_local_vedios;
 	
 	private static final String[] VIDEO_PROJECT = { MediaStore.Video.Media._ID, MediaStore.Video.Media.DATE_MODIFIED,
@@ -60,6 +67,31 @@ public class SelectVedioActivity extends BaseActivity {
 		
 		gv_local_vedios = (GridView) findViewById(R.id.gv_local_vedios);
 		
+		gv_local_vedios.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				onVideoItemClicked(local_videos.get(position));
+			}
+		});
+		
+	}
+	
+	
+	private void onVideoItemClicked(Video video){
+		// 去剪切页面
+		if (video != null) {
+			Intent intent = new Intent(this, ImportVideoActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("source", video.url);
+			if (StringUtils.isNotEmpty(video.url) && video.url.endsWith(".gif"))
+				bundle.putBoolean("gif", true);
+
+			bundle.putInt("orientation", video.orientation);
+			intent.putExtras(bundle);
+			startActivity(intent);
+
+		}
 	}
 
 	@Override
@@ -72,7 +104,7 @@ public class SelectVedioActivity extends BaseActivity {
 		iv_title_back.setVisibility(0);
 
 		mImageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-		mThumbCacheDir = com.frame.member.Utils.FileUtils.getCacheDiskPath(this, "thumbs");
+		mThumbCacheDir = FileUtils.getCacheDiskPath(this, "thumbs");
 		if (mThumbCacheDir != null && !mThumbCacheDir.exists()) {
 			mThumbCacheDir.mkdirs();
 		}
@@ -89,7 +121,7 @@ public class SelectVedioActivity extends BaseActivity {
 			@Override
 			protected void onPostExecute(List<Video> result) {
 				super.onPostExecute(result);
-				
+				local_videos = result;
 				gv_local_vedios.setAdapter(new LayerAdapter<Video>(result) {
 
 					@Override

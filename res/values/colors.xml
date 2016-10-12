@@ -38,6 +38,14 @@
     <color name="red">#ffff0000</color>
     <color name="gray">#ff7d7d7d</color>
     
+    <color name="color_23232b">#23232b</color>
+    <color name="translucent_background_80">#CC000000</color>
+    <color name="import_video_thumb_mask">#FF151515</color>
+	<color name="translucent_background_75">#BF000000</color>
+    <color name="color_919191">#919191</color>
+    <color name="import_video_thumb_bg">#FF515154</color>
+    <color name="button_black_background">#424253</color>
+    
     <color name="back_bak">#FFFFFF</color>
     <color name="bg_main_container">#F0EFF4</color>
     <color name="list_background">#e7e7e7</color>
