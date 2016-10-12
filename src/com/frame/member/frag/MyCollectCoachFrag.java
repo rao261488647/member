@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -23,16 +25,15 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.adapters.MyCollectCoachAdapter;
+import com.frame.member.adapters.SlideAdapter;
+import com.frame.member.adapters.SlideAdapter.DeleteItemListener;
 import com.frame.member.bean.MyCollectBean.CollectCoach;
 import com.frame.member.bean.MyCollectBean.MyCollectCoachResult;
+import com.frame.member.slideItem.ListViewCompat;
+import com.frame.member.slideItem.MessageItem;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
-import com.frame.member.widget.swipemenulistview.SwipeMenu;
-import com.frame.member.widget.swipemenulistview.SwipeMenuCreator;
-import com.frame.member.widget.swipemenulistview.SwipeMenuItem;
-import com.frame.member.widget.swipemenulistview.SwipeMenuListView;
 
 /**
  * 收藏 -教练
@@ -41,9 +42,10 @@ import com.frame.member.widget.swipemenulistview.SwipeMenuListView;
  */
 public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 
-	private MyCollectCoachAdapter adapter;
+	private SlideAdapter adapter;
+	private List<MessageItem> mMessageItems = new ArrayList<MessageItem>();
 	private List<CollectCoach> dataList = new ArrayList<CollectCoach>();
-	private SwipeMenuListView coachListView;
+	private ListViewCompat coachListView;
 	private PullToRefreshScrollView pullListView;
 	public static MyCollectCoachFrag newInstance(String title) {
 
@@ -68,13 +70,12 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 		initView();
 		initOnclick();
 		initProgress();
-		coachListViewInit();
 		
 		return rootView;
 	}
 	private void initView(){
 		pullListView = (PullToRefreshScrollView)findViewById(R.id.my_collect_coach_sv);
-		coachListView = (SwipeMenuListView) findViewById(R.id.my_collect_coach_listView);
+		coachListView = (ListViewCompat) findViewById(R.id.my_collect_coach_listView);
 	}
 	/**
 	 * 点击监听事件绑定
@@ -134,9 +135,15 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 				if("200".equals(object.code)){
 					if(page == 1){
 						dataList.clear();
+						mMessageItems.clear();
 					}
 					if(object.collectCoachList != null && object.collectCoachList.size() > 0){
 						dataList.addAll(object.collectCoachList);
+						for(CollectCoach coach :  dataList){
+							MessageItem item = new MessageItem();
+							item.setCollectCoach(coach);
+							mMessageItems.add(item);
+						}
 						notifyAdapter();
 						setListViewHeight(coachListView);
 					}else{
@@ -147,6 +154,7 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 				}
 			}
 		}
+
 		
 	};
 	
@@ -157,112 +165,32 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 	 */
 	private void notifyAdapter() {
 		if(adapter == null){
-			adapter = new MyCollectCoachAdapter(getActivity(),dataList );
+			adapter = new SlideAdapter(getActivity(),mMessageItems );
+			// 删除监听
+			adapter.setDeleteItemListener(new DeleteItemListener() {
+				@Override
+				public void deleteItem(View view, int position) {
+					mMessageItems.remove(position);
+					adapter.notifyDataSetChanged();
+					showToast("删除了第  " + position + " item");
+				}
+			});
+			// 设置适配器
 			coachListView.setAdapter(adapter);
+			// 点击item事件
+			coachListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					showToast("点击了第  " + position + " item");
+
+				}
+
+			});
 		}else{
 			adapter.notifyDataSetChanged();
 		}
-	}
-	/**
-	 * 初始化listview 带滑动按钮的
-	 * @author Ron
-	 * @date 2016-10-11  下午11:11:27
-	 */
-	private void coachListViewInit(){
-		 // step 1. create a MenuCreator
-       SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-           @Override
-           public void create(SwipeMenu menu) {
-               // create "open" item
-//               SwipeMenuItem openItem = new SwipeMenuItem(
-//                       getApplicationContext());
-//               // set item background
-//               openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-//                       0xCE)));
-//               // set item width
-//               openItem.setWidth(dp2px(90));
-//               // set item title
-//               openItem.setTitle("Open");
-//               // set item title fontsize
-//               openItem.setTitleSize(18);
-//               // set item title font color
-//               openItem.setTitleColor(Color.WHITE);
-//               // add to menu
-//               menu.addMenuItem(openItem);
-
-               // create "delete" item
-               SwipeMenuItem deleteItem = new SwipeMenuItem(
-                       getActivity());
-               // set item background
-               deleteItem.setBackground(R.color.my_collect_delete_yellow);
-               // set item width
-               deleteItem.setWidth(dp2px(90));
-               // set a icon
-               deleteItem.setIcon(R.drawable.icon_my_collect_delete);
-               // add to menu
-               menu.addMenuItem(deleteItem);
-           }
-       };
-		// set creator
-       coachListView.setMenuCreator(creator);
-       
-
-       // step 2. listener item click event
-       coachListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-           @Override
-           public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-               switch (index) {
-                   case 0:
-                   	// delete
-//					delete(item);
-                   	dataList.remove(position);
-                   	adapter.notifyDataSetChanged();
-                       break;
-                   case 1:
-                   	// open
-                   	//open(item);
-                       break;
-               }
-               return false;
-           }
-       });
-
-       // set SwipeListener
-       coachListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-           @Override
-           public void onSwipeStart(int position) {
-               // swipe start
-           }
-
-           @Override
-           public void onSwipeEnd(int position) {
-               // swipe end
-           }
-       });
-
-       // set MenuStateChangeListener
-       coachListView.setOnMenuStateChangeListener(new SwipeMenuListView.OnMenuStateChangeListener() {
-           @Override
-           public void onMenuOpen(int position) {
-           }
-
-           @Override
-           public void onMenuClose(int position) {
-           }
-       });
-
-       // test item long click
-       coachListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-           @Override
-           public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                          int position, long id) {
-               showToast(position + " long click");
-               return false;
-           }
-       });
 	}
 	
 	/**
@@ -289,11 +217,6 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 	    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));  
 	    listView.setLayoutParams(params);  
 	}  
-	
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
-    }
 	/**
 	 *点击事件判断 
 	 * @author Ron

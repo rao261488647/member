@@ -120,6 +120,8 @@
 	<color name="main_tab_uncheck">#84858a</color>
 	<color name="my_text_gray">#c5c5c5</color>
 	
-	
+	<!-- 暗灰色 -->
+    <color name="dimgrey">#696969</color>
+    <color name="gray_delete">#DBDBDB</color>
 	
 </resources>
