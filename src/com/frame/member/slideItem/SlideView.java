@@ -2,6 +2,7 @@ package com.frame.member.slideItem;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -80,6 +81,7 @@ public class SlideView extends LinearLayout {
 	 * 使Item回到圆点位置
 	 */
 	public void shrink() {
+		Log.e("shrink", "-----------");
 		if (getScrollX() != 0) {
 			this.smoothScrollTo(0, 0);
 		}

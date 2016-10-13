@@ -3,6 +3,7 @@ package com.frame.member.adapters;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -124,7 +125,7 @@ public class SlideAdapter extends BaseAdapter implements OnSlideListener {
 
 	@Override
 	public void onSlide(View view, int status) {
-
+		Log.e("onSlide", view.getId()+"--------"+status);
 		if (mLastSlideViewWithStatusOn != null
 				&& mLastSlideViewWithStatusOn != view) {//不为空，并且点击的不是当前的View。
 			mLastSlideViewWithStatusOn.shrink();// 回到圆点
