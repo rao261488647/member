@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.frame.member.widget.refreshlistview.PullToRefreshListView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_collect_coach_listView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView 
-        android:id="@+id/my_collect_coach_sv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:divider="@drawable/list_divider_left"
-        >
-        <RelativeLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content">
-			    <com.frame.member.slideItem.ListViewCompat
-			        android:id="@+id/my_collect_coach_listView"
-			        android:layout_width="match_parent"
-			        android:layout_height="match_parent"
-			        android:drawSelectorOnTop="false"
-			        android:scrollbars="none" />
-			
-        </RelativeLayout>
-    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:divider="@drawable/list_divider_left">
 
-</LinearLayout>
+</com.frame.member.widget.refreshlistview.PullToRefreshListView>
