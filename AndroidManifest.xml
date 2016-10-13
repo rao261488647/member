@@ -278,6 +278,10 @@
             android:name=".activity.MyMsgActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".activity.VideoListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
 		<activity
             android:name=".activity.CoachDetailActivity">
         </activity>

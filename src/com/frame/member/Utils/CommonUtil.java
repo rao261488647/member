@@ -6,23 +6,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.frame.member.R;
-import com.frame.member.bean.ContractTerm;
-import com.frame.member.bean.Plat;
-import com.frame.member.bean.Regtime;
-import com.frame.member.listener.AsyncHttpListener;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,14 +27,21 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.frame.member.R;
+import com.frame.member.bean.ContractTerm;
+import com.frame.member.bean.Plat;
+import com.frame.member.bean.Regtime;
+import com.frame.member.listener.AsyncHttpListener;
 
 /***
  * 全局常用帮助类
@@ -432,5 +433,31 @@ public class CommonUtil {
 		    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));  
 		    listView.setLayoutParams(params);  
 		}  
-		
+	  /**
+	　　* 从服务器取图片
+	　　* @param url
+	　　* @return
+	　　*/
+		public static Bitmap getHttpBitmap(String url){
+			URL myFileUrl = null;
+			Bitmap bitmap = null;
+			try {
+				Log.d("getHttpBitmap-url", url);
+				myFileUrl = new URL(url);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+			try {
+				HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+				conn.setConnectTimeout(0);
+				conn.setDoInput(true);
+				conn.connect();
+				InputStream is = conn.getInputStream();
+				bitmap = BitmapFactory.decodeStream(is);
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return bitmap;
+		}
 }

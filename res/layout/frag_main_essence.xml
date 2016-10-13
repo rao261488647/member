@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
             	android:layout_height="60dp" 
                 >
-                <ImageView 
+                <com.frame.member.widget.RoundImageView 
                     android:id="@+id/main_essence_img1"
                     android:layout_width="35dp"
             		android:layout_height="35dp" 
@@ -35,7 +35,6 @@
             		android:layout_marginRight="10dp"
             		android:layout_marginBottom="10dp"
             		android:src="@drawable/head_img_tech1"
-            		android:background="@drawable/selector_headimg_corner"
                     />
                 <TextView 
                     android:id="@+id/main_essence_text1"
