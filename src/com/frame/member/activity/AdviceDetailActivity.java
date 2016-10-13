@@ -58,7 +58,7 @@ public class AdviceDetailActivity extends BaseActivity {
 	private List<String> list_str = new ArrayList<String>();
 	private ImageView iv_person_profile,iv_vedio_cover,iv_favour_num;
 	private TextView tv_name_person,tv_time_release,tv_member_level,tv_attention_button,
-					tv_content_advice_detail,tv_comments_num,tv_favour_num;
+					tv_content_advice_detail,tv_comments_num,tv_favour_num,tv_send_comments;
 	private LinearLayout ll_person_favor_profile; 
 	private String friendId,subjectId;
 
@@ -82,6 +82,7 @@ public class AdviceDetailActivity extends BaseActivity {
 		tv_content_advice_detail = (TextView) findViewById(R.id.tv_content_advice_detail);
 		tv_comments_num = (TextView) findViewById(R.id.tv_comments_num);
 		tv_favour_num = (TextView) findViewById(R.id.tv_favour_num);
+		tv_send_comments = (TextView) findViewById(R.id.tv_send_comments);
 		ll_person_favor_profile = (LinearLayout) findViewById(R.id.ll_person_favor_profile);
 		
 	}
@@ -107,6 +108,13 @@ public class AdviceDetailActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				toPaiseFriends(friendId, subjectId, v);
+			}
+		});
+		tv_send_comments.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TODO
 			}
 		});
 		

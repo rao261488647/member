@@ -308,6 +308,8 @@
              android:screenOrientation="portrait"/>
            <activity android:name=".activity.RegisterAgreementActivity"
              android:screenOrientation="portrait"/>
+           <activity android:name=".activity.PasswordFindActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 

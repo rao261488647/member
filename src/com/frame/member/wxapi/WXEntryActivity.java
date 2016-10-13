@@ -35,7 +35,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler{
 			
 			//获取微信传回的code
 			code = newResp.code;
-			showToast(code);
 			toLoginByWx();
 		}
 		
