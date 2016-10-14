@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.activity.SearchCoachActivity;
+import com.frame.member.activity.SelectVedioActivity;
 
 
 /**
@@ -124,7 +125,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 			break;
 		
 		case R.id.iv_search_coach:
-			startActivity(new Intent(getActivity(), SearchCoachActivity.class));
+			startActivity(new Intent(getActivity(), SelectVedioActivity.class));
 			break;
 		case R.id.tv_change_view_attention:
 			if(mCurrentFrag == mAdviceAttentionFrag){

@@ -1,5 +1,21 @@
 package com.frame.member.activity;
 
+import com.frame.member.R;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.TokenParser;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.bean.NotifyBean;
+import com.frame.member.bean.TokenResult;
+import com.frame.member.frag.AdviceFrag;
+import com.frame.member.frag.BaseFrag;
+import com.frame.member.frag.BookingCourseFrag;
+import com.frame.member.frag.InformFrag;
+import com.frame.member.frag.MainFrag;
+import com.frame.member.frag.MyCenterFrag;
+import com.frame.member.widget.MainNotifyView;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,25 +28,6 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.frame.member.R;
-import com.frame.member.AppConstants.AppConstants;
-import com.frame.member.Parsers.BaseParser;
-import com.frame.member.Parsers.NoBackParser;
-import com.frame.member.Parsers.TokenParser;
-import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.BaseActivity.DataCallback;
-import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.bean.BaseBean;
-import com.frame.member.bean.NotifyBean;
-import com.frame.member.bean.TokenResult;
-import com.frame.member.frag.BaseFrag;
-import com.frame.member.frag.InformFrag;
-import com.frame.member.frag.MainFrag;
-import com.frame.member.frag.BookingCourseFrag;
-import com.frame.member.frag.MyCenterFrag;
-import com.frame.member.frag.AdviceFrag;
-import com.frame.member.widget.MainNotifyView;
 
 public class MainActivity extends BaseActivity {
 	public static final String TAG = MainActivity.class.getSimpleName();

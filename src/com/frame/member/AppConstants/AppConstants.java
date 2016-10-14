@@ -32,6 +32,8 @@ public class AppConstants {
     public static final String DISSCONTRACT = "dissContract";
     public static final String PAYFEELIST = "payFeeList";
     
+    public static final String GETMVSINFO = "/getmvsinfo";
+    public static final String GETMVSCOVER = "/getmvscover";
     
     public static final String APP_ID = "app001h23c9h16";
     public static final String APP_KEY = "e7d5fdb8180d25362292f84528395af5";
@@ -48,6 +50,8 @@ public class AppConstants {
 			.getExternalStorageDirectory().getAbsolutePath();
 
 	public final static String CACHE_DIR = EXT_PATH + "/TT_Cache";
+	public final static String CLIP_VIDEO_CACHE = CACHE_DIR
+			+ "/clip_video_cache/";
 	public final static String IMAGE_CHCHE = CACHE_DIR
 			+ "/image_cache";
 	public final static String IMAGE_CHCHE_COMPRESSED = CACHE_DIR
@@ -64,5 +68,8 @@ public class AppConstants {
 	
 	
 	public static final String BC_PUSH_COMING = "bc_push_coming";
+	
+	
+	public static final String ACTION_ACT_PUB_SUCC = "action_act_pub_succ";
 
 }
