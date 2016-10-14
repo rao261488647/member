@@ -1,9 +1,15 @@
 package com.frame.member.frag;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -16,7 +22,9 @@ import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.VideoListActivity;
 import com.frame.member.adapters.MainVideoAdapter;
+import com.frame.member.bean.MainVideoBean.MainVideoCategory;
 import com.frame.member.bean.MainVideoBean.MainVideoResult;
 
 /**
@@ -27,7 +35,7 @@ import com.frame.member.bean.MainVideoBean.MainVideoResult;
 public class MainVideoFrag extends BaseFrag {
 	
 	private MainVideoAdapter sAdapter = null;
-	
+	private List<MainVideoCategory> dataList = new ArrayList<MainVideoCategory>();
 	private ListView main_video_lv;
 	
 	public static MainVideoFrag newInstance(String title) {
@@ -75,8 +83,19 @@ public class MainVideoFrag extends BaseFrag {
 			if(result == RequestResult.Success){
 				if(object != null){
 					if("200".equals(object.code)){
-						sAdapter = new MainVideoAdapter(getActivity(), object.mainVideoCategoryData);
+						dataList = object.mainVideoCategoryData;
+						sAdapter = new MainVideoAdapter(getActivity(), dataList);
 						main_video_lv.setAdapter(sAdapter);
+						main_video_lv.setOnItemClickListener(new OnItemClickListener() {
+
+							@Override
+							public void onItemClick(AdapterView<?> parent,
+									View view, int position, long id) {
+								Intent intent = new Intent(getActivity(), VideoListActivity.class);
+							    intent.putExtra("categoryId", dataList.get(position).categoryId);
+							    startActivity(intent);
+							}
+						});
 						setListViewHeight(main_video_lv);
 					
 					}

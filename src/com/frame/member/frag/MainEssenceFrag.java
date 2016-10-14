@@ -1,8 +1,18 @@
 package com.frame.member.frag;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
@@ -10,35 +20,18 @@ import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.MainNotifyPaser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.MainNotifyDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
-import com.frame.member.adapters.CondensationPagerAdapter;
+import com.frame.member.activity.MainNotifyDetailActivity;
 import com.frame.member.bean.MainNotifyBean;
 import com.frame.member.bean.MainNotifyBean.Notify;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
+import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
- * 首页-视频 frag
+ * 首页-精华 frag
  * @author Ron
  * @date 2016-6-27  下午10:42:39
  */

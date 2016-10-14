@@ -21,6 +21,9 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.Utils.TimeCount;
 import com.frame.member.bean.LoginCodeResult;
 import com.frame.member.bean.RegisterResult;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 
@@ -29,6 +32,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
 	TimeCount timer;
 	private LinearLayout ll_back_login;
+	private IWXAPI api;
 
 	@Override
 	protected void loadViewLayout() {
@@ -79,7 +83,21 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_login_weixin:
-			showToast("微信登录");
+			showToast("微信登录,请稍后..");
+			//api注册 
+			api = WXAPIFactory.createWXAPI(this, AppConstants.APP_ID_WX, true);
+			api.registerApp(AppConstants.APP_ID_WX);
+
+			SendAuth.Req req = new SendAuth.Req();
+			  
+			//授权读取用户信息  
+			req.scope = "snsapi_userinfo";
+
+			//自定义信息 
+			req.state = "wechat_sdk_demo_test";
+
+			//向微信发送请求
+			api.sendReq(req);
 			break;
 		case R.id.iv_login_weibo:
 			showToast("微博登录");

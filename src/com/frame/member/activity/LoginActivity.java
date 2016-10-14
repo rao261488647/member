@@ -23,7 +23,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
-	TextView tv_login_button;
+	TextView tv_login_button,tv_forget_password;
 	EditText et_phone_num,et_password;
 	ImageView iv_login_weixin,iv_login_weibo,iv_login_qq;
 	LinearLayout ll_back_login;
@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void findViewById() {
 		tv_login_button = (TextView) findViewById(R.id.tv_login_button);
+		tv_forget_password = (TextView) findViewById(R.id.tv_forget_password);
 //		tv_login2_button = (TextView) findViewById(R.id.tv_login2_button);
 //		tv_title_left_login = (TextView) findViewById(R.id.tv_title_left_login);
 //		tv_title_right_login = (TextView) findViewById(R.id.tv_title_right_login);
@@ -60,6 +61,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		tv_login_button.setOnClickListener(this);
 //		tv_login2_button.setOnClickListener(this);
 		ll_back_login.setOnClickListener(this);
+		tv_forget_password.setOnClickListener(this);
 		
 	}
 
@@ -113,6 +115,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			finish();
 			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
 			
+			break;
+		case R.id.tv_forget_password:   //忘记密码
+			startActivity(new Intent(LoginActivity.this,PasswordFindActivity.class));
 			break;
 //		case R.id.tv_login2_button:		//登录
 //			if(TextUtils.isEmpty(et_phone_num.getText().toString())){

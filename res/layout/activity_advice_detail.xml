@@ -194,7 +194,9 @@
                             android:id="@+id/hsv_person_favor_profile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_toLeftOf="@id/iv_favour_num" >
+                            android:layout_toLeftOf="@id/iv_favour_num" 
+                            android:layout_marginRight="10dp"
+                            android:scrollbars="none">
 
                             <LinearLayout
                                 android:id="@+id/ll_person_favor_profile"
@@ -389,7 +391,7 @@
             android:background="@color/white" >
 
             <TextView
-                android:id="@+id/send_comments"
+                android:id="@+id/tv_send_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -413,7 +415,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toLeftOf="@id/send_comments"
+                android:layout_toLeftOf="@id/tv_send_comments"
                 android:background="@drawable/shape_corner_gray_comments"
                 android:hint="期待你的评论"
                 android:paddingLeft="10dp"

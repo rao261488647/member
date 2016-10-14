@@ -3,18 +3,15 @@ package com.frame.member.adapters;
 import java.util.List;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
-import com.frame.member.bean.MainVideoBean.MainVideoCategory;
 import com.frame.member.bean.MyCollectBean.Badge;
 import com.frame.member.bean.MyCollectBean.CollectCoach;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;

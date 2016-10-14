@@ -282,6 +282,10 @@
             android:name=".activity.MyMsgActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".activity.VideoListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
 		<activity
             android:name=".activity.CoachDetailActivity">
         </activity>
@@ -319,6 +323,8 @@
           <activity android:name=".activity.PersonInfoActivity"
              android:screenOrientation="portrait"/>
            <activity android:name=".activity.RegisterAgreementActivity"
+             android:screenOrientation="portrait"/>
+           <activity android:name=".activity.PasswordFindActivity"
              android:screenOrientation="portrait"/>
         
     </application>

@@ -133,7 +133,9 @@
         <HorizontalScrollView android:id="@+id/hsv_person_favor_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/iv_favour_num">
+            android:layout_toLeftOf="@id/iv_favour_num"
+            android:layout_marginRight="10dp"
+            android:scrollbars="none">
             <LinearLayout android:id="@+id/ll_person_favor_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

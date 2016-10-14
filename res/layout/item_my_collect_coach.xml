@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:padding="15dp" 
     android:background="@color/white"
+    android:padding="15dp" 
     >
-
-    <com.frame.member.widget.RoundImageView
-        android:id="@+id/my_collect_item_img_1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/my_head" />
-
-    <TextView
-        android:id="@+id/my_collect_item_text_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/my_collect_item_img_1"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:text="name"
-         />
-	<LinearLayout 
-	    android:id="@+id/my_collect_item_ll"
-	    android:layout_width="wrap_content"
+	<RelativeLayout
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_alignTop="@+id/my_collect_item_text_1"
-	    android:layout_toRightOf="@+id/my_collect_item_text_1"
-	    android:layout_marginLeft="15dp"
-	    android:orientation="horizontal"
 	    >
+	    <com.frame.member.widget.RoundImageView
+	        android:id="@+id/my_collect_item_img_1"
+	        android:layout_width="70dp"
+	        android:layout_height="70dp"
+	        android:src="@drawable/my_head" />
+	
+	    <TextView
+	        android:id="@+id/my_collect_item_text_1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_toRightOf="@id/my_collect_item_img_1"
+	        android:text="name"
+	        android:textColor="@android:color/black"
+	        android:textSize="18sp" />
+	
+	    <LinearLayout 
+	        android:id="@+id/my_collect_item_ll"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/my_collect_item_text_1"
+	        android:layout_marginLeft="15dp"
+	        android:layout_toRightOf="@+id/my_collect_item_text_1"
+	        android:orientation="horizontal"
+	        >
+	        
+	    </LinearLayout>
+	
+	    <RatingBar
+	        android:id="@+id/my_collect_ratingBar1"
+	        style="?android:attr/ratingBarStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_alignTop="@+id/my_collect_item_ll"
+	        android:layout_marginLeft="10dp"
+	        android:layout_toRightOf="@+id/my_collect_item_ll" />
 	    
-	</LinearLayout>
-
-	<RatingBar
-	    android:id="@+id/my_collect_ratingBar1"
-	    style="?android:attr/ratingBarStyleSmall"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignTop="@+id/my_collect_item_ll"
-	    android:layout_marginLeft="10dp"
-	    android:layout_toRightOf="@+id/my_collect_item_ll" />
-	<TextView
-        android:id="@+id/my_collect_item_text_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/my_collect_item_text_1"
-        android:layout_alignLeft="@+id/my_collect_item_text_1"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/gray"
-        android:textSize="12sp" 
-        android:text="描述"
-        />
-
-</RelativeLayout>
+	    <TextView
+	        android:id="@+id/my_collect_item_text_2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/my_collect_item_text_1"
+	        android:layout_below="@+id/my_collect_item_text_1"
+	        android:layout_marginTop="5dp"
+	        android:text="多大"
+	        android:textColor="@color/gray"
+	        android:textSize="12sp" />
+	</RelativeLayout>
+</LinearLayout>
