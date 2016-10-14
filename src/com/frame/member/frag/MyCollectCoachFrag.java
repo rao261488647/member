@@ -3,23 +3,24 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.CommonParser;
 import com.frame.member.Parsers.MyCollectCoachParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
@@ -28,6 +29,7 @@ import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.MyCollectCoachAdapter;
+import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MyCollectBean.CollectCoach;
 import com.frame.member.bean.MyCollectBean.MyCollectCoachResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
@@ -44,8 +46,7 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 	private MyCollectCoachAdapter adapter;
 	private PullToRefreshListView pullListView;
 	private List<CollectCoach> dataList = new ArrayList<CollectCoach>();
-	public int MID;
-	  
+	private String collectId; //收藏id
 	public static MyCollectCoachFrag newInstance(String title) {
 
 		MyCollectCoachFrag fragment = new MyCollectCoachFrag();
@@ -88,15 +89,6 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 	 * @date 2016-8-19  下午11:21:49
 	 */
 	private void initProgress(){
-		ListView v = new ListView(getActivity());
-		v.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				return false;
-			}
-		});
 		pullListView.setMode(Mode.BOTH);
 		//长按事件
 		pullListView.getRefreshableView().setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -104,18 +96,18 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.e("setOnLongClickListener", "longclick");
-				return false;
+				Log.e("setOnLongClickListener", position+"");
+				int pos = 0;
+				//位置多了一个，如果不处理会导致数组越界
+				if(position != 0){
+					pos = position - 1;
+				}
+				CollectCoach coach = dataList.get(pos);
+				collectId = coach.collectId;
+				popOper(coach.collectId,position,adapter);
+				return true;
 			}
 		});
-//		pullListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
-//				showToast("点击！！！");
-//			}
-//		});
 		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
 			@Override
@@ -132,39 +124,54 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 			}
 		});
 		
-		itemOnLongClick1();
+//		itemOnLongClick1();
 		
 		getData();
 	}
 	/**
-	 * 创建删除菜单
-	 * @author Ron
-	 * @date 2016-10-13  下午10:32:09
+	 * 弹出菜单
+	 * @param appId
+	 * @param itemIndex
+	 * @param adapter
 	 */
-	private void itemOnLongClick1() {
-		//注：setOnCreateContextMenuListener是与下面onContextItemSelected配套使用的
-		pullListView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-  
-	        public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
-            	menu.add(0,0,0,"删除");
-            }
-        });
+	public void popOper(final String collectId,final int itemIndex,final MyCollectCoachAdapter adapter){
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());		
+		View view = View.inflate(getActivity(), R.layout.post_select, null);  
+		builder.setView(view);
+		
+		final Dialog dialog = builder.create();  
+		final ListView listView = (ListView)view.findViewById(R.id.list_select);
+		final List<String> list = new ArrayList<String>();
+		list.add("删除");
+		list.add("取消");
+		ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,list);  		 
+		listView.setAdapter(arrayAdapter);  
+		listView.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(final AdapterView<?> parent, View v, int index,
+					long arg3) {
+				int pos = 0;
+				//位置多了一个，如果不处理会导致数组越界
+				if(itemIndex != 0){
+					pos = itemIndex - 1;
+				}
+				String currOper = list.get(index);
+				if("删除".equals(currOper)){
+					showToast("id---"+collectId);
+					setData(); //删除
+					dataList.remove(pos);
+					adapter.notifyDataSetChanged();
+					dialog.cancel();  
+				}	
+				if("取消".equals(currOper)){
+					dialog.cancel();  
+				}
+			}			
+		});
+		
+        dialog.show(); 
 	}
-	// 长按菜单响应函数
-	@Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
-                        .getMenuInfo();
-        switch(item.getItemId()) {
-        case 0:
-        		showToast("item--"+info.position);
-                break;
-        default:
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }	  
-		        
+	
 	
 	int page;
 	//请求获取服务端数据
@@ -206,10 +213,39 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 				}
 			}
 		}
+	};
+	
+	/**
+	 * 删除收藏数据
+	 */
+	private void setData(){
+		CommonParser parser = new CommonParser();
+		HttpRequest request = new HttpRequestImpl(getActivity(), 
+				AppConstants.APP_SORT_STUDENT +"/mycollectdel", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
+		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+		request.addParam("collectId", collectId);
+		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack1);
+		
+	}
+	/**
+	 * 网络请求回调事件
+	 */
+	private DataCallback<CommonBean> callBack1 = new DataCallback<CommonBean>() {
+
+		@Override
+		public void processData(CommonBean object, RequestResult result) {
+			if(null != object){
+				if("200".equals(object.code)){
+					showToast("删除成功！");
+				}else{
+					showToast("服务器正忙，请稍后尝试！");
+				}
+			}
+		}
 
 		
 	};
-	
 	/**
 	 * 通知适配器展示数据
 	 * @author Ron

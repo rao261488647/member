@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.frame.member.widget.refreshlistview.PullToRefreshListView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_collect_class_listView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <com.frame.member.widget.refreshlistview.PullToRefreshListView 
-        android:id="@+id/my_collect_class_lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:divider="@drawable/list_divider_left"
-        >
-        
-    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:divider="@drawable/list_divider_left">
 
-</LinearLayout>
+</com.frame.member.widget.refreshlistview.PullToRefreshListView>

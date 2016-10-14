@@ -1,26 +1,29 @@
 package com.frame.member.adapters;
 
+import java.text.ParseException;
 import java.util.List;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
-import com.frame.member.bean.MainVideoBean.MainVideoCategory;
+import com.frame.member.TTApplication;
+import com.frame.member.Utils.DateUtil;
+import com.frame.member.bean.MyCollectBean.Badge;
+import com.frame.member.bean.MyCollectBean.CollectClass;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 
 public class MyCollectClassAdapter extends BaseSwipListAdapter {
 	private Context context;
-	private List<String> mAppList;
+	private List<CollectClass> mAppList;
 	
 	public MyCollectClassAdapter(Context context,
-			 List<String> mAppList) {
+			 List<CollectClass> mAppList) {
 		this.context = context;
 		this.mAppList = mAppList;
 	}
@@ -33,7 +36,7 @@ public class MyCollectClassAdapter extends BaseSwipListAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public CollectClass getItem(int position) {
         return mAppList.get(position);
     }
 
@@ -46,26 +49,35 @@ public class MyCollectClassAdapter extends BaseSwipListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = View.inflate(context,
-                    R.layout.item_my_collect_class_list, null);
+                    R.layout.item_my_collect_class, null);
             new ViewHolder(convertView);
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        String item = getItem(position);
-//        holder.my_collect_class_img_1.setImageResource(R.drawable.icon_my_collect_full);
-//        holder.my_collect_class_text_1.setText("亚特兰大");
-//        holder.my_collect_class_text_2.setText("擅长双板（大回转、小回转）野雪，猫跳公园系列，个人爱雪徒步");
-        holder.my_collect_class_img_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "iv_icon_click", Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.my_collect_class_text_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"iv_icon_click",Toast.LENGTH_SHORT).show();
-            }
-        });
+        CollectClass item = getItem(position);
+        holder.my_collect_class_text_1.setText("￥"+item.planPrice+"/人");
+        holder.my_collect_class_text_2.setText(item.personNumber+"人班  已报名"+item.signedUpNum+"人");
+        holder.my_collect_class_text_3.setText(item.categoryName);
+        String sDate = "";
+		try {
+			sDate = DateUtil.getDateTime("MM月dd日", DateUtil.convertStringToDate("yyyy-MM-dd", item.beginTime));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        String eDate = "";
+		try {
+			eDate = DateUtil.getDateTime("MM月dd日", DateUtil.convertStringToDate("yyyy-MM-dd", item.overTime));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        holder.my_collect_class_text_4.setText(sDate+"-"+eDate+" 共"+item.hadDay+"天");
+        holder.my_collect_class_text_5.setText(item.courseName+"("+item.sdPlate+")");
+        holder.my_collect_class_text_6.setText(item.skifieldAddr);
+        holder.my_collect_class_text_7.setText(item.courseIntro);
+        if(item.signedUpStatus.equals("已满员")){
+        	
+        }
         return convertView;
     }
 
@@ -79,11 +91,9 @@ public class MyCollectClassAdapter extends BaseSwipListAdapter {
     }
 
     class ViewHolder {
-        ImageView my_collect_class_img_1;
         TextView my_collect_class_text_1,my_collect_class_text_2,my_collect_class_text_3,
-        my_collect_class_text_4,my_collect_class_text_5,my_collect_class_text_6,
-        my_collect_class_text_7;
-        RatingBar my_collect_ratingBar1;
+        my_collect_class_text_4,my_collect_class_text_5,my_collect_class_text_6,my_collect_class_text_7;
+        ImageView my_collect_class_img_1;
 
         public ViewHolder(View view) {
         	my_collect_class_img_1 = (ImageView) view.findViewById(R.id.my_collect_class_img_1);

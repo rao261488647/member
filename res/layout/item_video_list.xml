@@ -5,6 +5,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
 	android:padding="10dp"
+	android:background="@color/white"
 	> 
 	<RelativeLayout 
 	    android:id="@+id/main_video_list_rl"

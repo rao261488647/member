@@ -93,6 +93,7 @@ public class MainVideoFrag extends BaseFrag {
 									View view, int position, long id) {
 								Intent intent = new Intent(getActivity(), VideoListActivity.class);
 							    intent.putExtra("categoryId", dataList.get(position).categoryId);
+							    intent.putExtra("title", dataList.get(position).categoryName);
 							    startActivity(intent);
 							}
 						});

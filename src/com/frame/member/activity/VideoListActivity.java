@@ -29,7 +29,7 @@ public class VideoListActivity extends BaseActivity {
 	private PullToRefreshListView pullListView;
 	private int page;
 	private VideoListAdapter adapter;
-	private String categoryId;
+	private String categoryId,title;
 	private List<MainVideo> dataList = new ArrayList<MainVideo>();
 	BaseParser<VideoListResult> parser = new VideoListParser();
 	@Override
@@ -37,14 +37,14 @@ public class VideoListActivity extends BaseActivity {
 		setContentView(R.layout.activity_my_video_list);
 		Intent intent = getIntent();
 		categoryId = intent.getStringExtra("categoryId");
-//		findViewById();
+		title = intent.getStringExtra("title");
 
 		getData();
 	}
 
 	@Override
 	protected void findViewById() {
-		tv_title.setText("消费流水");
+		tv_title.setText(title);
 		pullListView = (PullToRefreshListView) findViewById(R.id.my_video_list_lv);
 	}
 	/**
