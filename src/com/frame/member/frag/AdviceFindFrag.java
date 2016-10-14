@@ -16,6 +16,11 @@ import com.frame.member.bean.AdviceFindResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +54,34 @@ public class AdviceFindFrag extends BaseFrag{
 		
 		return rootView;
 	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		init();
 		getData();
 		
+		getActivity().registerReceiver(receiver, new IntentFilter(AppConstants.ACTION_ACT_PUB_SUCC));
 	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		getActivity().unregisterReceiver(receiver);
+	}
+	
+	
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			page = 1;
+			lv_advice_find.setMode(Mode.BOTH);
+			getData();
+		}
+	};
+	
+	
 	private void init(){
 		lv_advice_find =(PullToRefreshListView) findViewById(R.id.lv_advice_find);
 //		List<ImageAndText> list = new ArrayList<ImageAndText>(); 

@@ -32,6 +32,9 @@ public class AppConstants {
     public static final String DISSCONTRACT = "dissContract";
     public static final String PAYFEELIST = "payFeeList";
     
+    public static final String GETMVSINFO = "/getmvsinfo";
+    public static final String GETMVSCOVER = "/getmvscover";
+    
     public static final String APP_ID = "app001h23c9h16";
     public static final String APP_KEY = "e7d5fdb8180d25362292f84528395af5";
 	
@@ -62,5 +65,8 @@ public class AppConstants {
 	
 	
 	public static final String BC_PUSH_COMING = "bc_push_coming";
+	
+	
+	public static final String ACTION_ACT_PUB_SUCC = "action_act_pub_succ";
 
 }

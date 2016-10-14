@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-
+    
     <application
         android:name="com.frame.member.TTApplication"
         android:allowBackup="true"
@@ -293,6 +293,10 @@
         </activity>
          <activity
             android:name=".activity.ImportVideoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name=".activity.ShareVideoActivity"
             android:screenOrientation="portrait" >
         </activity>
         

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import com.frame.member.R;
+import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Utils.MD5;
 import com.frame.member.adapters.LayerAdapter;
 import com.frame.member.bean.Video;
@@ -19,8 +20,11 @@ import com.yixia.weibo.sdk.util.FileUtils;
 import com.yixia.weibo.sdk.util.StringUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -154,6 +158,25 @@ public class SelectVedioActivity extends BaseActivity {
 				return loadData();
 			}
 		}.execute();
+		registeBroadCastReceiver();
+	}
+
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			finish();
+		}
+	};
+
+	private void registeBroadCastReceiver() {
+		registerReceiver(receiver, new IntentFilter(AppConstants.ACTION_ACT_PUB_SUCC));
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(receiver);
 	}
 
 	private List<Video> loadData() {

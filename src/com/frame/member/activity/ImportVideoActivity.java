@@ -19,7 +19,6 @@ import com.yixia.camera.demo.log.Logger;
 import com.yixia.camera.demo.ui.record.helper.RecorderHelper;
 import com.yixia.videoeditor.adapter.UtilityAdapter;
 import com.yixia.weibo.sdk.FFMpegUtils;
-import com.yixia.weibo.sdk.VCamera;
 import com.yixia.weibo.sdk.api.HttpRequest;
 import com.yixia.weibo.sdk.model.MediaObject;
 import com.yixia.weibo.sdk.util.DeviceUtils;
@@ -31,11 +30,13 @@ import com.yixia.weibo.sdk.util.ToastUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -59,7 +60,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ImportVideoActivity extends Activity implements OnPreparedListener, OnPlayStateListener, OnInfoListener, OnVideoSizeChangedListener, OnErrorListener, OnSeekCompleteListener, OnSeekBarChangeListener, OnSwich60sListener, OnBackgroundColorListener, OnVideoChangeScaleTypeListener {
+public class ImportVideoActivity extends Activity implements OnPreparedListener, OnPlayStateListener, OnInfoListener,
+		OnVideoSizeChangedListener, OnErrorListener, OnSeekCompleteListener, OnSeekBarChangeListener,
+		OnSwich60sListener, OnBackgroundColorListener, OnVideoChangeScaleTypeListener {
 
 	/** 显示正在加载 */
 	private View mVideoLoading;
@@ -67,23 +70,18 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 	private VideoViewTouch mVideoView;
 	/** 显示播放 */
 	private ImageView mPlayController;
-	/** 操作提示 */
-	private ImageView mTipsMove;
 	/** 视频区域选择 */
 	private VideoSelectionView mVideoSelection;
 	/** 操作提示文字 */
-	private View mTipMoveText;
-	/** 首次进入页面提示文字 */
-	private TextView mTipsSelect;
 	private LinearLayout mPreviewLinearLayout;
 	/** 屏幕的宽度 */
-	private int mWindowWidth;
 	/** 播放路径 */
 	private String mSourcePath;
 	protected ProgressWheel mProgressWheel;
 	/** 中间画面拖动提示 */
-	//	private boolean mAreaTips;
-	private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (X11; " + "Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) " + "Chrome/11.0.696.34 Safari/534.24";
+	// private boolean mAreaTips;
+	private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (X11; "
+			+ "Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) " + "Chrome/11.0.696.34 Safari/534.24";
 	private boolean mIsFitCenter, mIsWhiteBackground;
 	protected MediaObject mMediaObject;
 	/** 视频旋转角度 */
@@ -91,16 +89,14 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 	/** 视频临时目录 */
 	private String mTargetPath;
 	/** 预先裁剪是否完成 */
-	private boolean mTempVideoTranscodeFinishd;
-	
-	
-	private Button btn_cancle_select_video,btn_ok_select_video;
+
+	private Button btn_cancle_select_video, btn_ok_select_video;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video_import_video);
-		TextView tv_title = ((TextView)findViewById(R.id.tv_title));
+		TextView tv_title = ((TextView) findViewById(R.id.tv_title));
 		tv_title.setText("编辑视频");
 		tv_title.setTextColor(Color.WHITE);
 		initIntent();
@@ -116,9 +112,29 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 				directory = f.getParent() + "/";
 			}
 			mTargetPath = directory + dirName;
-			mMediaObject = new MediaObject(directory, dirName, RecorderHelper.getVideoBitrate(), MediaObject.MEDIA_PART_TYPE_IMPORT_VIDEO);
+			mMediaObject = new MediaObject(directory, dirName, RecorderHelper.getVideoBitrate(),
+					MediaObject.MEDIA_PART_TYPE_IMPORT_VIDEO);
 		}
 		initView();
+		registeBroadCastReceiver();
+	}
+
+	private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			finish();
+		}
+	};
+
+	private void registeBroadCastReceiver() {
+		registerReceiver(receiver, new IntentFilter(AppConstants.ACTION_ACT_PUB_SUCC));
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(receiver);
 	}
 
 	private void initIntent() {
@@ -129,48 +145,30 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	private void initView() {
 
-
 		mVideoLoading = findViewById(R.id.video_loading);
 		mVideoView = (VideoViewTouch) findViewById(R.id.preview);
 		mPreviewLinearLayout = (LinearLayout) mVideoView.getParent();
 		mPlayController = (ImageView) findViewById(R.id.play_controller);
 		mVideoSelection = (VideoSelectionView) findViewById(R.id.video_selection_view);
-		mTipsMove = (ImageView) findViewById(R.id.tips_move);
-		
+
 		btn_cancle_select_video = (Button) findViewById(R.id.btn_cancle_select_video);
 		btn_ok_select_video = (Button) findViewById(R.id.btn_ok_select_video);
 		btn_cancle_select_video.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-					finish();
+				finish();
 			}
 		});
 		btn_ok_select_video.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				startEncoding();
 			}
 		});
-		
-		
-//		mTipMoveText = findViewById(R.id.tips_move_text);
-//		mTipsSelect = (TextView) findViewById(R.id.tip_import_video_select);
-
-		//		if (PreferenceUtils.getBoolean(PreferenceKeys.IMPORT_VIDEO_TIPS, true)) {
-		//			showFirstTips();
-		//		}
-
-		// mChangeVideoviewMode = (CheckBox)
-		// findViewById(R.id.change_videoview_mode);
-		// mChangeVideoviewMode.setOnCheckedChangeListener(this);
-
-		// 设置60s权限
-		//		 mVideoSelection.setCan60s(RecorderHelper.getMaxDuration() > 10 * 1000);
 
 		mVideoView.setOnPreparedListener(this);
-		// mPlayController.setOnClickListener(this);
 		mVideoView.setOnPlayStateListener(this);
 		mVideoView.setOnTouchEventListener(mOnVideoTouchListener);
 		mVideoView.setOnInfoListener(this);
@@ -185,12 +183,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 		initSurfaceView();
 
-		//		if (mFromMulti) {
-		//			titleRight.setText(R.string.record_camera_preview_next);
-		//		} else {
-		// titleRight.setText(R.string.record_camera_preview_title);
-		//		}
-
 		parseIntentUrl(getIntent());
 	}
 
@@ -203,19 +195,7 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 		mParams.height = w;
 		preview_layout.setVisibility(View.VISIBLE);
 
-//		View cropView = findViewById(R.id.cropView);
-//		int cropHeight = (int) (mWindowWidth * 1.0f * 9 / 16);
-//		int topMargin = ConvertToUtils.dipToPX(this, 49) + (mWindowWidth - cropHeight) / 2;
-//		RelativeLayout.LayoutParams cropViewParam = (RelativeLayout.LayoutParams) cropView.getLayoutParams();
-//		cropViewParam.width = mWindowWidth;
-//		cropViewParam.height = cropHeight;
-//		cropViewParam.topMargin = topMargin;
-//		cropView.setLayoutParams(cropViewParam);
 	}
-	
-//	public void onClipClicked(View view){
-//		startEncoding();
-//	}
 
 	/**
 	 * 解析url
@@ -271,9 +251,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 			ToastUtils.showToast(ImportVideoActivity.this, "视频不存在");
 			finish();
 		} else {
-//			if (mSourcePath.toLowerCase().endsWith(".gif")) {
-//				importGif(mSourcePath);
-//			} else 
 			if (getIntent().getBooleanExtra("parse", false)) {
 				parseShortVideo(mSourcePath);
 			} else {
@@ -310,7 +287,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 				@Override
 				protected String doInBackground(Void... params) {
-					// 导入美拍视频
 					if (url.indexOf("meipai.com/media/") > -1) {
 						String html = getRequestString(url);
 						if (StringUtils.isNotEmpty(html)) {
@@ -347,9 +323,9 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	public static String getRequestString(String url) {
 		try {
-			HttpRequest request = HttpRequest.get(url).acceptGzipEncoding().uncompress(true).trustAllCerts().trustAllHosts().readTimeout(10000);
+			HttpRequest request = HttpRequest.get(url).acceptGzipEncoding().uncompress(true).trustAllCerts()
+					.trustAllHosts().readTimeout(10000);
 			request.userAgent(DESKTOP_USERAGENT);
-			//uncompress(true). acceptGzipEncoding().userAgent(USER_AGENT_IPAD).
 			return request.body();
 		} catch (Exception ex) {
 			Logger.e(ex);
@@ -359,176 +335,16 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 		return "";
 	}
 
-	/** 导入Gif转换 */
-//	private void importGif(final String url) {
-//		if (StringUtils.isNotEmpty(url)) {
-//			new ThreadTask<Void, Void, File>() {
-//
-//				@Override
-//				protected void onPreExecute() {
-//					super.onPreExecute();
-//					mVideoLoading.setVisibility(View.GONE);
-//					ProgressDialog dialog = showEncodingDialog("正在进行格式转换...");
-//					if (dialog != null) {
-//						if (mProgressWheel != null) {
-//							mProgressWheel.spin();
-//						}
-//						dialog.setCancelable(true);
-//						dialog.setOnCancelListener(new OnCancelListener() {
-//
-//							@Override
-//							public void onCancel(DialogInterface dialog) {
-//								ToastUtils.showToast(ImportVideoActivity.this, "导入GIF失败");
-//								finish();
-//							}
-//						});
-//					}
-//				}
-//
-//				@Override
-//				protected File doInBackground(Void... params) {
-//					File mThumbCacheDir = MyApplication.getGifCacheDirectory();
-//					String key = Crypto.md5(url);
-//					final File thumbDir = new File(mThumbCacheDir, key);
-//					if (!thumbDir.exists())
-//						thumbDir.mkdirs();
-//					final File thumbFile = new File(thumbDir, "0.mp4");
-//
-//					// 在线的先下载回来
-//					String gifFile = url;
-//					if (url.startsWith("http://") || url.startsWith("https://") || !MediaUtils.isNative(url)) {
-//						// 在线的gif应该每次都重新下载
-//						gifFile = FileUtils.concatPath(thumbDir.getPath(), "0.gif");
-//						FileUtils.deleteFile(gifFile);
-//						FileUtils.deleteFile(thumbFile);
-//						if (!FileUtils.checkFile(gifFile)) {
-//							HttpRequest request = HttpRequest.get(url);
-//							try {
-//								request.receive(new File(gifFile), null);
-//								if (request.ok()) {
-//									// gif图入口
-//									//									if (!isFinishing()) {
-//									//										UploaderHelper.saveImageStone(ImportVideoActivity.this, gifFile);
-//									//									}
-//								}
-//							} catch (Exception e) {
-//								Logger.e(e);
-//							}
-//							if (!FileUtils.checkFile(gifFile)) {
-//								gifFile = url;
-//							}
-//						}
-//					} else {
-//						// 本地的使用缓存
-//						if (thumbFile.exists() && thumbFile.canRead() && thumbFile.length() > 0) {
-//							return thumbFile;
-//						}
-//					}
-//
-//					// 检测FPS
-//					float fps = 25;// (float) FFMpegUtils.getVideoInfo(gifFile,
-//					// "fps", 25.0f);
-//					// int duration1 = FFMpegUtils.getVideoDuration(gifFile, 0);
-//					// if (fps > 30.0f)
-//					// fps = 30.0f;
-//					String target = FileUtils.concatPath(thumbDir.getPath(), "temp.ts");
-//					String cmd = String.format("ffmpeg %s -i \"%s\" -vf \"crop=in_w-mod(in_w\\,16):in_h-mod(in_h\\,16):0:0\" -r %.2f %s -b:v 4m -f mpegts \"%s\"", FFMpegUtils.getLogCommand(), gifFile, fps, FFMpegUtils.getVCodecCommand(), target);
-//					Logger.e("[ImportVideoActivity]gif-ts:" + cmd);
-//					// String cmd =
-//					// String.format("ffmpeg %s -i \"%s\" -vf \"crop=in_w-mod(in_w\\,16):in_h-mod(in_h\\,16):0:0\" %s -b:v 2m -f mpegts \"%s\"",
-//					// FFMpegUtils.getLogCommand(), url,
-//					// FFMpegUtils.getVCodecCommand(), target);
-//					if (UtilityAdapter.FFmpegRun("", cmd) == 0) {
-//						// 检测Gif是否大于3秒
-//						// {"ver":1,"format":"mov,mp4,m4a,3gp,3g2,mj2","file":"/Users/barry/Downloads/opengl.mp4","duration":2921.89,"starttime":0.00,"bitrate":10755,"vcodec":"h264","vprofile":"Main","vcodectag":"avc1","pixfmt":"yuv420p","colorspace":"bt709","width":1280,"height":720,"fps":29.94,"acodec":"aac","acodectag":"mp4a","samplerate":44100,"channels":2,"samplefmt":8,"vstreamcnt":1,"astreamcnt":1,"streamcnt":2}
-//						int duration = FFMpegUtils.getVideoDuration(target, 0);
-//						if (duration > 0) {
-//							String copy;
-//							if (duration < 3000) {// 不足3秒复制N份，循环播放，保证每一个gif都可以导入
-//								int count = 3000 / duration;
-//								copy = "concat:" + target;
-//								for (int i = 0; i < count; i++) {
-//									copy += "|" + target;
-//								}
-//							} else {
-//								copy = target;
-//							}
-//							//							// 复制一份
-//							//							cmd = String.format("ffmpeg %s -i \"%s\" -f s16le -ar 44100 -ac 1 -i empty:// -vcodec copy %s -b:a 128k -absf aac_adtstoasc -f mp4 -movflags faststart \"%s\"", FFMpegUtils.getLogCommand(), copy, FFMpegUtils.getACodecCommand(), thumbFile.getPath());
-//							//							// cmd =
-//							//							// String.format("ffmpeg %s -i \"%s\" -vcodec copy -f mp4 -movflags faststart \"%s\"",
-//							//							// FFMpegUtils.getLogCommand(), copy,
-//							//							// thumbFile.getPath());
-//							//							Logger.e("[ImportVideoActivity]ts-mp4:" + cmd);
-//							//							if (UtilityAdapter.FFmpegRun("", cmd) != 0) {
-//							////									UtilityAdapter.stopEncodingLog(Logger.IsDebug);
-//							////									CrashUncaughtException.sendFfmpegLog();
-//							//								return null;
-//							//							} else {
-//							//								FileUtils.deleteFile(target);// 删除临时文件
-//							//							}
-//						}
-//						return thumbFile;
-//					} else {
-//						//							UtilityAdapter.stopEncodingLog(Logger.getIsDebug());
-//						//							CrashUncaughtException.sendFfmpegLog();
-//					}
-//					return null;
-//				}
-//
-//				@Override
-//				protected void onPostExecute(File result) {
-//					super.onPostExecute(result);
-//					if (mProgressWheel != null) {
-//						mProgressWheel.stopSpinning();
-//					}
-//					hideProgress();
-//					if (!isFinishing() && result != null) {
-//						mVideoLoading.setVisibility(View.VISIBLE);
-//						mSourcePath = result.getPath();
-//						mVideoView.setVideoPath(mSourcePath);
-//					} else {
-//						ToastUtils.showToast(ImportVideoActivity.this, "导入Gif失败");
-//						finish();
-//					}
-//				}
-//
-//			}.execute();
-//		}
-//	}
-
-	//	/** 隐藏提示信息 */
-	//	private void hideTips() {
-	//		if (!isFinishing()) {
-	//			mAreaTips = false;
-	//			mTipsMove.setVisibility(View.GONE);
-	//			mTipMoveText.clearAnimation();
-	//			mTipMoveText.setAnimation(null);
-	//			mTipMoveText.setVisibility(View.GONE);
-	//
-	//			if (mVideoView.getCanScrollX()) {
-	//				PreferenceUtils.put(PreferenceKeys.VIDEO_EDIT_TIPS_LR, false);
-	//			} else if (mVideoView.getCanScrollY()) {
-	//				PreferenceUtils.put(PreferenceKeys.VIDEO_EDIT_TIPS_TB, false);
-	//			}
-	//		}
-	//	}
-
 	private VideoViewTouch.OnTouchEventListener mOnVideoTouchListener = new VideoViewTouch.OnTouchEventListener() {
 
 		@Override
 		public boolean onClick() {
-			//			if (mAreaTips) {
-			//				hideTips();
-			//			}
 
 			if (mVideoView.isPlaying()) {
 				mVideoView.pauseClearDelayed();
 			} else {
 				mVideoView.start();
 				mHandler.sendEmptyMessage(HANDLE_PROGRESS);
-				// mVideoView.loopDelayed(mVideoSelection.getStartTime(),
-				// mVideoSelection.getEndTime());
 			}
 			return true;
 		}
@@ -542,13 +358,13 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 		}
 	};
-	
+
 	protected ProgressDialog mProgressDialog;
 
 	public ProgressDialog showProgress(String title, String message) {
 		return showProgress(title, message, -1);
 	}
-	
+
 	public ProgressDialog showProgress(String title, String message, int theme) {
 		if (mProgressDialog == null) {
 			if (theme > 0)
@@ -578,11 +394,12 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 		Logger.d("[RecordBaseActivity]showEncodingDialog...");
 		ProgressDialog dialog = showProgress("", "");
 		View convertView = LayoutInflater.from(this).inflate(R.layout.dialog_record_transcoding, null);
-		//		mProgressTextView = (TextView) convertView.findViewById(android.R.id.message);
+		// mProgressTextView = (TextView)
+		// convertView.findViewById(android.R.id.message);
 		mProgressWheel = (ProgressWheel) convertView.findViewById(R.id.progress);
 		dialog.setContentView(convertView);
 		if (StringUtils.isNotEmpty(message)) {
-			mProgressWheel.setProgressEx(0);//TODO:
+			mProgressWheel.setProgressEx(0);
 		}
 		// mProgressDialog.getWindow().setBackgroundDrawableResource(R.drawable.uploader_dialog_bg);
 		dialog.setCancelable(false);
@@ -662,15 +479,19 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 					// 播放到结束时间的位置 则暂停不要循环
 					long position = mVideoView.getCurrentPosition();
 
-					if ((position >= mVideoSelection.getEndTime() && (lastPosition != 0 && Math.abs(position - lastPosition) < 500)) || position == mVideoView.getDuration()) {
+					if ((position >= mVideoSelection.getEndTime()
+							&& (lastPosition != 0 && Math.abs(position - lastPosition) < 500))
+							|| position == mVideoView.getDuration()) {
 						Logger.e("simon", "step1");
 						if (mIsChangeTime) {
-							Logger.e("simon", "当前重设的历史StartTime>>" + mPreChangedStartTime + ">>>当前记录的历史endTime>>>" + mPreChangedEndTime);
+							Logger.e("simon", "当前重设的历史StartTime>>" + mPreChangedStartTime + ">>>当前记录的历史endTime>>>"
+									+ mPreChangedEndTime);
 							mVideoSelection.setStartTime(mPreChangedStartTime);
 							mVideoSelection.setEndTime(mPreChangedEndTime);
 							mIsChangeTime = false;
 						}
-						Logger.e("simon", "暂停了?position ::" + position + "endTime::" + mVideoSelection.getEndTime() + "view.getDuration::" + mVideoView.getDuration());
+						Logger.e("simon", "暂停了?position ::" + position + "endTime::" + mVideoSelection.getEndTime()
+								+ "view.getDuration::" + mVideoView.getDuration());
 						final int startTime = mVideoSelection.getStartTime();
 						mVideoView.pauseClearDelayed();
 						mVideoView.seekTo(startTime);
@@ -683,7 +504,8 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 				} else if (mVideoView.isPaused()) {
 					Logger.e("simon", "step3");
 					if (mIsChangeTime) {
-						Logger.e("", "当前重设的历史StartTime>>" + mPreChangedStartTime + ">>>当前记录的历史endTime>>>" + mPreChangedEndTime);
+						Logger.e("", "当前重设的历史StartTime>>" + mPreChangedStartTime + ">>>当前记录的历史endTime>>>"
+								+ mPreChangedEndTime);
 						mVideoSelection.setStartTime(mPreChangedStartTime);
 						mVideoSelection.setEndTime(mPreChangedEndTime);
 						mIsChangeTime = false;
@@ -724,7 +546,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	@Override
 	public void onChanged(boolean isWhiteBackground) {
-		// TODO Auto-generated method stub
 		if (isWhiteBackground) {
 			mPreviewLinearLayout.setBackgroundColor(getResources().getColor(R.color.white));
 			mIsWhiteBackground = true;
@@ -736,7 +557,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	@Override
 	public void onChanged() {
-		// TODO Auto-generated method stub
 		if (mVideoView != null) {
 			mVideoView.pauseClearDelayed();
 			mVideoView.seekTo(0);
@@ -745,8 +565,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	@Override
 	public void onProgressChanged() {
-		// TODO Auto-generated method stub
-		// 拖动手柄或者滚动缩略图片的时候把视频停止 并把指针移到起始位置
 		if (mVideoView != null) {
 			// hideFirstTips();
 			if (mVideoView.isPlaying()) {
@@ -754,34 +572,20 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 			}
 			int startTime = mVideoSelection.getStartTime();
 
-			// Log.e("simon","onProgressChanged::StartTime>>"+startTime+">>>endTime>>>"+mVideoSelection.getEndTime());
-
 			mVideoView.seekTo(startTime);
 			setProgress();
-			// if (mVideoTime != null && mVideoSelection != null) {
-			// mVideoTime.setText(getString(R.string.left_second_tips,
-			// mVideoSelection.getVideoCutTime()));
-			// }
 		}
-		// if (mHandler.hasMessages(HANDLE_SEEKTO))
-		// mHandler.removeMessages(HANDLE_SEEKTO);
-		// mHandler.sendEmptyMessageDelayed(HANDLE_SEEKTO, 200);
 	}
 
 	@Override
 	public void onProgressEnd() {
-		// TODO Auto-generated method stub
 		if (mHandler.hasMessages(HANDLE_SEEKTO))
 			mHandler.removeMessages(HANDLE_SEEKTO);
 		mHandler.sendEmptyMessageDelayed(HANDLE_SEEKTO, 20);
 	}
 
-
 	@Override
 	public void onSeekComplete(MediaPlayer mp) {
-		// TODO Auto-generated method stub
-		Logger.e("simon", "[ImportVideoActivity]onSeekComplete...");
-		// mVideoView.start();
 		lastPosition = 0;
 		mPreChangedStartTime = 0;
 		mPreChangedEndTime = 0;
@@ -805,7 +609,6 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 	@Override
 	public void onStateChanged(boolean isPlaying) {
-		// TODO Auto-generated method stub
 		if (isPlaying) {
 			mHandler.removeMessages(HANDLE_PROGRESS);
 			mHandler.sendEmptyMessage(HANDLE_PROGRESS);
@@ -832,31 +635,10 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 			return;
 		}
 
-		// mVideoView.resize();
-		// if (mVideoView.getCropX() == 0 && mVideoView.getCropY() == 0) {
-		// mVideoView.centerXY(); 
-		// }
 		setVideoMode(scale);
 		mVideoSelection.init(FileUtils.getCacheDiskPath(this, "thumbs"), mSourcePath, mDuration, 15 * 1000, 3 * 1000);
 
-		// mVideoView.loopDelayed(mVideoSelection.getStartTime(),
-		// mVideoSelection.getEndTime());
 		mVideoView.start();
-		//		mAreaTips = false;
-		//		if (mVideoView.getCanScrollX()) {
-		//			mAreaTips = PreferenceUtils.getBoolean(PreferenceKeys.VIDEO_EDIT_TIPS_LR, true);
-		//			mTipsMove.setImageResource(R.drawable.record_tips_move_lr);
-		//		} else if (mVideoView.getCanScrollY()) {
-		//			mAreaTips = PreferenceUtils.getBoolean(PreferenceKeys.VIDEO_EDIT_TIPS_TB, true);
-		//			mTipsMove.setImageResource(R.drawable.record_tips_move_tb);
-		//		}
-		//
-		//		if (mAreaTips) {
-		//			// mTipsMove.setVisibility(View.VISIBLE);
-		//			// AnimationHelper.animationTips(this, mTipMoveText);
-		//		} else {
-		//			hideTips();
-		//		}
 	}
 
 	private void setVideoMode(int scale) {
@@ -879,15 +661,12 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 	private void startEncoding() {
 		// 检测磁盘空间
 		if (!TTApplication.isAvailableSpace()) {
-			// ToastUtils.showToastErrorTip(R.string.record_check_available_faild);
 			return;
 		}
 
 		if (mVideoSelection != null) {
 			mVideoSelection.killSnapImage();
 		}
-		// ffmpeg -i 1.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb 1.ts
-		// 将视频转成ts
 		if (mMediaObject != null) {
 			// 生成片段信息
 			com.yixia.weibo.sdk.model.MediaObject$MediaPart part = mMediaObject.getLastPart();
@@ -898,7 +677,8 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 			// 暂停播放
 			mVideoView.pauseClearDelayed();
 
-			Logger.e("samuel", " mVideoSelection.getStartTime()" + mVideoSelection.getStartTime() + "<><>mPreStartTime::" + mPreChangedStartTime);
+			Log.i("Arvin", " mVideoSelection.getStartTime()" + mVideoSelection.getStartTime() + "<><>mPreStartTime::"
+					+ mPreChangedStartTime);
 
 			final com.yixia.weibo.sdk.model.MediaObject$MediaPart mediaPart = part;
 			final int videoWidth = mVideoView.getVideoWidth();
@@ -919,12 +699,13 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 
 			final int startTime = startTimetmp;
 			final int endTime = endTimetmp;
-			final String output = mediaPart.mediaPath;
+			String output = mediaPart.mediaPath;
+			final String cutpath = output.replace("0.mp4", System.currentTimeMillis() + ".mp4");
 
 			part.duration = endTime - startTime;
-			mTempVideoTranscodeFinishd = false;
 
-			Log.i("Arvin","startTime / 1000F, (endTime - startTime) / 1000F " + startTime / 1000F + "," + mVideoSelection.getVideoTime() / 1000F);
+			Log.i("Arvin", "startTime / 1000F, (endTime - startTime) / 1000F " + startTime / 1000F + ","
+					+ mVideoSelection.getVideoTime() / 1000F);
 
 			new ThreadTask<Void, Void, Boolean>() {
 
@@ -937,49 +718,13 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 				@Override
 				protected Boolean doInBackground(Void... params) {
 
-					// //强制停止截图
-					// mVideoSelection.stopCaptureThumbnails();
-
-					// 检测是否正在截取缩略图，是的话要等切完了再转
 					while (mVideoSelection.isThumbLoading()) {
 						SystemClock.sleep(500);
 					}
 
-					// //检测是否完成
-					// while (UtilityAdapter.FFmpegIsRunning("filter_main")) {
-					// SystemClock.sleep(1000);
-					// }
-
-					// 校验视频是否旋转
-					// if (mSourcePath != null &&
-					// !mSourcePath.startsWith("http://") &&
-					// !mSourcePath.startsWith("https://")) {
-					// if (DeviceUtils.hasJellyBeanMr1()) {
-					// try {
-					// MediaMetadataRetriever metadata = new
-					// MediaMetadataRetriever();
-					// metadata.setDataSource(mSourcePath);
-					// mVideoRotation =
-					// ConvertToUtils.toInt(metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION),
-					// -1);
-					// // int duration =
-					// ConvertToUtils.toInt(metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION),
-					// -1);
-					// } catch (Exception e) {
-					// Logger.e(e);
-					// }
-					// } else {
-					// mVideoRotation =
-					// UtilityAdapter.VideoGetMetadataRotate(mSourcePath);
-					// }
-					// }
 					if (mVideoRotation <= 0) {
 						mVideoRotation = UtilityAdapter.VideoGetMetadataRotate(mSourcePath);
 					}
-
-					// mEstimateTargetVideoSize = (endTime - startTime);
-					// startEstimateProgress(mEstimateTargetVideoSize);
-					String cutpath = mediaPart.mediaPath;// + ".mp4";
 					Log.i("Arvin", cutpath);
 					if (StringUtils.isNotEmpty(cutpath)) {
 						File f = new File(cutpath);
@@ -988,31 +733,27 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 							File file = new File(parentPath);
 							if (!file.exists()) {
 								try {
-									//按照指定的路径创建文件夹  
+									// 按照指定的路径创建文件夹
 									file.mkdirs();
 								} catch (Exception e) {
-									// TODO: handle exception  
 								}
 							}
 							File dir = new File(cutpath);
 							if (!dir.exists()) {
 								try {
-									//在指定的文件夹中创建文件  
+									// 在指定的文件夹中创建文件
 									dir.createNewFile();
 								} catch (Exception e) {
 								}
 							}
 						}
 					}
-					// ========== 先切割 -vcodec copy -acodec copy -vbsf
-					// h264_mp4toannexb
-					String cmd = String.format("ffmpeg %s -ss %.1f -i \"%s\" -t %.1f -vcodec copy -acodec copy  -f mp4 -movflags faststart \"%s\"", FFMpegUtils.getLogCommand(), startTime / 1000F, mSourcePath, mVideoSelection.getVideoTime() / 1000F, cutpath);
+					String cmd = String.format(
+							"ffmpeg %s -ss %.1f -i \"%s\" -t %.1f -vcodec copy -acodec copy  -f mp4 -movflags faststart \"%s\"",
+							FFMpegUtils.getLogCommand(), startTime / 1000F, mSourcePath,
+							mVideoSelection.getVideoTime() / 1000F, cutpath);
 
 					boolean result = UtilityAdapter.FFmpegRun("", cmd) == 0;
-					//					if (!result){
-					//						UtilityAdapter.stopEncodingLog(Logger.getIsDebug());
-					//						CrashUncaughtException.sendFfmpegLog();
-					//					}
 					return result;
 				}
 
@@ -1030,37 +771,19 @@ public class ImportVideoActivity extends Activity implements OnPreparedListener,
 							mMediaObject.scale = scale;
 							mMediaObject.mIsFitCenter = mIsFitCenter;
 							mMediaObject.mIsWhiteBackground = mIsWhiteBackground;
-							
-							Log.i("Arvin", "视频截取成功----》cropX:" + cropX + "---cropY:" + cropY + "---videoWidth:" + videoWidth + "/n" +
-									"---videoHeight:" + videoHeight + "---mVideoRotation:" + mVideoRotation + "---scale:" + scale + "/n" +
-									"---mIsFitCenter:" + mIsFitCenter + "---mIsWhiteBackground:" + mIsWhiteBackground);
-							
-							ToastUtils.showToast(ImportVideoActivity.this, "视频转码成功");
-							
-//							MediaObject.writeFile(mMediaObject);
-//							Intent intent = new Intent(ImportVideoActivity.this, MediaPreviewActivity.class);
-//							Bundle bundle = getIntent().getExtras();
-//							if (bundle == null) {
-//								bundle = new Bundle();
-//							}
-//
-//							bundle.putSerializable(CommonIntentExtra.EXTRA_MEDIA_OBJECT, mMediaObject);
-//							bundle.putString("output", mediaPart.mediaPath);
-//							bundle.putBoolean(CommonIntentExtra.EXTRA_MEDIA_IMPORT_VIDEO, true);
-//							intent.putExtras(bundle);
-//							startActivity(intent);
-							// bundle.putInt("cropX", cropX);
-							// bundle.putInt("cropY", cropY);
-							// bundle.putInt("videoWidth", videoWidth);
-							// bundle.putInt("videoHeight", videoHeight);
-							// bundle.putFloat("scale", scale);
-							// bundle.putInt("rotation", mVideoRotation);
-							// bundle.putBoolean("is_fitcenter",
-							// mIsFitCenter);
-							// bundle.putBoolean("is_white_background",
-							// mIsWhiteBackground);
-							//							// 画面从右到左
-							//							overridePendingTransition(R.anim.activity_right_in, R.anim.activity_right_out);
+
+							Log.i("Arvin",
+									"视频截取成功----》cropX:" + cropX + "---cropY:" + cropY + "---videoWidth:" + videoWidth
+											+ "/n" + "---videoHeight:" + videoHeight + "---mVideoRotation:"
+											+ mVideoRotation + "---scale:" + scale + "/n" + "---mIsFitCenter:"
+											+ mIsFitCenter + "---mIsWhiteBackground:" + mIsWhiteBackground);
+
+							// ToastUtils.showToast(ImportVideoActivity.this,
+							// "视频转码成功");
+							Intent intent = new Intent(ImportVideoActivity.this, ShareVideoActivity.class);
+							intent.putExtra("videoPath", cutpath);
+							startActivity(intent);
+
 						} else {
 							ToastUtils.showToast(ImportVideoActivity.this, "视频转码失败");
 						}
