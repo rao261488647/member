@@ -89,5 +89,6 @@
         android:layout_toRightOf="@+id/my_collect_class_text_4"
         android:layout_alignTop="@+id/my_collect_class_text_4"
         android:layout_marginLeft="10dp"
+        android:visibility="invisible"
         />
 </RelativeLayout>

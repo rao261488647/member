@@ -71,12 +71,16 @@ public class MyCollectClassAdapter extends BaseSwipListAdapter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        holder.my_collect_class_text_4.setText(sDate+"-"+eDate+" 共"+item.hadDay+"天");
+        holder.my_collect_class_text_4.setText(sDate+"-"+eDate);
         holder.my_collect_class_text_5.setText(item.courseName+"("+item.sdPlate+")");
         holder.my_collect_class_text_6.setText(item.skifieldAddr);
         holder.my_collect_class_text_7.setText(item.courseIntro);
         if(item.signedUpStatus.equals("已满员")){
-        	
+        	holder.my_collect_class_img_1.setVisibility(View.VISIBLE);
+        	holder.my_collect_class_img_1.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_my_collect_full));
+        }else if(item.signedUpStatus.equals("已过期")){
+        	holder.my_collect_class_img_1.setVisibility(View.VISIBLE);
+        	holder.my_collect_class_img_1.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_my_collect_expire));
         }
         return convertView;
     }

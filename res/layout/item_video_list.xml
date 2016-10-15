@@ -5,41 +5,49 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
 	android:padding="10dp"
-	android:background="@color/white"
+	android:background="#F0F0F0"
 	> 
 	<RelativeLayout 
-	    android:id="@+id/main_video_list_rl"
-	   	android:layout_width="match_parent"
-		android:layout_height="200dp" 
-		android:background="@drawable/banner_member_main2"
-		>
-	    <TextView 
-	        android:id="@+id/main_video_list_title"
-	        android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentLeft="true"
-			android:layout_marginLeft="10dp"
-			android:layout_marginBottom="10dp"
-			android:textStyle="bold"
-			android:textColor="#ffffff"
-			android:text="今天第一次学滑雪，看我的动作是不是很帅"
-			android:textSize="14sp"
-	        />
-	    <ImageView 
-	        android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerInParent="true"
-		android:src="@drawable/icon_play_2x"
-	        />
-	</RelativeLayout>
-	<TextView 
-	    android:id="@+id/main_video_list_introduce"
-	    android:layout_width="wrap_content"
+	    android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_margin="10dp"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		android:text="这是一个多行文本框，可以输入多行文字，一些动作介绍什么的！"
-	      />
+		android:background="@color/white"
+	    >
+		<RelativeLayout 
+		    android:id="@+id/main_video_list_rl"
+		   	android:layout_width="match_parent"
+			android:layout_height="200dp" 
+			android:background="@drawable/banner_member_main2"
+			>
+		    <TextView 
+		        android:id="@+id/main_video_list_title"
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentLeft="true"
+				android:layout_marginLeft="10dp"
+				android:layout_marginBottom="10dp"
+				android:textStyle="bold"
+				android:textColor="#ffffff"
+				android:text="今天第一次学滑雪，看我的动作是不是很帅"
+				android:textSize="14sp"
+		        />
+		    <ImageView 
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+			android:src="@drawable/icon_play_2x"
+		        />
+		</RelativeLayout>
+		<TextView 
+		    android:id="@+id/main_video_list_introduce"
+		    android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/main_video_list_rl"
+			android:layout_margin="10dp"
+			android:paddingBottom="10dp"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			android:text="这是一个多行文本框，可以输入多行文字，一些动作介绍什么的！"
+		      />
+	</RelativeLayout>
 </LinearLayout>

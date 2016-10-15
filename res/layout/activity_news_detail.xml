@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="#2d2e32" 
+	    >
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        >
+		     <TextView
+		        android:id="@+id/news_title"
+		        android:text="@string/title_name"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_centerVertical="true"
+		        android:gravity="center"
+		        android:singleLine="true"
+		        android:ellipsize="end"
+		        android:textColor="@color/white"
+		        android:textSize="17sp"
+		         />
+			<ImageView
+			    android:id="@+id/news_share"
+			    android:layout_width="47dp"
+			    android:layout_height="match_parent"
+			    android:layout_alignParentRight="true"
+			    android:scaleType="center"
+			    android:visibility="visible"
+			    android:src="@drawable/icon_share_unpress"
+			    />
+			<ImageView
+			    android:id="@+id/news_back"
+			    android:layout_width="47dp"
+			    android:layout_height="match_parent"
+			    android:scaleType="center"
+			    android:src="@drawable/btn_back_normal"
+			    />
+	        
+	    </RelativeLayout>
+	
+	</LinearLayout>
+	<WebView 
+	    android:id="@+id/news_webview"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    />
+</LinearLayout>

@@ -4,22 +4,21 @@ import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +35,8 @@ import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.ClassDetailActivity;
+import com.frame.member.activity.NewsDetailActivity;
 import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainNewsAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
@@ -56,7 +57,6 @@ import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
-//	private PullToRefreshListView pullListView;
 	private ListView listView;
 	private PullToRefreshScrollView pullListView;
 
@@ -65,7 +65,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 			ll_sort_conden_classicAction;
 	private int oldPosition = 0;// 记录上一次点的位置
 	private ArrayList<View> dots;
-	private List<MainNews> tempList;
+	private List<MainNews> dataList = new ArrayList<MainNews>();
 
 	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
 	public List<MainBanner> mainBannerDate = new ArrayList<MainBanner>();
@@ -105,40 +105,41 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 				false);
 		findViewByIds(); //获取控件
 		initPhotoCarousel(); //初始化图片轮播控件
+		
+		initPullView();
+		
 		//将页面定位到头部
 		main_linear_container.setFocusable(true);
 		main_linear_container.setFocusableInTouchMode(true);
 		main_linear_container.requestFocus();
 
-		
+
+		return rootView;
+	}
+
+	private void initPullView(){
+
 		pullListView.setMode(Mode.BOTH);
-//		pullListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//				startActivity(new Intent(getActivity(),ClassDetailActivity.class));
-//			}
-//		});
+		
 		pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
 				page = 1;
 				pullListView.setMode(Mode.BOTH);
-//				getMainCourseData();
+				getMainInfoData();
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				page ++;
-//				getMainCourseData();
+				getMainInfoData();
 			}
 		});
 		
 		getMainInfoData();
-
-		return rootView;
 	}
+	
 
 	/**
 	 * 获取首页资讯列表
@@ -147,10 +148,13 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	 */
 	BaseParser<MainInfoResult> parser = new MainInfoParser();
 	private void getMainInfoData() {
+		if(page == 0)
+			page = 1;
 		String url = AppConstants.APP_SORT_STUDENT+"/indexinformation";
 		HttpRequestImpl request = new HttpRequestImpl(getActivity(),
 				url, parser,HttpRequest.RequestMethod.post);
-		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+//		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		mContext.getDataFromServer(request, callback);
 	}
 
@@ -161,19 +165,30 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 		@Override
 		public void processData(final MainInfoResult object, RequestResult result) {
+			pullListView.onRefreshComplete();
 			if(result == RequestResult.Success){
-				if(object != null){
-					if("200".equals(object.code)){
-						mainBannerDate.addAll(object.mainBannerData);
-						
+				if("200".equals(object.code)){
+					if(page == 1){
+						dataList.clear();
+					}
+					if(object.mainNewsData != null && object.mainNewsData.size() > 0){
+						dataList.addAll(object.mainNewsData);
 						for (int i = 0; i < object.mainBannerData.size(); i++) {
+							final MainBanner banner= object.mainBannerData.get(i);
 							ImageView imageView = condensation_pager_list
 									.get(i);
-							if(object.mainBannerData.size()>0){
-								String url = object.mainBannerData.get(i).bannerPhoto;
-								TTApplication.getInstance()
-										.disPlayImageDef(url, imageView);
-							}
+							String url = banner.bannerPhoto;
+							TTApplication.getInstance()
+							.disPlayImageDef(url, imageView);
+							imageView.setOnClickListener(new OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									Intent intent = new Intent(getActivity(),NewsDetailActivity.class);
+									intent.putExtra("title", "新闻详情");
+									intent.putExtra("newsUrl", banner.bannerLink);
+									startActivity(intent);
+								}
+							});
 						}
 						//加载课程信息到页面
 						try {
@@ -181,15 +196,16 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-						tempList = object.mainNewsData;
+						
 						notifyAdapter(); //适配器设置
 						CommonUtil.setListViewHeight(listView);
+					}else{
+						showToast("没有更多数据！");
 					}
 				}
 			}
 		}
 	};
-
 	/**
 	 * 加载课程信息
 	 * @author Ron
@@ -326,7 +342,17 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	 */
 	private void notifyAdapter() {
 		if(adapter == null){
-			adapter = new MainNewsAdapter(getActivity(),tempList );
+			adapter = new MainNewsAdapter(getActivity(),dataList );
+			//单击列表项事件
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent = new Intent(getActivity(),NewsDetailActivity.class);
+					intent.putExtra("title", "新闻详情");
+					intent.putExtra("newsUrl", dataList.get(position).newsUrl);
+					startActivity(intent);
+				}
+			});
 			listView.setAdapter(adapter);
 		}else{
 			adapter.notifyDataSetChanged();

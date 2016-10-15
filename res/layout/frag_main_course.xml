@@ -1,73 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container1"
+<com.frame.member.widget.refreshlistview.PullToRefreshScrollView 
+   	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_course_sv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/color_white_gap">
-    <LinearLayout
-            android:id="@+id/main_course_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:orientation="vertical"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/main_course_condensation"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/main_course_condensation"
-                    android:layout_marginBottom="10dp"
-                    android:layout_centerHorizontal="true"
-                    >
-
-                    <View
-                        android:id="@+id/main_course_dot_0"
-                        android:layout_width="35dip"
-                        android:layout_height="4dip"
-                        android:layout_marginLeft="3dip"
-                        android:layout_marginRight="3dip"
-                        android:background="@drawable/dot_focused" />
-
-                    <View
-                        android:id="@+id/main_course_dot_1"
-                        android:layout_width="35dip"
-                        android:layout_height="4dip"
-                        android:layout_marginLeft="3dip"
-                        android:layout_marginRight="3dip"
-                        android:layout_toRightOf="@id/main_course_dot_0"
-                        android:background="@drawable/dot_normal" />
-
-                    <View
-                        android:id="@+id/main_course_dot_2"
-                        android:layout_width="35dip"
-                        android:layout_height="4dip"
-                        android:layout_marginLeft="3dip"
-                        android:layout_marginRight="3dip"
-                        android:layout_toRightOf="@id/main_course_dot_1"
-                        android:background="@drawable/dot_normal" />
-                </RelativeLayout>
-                
-            </RelativeLayout>
-		    <com.frame.member.widget.refreshlistview.PullToRefreshListView
-		        android:id="@+id/main_course_lv"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:scrollbars="none"
-		        android:stretchMode="columnWidth"
-		        android:divider="@drawable/list_divider_left"
-		        >
-		
-		    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
-            
-            
-        </LinearLayout>
-
-</LinearLayout>
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:divider="@drawable/list_divider_left">
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/container1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:background="@color/color_white_gap">
+	    <LinearLayout
+	            android:id="@+id/main_course_container"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            android:orientation="vertical"
+	            >
+	            <RelativeLayout
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content" >
+	
+	                <android.support.v4.view.ViewPager
+	                    android:id="@+id/main_course_condensation"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="190dp" />
+	
+	                <RelativeLayout
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_alignBottom="@id/main_course_condensation"
+	                    android:layout_marginBottom="10dp"
+	                    android:layout_centerHorizontal="true"
+	                    >
+	
+	                    <View
+	                        android:id="@+id/main_course_dot_0"
+	                        android:layout_width="35dip"
+	                        android:layout_height="4dip"
+	                        android:layout_marginLeft="3dip"
+	                        android:layout_marginRight="3dip"
+	                        android:background="@drawable/dot_focused" />
+	
+	                    <View
+	                        android:id="@+id/main_course_dot_1"
+	                        android:layout_width="35dip"
+	                        android:layout_height="4dip"
+	                        android:layout_marginLeft="3dip"
+	                        android:layout_marginRight="3dip"
+	                        android:layout_toRightOf="@id/main_course_dot_0"
+	                        android:background="@drawable/dot_normal" />
+	
+	                    <View
+	                        android:id="@+id/main_course_dot_2"
+	                        android:layout_width="35dip"
+	                        android:layout_height="4dip"
+	                        android:layout_marginLeft="3dip"
+	                        android:layout_marginRight="3dip"
+	                        android:layout_toRightOf="@id/main_course_dot_1"
+	                        android:background="@drawable/dot_normal" />
+	                </RelativeLayout>
+	                
+	            </RelativeLayout>
+			    <ListView
+			        android:id="@+id/main_course_lv"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scrollbars="none"
+			        android:stretchMode="columnWidth"
+			        android:divider="@drawable/list_divider_left"
+			        >
+			
+			    </ListView>
+	        </LinearLayout>
+	
+	</LinearLayout>
+</com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
