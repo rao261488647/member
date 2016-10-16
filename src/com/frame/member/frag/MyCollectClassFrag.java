@@ -157,7 +157,7 @@ public class MyCollectClassFrag extends BaseFrag implements OnClickListener {
 				}
 				String currOper = list.get(index);
 				if("删除".equals(currOper)){
-					showToast("id---"+collectId);
+//					showToast("id---"+collectId);
 					setData(); //删除
 					dataList.remove(pos);
 					adapter.notifyDataSetChanged();

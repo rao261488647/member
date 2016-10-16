@@ -157,7 +157,7 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 				}
 				String currOper = list.get(index);
 				if("删除".equals(currOper)){
-					showToast("id---"+collectId);
+//					showToast("id---"+collectId);
 					setData(); //删除
 					dataList.remove(pos);
 					adapter.notifyDataSetChanged();
@@ -204,7 +204,6 @@ public class MyCollectCoachFrag extends BaseFrag implements OnClickListener {
 					if(object.collectCoachList != null && object.collectCoachList.size() > 0){
 						dataList.addAll(object.collectCoachList);
 						notifyAdapter();
-//						CommonUtil.setListViewHeight(coachListView);
 					}else{
 						showToast("没有更多数据！");
 					}

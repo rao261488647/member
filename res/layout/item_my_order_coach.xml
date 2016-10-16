@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@color/white"
+    android:padding="15dp" 
+    >
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    >
+	    <com.frame.member.widget.RoundImageView
+	        android:id="@+id/my_order_coach_img_1"
+	        android:layout_width="70dp"
+	        android:layout_height="70dp"
+	        android:src="@drawable/my_head" />
+	
+	    <TextView
+	        android:id="@+id/my_order_coach_text_1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_toRightOf="@id/my_order_coach_img_1"
+	        android:text="name"
+	        android:textColor="@android:color/black"
+	        android:textSize="18sp" />
+	
+	    <LinearLayout 
+	        android:id="@+id/my_order_coach_ll"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/my_order_coach_text_1"
+	        android:layout_marginLeft="15dp"
+	        android:layout_toRightOf="@+id/my_order_coach_text_1"
+	        android:orientation="horizontal"
+	        >
+	        
+	    </LinearLayout>
+	
+	    <TextView
+	        android:id="@+id/my_order_coach_text_2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/my_order_coach_text_1"
+	        android:layout_below="@+id/my_order_coach_text_1"
+	        android:layout_marginTop="5dp"
+	        android:text="多大"
+	        android:textColor="@color/gray"
+	        android:textSize="12sp" />
+	    <TextView 
+	        android:id="@+id/my_order_coach_text_3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignTop="@+id/my_order_coach_text_1"
+	        android:layout_alignParentRight="true"
+	        android:textColor="#FF8C69"
+	        android:textSize="12sp"
+	        android:text="学费返还"
+	        />
+	    <RelativeLayout 
+	        android:id="@+id/my_order_coach_rl_1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignTop="@+id/my_order_coach_text_2"
+		    android:gravity="center"
+		    >
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#FFD700"
+		        android:background="@drawable/shape_my_button_order_yello_corner"
+		        android:gravity="center_vertical|center_horizontal"
+		        android:padding="5dp"
+		        android:text="未评价"
+		        android:textSize="12dp"
+		        />
+		</RelativeLayout>
+	</RelativeLayout>
+</LinearLayout>
