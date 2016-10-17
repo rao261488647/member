@@ -299,6 +299,10 @@
             android:name=".activity.ShareVideoActivity"
             android:screenOrientation="portrait" >
         </activity>
+         <activity
+            android:name=".activity.MyVideosActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
          <activity android:name=".activity.SearchCoachActivity"
              android:screenOrientation="portrait"/>

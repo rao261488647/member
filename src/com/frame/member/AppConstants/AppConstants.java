@@ -34,6 +34,7 @@ public class AppConstants {
     
     public static final String GETMVSINFO = "/getmvsinfo";
     public static final String GETMVSCOVER = "/getmvscover";
+    public static final String MYVIDEODYNAMIC = "/myvideodynamic";
     
     public static final String APP_ID = "app001h23c9h16";
     public static final String APP_KEY = "e7d5fdb8180d25362292f84528395af5";
