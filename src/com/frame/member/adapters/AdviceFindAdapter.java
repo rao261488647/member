@@ -31,15 +31,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
-public class AdviceFindAdapter extends BaseAdapter{
+public class AdviceFindAdapter extends BaseAdapter {
 	private Context context;
 	private List<AdviceFindResult> list;
-//	private int isAttention;
+	// private int isAttention;
 
-	public AdviceFindAdapter(Context context,List<AdviceFindResult> list) {
+	public AdviceFindAdapter(Context context, List<AdviceFindResult> list) {
 		this.context = context;
 		this.list = list;
 	}
+
 	@Override
 	public int getCount() {
 		return list.size();
@@ -59,7 +60,7 @@ public class AdviceFindAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		final AdviceFindResult result = list.get(position);
-		if(convertView == null){
+		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_advice_find, null);
 			holder.iv_person_profile = (ImageView) convertView.findViewById(R.id.iv_person_profile);
@@ -75,171 +76,164 @@ public class AdviceFindAdapter extends BaseAdapter{
 			holder.tv_comments_num = (TextView) convertView.findViewById(R.id.tv_comments_num);
 			holder.ll_person_favor_profile = (LinearLayout) convertView.findViewById(R.id.ll_person_favor_profile);
 			convertView.setTag(holder);
-		}else{
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		TTApplication.getInstance().disPlayImageDef(result.user.appHeadThumbnail, holder.iv_person_profile);
 		holder.iv_person_profile.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context,FriendsSpaceActivity.class);
+				Intent intent = new Intent(context, FriendsSpaceActivity.class);
 				intent.putExtra(FriendsSpaceActivity.TAG_FRIEND_ID, result.user.friendId);
 				context.startActivity(intent);
 			}
 		});
 		TTApplication.getInstance().disPlayImageDef(result.videoPhoto, holder.iv_vedio_cover);
 		holder.tv_name_person.setText(result.user.memberName);
-		holder.tv_member_level.setText("LV."+result.user.memberGrade);
+		holder.tv_member_level.setText("LV." + result.user.memberGrade);
 		holder.tv_time_release.setText(result.sendTime);
-		if("0".equals(result.user.followAuthor)){
+		if ("0".equals(result.user.followAuthor)) {
 			holder.tv_attention_button.setText("+关注");
 			holder.tv_attention_button.setBackgroundResource(R.drawable.shape_hollow_yellow);
 			holder.tv_attention_button.setTextColor(0xffe8ce39);
-		}else{
+		} else {
 			holder.tv_attention_button.setText("已关注");
 			holder.tv_attention_button.setBackgroundResource(R.drawable.shape_solid_yellow);
 			holder.tv_attention_button.setTextColor(0xff505050);
 		}
 		holder.tv_vedio_info.setText(result.subjectName);
 		holder.tv_favour_num.setText(result.praiseNum);
-		if("1".equals(result.praiseAuthor)){
+		if ("1".equals(result.praiseAuthor)) {
 			holder.iv_favour_num.setImageResource(R.drawable.zan_2x);
 			holder.iv_favour_num.setTag(R.drawable.zan_2x);
-		}else{
+		} else {
 			holder.iv_favour_num.setImageResource(R.drawable.un_zan_2x);
 			holder.iv_favour_num.setTag(R.drawable.un_zan_2x);
 		}
 		holder.tv_comments_num.setText(result.commentNum);
-		holder.iv_vedio_cover.setOnClickListener(new OnClickListener() {
-			
+		holder.tv_attention_button.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context,AdviceDetailActivity.class); 
+				toAttention(result.user.friendId, v);
+			}
+		});
+		holder.iv_favour_num.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				toPaiseFriends(result.user.friendId, result.subjectId, v);
+			}
+		});
+		// 动态加载点赞头像
+		if (result.list_friends != null && result.list_friends.size() > 0) {
+			holder.ll_person_favor_profile.removeAllViews();
+			int rank = 0;
+			for (com.frame.member.bean.AdviceFindResult.Friends friend : result.list_friends) {
+				RoundImageView child = new RoundImageView(context);
+				LayoutParams params = new LayoutParams(CommonUtil.dip2px(context, 35), CommonUtil.dip2px(context, 35));
+				if (rank != 0) {
+					params.leftMargin = CommonUtil.dip2px(context, -5);
+
+				}
+				child.setImageResource(R.drawable.profile_example_1);
+				if (!TextUtils.isEmpty(friend.appHeadThumbnail)) {
+					TTApplication.getInstance().disPlayImageDef(friend.appHeadThumbnail, child);
+				}
+				holder.ll_person_favor_profile.addView(child, params);
+				rank++;
+			}
+		}
+
+		convertView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, AdviceDetailActivity.class);
 				intent.putExtra("subjectId", result.subjectId);
 				context.startActivity(intent);
 			}
 		});
-		holder.tv_attention_button.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				toAttention(result.user.friendId,v);
-			}
-		});
-		holder.iv_favour_num.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				toPaiseFriends(result.user.friendId, result.subjectId,v);
-			}
-		});
-		//动态加载点赞头像
-		if(result.list_friends != null && result.list_friends.size() > 0){
-			holder.ll_person_favor_profile.removeAllViews();
-			int rank = 0;
-			for(com.frame.member.bean.AdviceFindResult.Friends friend:result.list_friends){
-				RoundImageView child = new RoundImageView(context);
-				LayoutParams params = new LayoutParams(
-						CommonUtil.dip2px(context, 35),
-						CommonUtil.dip2px(context, 35));
-				if(rank != 0){
-					params.leftMargin = CommonUtil.dip2px(context, -5);
-					
-				}
-				child.setImageResource(R.drawable.profile_example_1);
-				if(!TextUtils.isEmpty(friend.appHeadThumbnail)){
-					TTApplication.getInstance().disPlayImageDef(
-							friend.appHeadThumbnail, child);
-				}
-				holder.ll_person_favor_profile.addView(child,params);
-				rank++;
-			}
-		}
 		return convertView;
 	}
-	//点赞雪友
-	private void toPaiseFriends(String friendId,String subjectId,final View v){
+
+	// 点赞雪友
+	private void toPaiseFriends(String friendId, String subjectId, final View v) {
 		int status;
-		if(R.drawable.zan_2x == (Integer)v.getTag()){
+		if (R.drawable.zan_2x == (Integer) v.getTag()) {
 			status = 0;
-			
-		}else{
+
+		} else {
 			status = 1;
 		}
 		BaseParser<BaseBean> parser = new NoBackParser();
-		HttpRequestImpl request = new HttpRequestImpl(
-				context, AppConstants.APP_SORT_STUDENT + "/praisefriend", parser);
-		request.addParam("memberUserId", 
-				(String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
-				.addParam("friendId", friendId)
-				.addParam("status", ""+status)
-				.addParam("subjectId", subjectId)
+		HttpRequestImpl request = new HttpRequestImpl(context, AppConstants.APP_SORT_STUDENT + "/praisefriend", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("friendId", friendId).addParam("status", "" + status).addParam("subjectId", subjectId)
 				.addParam("token", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_TOKEN, ""));
 		DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
 
 			@Override
 			public void processData(BaseBean object, RequestResult result) {
-				if(object != null){
-//					Toast.makeText(context, object.message, Toast.LENGTH_SHORT).show();
-					if(R.drawable.zan_2x == (Integer)v.getTag()){
-						((ImageView)v).setImageResource(R.drawable.un_zan_2x);
-						((ImageView)v).setTag(R.drawable.un_zan_2x);
-						
-					}else{
-						((ImageView)v).setImageResource(R.drawable.zan_2x);
-						((ImageView)v).setTag(R.drawable.zan_2x);
+				if (object != null) {
+					// Toast.makeText(context, object.message,
+					// Toast.LENGTH_SHORT).show();
+					if (R.drawable.zan_2x == (Integer) v.getTag()) {
+						((ImageView) v).setImageResource(R.drawable.un_zan_2x);
+						((ImageView) v).setTag(R.drawable.un_zan_2x);
+
+					} else {
+						((ImageView) v).setImageResource(R.drawable.zan_2x);
+						((ImageView) v).setTag(R.drawable.zan_2x);
 					}
 				}
 			}
 		};
-		((BaseActivity) context).getDataFromServer(request,false, callBack);
+		((BaseActivity) context).getDataFromServer(request, false, callBack);
 	}
-	
-	//关注\取消关注friends接口
-	private void toAttention(String friendId,final View v){
+
+	// 关注\取消关注friends接口
+	private void toAttention(String friendId, final View v) {
 		int status;
-		if("已关注".equals(((TextView)v).getText().toString())){
+		if ("已关注".equals(((TextView) v).getText().toString())) {
 			status = 0;
-		}else{
+		} else {
 			status = 1;
 		}
 		BaseParser<BaseBean> parser = new NoBackParser();
-		HttpRequestImpl request = new HttpRequestImpl(
-				context, AppConstants.APP_SORT_STUDENT + "/followfriend", parser);
-		request.addParam("memberUserId", 
-				(String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
-				.addParam("friendId", friendId)
-				.addParam("status", ""+status)
+		HttpRequestImpl request = new HttpRequestImpl(context, AppConstants.APP_SORT_STUDENT + "/followfriend", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("friendId", friendId).addParam("status", "" + status)
 				.addParam("token", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_TOKEN, ""));
 		DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
 
 			@Override
 			public void processData(BaseBean object, RequestResult result) {
-				if(object != null){
-//					Toast.makeText(context, object.message, Toast.LENGTH_SHORT).show();
-					if("已关注".equals(((TextView)v).getText().toString())){
-						((TextView)v).setText("+关注");
-						((TextView)v).setBackgroundResource(R.drawable.shape_hollow_yellow);
-						((TextView)v).setTextColor(0xffe8ce39);
-					}else{
-						((TextView)v).setText("已关注");
-						((TextView)v).setBackgroundResource(R.drawable.shape_solid_yellow);
-						((TextView)v).setTextColor(0xff505050);
+				if (object != null) {
+					// Toast.makeText(context, object.message,
+					// Toast.LENGTH_SHORT).show();
+					if ("已关注".equals(((TextView) v).getText().toString())) {
+						((TextView) v).setText("+关注");
+						((TextView) v).setBackgroundResource(R.drawable.shape_hollow_yellow);
+						((TextView) v).setTextColor(0xffe8ce39);
+					} else {
+						((TextView) v).setText("已关注");
+						((TextView) v).setBackgroundResource(R.drawable.shape_solid_yellow);
+						((TextView) v).setTextColor(0xff505050);
 					}
 				}
 			}
 		};
-		((BaseActivity) context).getDataFromServer(request,false, callBack);
-		
+		((BaseActivity) context).getDataFromServer(request, false, callBack);
+
 	}
-	
-	public class ViewHolder{
-		ImageView iv_person_profile,iv_vedio_cover,iv_comments_num,iv_favour_num;
-		TextView tv_name_person,tv_member_level,tv_time_release,
-				tv_attention_button,tv_vedio_info,tv_favour_num,tv_comments_num;
+
+	public class ViewHolder {
+		ImageView iv_person_profile, iv_vedio_cover, iv_comments_num, iv_favour_num;
+		TextView tv_name_person, tv_member_level, tv_time_release, tv_attention_button, tv_vedio_info, tv_favour_num,
+				tv_comments_num;
 		LinearLayout ll_person_favor_profile;
 	}
-	
 
 }
