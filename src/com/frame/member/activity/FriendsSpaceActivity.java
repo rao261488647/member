@@ -31,6 +31,9 @@ import android.widget.TextView;
  *
  */
 public class FriendsSpaceActivity extends BaseActivity {
+	
+	public static final String TAG_FRIEND_ID = "friendId";
+	
 	private ListView lv_space_friends;
 	private FriendsVideoAdapter adapter;
 	private ViewPager viewPager_space_friends;

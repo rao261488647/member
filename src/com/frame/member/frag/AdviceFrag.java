@@ -1,5 +1,9 @@
 package com.frame.member.frag;
 
+import com.frame.member.R;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.SelectVedioActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.frame.member.R;
-import com.frame.member.AppConstants.AppConstants;
-import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.SearchCoachActivity;
-import com.frame.member.activity.SelectVedioActivity;
 
 /**
  * 
