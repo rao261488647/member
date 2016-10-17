@@ -15,7 +15,6 @@ import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.MainEssenceParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
@@ -25,7 +24,6 @@ import com.frame.member.bean.MainEssenceBean.EssenceResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshListView;
-import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
 
 /**
  * 首页-精华 frag
@@ -92,7 +90,6 @@ public class MainEssenceFrag extends BaseFrag {
 			}
 		});
 		
-//		itemOnLongClick1();
 		
 		getData();
 	}
@@ -103,10 +100,10 @@ public class MainEssenceFrag extends BaseFrag {
 			page = 1;
 		BaseParser parser = new MainEssenceParser();
 		HttpRequest request = new HttpRequestImpl(getActivity(), 
-				AppConstants.APP_SORT_STUDENT +"/mycollect", parser);
-		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
-		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
-		request.addParam("memberUserId","89"); //写死
+				AppConstants.APP_SORT_STUDENT +"/indexbest", parser);
+//		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
+//		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+//		request.addParam("memberUserId","89"); //写死
 		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack);
 		

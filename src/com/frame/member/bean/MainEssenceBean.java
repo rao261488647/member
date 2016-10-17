@@ -65,7 +65,7 @@ public class MainEssenceBean extends BaseBean {
 		public String levelname; //教练级别
 		public String commentcontent; //点评内容
 		public String praiseCoach; //是否点赞教练 1或0
-		public List<Badge> badges; //教练徽章
+		public List<EsssenceBadge> badges; //教练徽章
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class MainEssenceBean extends BaseBean {
 	 * @author raopeng
 	 *
 	 */
-	public static class Badge implements Serializable{
+	public static class EsssenceBadge implements Serializable{
 		private static final long serialVersionUID = 1L;
 		public String badgeId; //徽章id
 		public String badgeName; //徽章名字

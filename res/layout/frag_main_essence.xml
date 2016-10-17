@@ -4,16 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/color_white_gap">
-    <com.frame.member.widget.refreshlistview.PullToRefreshScrollView
+    <com.frame.member.widget.refreshlistview.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_essence_pull_sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:scrollbars="none"
+        android:listSelector="@android:color/transparent"
         ptr:ptrDrawable="@drawable/default_ptr_rotate"
         ptr:ptrMode="pullFromEnd" >
 
-    </com.frame.member.widget.refreshlistview.PullToRefreshScrollView>
+    </com.frame.member.widget.refreshlistview.PullToRefreshListView>
 
 </LinearLayout>

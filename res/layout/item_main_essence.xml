@@ -11,7 +11,7 @@
     	android:layout_height="60dp" 
         >
         <com.frame.member.widget.RoundImageView 
-            android:id="@+id/main_essence_img1"
+            android:id="@+id/main_essence_user_head"
             android:layout_width="35dp"
     		android:layout_height="35dp" 
     		android:layout_marginTop="15dp"
@@ -21,30 +21,30 @@
     		android:src="@drawable/head_img_tech1"
             />
         <TextView 
-            android:id="@+id/main_essence_text1"
+            android:id="@+id/main_essence_username"
             android:layout_width="wrap_content"
     		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_img1"
+    		android:layout_toRightOf="@id/main_essence_user_head"
     		android:layout_marginTop="16dp"
     		android:textStyle="bold"
     		android:text="烫手的山芋"
     		android:textSize="14sp"
             />
         <TextView 
-            android:id="@+id/main_essence_text2"
+            android:id="@+id/main_essence_send_time"
             android:layout_width="wrap_content"
     		android:layout_height="wrap_content" 
-    		android:layout_below="@id/main_essence_text1"
-    		android:layout_alignLeft="@id/main_essence_text1"
+    		android:layout_below="@id/main_essence_username"
+    		android:layout_alignLeft="@id/main_essence_username"
     		android:text="10分钟前"
     		android:textColor="@color/main_tab_uncheck"
     		android:textSize="11sp"
             />
         <TextView 
-            android:id="@+id/main_essence_text3"
+            android:id="@+id/main_essence_user_level"
             android:layout_width="40dp"
     		android:layout_height="16dp" 
-    		android:layout_toRightOf="@id/main_essence_text1"
+    		android:layout_toRightOf="@id/main_essence_username"
     		android:layout_marginTop="16dp"
     		android:layout_marginLeft="10dp"
     		android:gravity="center"
@@ -59,16 +59,19 @@
 	        android:layout_height="wrap_content"
 	        android:textColor="#FFD700"
 	        android:background="@drawable/shape_my_button_order_yello_corner"
-	        android:gravity="center_vertical|center_horizontal"
-	        android:layout_alignTop="@id/main_essence_text3"
+	        android:layout_alignTop="@id/main_essence_user_level"
 	        android:layout_alignParentRight="true"
 	        android:layout_marginRight="20dp"
-	        android:padding="5dp"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
 	        android:text="+关注"
 	        android:textSize="14dp"
 	        />
     </RelativeLayout>
     <RelativeLayout 
+        android:id="@+id/main_essence_video_rl"
        	android:layout_width="match_parent"
     	android:layout_height="200dp" 
     	android:layout_marginLeft="10dp"
@@ -76,7 +79,7 @@
    		android:background="@drawable/banner_member_main2"
     	>
         <TextView 
-            android:id="@+id/main_essence_text4"
+            android:id="@+id/main_essence_video_desc"
             android:layout_width="wrap_content"
     		android:layout_height="wrap_content" 
     		android:layout_alignParentBottom="true"
@@ -98,6 +101,7 @@
   			android:src="@drawable/full_screen_2x"
             />
         <ImageView 
+            android:id="@+id/main_essence_full_screen"
             android:layout_width="wrap_content"
    			android:layout_height="wrap_content"
    			android:layout_centerInParent="true"
@@ -107,56 +111,21 @@
         
     </RelativeLayout>
     <RelativeLayout 
+        android:id="@+id/main_essence_rl_1"
         android:layout_width="match_parent"
     	android:layout_height="55dp" 
         >
         <LinearLayout 
+            android:id="@+id/main_essence_student"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal"
             >
             
         </LinearLayout>
-        <com.frame.member.widget.RoundImageView 
-            android:id="@+id/main_essence_img2"
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="10dp"
-    		android:layout_marginLeft="10dp"
-    		android:layout_marginBottom="10dp"
-    		android:src="@drawable/head_img_stu1"
-            />
-        <com.frame.member.widget.RoundImageView 
-            android:id="@+id/main_essence_img3"
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="10dp"
-    		android:layout_marginLeft="-2dp"
-    		android:layout_marginBottom="10dp"
-    		android:layout_toRightOf="@id/main_essence_img2"
-    		android:src="@drawable/head_img_stu2"
-            />
-        <com.frame.member.widget.RoundImageView 
-            android:id="@+id/main_essence_img4"
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="10dp"
-    		android:layout_marginLeft="-2dp"
-    		android:layout_marginBottom="10dp"
-    		android:layout_toRightOf="@id/main_essence_img3"
-    		android:src="@drawable/head_img_stu3"
-            />
-        <com.frame.member.widget.RoundImageView 
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="10dp"
-    		android:layout_marginLeft="-2dp"
-    		android:layout_marginBottom="10dp"
-    		android:layout_toRightOf="@id/main_essence_img4"
-    		android:src="@drawable/head_img_stu4"
-            />
-         <TextView 
-            android:id="@+id/main_essence_text5"
+        <TextView 
+            android:id="@+id/main_essence_comment_num"
             android:layout_width="wrap_content"
     		android:layout_height="wrap_content" 
     		android:layout_centerVertical="true"
@@ -167,11 +136,11 @@
     		android:text="128"
              />
          <ImageView 
-            android:id="@+id/main_essence_img5"
+            android:id="@+id/main_essence_comment"
             android:layout_width="wrap_content"
     		android:layout_height="wrap_content" 
     		android:layout_centerVertical="true"
-    		android:layout_toLeftOf="@id/main_essence_text5"
+    		android:layout_toLeftOf="@id/main_essence_comment_num"
     		android:src="@drawable/leave_msg_2x"
             />
          <TextView 
@@ -180,7 +149,7 @@
     		android:layout_height="wrap_content" 
     		android:layout_centerVertical="true"
     		android:layout_marginRight="10dp"
-    		android:layout_toLeftOf="@id/main_essence_img5"
+    		android:layout_toLeftOf="@id/main_essence_comment"
     		android:textStyle="bold"
   			android:textColor="@color/main_tab_uncheck"
     		android:text="4096"
@@ -198,182 +167,13 @@
          android:layout_width="match_parent"
          android:layout_height="0.5dp"
          android:background="#eeeeee" />
-    <LinearLayout 
-        android:id="@+id/main_essence_comment"
+    <ListView 
+        android:id="@+id/main_essence_coach_comment_lv"
         android:layout_width="match_parent"
     	android:layout_height="wrap_content" 
-    	android:orientation="horizontal"
         >
         
-    </LinearLayout>
-    <RelativeLayout 
-        android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-        >
-        <ImageView 
-            android:id="@+id/main_essence_img7"
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="15dp"
-    		android:layout_marginLeft="10dp"
-    		android:layout_marginRight="10dp"
-    		android:layout_marginBottom="10dp"
-    		android:src="@drawable/head_img_tech2"
-    		android:background="@drawable/selector_headimg_corner"
-            />
-        <TextView 
-            android:id="@+id/main_essence_text7"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_img7"
-    		android:layout_marginTop="18dp"
-    		android:textStyle="bold"
-    		android:text="张教练"
-    		android:textSize="16sp"
-            />
-        <TextView 
-            android:id="@+id/main_essence_text8"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_text7"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginLeft="10dp"
-    		android:textStyle="bold"
-    		android:text="专职导师"
-    		android:textColor="@color/main_tab_uncheck"
-    		android:textSize="11sp"
-            />
-        <ImageView 
-            android:id="@+id/main_essence_img8"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_text8"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginLeft="10dp"
-    		android:src="@drawable/icon_referee_2x"
-            />
-        <TextView 
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_alignParentRight="true"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginRight="10dp"
-    		android:textStyle="bold"
-  			android:textColor="@color/gray"
-    		android:text="1天前"
-             />
-        <RelativeLayout 
-            android:layout_width="match_parent"
-    		android:layout_height="wrap_content" 
-    		android:layout_below="@id/main_essence_img7"
-    		android:layout_marginLeft="10dp"
-    		android:layout_marginRight="10dp"
-    		android:background="@drawable/leave_msg_bg"
-            >
-         <TextView 
-             android:layout_width="match_parent"
-     		android:layout_height="wrap_content" 
-     		android:layout_marginTop="10dp"
-    			android:layout_marginRight="10dp"
-    			android:layout_marginBottom="10dp"
-     		android:textStyle="bold"
-   			android:textColor="#ffffff"
-   			android:textSize="16sp"
-     		android:text="几个基础动作做的很标准，转弯时腿部力量稍显不足，平时可加强腿部肌肉的锻炼"
-              />
-        </RelativeLayout>
-    </RelativeLayout>
-    <View
-         android:layout_width="match_parent"
-         android:layout_height="0.5dp"
-         android:background="#eeeeee" />
-    <RelativeLayout 
-        android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-        >
-        <ImageView 
-            android:id="@+id/main_essence_img9"
-            android:layout_width="35dp"
-    		android:layout_height="35dp" 
-    		android:layout_marginTop="15dp"
-    		android:layout_marginLeft="10dp"
-    		android:layout_marginRight="10dp"
-    		android:layout_marginBottom="10dp"
-    		android:src="@drawable/head_img_tech1"
-    		android:background="@drawable/selector_headimg_corner"
-            />
-        <TextView 
-            android:id="@+id/main_essence_text9"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_img9"
-    		android:layout_marginTop="18dp"
-    		android:textStyle="bold"
-    		android:text="吴彦祖"
-    		android:textSize="16sp"
-            />
-        <TextView 
-            android:id="@+id/main_essence_text10"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_text9"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginLeft="10dp"
-    		android:textStyle="bold"
-    		android:text="三级教练"
-    		android:textColor="@color/gray"
-    		android:textSize="11sp"
-            />
-        <ImageView 
-            android:id="@+id/main_essence_img10"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_text10"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginLeft="10dp"
-    		android:src="@drawable/icon_train_2x"
-            />
-        <ImageView 
-            android:id="@+id/main_essence_img11"
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_toRightOf="@id/main_essence_img10"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginLeft="10dp"
-    		android:src="@drawable/icon_act_2x"
-            />
-        <TextView 
-            android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		android:layout_alignParentRight="true"
-    		android:layout_marginTop="20dp"
-    		android:layout_marginRight="10dp"
-    		android:textStyle="bold"
-  			android:textColor="@color/main_tab_uncheck"
-    		android:text="2016-07-01"
-             />
-        <RelativeLayout 
-            android:layout_width="match_parent"
-    		android:layout_height="wrap_content" 
-    		android:layout_below="@id/main_essence_img9"
-    		android:layout_marginLeft="10dp"
-    		android:layout_marginRight="10dp"
-    		android:background="@drawable/leave_msg_bg"
-            >
-         <TextView 
-             android:layout_width="match_parent"
-     		android:layout_height="wrap_content" 
-     		android:layout_marginTop="10dp"
-    			android:layout_marginRight="10dp"
-    			android:layout_marginBottom="10dp"
-     		android:textStyle="bold"
-   			android:textColor="#ffffff"
-   			android:textSize="16sp"
-     		android:text="几个基础动作做的很标准，再接再厉！"
-              />
-        </RelativeLayout>
-    </RelativeLayout>
-    
+    </ListView>
 </LinearLayout>
 
 

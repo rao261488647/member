@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.frame.member.bean.MainEssenceBean.EssenceInfo;
 import com.frame.member.bean.MainEssenceBean.EssenceResult;
-import com.frame.member.bean.MyBillBean.Consumption;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +27,7 @@ public class MainEssenceParser extends BaseParser<EssenceResult> {
 			if("200".equals(result.code)){
 				JSONObject obj_Json = JSONObject.parseObject(result_obj.getString("data"));
 				Gson gson = new Gson();
-				result.essenceInfoList = gson.fromJson(obj_Json.getString("best"),new TypeToken<List<Consumption>>() {}.getType());
+				result.essenceInfoList = gson.fromJson(obj_Json.getString("best"),new TypeToken<List<EssenceInfo>>() {}.getType());
 				
 			}
 			result.message = result_obj.getString("message");
