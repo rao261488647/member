@@ -6,7 +6,8 @@ public class AppConstants {
 
 //    public static final String URI_DEV = "http://www.99lc.com:8087/iBusiness/rs/cws/";   //正式服            
 //    public static final String URI_DEV = "http://183.62.205.180:8043/iBusiness/rs/cws/";   //正式服 
-    public static final String URI_DEV = "http://api.flowerski.com/";   //正式服 
+//    public static final String URI_DEV = "http://api.flowerski.com/";   //正式服 
+    public static final String URI_DEV = "http://testapi.flowerski.com/";   //测试服 
     
     public static final String APP_VERSION = "v1";  //版本
     public static final String APP_SORT_STUDENT = "/student";  //学生接口类别
