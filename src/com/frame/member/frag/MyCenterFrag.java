@@ -37,6 +37,7 @@ import com.frame.member.activity.MyBillActivity;
 import com.frame.member.activity.MyCollectActivity;
 import com.frame.member.activity.MyInfoActivity;
 import com.frame.member.activity.MyMsgActivity;
+import com.frame.member.activity.MyVideosActivity;
 import com.frame.member.activity.SettingsActivity;
 import com.frame.member.adapters.MyCenterPagerAdapter;
 import com.frame.member.bean.MyCenterBean.Menu;
@@ -60,6 +61,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private RelativeLayout my_layout_msg;//消息
 	private RelativeLayout my_layout_collection;//我的收藏
 	private RelativeLayout my_layout_cost;//消费流水
+	private RelativeLayout my_layout_video;//视频
 	private ViewPager mPager;  
 	private ArrayList<Fragment> fragmentList; 
 	private int currIndex;//当前页卡编号  
@@ -252,6 +254,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_msg = (RelativeLayout)findViewById(R.id.my_layout_msg);
 		my_layout_collection = (RelativeLayout)findViewById(R.id.my_layout_collection);
 		my_layout_cost = (RelativeLayout)findViewById(R.id.my_layout_cost);
+		my_layout_video = (RelativeLayout)findViewById(R.id.my_layout_video);
 		
 		grade = (TextView)findViewById(R.id.my_center_grade); //等级
 		level = (TextView)findViewById(R.id.my_center_level); //会员等级
@@ -283,12 +286,17 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_msg.setOnClickListener(this);
 		my_layout_collection.setOnClickListener(this);
 		my_layout_cost.setOnClickListener(this);
+		my_layout_video.setOnClickListener(this);
 	}
 	
 	@Override
 	public void onClick(View v) {
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.my_layout_video://视频
+			intent = new Intent(getActivity(), MyVideosActivity.class);
+			getActivity().startActivity(intent);
+			break;
 		case R.id.my_settings://设置
 			intent = new Intent(getActivity(), SettingsActivity.class);
 			getActivity().startActivity(intent);
