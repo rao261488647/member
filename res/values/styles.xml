@@ -59,8 +59,8 @@
 
     <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/room_rating_bar</item>
-        <item name="android:minHeight">20px</item>
-        <item name="android:minWidth">20px</item>
+        <item name="android:maxHeight">20px</item>
+    <item name="android:minHeight">20px</item>
     </style>
 
     <style name="dateStyle">
@@ -80,7 +80,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">10dp</item>
-    </style>
+    </style> 
 
     <style name="CustomDialog" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowBackground">@color/transparent</item>

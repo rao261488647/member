@@ -15,36 +15,44 @@
         android:paddingBottom="10dp"
         android:background="@color/bottom_black_tran">
         
-        <TextView android:id="@+id/tv_name_coach"
+        <LinearLayout 
+            android:id="@+id/ll_fake"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            >
+            <TextView android:id="@+id/tv_name_coach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:text="张宇"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"/>
+            android:layout_alignParentLeft="true"/>
+            
+            <RatingBar android:id="@+id/rb_booking_one"
+            android:layout_width="wrap_content"
+            android:layout_height="18px"
+            style="@style/roomRatingBar"
+            android:numStars="5" 
+            android:rating="1"
+            android:layout_marginLeft="10dp"
+            android:isIndicator="true"/>
+        </LinearLayout>
+        
+        
         <TextView android:id="@+id/tv_title_coach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_75"
             android:textSize="11sp"
             android:text="联盟高级"
-            android:layout_below="@id/tv_name_coach"
-            android:layout_marginTop="9dp"
-            android:layout_alignLeft="@id/tv_name_coach"
-            />
-        <RatingBar android:id="@+id/rb_booking_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/roomRatingBar"
-            android:numStars="5"
-            android:rating="1"
-            android:layout_toRightOf="@id/tv_name_coach"
-            android:layout_alignBottom="@id/tv_name_coach"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:isIndicator="true"/>
+            android:layout_below="@id/ll_fake"
+            android:layout_alignLeft="@id/ll_fake"
+            />
+        
         <!-- style="?android:attr/ratingBarStyleSmall"  -->
         <TextView android:id="@+id/tv_num_meet"
             android:layout_width="wrap_content"

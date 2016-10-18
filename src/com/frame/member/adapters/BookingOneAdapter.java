@@ -60,7 +60,8 @@ public class BookingOneAdapter extends BaseAdapter{
 		holder.tv_name_coach.setText(list_coach.get(position).coachName);
 		holder.tv_title_coach.setText(list_coach.get(position).levelName);
 		holder.tv_num_meet.setText("累计被约"+list_coach.get(position).meetNum+"次");
-		holder.rb_booking_one.setRating(list_coach.get(position).goal);
+		float goal = list_coach.get(position).goal;
+		holder.rb_booking_one.setRating(goal);
 		return view;
 	}
 	static class ViewHolder{

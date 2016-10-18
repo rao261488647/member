@@ -165,7 +165,7 @@
                         android:id="@+id/rb_booking_one"
                         style="@style/roomRatingBar"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="18px"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="14dp"
