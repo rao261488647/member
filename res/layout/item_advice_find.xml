@@ -78,6 +78,7 @@
         <ImageView android:id="@+id/iv_full_screen"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:visibility="gone"
             android:src="@drawable/full_screen_2x"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
