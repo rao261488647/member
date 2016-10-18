@@ -28,7 +28,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
 public class AdviceFindAdapter extends BaseAdapter {
@@ -123,7 +122,7 @@ public class AdviceFindAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				toPaiseFriends(result.user.friendId, result.subjectId, v);
+				toPaiseFriends(result,result.user.friendId, result.subjectId, v);
 			}
 		});
 		// 动态加载点赞头像
@@ -159,7 +158,7 @@ public class AdviceFindAdapter extends BaseAdapter {
 	}
 
 	// 点赞雪友
-	private void toPaiseFriends(String friendId, String subjectId, final View v) {
+	private void toPaiseFriends(final AdviceFindResult mAdviceFindResult,String friendId, String subjectId, final View v) {
 		int status;
 		if (R.drawable.zan_2x == (Integer) v.getTag()) {
 			status = 0;
@@ -179,13 +178,22 @@ public class AdviceFindAdapter extends BaseAdapter {
 				if (object != null) {
 					// Toast.makeText(context, object.message,
 					// Toast.LENGTH_SHORT).show();
-					if (R.drawable.zan_2x == (Integer) v.getTag()) {
-						((ImageView) v).setImageResource(R.drawable.un_zan_2x);
-						((ImageView) v).setTag(R.drawable.un_zan_2x);
-
+					if ("1".equals(mAdviceFindResult.praiseAuthor)) {
+//						((ImageView) v).setImageResource(R.drawable.un_zan_2x);
+//						((ImageView) v).setTag(R.drawable.un_zan_2x);
+						mAdviceFindResult.praiseAuthor = "0";
+						int cur_praise = Integer.parseInt(mAdviceFindResult.praiseNum);
+						mAdviceFindResult.praiseNum = --cur_praise + "";
+						notifyDataSetChanged();
+						((BaseActivity)context).showToast("取消点赞成功");
 					} else {
-						((ImageView) v).setImageResource(R.drawable.zan_2x);
-						((ImageView) v).setTag(R.drawable.zan_2x);
+//						((ImageView) v).setImageResource(R.drawable.zan_2x);
+//						((ImageView) v).setTag(R.drawable.zan_2x);
+						mAdviceFindResult.praiseAuthor = "1";
+						int cur_praise = Integer.parseInt(mAdviceFindResult.praiseNum);
+						mAdviceFindResult.praiseNum = ++cur_praise + "";
+						notifyDataSetChanged();
+						((BaseActivity)context).showToast("点赞成功");
 					}
 				}
 			}
