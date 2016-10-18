@@ -6,19 +6,24 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.CommonParser;
 import com.frame.member.Parsers.MainEssenceParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.MainEssenceAdapter;
+import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MainEssenceBean.EssenceInfo;
 import com.frame.member.bean.MainEssenceBean.EssenceResult;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
@@ -30,7 +35,7 @@ import com.frame.member.widget.refreshlistview.PullToRefreshListView;
  * @author Ron
  * @date 2016-6-27  下午10:42:39
  */
-public class MainEssenceFrag extends BaseFrag {
+public class MainEssenceFrag extends BaseFrag implements OnClickListener {
 	
 	// private PullToRefreshGridView mPullRefreshGridView;
 	private PullToRefreshListView pullListView;
@@ -57,6 +62,7 @@ public class MainEssenceFrag extends BaseFrag {
 		rootView = inflater.inflate(R.layout.frag_main_essence, container,
 				false);
 		initView();
+		initOnclickListener();
 		initProgress();
 		return rootView;
 	}
@@ -65,6 +71,11 @@ public class MainEssenceFrag extends BaseFrag {
 	 */
 	private void initView(){
 		pullListView = (PullToRefreshListView)findViewById(R.id.main_essence_pull_sv);
+	}
+	/**
+	 * 初始化单击事件
+	 */
+	private void initOnclickListener(){
 	}
 	
 	/**
@@ -108,6 +119,7 @@ public class MainEssenceFrag extends BaseFrag {
 		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack);
 		
 	}
+	
 	/**
 	 * 网络请求回调事件
 	 */
@@ -133,6 +145,8 @@ public class MainEssenceFrag extends BaseFrag {
 			}
 		}
 	};
+	
+	
 	/**
 	 * 通知适配器展示数据
 	 * @author Ron
@@ -145,6 +159,18 @@ public class MainEssenceFrag extends BaseFrag {
 			pullListView.setAdapter(adapter);
 		}else{
 			adapter.notifyDataSetChanged();
+		}
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.main_essence_guanzhu:
+			break;
+
+		default:
+			break;
 		}
 	}
 }

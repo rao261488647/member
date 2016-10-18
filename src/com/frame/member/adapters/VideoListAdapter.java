@@ -4,18 +4,21 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.Utils.CommonUtil;
+import com.frame.member.activity.VideoPlayActivity;
 import com.frame.member.bean.VideoListBean.MainVideo;
 import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
 /**
@@ -104,6 +107,17 @@ public class VideoListAdapter extends BaseSwipListAdapter {
             }  
               
         }).start();  
+        
+        //设置图片单击事件
+        holder.main_video_list_rl.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context,VideoPlayActivity.class);
+				intent.putExtra("video_url", item.videoUrl);
+				context.startActivity(intent);
+			}
+		});
         
       
         

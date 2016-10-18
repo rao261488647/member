@@ -48,7 +48,7 @@ public class VideoListActivity extends BaseActivity {
 		pullListView = (PullToRefreshListView) findViewById(R.id.my_video_list_lv);
 	}
 	/**
-	 * 获取数据-消费流水
+	 * 获取数据
 	 * @author Ron
 	 * @date 2016-9-19  上午12:01:27
 	 */

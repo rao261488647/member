@@ -22,11 +22,11 @@ import com.frame.member.widget.swipemenulistview.BaseSwipListAdapter;
  * @author Ron
  * @date 2016-7-10  下午10:28:47
  */
-public class MainNewsAdapter extends BaseSwipListAdapter{
+public class MainInfoAdapter extends BaseSwipListAdapter{
 
 	private List<MainNews> mainNewsList;
 	private Context context;
-	public MainNewsAdapter(Context context,
+	public MainInfoAdapter(Context context,
 			 List<MainNews> mainNewsList) {
 		this.context = context;
 		this.mainNewsList = mainNewsList;

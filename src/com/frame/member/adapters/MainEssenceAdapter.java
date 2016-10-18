@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,10 +20,24 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
+import com.frame.member.AppConstants.AppConstants;
+import com.frame.member.Parsers.BaseParser;
+import com.frame.member.Parsers.CommonParser;
+import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Utils.CommonUtil;
+import com.frame.member.Utils.HttpRequest;
+import com.frame.member.Utils.HttpRequestImpl;
+import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.BaseActivity;
+import com.frame.member.activity.BaseActivity.DataCallback;
+import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.VideoPlayActivity;
+import com.frame.member.bean.BaseBean;
+import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MainEssenceBean.EssenceInfo;
 import com.frame.member.bean.MainEssenceBean.EssenceStudent;
 import com.frame.member.bean.MainEssenceBean.EssenceUser;
@@ -72,6 +88,8 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
             holder.user_level = (TextView) convertView.findViewById(R.id.main_essence_user_level);
             holder.send_time = (TextView) convertView.findViewById(R.id.main_essence_send_time);
             
+            holder.user_guanzhu = (TextView) convertView.findViewById(R.id.main_essence_guanzhu);
+            
             holder.videoBg =(RelativeLayout) convertView.findViewById(R.id.main_essence_video_rl);
             holder.video_desc = (TextView) convertView.findViewById(R.id.main_essence_video_desc);
             
@@ -91,18 +109,44 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
         } else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-        EssenceInfo item = getItem(position);
-        EssenceUser user = item.user;
+        final EssenceInfo item = getItem(position);
+        final EssenceUser user = item.user;
         holder.user_name.setText(user.memberName);
         TTApplication.getInstance()
 		.disPlayImageDef(user.appHeadThumbnail, holder.user_head);
         holder.user_level.setText("LV"+user.memberGrade);
+        
+        //设置关注按钮样式
+        if(!TextUtils.isEmpty(user.followAuthor) && "1".equals(user.followAuthor)){
+        	holder.user_guanzhu.setBackgroundResource(R.drawable.shape_solid_yellow);
+        	holder.user_guanzhu.setTextColor(0xff505050);
+        }
+        //关注按钮增加点击事件
+        holder.user_guanzhu.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toAttention(user.friendId,v);
+			}
+		});
+        
         holder.send_time.setText(item.sendTime);
         
         if(!TextUtils.isEmpty(item.videoPhoto)){
         	childThread(holder.videoBg,item.videoPhoto); //更新背景
         }
-        holder.video_desc.setText("暂时没提供");
+        //设置视频播放链接
+        holder.videoBg.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context,VideoPlayActivity.class);
+				intent.putExtra("video_url", item.videoUrl);
+				context.startActivity(intent);
+			}
+		});
+        
+        holder.video_desc.setText(item.subjectIntro); //视频描述
         
         //循环获取点赞学员头像，最多循环4个，然后放置到linearLayout布局中
         List<EssenceStudent> sList = item.students;
@@ -193,7 +237,43 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
               
         }).start();  
     }
-    
+  //关注// 关注\取消关注friends接口
+	private void toAttention(String friendId, final View v) {
+		int status;
+		if ("已关注".equals(((TextView) v).getText().toString())) {
+			status = 0;
+		} else {
+			status = 1;
+		}
+		BaseParser<BaseBean> parser = new NoBackParser();
+		HttpRequestImpl request = new HttpRequestImpl(context, AppConstants.APP_SORT_STUDENT + "/followfriend", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("friendId", friendId).addParam("status", "" + status)
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_TOKEN, ""));
+		DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+			@Override
+			public void processData(BaseBean object, RequestResult result) {
+				if (object != null) {
+					// Toast.makeText(context, object.message,
+					// Toast.LENGTH_SHORT).show();
+					if ("已关注".equals(((TextView) v).getText().toString())) {
+						((TextView) v).setText("+关注");
+						((TextView) v).setBackgroundResource(R.drawable.shape_my_button_order_yello_corner);
+						((TextView) v).setTextColor(0xffe8ce39);
+						((BaseActivity) context).showToast("取消关注成功！");
+					} else {
+						((TextView) v).setText("已关注");
+						((TextView) v).setBackgroundResource(R.drawable.shape_solid_yellow);
+						((TextView) v).setTextColor(0xff505050);
+						((BaseActivity) context).showToast("关注成功！");
+					}
+				}
+			}
+		};
+		((BaseActivity) context).getDataFromServer(request, false, callBack);
+
+	}
     
     @Override
     public boolean getSwipEnableByPosition(int position) {
