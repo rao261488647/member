@@ -20,6 +20,7 @@ public class MainEssenceBean extends BaseBean {
 		private static final long serialVersionUID = 1L;
 		public String subjectId; //帖子ID
 		public String subjectName; //帖子标题
+		public String subjectIntro; //视频描述
 		public String videoFileId;//视频ID
 		public String videoPhoto;//视频封面
 		public String videoUrl;//转码后的视频地址
@@ -42,7 +43,7 @@ public class MainEssenceBean extends BaseBean {
 		public String appHeadThumbnail; //APP用户缩略头像
 		public String memberName; //会员名称
 		public String memberGrade; //会员级数
-		public String followAuthor; //作者
+		public String followAuthor; //是否关注作者  0未关注， 1已关注
 	}
 	/**
 	 * 点赞雪友
@@ -64,6 +65,7 @@ public class MainEssenceBean extends BaseBean {
 		public String headImg; //APP用户缩略头像
 		public String levelname; //教练级别
 		public String commentcontent; //点评内容
+		public String commentTime; //评论时间
 		public String praiseCoach; //是否点赞教练 1或0
 		public List<EsssenceBadge> badges; //教练徽章
 	}

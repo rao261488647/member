@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.frame.member.R;
@@ -38,7 +39,7 @@ import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.ClassDetailActivity;
 import com.frame.member.activity.NewsDetailActivity;
 import com.frame.member.adapters.CondensationPagerAdapter;
-import com.frame.member.adapters.MainNewsAdapter;
+import com.frame.member.adapters.MainInfoAdapter;
 import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainInfoBean.MainInfoResult;
 import com.frame.member.bean.MainInfoBean.MainNews;
@@ -77,10 +78,11 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 
 	private LinearLayout main_info_container,main_linear_container;
 
-	private MainNewsAdapter adapter;
+	private MainInfoAdapter adapter;
 	
 	private TextView main_class_t1,main_class_t2,main_class_t3,main_class_tt1,main_class_tt2,main_class_tt3;
 	
+	private RelativeLayout class1,class2;
 	
 	public static MainInfoFrag newInstance(String title) {
 
@@ -216,22 +218,41 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	private void initCourseClass(List<MainRemmendClass> mainRemmendClassList) throws ParseException{
 		if(mainRemmendClassList != null && mainRemmendClassList.size() >0){
 			for(int i=0;i<mainRemmendClassList.size();i++){
+				
 				switch (i) {
 				case 0:
-					MainRemmendClass c = mainRemmendClassList.get(i);
+					final MainRemmendClass c = mainRemmendClassList.get(i);
 					String cTime = DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c.beginTime))
 							+"~"+DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c.overTime));
 					main_class_t1.setText(c.courseName);
 					main_class_t2.setText(cTime);
 					main_class_t3.setText(c.skifieldAddr);
+					
+					class1.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(getActivity(), ClassDetailActivity.class);
+							intent.putExtra("courseId", c.courseId);
+							startActivity(intent);
+						}
+					});
+					
 					break;
 				case 1:
-					c = mainRemmendClassList.get(i);
-					cTime = DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c.beginTime))
-							+"~"+DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c.overTime));
-					main_class_tt1.setText(c.courseName);
+					final MainRemmendClass c1 = mainRemmendClassList.get(i);
+					cTime = DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c1.beginTime))
+							+"~"+DateUtil.getDateTime(DateUtil.DATE_FORMAT_1, DateUtil.convertStringToDate(DateUtil.DATE_FORMAT, c1.overTime));
+					main_class_tt1.setText(c1.courseName);
 					main_class_tt2.setText(cTime);
-					main_class_tt3.setText(c.skifieldAddr);
+					main_class_tt3.setText(c1.skifieldAddr);
+					class2.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(getActivity(), ClassDetailActivity.class);
+							intent.putExtra("courseId", c1.courseId);
+							startActivity(intent);
+						}
+					});
 					break;
 
 				default:
@@ -333,6 +354,9 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		listView = (ListView) findViewById(R.id.main_info_lv);
 		pullListView = (PullToRefreshScrollView) findViewById(R.id.main_info_scroll_lv);
 		main_linear_container =  (LinearLayout) findViewById(R.id.main_linear_container);
+		
+		class1 = (RelativeLayout) findViewById(R.id.main_info_class_rl_1);
+		class2 = (RelativeLayout) findViewById(R.id.main_info_class_rl_2);
 	}
 
 	/**
@@ -342,7 +366,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	 */
 	private void notifyAdapter() {
 		if(adapter == null){
-			adapter = new MainNewsAdapter(getActivity(),dataList );
+			adapter = new MainInfoAdapter(getActivity(),dataList );
 			//单击列表项事件
 			listView.setOnItemClickListener(new OnItemClickListener() {
 				@Override

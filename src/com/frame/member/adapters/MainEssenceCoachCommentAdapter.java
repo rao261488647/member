@@ -77,7 +77,7 @@ public class MainEssenceCoachCommentAdapter extends BaseSwipListAdapter {
         }
         holder.coach_name.setText(item.coachName);
         holder.coach_level.setText(item.levelname);
-        holder.date.setText("尚未提供");
+        holder.date.setText(item.commentTime);
         holder.comment.setText(item.commentcontent);
         
         if(item.badges != null && item.badges.size() > 0){

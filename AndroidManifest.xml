@@ -287,6 +287,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.VideoPlayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.NewsDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
