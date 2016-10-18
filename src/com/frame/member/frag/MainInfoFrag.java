@@ -32,7 +32,6 @@ import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.DateUtil;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.ImageHandler;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
@@ -44,6 +43,7 @@ import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainInfoBean.MainInfoResult;
 import com.frame.member.bean.MainInfoBean.MainNews;
 import com.frame.member.bean.MainInfoBean.MainRemmendClass;
+import com.frame.member.handler.MainInfoImageHandler;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
@@ -73,7 +73,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 	private int page;
 	
 	public ViewPager vp_condensation;
-	public ImageHandler handler = new ImageHandler(new WeakReference<MainInfoFrag>(
+	public MainInfoImageHandler handler = new MainInfoImageHandler(new WeakReference<MainInfoFrag>(
 			this));
 
 	private LinearLayout main_info_container,main_linear_container;
@@ -308,7 +308,7 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 						R.drawable.dot_focused);
 				oldPosition = position;
 				handler.sendMessage(Message.obtain(handler,
-						ImageHandler.MSG_PAGE_CHANGED, position, 0));
+						MainInfoImageHandler.MSG_PAGE_CHANGED, position, 0));
 			}
 
 			@Override
@@ -319,12 +319,12 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 			public void onPageScrollStateChanged(int arg0) {
 				switch (arg0) {
 				case ViewPager.SCROLL_STATE_DRAGGING:
-					handler.sendEmptyMessage(ImageHandler.MSG_KEEP_SILENT);
+					handler.sendEmptyMessage(MainInfoImageHandler.MSG_KEEP_SILENT);
 					break;
 				case ViewPager.SCROLL_STATE_IDLE:
-//					handler.sendEmptyMessageDelayed(
-//							ImageHandler.MSG_UPDATE_IMAGE,
-//							ImageHandler.MSG_DELAY);
+					handler.sendEmptyMessageDelayed(
+							MainInfoImageHandler.MSG_UPDATE_IMAGE,
+							MainInfoImageHandler.MSG_DELAY);
 					break;
 				default:
 					break;
@@ -333,8 +333,8 @@ public class MainInfoFrag extends BaseFrag implements OnClickListener {
 		});
 //		vp_condensation.setCurrentItem(Integer.MAX_VALUE / 2);// 默认在中间，使用户看不到边界
 		// 开始轮播效果
-//		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
-//				ImageHandler.MSG_DELAY);
+		handler.sendEmptyMessageDelayed(MainInfoImageHandler.MSG_UPDATE_IMAGE,
+				MainInfoImageHandler.MSG_DELAY);
 	}
 	
 	

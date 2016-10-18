@@ -1,4 +1,4 @@
-package com.frame.member.Utils;
+package com.frame.member.handler;
 
 import java.lang.ref.WeakReference;
 
@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class ImageHandler extends Handler{
+public class MainInfoImageHandler extends Handler{
     
     /**
      * 请求更新显示的View。
@@ -31,13 +31,13 @@ public class ImageHandler extends Handler{
     public static final int MSG_PAGE_CHANGED  = 4;
       
     //轮播间隔时间
-    public static final long MSG_DELAY = 4000;
+    public static final long MSG_DELAY = 3000;
       
     //使用弱引用避免Handler泄露.这里的泛型参数可以不是Activity，也可以是Fragment等
     private WeakReference<MainInfoFrag> weakReference;
     private int currentItem = 0;
       
-    public ImageHandler(WeakReference<MainInfoFrag> wk){
+    public MainInfoImageHandler(WeakReference<MainInfoFrag> wk){
         weakReference = wk;
     }
       
@@ -51,9 +51,9 @@ public class ImageHandler extends Handler{
         }
         Log.e("imagehandler", msg.what+"");
         //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
-//        if (activity.handler.hasMessages(MSG_UPDATE_IMAGE)){
-//            activity.handler.removeMessages(MSG_UPDATE_IMAGE);
-//        }
+        if (activity.handler.hasMessages(MSG_UPDATE_IMAGE)){
+            activity.handler.removeMessages(MSG_UPDATE_IMAGE);
+        }
         switch (msg.what) {
         case MSG_UPDATE_IMAGE:
         	int tempIndex = currentItem + 1;

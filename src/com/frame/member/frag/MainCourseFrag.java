@@ -11,41 +11,35 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView.ScaleType;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.MainCourseParser;
-import com.frame.member.Parsers.MainNotifyPaser;
-import com.frame.member.Parsers.MyCollectClassParser;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
-import com.frame.member.Utils.ImageHandler;
-import com.frame.member.Utils.SPUtils;
-import com.frame.member.activity.BaseActivity;
-import com.frame.member.activity.NewsDetailActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.NewsDetailActivity;
 import com.frame.member.adapters.CondensationPagerAdapter;
 import com.frame.member.adapters.MainCourseNewsAdapter;
 import com.frame.member.bean.MainCourseBean.MainCourseBanner;
 import com.frame.member.bean.MainCourseBean.MainCourseNews;
 import com.frame.member.bean.MainCourseBean.MainCourseResult;
 import com.frame.member.bean.MainNotifyBean;
-import com.frame.member.bean.MainInfoBean.MainBanner;
 import com.frame.member.bean.MainNotifyBean.Notify;
+import com.frame.member.handler.MainCourseImageHandler;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase;
 import com.frame.member.widget.refreshlistview.PullToRefreshBase.Mode;
 import com.frame.member.widget.refreshlistview.PullToRefreshScrollView;
@@ -62,7 +56,7 @@ public class MainCourseFrag extends BaseFrag {
 	private PullToRefreshScrollView pullListView;
 	private List<MainCourseNews> dataList = new ArrayList<MainCourseNews>();
 	private ListView listView;
-	CondensationPagerAdapter pagerAdapter;
+	public CondensationPagerAdapter pagerAdapter;
 	LinearLayout ll_sort_conden_sport, ll_sort_conden_hotTopic,
 			ll_sort_conden_classicAction;
 	private MainCourseNewsAdapter adapter;
@@ -75,8 +69,8 @@ public class MainCourseFrag extends BaseFrag {
 	private List<ImageView> condensation_pager_list = new ArrayList<ImageView>();
 	public List<Notify> mainpage_data = new ArrayList<MainNotifyBean.Notify>();
 
-//	public ImageHandler handler = new ImageHandler(new WeakReference<MainCourseFrag>(
-//			this));
+	public MainCourseImageHandler handler = new MainCourseImageHandler(new WeakReference<MainCourseFrag>(
+			this));
 	private LinearLayout ll_main_container ,main_course_container;
 
 	
@@ -178,8 +172,8 @@ public class MainCourseFrag extends BaseFrag {
 				dots.get(position % 3).setBackgroundResource(
 						R.drawable.dot_focused);
 				oldPosition = position;
-//				handler.sendMessage(Message.obtain(handler,
-//						ImageHandler.MSG_PAGE_CHANGED, position, 0));
+				handler.sendMessage(Message.obtain(handler,
+						MainCourseImageHandler.MSG_PAGE_CHANGED, position, 0));
 			}
 
 			@Override
@@ -191,22 +185,22 @@ public class MainCourseFrag extends BaseFrag {
 			public void onPageScrollStateChanged(int arg0) {
 				switch (arg0) {
 				case ViewPager.SCROLL_STATE_DRAGGING:
-//					handler.sendEmptyMessage(ImageHandler.MSG_KEEP_SILENT);
+					handler.sendEmptyMessage(MainCourseImageHandler.MSG_KEEP_SILENT);
 					break;
 				case ViewPager.SCROLL_STATE_IDLE:
-//					handler.sendEmptyMessageDelayed(
-//							ImageHandler.MSG_UPDATE_IMAGE,
-//							ImageHandler.MSG_DELAY);
+					handler.sendEmptyMessageDelayed(
+							MainCourseImageHandler.MSG_UPDATE_IMAGE,
+							MainCourseImageHandler.MSG_DELAY);
 					break;
 				default:
 					break;
 				}
 			}
 		});
-		vp_condensation.setCurrentItem(Integer.MAX_VALUE / 2);// 默认在中间，使用户看不到边界
+//		vp_condensation.setCurrentItem(Integer.MAX_VALUE / 2);// 默认在中间，使用户看不到边界
 		// 开始轮播效果
-//		handler.sendEmptyMessageDelayed(ImageHandler.MSG_UPDATE_IMAGE,
-//				ImageHandler.MSG_DELAY);
+		handler.sendEmptyMessageDelayed(MainCourseImageHandler.MSG_UPDATE_IMAGE,
+				MainCourseImageHandler.MSG_DELAY);
 	}
 	/**
 	 * 获取首页教程列表
