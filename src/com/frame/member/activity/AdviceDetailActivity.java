@@ -367,7 +367,7 @@ public class AdviceDetailActivity extends BaseActivity {
 			adapter_list.notifyDataSetChanged();
 			break;
 		case 1:
-			list_str.add("分享");
+//			list_str.add("分享");
 			list_str.add("举报");
 			list_str.add("取消");
 			break;	
