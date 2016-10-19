@@ -13,6 +13,7 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BookingDateActivity;
 import com.frame.member.activity.ClassDetailActivity;
+import com.frame.member.activity.MemberInfoResultActivity;
 import com.frame.member.activity.MyOrderActivity;
 import com.frame.member.bean.OrderSuccessResult;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
@@ -22,12 +23,14 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
 
@@ -38,7 +41,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 	private List<String> list_date = new ArrayList<String>();
 	
 	private TextView tv_class_name,tv_booked_date_class,tv_booked_place_class;
-	private int type = 0; //0为一对一，1为班课
+	private int type = 0; //0为一对一，1为班课,3为会员升级
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -54,11 +57,13 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 	@Override
 	public void onResp(BaseResp resp) {
 		type = (Integer) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_WXPAY_TYPE, 0);
+		Log.d("WXPayEntryActivity","onResp type = "+type);
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 //			MyLog.i("微信支付结果", "微信支付结果------->" + String.valueOf(resp.errCode));
-//			Toast.makeText(getApplicationContext(), "微信支付结果: "+String.valueOf(resp.errCode), 0).show();
+//			Toast.makeText(getApplicationContext(), "微信支付结果: "+String.valueOf(resp.errCode)+"type ="+type, 0).show();
 			if(resp.errCode == 0){
-				showToast("支付成功");
+//				showToast("支付成功"+"type = "+type);
+				
 				if(type == 0){
 					ll_class_booked_info.setVisibility(View.GONE);
 					ll_coach_booked_info.setVisibility(View.VISIBLE);
@@ -67,6 +72,10 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 					ll_class_booked_info.setVisibility(View.VISIBLE);
 					ll_coach_booked_info.setVisibility(View.GONE);
 					getData();
+				}else if(type == 2){
+//					showToast("这是会员升级！！");
+					startActivity(new Intent(WXPayEntryActivity.this,MemberInfoResultActivity.class));
+					finish();
 				}
 				
 			}else if(resp.errCode == -1){
@@ -82,6 +91,13 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 	@Override
 	protected void loadViewLayout() {
 		setContentView(R.layout.activity_booking_finished);
+//		type = (Integer) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_WXPAY_TYPE, 0);
+		Log.d("WXPayEntryActivity","loadViewLayout type = "+type);
+//		if(type == 2){
+//			showToast("这是会员升级！！");
+//			appManager.finishActivity();
+//			startActivity(new Intent(WXPayEntryActivity.this,MemberInfoResultActivity.class));
+//		}
 	}
 
 	@Override

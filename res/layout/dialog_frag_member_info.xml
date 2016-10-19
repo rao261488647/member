@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent" >
+
+    <ScrollView
+        android:id="@+id/sv_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/shape_dialog_coach_booking"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:id="@+id/rl_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+            
+            <TextView android:id="@+id/tv_name_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#464646"
+                android:layout_centerHorizontal="true"
+                android:text="升级为黑卡会员"
+                android:layout_below="@id/tv_coach_approve"
+                android:layout_marginTop="20dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_coach_evaluation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/tv_name_class"
+                android:gravity="center_vertical" >
+
+                
+
+                
+            </RelativeLayout>
+
+            
+
+            <View
+                android:id="@+id/view_coach_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_name_class"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="#d6d6d6" />
+            <ImageView android:id="@+id/iv_card_member"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_below="@id/view_coach_line"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/card_black"/>
+
+            <TextView
+                android:id="@+id/tv_coach_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_card_member"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="升级年费"
+                android:textColor="#959595"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_coach_price_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_coach_price"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="¥1270.00"
+                android:textColor="#269bed"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+            <View
+                android:id="@+id/view_coach_line_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_coach_price_num"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#d6d6d6" />
+
+            
+
+            <TextView
+                android:id="@+id/tv_booking_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_coach_line_2"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:text="*课程开始日期前48小时，可做退订处理\n课程开始与过期则不予退订"
+                android:textColor="#afafaf"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_weixin_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_booking_warning"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/shape_login_button_yellow"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="微信支付"
+                android:textColor="#393939"
+                android:textSize="16sp"
+                 />
+            <View android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:layout_below="@id/tv_weixin_pay"/>
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/sv_dialog_content"
+        android:layout_alignTop="@id/sv_dialog_content"
+        android:layout_marginRight="-20dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/shape_circle_red"
+        android:gravity="center"
+        android:text="×"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+
+</RelativeLayout>

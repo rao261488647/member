@@ -340,6 +340,8 @@
              android:screenOrientation="portrait"/>
            <activity android:name=".activity.MemberInfoActivity"
              android:screenOrientation="portrait"/>
+           <activity android:name=".activity.MemberInfoResultActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 
