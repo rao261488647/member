@@ -89,6 +89,7 @@
                 android:text="成为黑卡会员"
                 android:textColor="#414141"
                 android:textSize="16sp"
+                android:visibility="gone"
                 />
             
         </LinearLayout>

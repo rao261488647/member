@@ -3,6 +3,8 @@ package com.frame.member.Utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.frame.member.TTApplication;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -70,6 +72,7 @@ public class SPUtils {
 	public static final String KEY_TYPE = "key_type";
 	public static final String KEY_PAYORDERNUM = "key_payorderNum";//微信支付的订单号
 	public static final String KEY_WXPAY_TYPE = "key_wxpay_type";//微信支付返回界面的类型
+	public static final String KEY_WXPAY_MEMBERTYPE = "key_wxpay_membertype";//微信支付返回界面的类型为2时card的类型
 	
 	public static final String KEY_ISFIRST_ACC_NOTICE = "key_isfirst_acc_notice";//微信支付返回界面的类型
 	
@@ -141,6 +144,8 @@ public class SPUtils {
 	 * @return
 	 */
 	public Object get(Context context, String key, Object defaultObject) {
+		if(context == null)
+			context = TTApplication.getInstance().getApplicationContext();
 		SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
 				Context.MODE_PRIVATE);
 
@@ -223,5 +228,4 @@ public class SPUtils {
 			editor.commit();
 		}
 	}
-
 }
