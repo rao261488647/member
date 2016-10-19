@@ -213,10 +213,12 @@ public class AdviceDetailActivity extends BaseActivity {
 						((TextView) v).setText("+关注");
 						((TextView) v).setBackgroundResource(R.drawable.shape_hollow_yellow);
 						((TextView) v).setTextColor(0xffe8ce39);
+						showToast("取消关注成功");
 					} else {
 						((TextView) v).setText("已关注");
 						((TextView) v).setBackgroundResource(R.drawable.shape_solid_yellow);
 						((TextView) v).setTextColor(0xff505050);
+						showToast("关注成功");
 					}
 				}
 			}
