@@ -62,6 +62,8 @@ public class AdviceDetailActivity extends BaseActivity {
 			tv_comments_num, tv_favour_num, tv_send_comments;
 	private LinearLayout ll_person_favor_profile;
 	private String friendId, subjectId;
+	
+	private EditText et_input_comments;
 
 	@Override
 	protected void loadViewLayout() {
@@ -85,6 +87,8 @@ public class AdviceDetailActivity extends BaseActivity {
 		tv_favour_num = (TextView) findViewById(R.id.tv_favour_num);
 		tv_send_comments = (TextView) findViewById(R.id.tv_send_comments);
 		ll_person_favor_profile = (LinearLayout) findViewById(R.id.ll_person_favor_profile);
+		
+		et_input_comments = (EditText) findViewById(R.id.et_input_comments);
 
 	}
 

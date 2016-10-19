@@ -3,6 +3,8 @@ package com.frame.member.Utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.frame.member.TTApplication;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -141,6 +143,8 @@ public class SPUtils {
 	 * @return
 	 */
 	public Object get(Context context, String key, Object defaultObject) {
+		if(context == null)
+			context = TTApplication.getInstance().getApplicationContext();
 		SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
 				Context.MODE_PRIVATE);
 
