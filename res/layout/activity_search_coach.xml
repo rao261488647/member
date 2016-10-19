@@ -27,7 +27,9 @@
                 android:textColor="#b1b1b1"	
                 android:hint="请输入教练姓名"
                 android:textColorHint="#b1b1b1"
-                android:maxLines="1"/>
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:inputType="text"/>
         
     </LinearLayout>
     <RelativeLayout 

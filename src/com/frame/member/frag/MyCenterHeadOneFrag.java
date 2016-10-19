@@ -2,9 +2,12 @@ package com.frame.member.frag;
 
 import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
+import com.frame.member.activity.MemberInfoActivity;
 import com.frame.member.bean.MyCenterBean.Menu;
 import com.frame.member.bean.MyCenterBean.User;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -24,8 +28,10 @@ public class MyCenterHeadOneFrag extends BaseFrag {
 	private ImageView headimg;//头像
 	
 	private User user;
-	public MyCenterHeadOneFrag(User user){
+	private Context context;
+	public MyCenterHeadOneFrag(User user,Context context){
 		this.user = user;
+		this.context = context;
 	}
 	
 	
@@ -35,6 +41,7 @@ public class MyCenterHeadOneFrag extends BaseFrag {
         rootView = inflater.inflate(R.layout.frag_my_center_head_1, container, false);//关联布局文件  
         findViewByIds();
         initMyCenterPage();
+        setViewListener();
         return rootView;  
     }  
 	
@@ -51,6 +58,7 @@ public class MyCenterHeadOneFrag extends BaseFrag {
 		point = (TextView)findViewById(R.id.my_center_point);
 		nickname = (TextView)findViewById(R.id.my_center_name);
 		headimg = (ImageView)findViewById(R.id.my_center_headimg);
+		
 		
 	}
 	/**
@@ -81,5 +89,15 @@ public class MyCenterHeadOneFrag extends BaseFrag {
 				nickname.setText(user.memberName);
 			}
 		}
+	}
+	//设置点击事件
+	private void setViewListener(){
+		level.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(context,MemberInfoActivity.class));
+			}
+		});
 	}
 }

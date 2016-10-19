@@ -45,6 +45,7 @@ public class CalendarCard extends View {
 	//已选中的日期数量
 	private int num_selected = 0;
 	
+	
 
 	/**
 	 * 单元格点击的回调接口
@@ -99,6 +100,7 @@ public class CalendarCard extends View {
 	}
 
 	private void fillDate() {
+		
 		int monthDay = DateUtil.getCurrentMonthDay(); // 今天
 		int lastMonthDays = DateUtil.getMonthDays(mShowDate.year,
 				mShowDate.month - 1); // 上个月的天数
@@ -107,6 +109,7 @@ public class CalendarCard extends View {
 		int firstDayWeek = DateUtil.getWeekDayFromDate(mShowDate.year,
 				mShowDate.month);
 		boolean isCurrentMonth = false;
+		
 		if (DateUtil.isCurrentMonth(mShowDate)) {
 			isCurrentMonth = true;
 		}
@@ -133,6 +136,18 @@ public class CalendarCard extends View {
 								CustomDate.modifiDayForObject(mShowDate, day),
 								State.UNREACH_DAY, i, j);
 					}
+					if (isCurrentMonth && day < monthDay) { // 如果比这个月的今天要小，表示已经过了
+						rows[j].cells[i] = new Cell(
+								CustomDate.modifiDayForObject(mShowDate, day),
+								State.REACHED_DAY, i, j);
+						rows[j].cells[i].isClickable = false;
+					}
+					if(mShowDate.month<DateUtil.getMonth()){  //比今天的月份小的月份
+						rows[j].cells[i] = new Cell(
+								CustomDate.modifiDayForObject(mShowDate, day),
+								State.REACHED_DAY, i, j);
+						rows[j].cells[i].isClickable = false;
+					}
 					for(Point point:set_point){
 						rows[point.y].cells[point.x] = new Cell(CustomDate.modifiDayForObject(
 								new CustomDate(mShowDate.year, mShowDate.month, 
@@ -147,13 +162,16 @@ public class CalendarCard extends View {
 							mShowDate.month - 1, lastMonthDays
 									- (firstDayWeek - position - 1)),
 							State.PAST_MONTH_DAY, i, j);
+					rows[j].cells[i].isClickable = false;
 					// 下个月
 				} else if (position >= firstDayWeek + currentMonthDays) {
 					rows[j].cells[i] = new Cell((new CustomDate(mShowDate.year,
 							mShowDate.month + 1, position - firstDayWeek
 									- currentMonthDays + 1)),
 							State.NEXT_MONTH_DAY, i, j);
+					rows[j].cells[i].isClickable = false;
 				}
+				
 			}
 		}
 		mCellClickListener.changeDate(mShowDate);
@@ -194,7 +212,10 @@ public class CalendarCard extends View {
 			if (Math.abs(disX) < touchSlop && Math.abs(disY) < touchSlop) {
 				int col = (int) (mDownX / mCellSpace);
 				int row = (int) (mDownY / mCellSpace);
-				measureClickCell(col, row);
+				if(rows[row].cells[col].isClickable){
+					measureClickCell(col, row);
+				}
+				
 			}
 			break;
 		default:
@@ -284,6 +305,7 @@ public class CalendarCard extends View {
 		public State state;
 		public int i;
 		public int j;
+		public boolean isClickable = true;
 
 		public Cell(CustomDate date, State state, int i, int j) {
 			super();
@@ -309,8 +331,12 @@ public class CalendarCard extends View {
 				mTextPaint.setColor(Color.parseColor("#ababab"));
 				break;
 			case PAST_MONTH_DAY: // 过去一个月
+				mTextPaint.setColor(Color.parseColor("#fffffe"));
 			case NEXT_MONTH_DAY: // 下一个月
 				mTextPaint.setColor(Color.parseColor("#fffffe"));
+				break;
+			case REACHED_DAY:
+				mTextPaint.setColor(Color.parseColor("#e3e3e3"));
 				break;
 			case UNREACH_DAY: // 还未到的天
 				mTextPaint.setColor(Color.parseColor("#ababab"));
@@ -328,7 +354,13 @@ public class CalendarCard extends View {
 				break;
 			}
 			// 绘制文字
-			String content = date.day + "";
+			String content;
+			if(date.day < 10){
+				content = "0"+date.day;
+			}else{
+				content = date.day + "";
+			}
+			
 			canvas.drawText(content,
 					(float) ((i + 0.5) * mCellSpace - mTextPaint
 							.measureText(content) / 2), (float) ((j + 0.7)
@@ -339,10 +371,10 @@ public class CalendarCard extends View {
 
 	/**
 	 * 
-	 * @author wuwenjie 单元格的状态    今天，当前月日期，过去的月的日期，下个月的日期，被选中的日期，被预约的日期
+	 * @author wuwenjie 单元格的状态    今天，当前月日期，过去的月的日期，下个月的日期，已经过了的日期，还未到的日期，被选中的日期，被预约的日期
 	 */
 	enum State {
-		TODAY,CURRENT_MONTH_DAY, PAST_MONTH_DAY, NEXT_MONTH_DAY, UNREACH_DAY, SELECTED_DAY, BOOKED_DAY;
+		TODAY,CURRENT_MONTH_DAY, PAST_MONTH_DAY, NEXT_MONTH_DAY, REACHED_DAY,UNREACH_DAY, SELECTED_DAY, BOOKED_DAY;
 	}
 
 	// 从左往右划，上一个月

@@ -75,7 +75,7 @@ public class CoachMemberCommentsAdapter extends BaseAdapter{
 			}
 		});
 		if(result.tags != null && result.tags.size() > 0){
-			holder.xcflowlayout.setVisibility(View.VISIBLE);
+			holder.xcflowlayout.setVisibility(View.GONE);
 			initChildViews(holder,position);
 		}else{
 			holder.xcflowlayout.setVisibility(View.GONE);

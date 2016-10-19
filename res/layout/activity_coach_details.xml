@@ -269,7 +269,8 @@
                 <FrameLayout
                     android:id="@+id/fl_coach_video_cover"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" >
+                    android:layout_height="200dp" 
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/iv_coach_video_cover"

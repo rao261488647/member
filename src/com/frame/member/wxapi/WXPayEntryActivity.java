@@ -13,6 +13,7 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BookingDateActivity;
 import com.frame.member.activity.ClassDetailActivity;
+import com.frame.member.activity.MyOrderActivity;
 import com.frame.member.bean.OrderSuccessResult;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -120,7 +121,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 			
 			@Override
 			public void onClick(View v) {
-				
+				startActivity(new Intent(WXPayEntryActivity.this, MyOrderActivity.class));
 			}
 		});
 	}

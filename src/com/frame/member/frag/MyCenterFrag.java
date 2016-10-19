@@ -187,7 +187,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
     public void InitViewPager(){  
         mPager = (ViewPager)findViewById(R.id.my_center_pager);  
         fragmentList = new ArrayList<Fragment>();  
-        Fragment one= new MyCenterHeadOneFrag(user);  
+        Fragment one= new MyCenterHeadOneFrag(user,getActivity());  
         Fragment two = new MyCenterHeadTwoFrag(user);  
         fragmentList.add(one);  
         fragmentList.add(two);  
@@ -202,6 +202,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		MyCenterHeadTwoFrag frag2 = (MyCenterHeadTwoFrag) adapter.instantiateItem(mPager, 1);
 	    if(frag != null){
 	    	name = (TextView)frag.getView().findViewById(R.id.my_center_name);
+	    	
 	    }
 	    if(frag2 != null){
 	    	sign = (TextView)findViewById(R.id.my_center_signature);
@@ -257,7 +258,6 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_video = (RelativeLayout)findViewById(R.id.my_layout_video);
 		
 		grade = (TextView)findViewById(R.id.my_center_grade); //等级
-		level = (TextView)findViewById(R.id.my_center_level); //会员等级
 		point = (TextView)findViewById(R.id.my_center_point);
 		
 		headimg = (ImageView)findViewById(R.id.my_center_headimg);
@@ -318,6 +318,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyBillActivity.class);
 			this.startActivity(intent);
 			break;
+		
 //		case R.id.rl_my_logout:
 //			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
 //			builder.setTitle("提示");

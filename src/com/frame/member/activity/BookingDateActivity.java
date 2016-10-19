@@ -242,13 +242,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			int position = 0;
 			if (isContain) {
 				if(mDateList.size() > 0){
-//					showToast("已经预约了");
-//					for(CustomDate cd:mDateList){
-//						if(cd.equals(date)){
-//							mDateList.remove(cd);
-//							updateDate();
-//						}
-//					}
+
 					for(int i= 0; i < mDateList.size(); i++){
 						if(mDateList.get(i).equals(date)){
 							position = i;
