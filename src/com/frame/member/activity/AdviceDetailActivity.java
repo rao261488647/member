@@ -168,14 +168,22 @@ public class AdviceDetailActivity extends BaseActivity {
 			@Override
 			public void processData(BaseBean object, RequestResult result) {
 				if (object != null) {
-					// Toast.makeText(context, object.message,
-					// Toast.LENGTH_SHORT).show();
-					if (R.drawable.zan_2x == (Integer) v.getTag()) {
-						((ImageView) v).setImageResource(R.drawable.un_zan_2x);
-						((ImageView) v).setTag(R.drawable.un_zan_2x);
+					if ("0".equals(mAdviceDetailResult.praiseAuthor)) {
+						iv_favour_num.setImageResource(R.drawable.zan_2x);
+						iv_favour_num.setTag(R.drawable.zan_2x);
+						mAdviceDetailResult.praiseAuthor = "1";
+						showToast("点赞成功");
+						int praiseNum = Integer.parseInt(mAdviceDetailResult.praiseNum);
+						mAdviceDetailResult.praiseNum = ++praiseNum + "";
+						tv_favour_num.setText(mAdviceDetailResult.praiseNum);
 					} else {
-						((ImageView) v).setImageResource(R.drawable.zan_2x);
-						((ImageView) v).setTag(R.drawable.zan_2x);
+						iv_favour_num.setImageResource(R.drawable.un_zan_2x);
+						iv_favour_num.setTag(R.drawable.un_zan_2x);
+						mAdviceDetailResult.praiseAuthor = "0";
+						showToast("取消点赞成功");
+						int praiseNum = Integer.parseInt(mAdviceDetailResult.praiseNum);
+						mAdviceDetailResult.praiseNum = --praiseNum + "";
+						tv_favour_num.setText(mAdviceDetailResult.praiseNum);
 					}
 				}
 			}
@@ -217,6 +225,7 @@ public class AdviceDetailActivity extends BaseActivity {
 
 	}
 
+	private AdviceDetailResult mAdviceDetailResult;
 	// 获取主数据
 	private void getData() {
 		BaseParser<AdviceDetailResult> parser = new AdviceDetailParser();
@@ -232,6 +241,7 @@ public class AdviceDetailActivity extends BaseActivity {
 		@Override
 		public void processData(final AdviceDetailResult object, RequestResult result) {
 			if (object != null) {
+				mAdviceDetailResult = object;
 				friendId = object.friendId;
 				subjectId = object.subjectId;
 				TTApplication.getInstance().disPlayImageDef(object.user.appHeadThumbnail, iv_person_profile);
