@@ -62,6 +62,8 @@ public class AdviceDetailActivity extends BaseActivity {
 			tv_comments_num, tv_favour_num, tv_send_comments;
 	private LinearLayout ll_person_favor_profile;
 	private String friendId, subjectId;
+	
+	private EditText et_input_comments;
 
 	@Override
 	protected void loadViewLayout() {
@@ -85,6 +87,8 @@ public class AdviceDetailActivity extends BaseActivity {
 		tv_favour_num = (TextView) findViewById(R.id.tv_favour_num);
 		tv_send_comments = (TextView) findViewById(R.id.tv_send_comments);
 		ll_person_favor_profile = (LinearLayout) findViewById(R.id.ll_person_favor_profile);
+		
+		et_input_comments = (EditText) findViewById(R.id.et_input_comments);
 
 	}
 
@@ -168,14 +172,22 @@ public class AdviceDetailActivity extends BaseActivity {
 			@Override
 			public void processData(BaseBean object, RequestResult result) {
 				if (object != null) {
-					// Toast.makeText(context, object.message,
-					// Toast.LENGTH_SHORT).show();
-					if (R.drawable.zan_2x == (Integer) v.getTag()) {
-						((ImageView) v).setImageResource(R.drawable.un_zan_2x);
-						((ImageView) v).setTag(R.drawable.un_zan_2x);
+					if ("0".equals(mAdviceDetailResult.praiseAuthor)) {
+						iv_favour_num.setImageResource(R.drawable.zan_2x);
+						iv_favour_num.setTag(R.drawable.zan_2x);
+						mAdviceDetailResult.praiseAuthor = "1";
+						showToast("点赞成功");
+						int praiseNum = Integer.parseInt(mAdviceDetailResult.praiseNum);
+						mAdviceDetailResult.praiseNum = ++praiseNum + "";
+						tv_favour_num.setText(mAdviceDetailResult.praiseNum);
 					} else {
-						((ImageView) v).setImageResource(R.drawable.zan_2x);
-						((ImageView) v).setTag(R.drawable.zan_2x);
+						iv_favour_num.setImageResource(R.drawable.un_zan_2x);
+						iv_favour_num.setTag(R.drawable.un_zan_2x);
+						mAdviceDetailResult.praiseAuthor = "0";
+						showToast("取消点赞成功");
+						int praiseNum = Integer.parseInt(mAdviceDetailResult.praiseNum);
+						mAdviceDetailResult.praiseNum = --praiseNum + "";
+						tv_favour_num.setText(mAdviceDetailResult.praiseNum);
 					}
 				}
 			}
@@ -205,10 +217,12 @@ public class AdviceDetailActivity extends BaseActivity {
 						((TextView) v).setText("+关注");
 						((TextView) v).setBackgroundResource(R.drawable.shape_hollow_yellow);
 						((TextView) v).setTextColor(0xffe8ce39);
+						showToast("取消关注成功");
 					} else {
 						((TextView) v).setText("已关注");
 						((TextView) v).setBackgroundResource(R.drawable.shape_solid_yellow);
 						((TextView) v).setTextColor(0xff505050);
+						showToast("关注成功");
 					}
 				}
 			}
@@ -217,6 +231,7 @@ public class AdviceDetailActivity extends BaseActivity {
 
 	}
 
+	private AdviceDetailResult mAdviceDetailResult;
 	// 获取主数据
 	private void getData() {
 		BaseParser<AdviceDetailResult> parser = new AdviceDetailParser();
@@ -232,6 +247,7 @@ public class AdviceDetailActivity extends BaseActivity {
 		@Override
 		public void processData(final AdviceDetailResult object, RequestResult result) {
 			if (object != null) {
+				mAdviceDetailResult = object;
 				friendId = object.friendId;
 				subjectId = object.subjectId;
 				TTApplication.getInstance().disPlayImageDef(object.user.appHeadThumbnail, iv_person_profile);

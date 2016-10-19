@@ -33,6 +33,7 @@ import com.frame.member.widget.refreshlistview.PullToRefreshListView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -278,8 +279,17 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		Log.i("Arvin", "AdviceAttention onResume");
+		getMyAttention();
+	}
+	
 	// 获取我的关注数据
-	private void getMyAttention() {
+	public void getMyAttention() {
+		if(mContext == null)
+			return;
 		BaseParser<List<MyAttentionResult>> parser = new MyAttentionParser();
 		HttpRequestImpl request = new HttpRequestImpl(mContext, AppConstants.APP_SORT_STUDENT + "/myfollow", parser);
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(mContext, SPUtils.KEY_MEMBERUSERID, ""))

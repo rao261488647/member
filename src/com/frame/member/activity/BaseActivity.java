@@ -78,7 +78,7 @@ public abstract class BaseActivity extends FragmentActivity {
 		setListener();
 		processLogic();
 	}
-
+	
 	private void initTitleView() {
 		ll_title_left = (LinearLayout) findViewById(R.id.ll_title_left);
 //		ll_title_right = (LinearLayout) findViewById(R.id.ll_title_right);

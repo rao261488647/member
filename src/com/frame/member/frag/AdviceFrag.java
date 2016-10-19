@@ -98,6 +98,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.ll_title_left_booking:
 			if (isRight) {
+				tv_change_view_attention.setVisibility(8);
 				changeFrag();
 				hideFragment(mTransaction);
 				if (mAdviceFindFrag == null) {
@@ -121,6 +122,7 @@ public class AdviceFrag extends BaseFrag implements OnClickListener {
 					mTransaction.show(mAdviceAttentionFrag).commit();
 				}
 				mCurrentFrag = mAdviceAttentionFrag;
+				mAdviceAttentionFrag.getMyAttention();
 			}
 
 			break;
