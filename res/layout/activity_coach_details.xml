@@ -64,13 +64,29 @@
                     android:textSize="11sp" />
 
                 <ImageView
-                    android:id="@+id/iv_icon_coach"
+                    android:id="@+id/iv_icon_coach_train"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignBottom="@id/tv_level_coach"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_level_coach"
                     android:src="@drawable/icon_train_2x" />
+                <ImageView
+                    android:id="@+id/iv_icon_coach_act"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/tv_level_coach"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/iv_icon_coach_train"
+                    android:src="@drawable/icon_act_2x" />
+                <ImageView
+                    android:id="@+id/iv_icon_coach_referee"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/tv_level_coach"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/iv_icon_coach_act"
+                    android:src="@drawable/icon_referee_2x" />
 
                 <TextView
                     android:id="@+id/tv_num_meet"

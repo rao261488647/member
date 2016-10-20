@@ -64,6 +64,7 @@ public class ClassDetailParser extends BaseParser<ClassDetailResult> {
 					result.goal = obj_result.optInt("goal");
 					result.isSigned = obj_result.optString("isSigned");
 					result.collect = obj_result.optString("collect");
+					
 				}
 			}
 			

@@ -17,6 +17,7 @@ import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.CoachDetailResult;
 import com.frame.member.bean.CoachDetailResult.Photo;
 import com.frame.member.bean.CoachMembersCommentsResult;
+import com.frame.member.bean.CoachSearchResult.Badges;
 import com.frame.member.widget.MyListView;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -38,7 +39,8 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_coach_meet,tv_name_coach,tv_level_coach,
 					tv_num_meet,tv_price_num,tv_skifield_info,
 					tv_coach_collection,tv_coach_content_info;
-	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor,iv_coach_cover;
+	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor,iv_coach_cover,
+					iv_icon_coach_train,iv_icon_coach_act,iv_icon_coach_referee;
 	private RatingBar rb_booking_one;
 	private LinearLayout ll_coach_picture;
 	private FrameLayout fl_coach_video_cover;
@@ -64,6 +66,9 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_coach_video_cover = (ImageView) findViewById(R.id.iv_coach_video_cover);
 		iv_coach_honor = (ImageView) findViewById(R.id.iv_coach_honor);
 		iv_coach_cover = (ImageView) findViewById(R.id.iv_coach_cover);
+		iv_icon_coach_train = (ImageView) findViewById(R.id.iv_icon_coach_train);
+		iv_icon_coach_act = (ImageView) findViewById(R.id.iv_icon_coach_act);
+		iv_icon_coach_referee = (ImageView) findViewById(R.id.iv_icon_coach_referee);
 		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
 		ll_coach_picture = (LinearLayout) findViewById(R.id.ll_coach_picture);
 		fl_coach_video_cover = (FrameLayout) findViewById(R.id.fl_coach_video_cover);
@@ -150,7 +155,24 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		@Override
 		public void processData(CoachDetailResult object, RequestResult result) {
 			if(object != null){
-				tv_num_meet.setText("累计被约"+getIntent().getStringExtra("meetNum")+"次");
+				//图标逻辑
+				iv_icon_coach_train.setVisibility(View.GONE);
+				iv_icon_coach_act.setVisibility(View.GONE);
+				iv_icon_coach_referee.setVisibility(View.GONE);
+				if(object.badges != null && object.badges.size()>0){
+					for(Badges badge: object.badges){
+						if("1".equals(badge.badgeId)){
+							iv_icon_coach_train.setVisibility(View.VISIBLE);
+						}
+						if("2".equals(badge.badgeId)){
+							iv_icon_coach_act.setVisibility(View.VISIBLE);
+						}
+						if("3".equals(badge.badgeId)){
+							iv_icon_coach_referee.setVisibility(View.VISIBLE);
+						}
+					}
+				}
+				tv_num_meet.setText("累计被约"+object.meetNum+"次");
 				TTApplication.getInstance().disPlayImageDef(object.headImg, iv_coach_profile);
 				TTApplication.getInstance().disPlayImageDef(object.headImg, iv_coach_cover);
 				iv_coach_cover.setColorFilter(0x30000000);

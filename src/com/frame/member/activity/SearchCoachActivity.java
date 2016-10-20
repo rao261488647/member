@@ -113,7 +113,9 @@ public class SearchCoachActivity extends BaseActivity {
 	private void getSearchData() {
 		BaseParser<List<CoachSearchResult>> parser = new CoachSearchParser();
 		HttpRequestImpl request = new HttpRequestImpl(this, AppConstants.APP_SORT_STUDENT + "/coachseach", parser);
-		request.addParam("coachName", et_search_coach.getText().toString());
+		request.addParam("coachName", et_search_coach.getText().toString())
+				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(
+						this, SPUtils.KEY_MEMBERUSERID, ""));
 		DataCallback<List<CoachSearchResult>> callBack = new DataCallback<List<CoachSearchResult>>() {
 
 			@Override
