@@ -78,6 +78,7 @@ public class AdviceFindAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		holder.iv_person_profile.setImageResource(R.drawable.profile_example_1);
 		TTApplication.getInstance().disPlayImageDef(result.user.appHeadThumbnail, holder.iv_person_profile);
 		holder.iv_person_profile.setOnClickListener(new OnClickListener() {
 

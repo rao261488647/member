@@ -17,7 +17,7 @@
         
         <LinearLayout 
             android:id="@+id/ll_fake"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -39,7 +39,40 @@
             android:rating="1"
             android:layout_marginLeft="10dp"
             android:isIndicator="true"/>
+            
         </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/ll_fake"
+                android:layout_alignBottom="@id/ll_fake"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/iv_icon_coach_train"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/tv_level_coach"
+                    android:src="@drawable/icon_train_2x" />
+                <ImageView
+                    android:id="@+id/iv_icon_coach_act"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/tv_level_coach"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/iv_icon_coach_train"
+                    android:src="@drawable/icon_act_2x" />
+                <ImageView
+                    android:id="@+id/iv_icon_coach_referee"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@id/tv_level_coach"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/iv_icon_coach_act"
+                    android:src="@drawable/icon_referee_2x" />
+                
+            </LinearLayout>
         
         
         <TextView android:id="@+id/tv_title_coach"

@@ -31,7 +31,7 @@ public class MyOrderActivity extends BaseActivity {
 	  	//lv_statemetns_list = (ListView) findViewById(R.id.lv_statements_list);
 		orderNewRl = (RelativeLayout) findViewById(R.id.my_order_rl_new);
 		orderOldRl = (RelativeLayout) findViewById(R.id.my_order_rl_old);
-		tv_title.setText("我的预约");
+//		tv_title.setText("我的预约");
 	}
 	
 	/**
@@ -91,6 +91,6 @@ public class MyOrderActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		iv_title_back.setVisibility(0);
+//		iv_title_back.setVisibility(0);
 	}
 }
