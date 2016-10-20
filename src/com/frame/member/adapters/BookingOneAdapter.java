@@ -5,6 +5,9 @@ import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.bean.BookingOneResult;
+import com.frame.member.bean.BookingOneResult.Badges;
+import com.frame.member.bean.BookingOneResult.Coach;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
@@ -41,10 +44,14 @@ public class BookingOneAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View view, ViewGroup viewGroup) {
 		ViewHolder holder;
+		Coach result = list_coach.get(position);
 		if(view == null){
 			view = View.inflate(mContext, R.layout.item_booking_one, null);
 			holder = new ViewHolder();
 			holder.iv_cover_booking_one = (ImageView) view.findViewById(R.id.iv_cover_booking_one);
+			holder.iv_icon_coach_train = (ImageView) view.findViewById(R.id.iv_icon_coach_train);
+			holder.iv_icon_coach_act = (ImageView) view.findViewById(R.id.iv_icon_coach_act);
+			holder.iv_icon_coach_referee = (ImageView) view.findViewById(R.id.iv_icon_coach_referee);
 			holder.tv_name_coach = (TextView) view.findViewById(R.id.tv_name_coach);
 			holder.tv_title_coach = (TextView) view.findViewById(R.id.tv_title_coach);
 			holder.tv_num_meet = (TextView) view.findViewById(R.id.tv_num_meet);
@@ -56,16 +63,34 @@ public class BookingOneAdapter extends BaseAdapter{
 		holder.iv_cover_booking_one.getLayoutParams().height =
 					CommonUtil.getScreenWidth((Activity) mContext)/2;
 		holder.iv_cover_booking_one.setImageResource(R.drawable.booking_one_example_1);
-		TTApplication.getInstance().disPlayImageDef(list_coach.get(position).headImg, holder.iv_cover_booking_one);
-		holder.tv_name_coach.setText(list_coach.get(position).coachName);
-		holder.tv_title_coach.setText(list_coach.get(position).levelName);
-		holder.tv_num_meet.setText("累计被约"+list_coach.get(position).meetNum+"次");
-		float goal = list_coach.get(position).goal;
+		TTApplication.getInstance().disPlayImageDef(result.headImg, holder.iv_cover_booking_one);
+		holder.tv_name_coach.setText(result.coachName);
+		holder.tv_title_coach.setText(result.levelName);
+		holder.tv_num_meet.setText("累计被约"+result.meetNum+"次");
+		float goal = result.goal;
 		holder.rb_booking_one.setRating(goal);
+		//图标逻辑
+		holder.iv_icon_coach_train.setVisibility(View.GONE);
+		holder.iv_icon_coach_act.setVisibility(View.GONE);
+		holder.iv_icon_coach_referee.setVisibility(View.GONE);
+		if(result.badges != null && result.badges.size()>0){
+			for(Badges badge:result.badges){
+				if("1".equals(badge.badgeId)){
+					holder.iv_icon_coach_train.setVisibility(View.VISIBLE);
+				}
+				if("2".equals(badge.badgeId)){
+					holder.iv_icon_coach_act.setVisibility(View.VISIBLE);
+				}
+				if("3".equals(badge.badgeId)){
+					holder.iv_icon_coach_referee.setVisibility(View.VISIBLE);
+				}
+			}
+		}
+		
 		return view;
 	}
 	static class ViewHolder{
-		ImageView iv_cover_booking_one;
+		ImageView iv_cover_booking_one,iv_icon_coach_train,iv_icon_coach_act,iv_icon_coach_referee;
 		TextView tv_name_coach,tv_title_coach,tv_num_meet;
 		RatingBar rb_booking_one;
 	}

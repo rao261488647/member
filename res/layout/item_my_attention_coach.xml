@@ -48,13 +48,29 @@
                 android:textSize="12sp" />
 
             <ImageView
-                android:id="@+id/iv_icon_coach"
+                android:id="@+id/iv_icon_coach_train"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/tv_level_coach"
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_train_2x" />
+            <ImageView
+                android:id="@+id/iv_icon_coach_act"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/iv_icon_coach_train"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_act_2x" />
+            <ImageView
+                android:id="@+id/iv_icon_coach_referee"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/iv_icon_coach_act"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_referee_2x" />
         </RelativeLayout>
 
         
@@ -67,7 +83,8 @@
             android:layout_marginTop="5dp"
             android:text="人称学疯子"
             android:textColor="#aaaaaa"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView

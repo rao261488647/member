@@ -6,23 +6,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.frame.member.bean.CoachSearchResult;
+import com.frame.member.bean.CoachSearchResult.Badges;
 
 public class CoachSearchParser extends BaseParser<List<CoachSearchResult>> {
 //	{
-//	"code": "200",
-//	"message": "返回数据成功",
-//	"totalItems": 1,
-//	-"data": {
-//	-"coaches": [
-//	-{
-//	"coachId": "24",
-//	"coachName": "孙小元",
-//	"headImg": "http://wx.qlogo.cn/mmopen/PVJAFu3VTicYicAOt6qThBZw3TE6mt6DZ4YP0klibQdOPmYcyl0RiaN4NdrabsSaKa268AL60ick3Liar2Kl1OcNouNCoxdUJXEjzc/0",
-//	"coachTitle": "5",
-//	"coachBadge": "0"
-//	}
-//	]
-//	}
+//	    "code": "200", 
+//	    "message": "返回数据成功", 
+//	    "totalItems": 1, 
+//	    "data": {
+//	        "coaches": [
+//	            {
+//	                "coachId": "31", 
+//	                "coachName": "于海涛", 
+//	                "headImg": "http://test.flowerski.com/upload/coach/head/31_58071447121542.jpg", 
+//	                "coachTitle": "4", 
+//	                "badges": [ ], 
+//	                "followCoach": "0"
+//	            }
+//	        ]
+//	    }
 //	}
 	@Override
 	public List<CoachSearchResult> parseJSON(String json) throws JSONException {
@@ -45,7 +47,20 @@ public class CoachSearchParser extends BaseParser<List<CoachSearchResult>> {
 							result.coachName = obj_coach.optString("coachName");
 							result.headImg = obj_coach.optString("headImg");
 							result.coachTitle = obj_coach.optString("coachTitle");
-							result.coachBadge = obj_coach.optString("coachBadge");
+							result.followCoach = obj_coach.optString("followCoach");
+							JSONArray arr_badges = obj_coach.optJSONArray("badges");
+							if(arr_badges != null && arr_badges.length() >0){
+								for(int j= 0;j<arr_badges.length();j++){
+									JSONObject obj_badge = arr_badges.optJSONObject(j);
+									if(obj_badge != null){
+										Badges badge = new Badges();
+										badge.badgeId = obj_badge.optString("badgeId");
+										badge.badgeName = obj_badge.optString("badgeName");
+										result.badges.add(badge);
+										badge = null;
+									}
+								}
+							}
 							list_result.add(result);
 							result = null;
 						}

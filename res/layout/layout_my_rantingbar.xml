@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <ImageView 
+        android:id="@+id/iv_my_rantingbar_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ratingbar_normal"
+        />
+    <ImageView 
+        android:id="@+id/iv_my_rantingbar_2"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ratingbar_normal"
+        />
+    <ImageView 
+        android:id="@+id/iv_my_rantingbar_3"
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ratingbar_normal"
+        />
+    <ImageView 
+        android:id="@+id/iv_my_rantingbar_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:src="@drawable/ratingbar_normal"
+        />
+    <ImageView 
+        android:id="@+id/iv_my_rantingbar_5"
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ratingbar_normal"
+        />
+    
+
+</LinearLayout>

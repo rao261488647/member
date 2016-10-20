@@ -10,16 +10,19 @@ import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.CoachCommentsParser;
 import com.frame.member.Parsers.CoachMembersCommentsParser;
 import com.frame.member.Parsers.NoBackParser;
+import com.frame.member.Parsers.StudentCommentsParser;
 import com.frame.member.Utils.CommonUtil;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.adapters.CoachCommentsAdapter;
 import com.frame.member.adapters.CoachMemberCommentsAdapter;
+import com.frame.member.adapters.StudentCommentsAdapter;
 import com.frame.member.bean.AdviceDetailResult;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.AdviceDetailResult.Friends;
 import com.frame.member.bean.CoachCommentsResult;
 import com.frame.member.bean.CoachMembersCommentsResult;
+import com.frame.member.bean.StudentCommentsResult;
 import com.frame.member.widget.RoundImageView;
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +51,7 @@ import android.widget.TextView;
 public class AdviceDetailActivity extends BaseActivity {
 
 	private ListView lv_member_comments, lv_coach_comments;
-	private CoachMemberCommentsAdapter mAdapter;
+	private StudentCommentsAdapter mAdapter;
 	private CoachCommentsAdapter mCoachAdapter;
 	private PopupWindow mPop;
 	private View container_pop;
@@ -120,6 +123,12 @@ public class AdviceDetailActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO
+				if(!TextUtils.isEmpty(et_input_comments.getText().toString())){
+					toComment();
+				}else{
+					showToast("内容不能为空！");
+				}
+				
 			}
 		});
 
@@ -324,15 +333,18 @@ public class AdviceDetailActivity extends BaseActivity {
 		@Override
 		public void processData(List<CoachCommentsResult> object, RequestResult result) {
 			if (object != null) {
-				notifyCoachAdapter(object);
+				list_coach.clear();
+				list_coach.addAll(object);
+				notifyCoachAdapter();
 			}
 		}
 	};
 
+	private List<CoachCommentsResult> list_coach = new ArrayList<CoachCommentsResult>();
 	// 刷新教练评论的数据
-	private void notifyCoachAdapter(List<CoachCommentsResult> object) {
+	private void notifyCoachAdapter() {
 		if (mCoachAdapter == null) {
-			mCoachAdapter = new CoachCommentsAdapter(AdviceDetailActivity.this, object,
+			mCoachAdapter = new CoachCommentsAdapter(AdviceDetailActivity.this, list_coach,
 					getIntent().getStringExtra("subjectId"));
 			lv_coach_comments.setAdapter(mCoachAdapter);
 		} else {
@@ -342,7 +354,7 @@ public class AdviceDetailActivity extends BaseActivity {
 
 	// 获取学员评论数据
 	private void getMembersComments() {
-		BaseParser<List<CoachMembersCommentsResult>> parser = new CoachMembersCommentsParser();
+		BaseParser<List<StudentCommentsResult>> parser = new StudentCommentsParser();
 		HttpRequestImpl request = new HttpRequestImpl(this, AppConstants.APP_SORT_STUDENT + "/studentcomment", parser);
 		request.addParam("subjectId", getIntent().getStringExtra("subjectId"))
 				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
@@ -350,25 +362,52 @@ public class AdviceDetailActivity extends BaseActivity {
 		getDataFromServer(request, callback2);
 	}
 
-	private DataCallback<List<CoachMembersCommentsResult>> callback2 = new DataCallback<List<CoachMembersCommentsResult>>() {
+	private DataCallback<List<StudentCommentsResult>> callback2 = new DataCallback<List<StudentCommentsResult>>() {
 
 		@Override
-		public void processData(List<CoachMembersCommentsResult> object, RequestResult result) {
+		public void processData(List<StudentCommentsResult> object, RequestResult result) {
 			if (object != null) {
-				notifyMembersAdapter(object);
+				list_student.clear();
+				list_student.addAll(object);
+				notifyMembersAdapter();
 			}
 		}
 	};
-
+	
+	private List<StudentCommentsResult> list_student = new ArrayList<StudentCommentsResult>();
 	// 刷新学员评论的数据
-	private void notifyMembersAdapter(List<CoachMembersCommentsResult> object) {
+	private void notifyMembersAdapter() {
 		if (mAdapter == null) {
-			mAdapter = new CoachMemberCommentsAdapter(AdviceDetailActivity.this, object);
+			mAdapter = new StudentCommentsAdapter(AdviceDetailActivity.this, list_student);
 			lv_member_comments.setAdapter(mAdapter);
 		} else {
 			mAdapter.notifyDataSetChanged();
 		}
 	}
+	
+	//发表评论
+	private void toComment() {
+		BaseParser<BaseBean> parser = new NoBackParser();
+		HttpRequestImpl request = new HttpRequestImpl(this, AppConstants.APP_SORT_STUDENT + "/mycomment", parser);
+		request.addParam("subjectId", getIntent().getStringExtra("subjectId"))
+				.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
+				.addParam("content", et_input_comments.getText().toString());
+		DataCallback<BaseBean> callback2 = new DataCallback<BaseBean>() {
+
+			@Override
+			public void processData(BaseBean object, RequestResult result) {
+				if (object != null) {
+					showToast(object.message);
+					et_input_comments.setText("");
+					getMembersComments();
+				}
+			}
+		};
+		getDataFromServer(request, callback2);
+	}
+
+	
 
 	private void showPopwindow(int rank) {
 		list_str.clear();

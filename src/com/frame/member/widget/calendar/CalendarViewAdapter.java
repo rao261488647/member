@@ -14,14 +14,13 @@ public class CalendarViewAdapter<V extends View> extends PagerAdapter {
 		this.views = views;
 	}
 
-	
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-			
-//		if (((ViewPager) container).getChildCount() == views.length) {
-			((ViewPager) container).removeView(views[position % views.length]);
-//		}
-		
+
+//		 if (((ViewPager) container).getChildCount() == views.length) {
+		((ViewPager) container).removeView(views[position % views.length]);
+//		 }
+
 		((ViewPager) container).addView(views[position % views.length], 0);
 		return views[position % views.length];
 	}
@@ -40,7 +39,7 @@ public class CalendarViewAdapter<V extends View> extends PagerAdapter {
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		((ViewPager) container).removeView((View) container);
 	}
-	
+
 	public V[] getAllItems() {
 		return views;
 	}

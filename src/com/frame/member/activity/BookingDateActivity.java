@@ -1,8 +1,10 @@
 package com.frame.member.activity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -16,9 +18,11 @@ import com.frame.member.frag.CoachBookingDialogFrag;
 import com.frame.member.widget.calendar.CalendarCard;
 import com.frame.member.widget.calendar.CalendarCard.OnCellClickListener;
 import com.frame.member.widget.calendar.CalendarViewAdapter;
+import com.frame.member.widget.calendar.ClickPoint;
 import com.frame.member.widget.calendar.CustomDate;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
@@ -95,14 +99,15 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 		tv_booking_now.setOnClickListener(this);
 		tv_booking_snow_area.setOnClickListener(this);
 	}
-
+	private Set<ClickPoint> set_point = new HashSet<ClickPoint>();
+	
 	@Override
 	protected void processLogic() {
 		iv_title_back.setImageResource(R.drawable.btn_back_normal);
 		tv_title.setText("选择预约日期");
 		CalendarCard[] views = new CalendarCard[12];
 		for (int i = 0; i < 12; i++) {
-			views[i] = new CalendarCard(this, this);
+			views[i] = new CalendarCard(this, this,set_point);
 		}
 		adapter = new CalendarViewAdapter<CalendarCard>(views);
 		setViewPager();
@@ -259,9 +264,10 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 					mDateList.add(date);
 //					num_selected++;
 					updateDate();
-				}else{
-					showToast("最多预约六天");
 				}
+//				else{
+//					showToast("最多预约六天");
+//				}
 				
 			}
 
@@ -386,6 +392,12 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 		tv_date_item_4.setText("");
 		tv_date_item_5.setText("");
 		tv_date_item_6.setText("");
+	}
+
+	@Override
+	public void attempAddDateFailed(int flag) {
+		if(flag == CalendarCard.FLAG_DATE_FULL)
+			showToast("最多预约六天");
 	}
 
 }

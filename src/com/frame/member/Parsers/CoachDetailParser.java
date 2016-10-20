@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.frame.member.bean.CoachDetailResult;
 import com.frame.member.bean.CoachDetailResult.Photo;
+import com.frame.member.bean.CoachSearchResult.Badges;
 
 public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 
@@ -34,6 +35,7 @@ public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 				result.specialty = obj.optString("specialty");
 				result.isSigned = obj.optString("isSigned");
 				result.collect = obj.optString("collect");
+				result.meetNum = obj.optString("meetNum");
 				JSONObject obj_video = obj.optJSONObject("video");
 				if(obj_video != null){
 					result.videoFileId = obj_video.optString("videoFileId");
@@ -50,6 +52,21 @@ public class CoachDetailParser extends BaseParser<CoachDetailResult> {
 						mPhoto.photoURL = obj_arr.optString("photoURL");
 						result.photo.add(mPhoto);
 						mPhoto = null;
+					}
+				}
+				JSONArray arr_badges = obj.optJSONArray("badges");
+				if(arr_badges !=null && arr_badges.length() > 0){
+					Badges badge;
+					for(int i = 0;i< arr_badges.length();i++){
+						JSONObject obj_arr = array_Json.optJSONObject(i);
+						if(obj_arr != null){
+							badge = new Badges();
+							badge.badgeId = obj_arr.optString("badgeId");
+							badge.badgeName = obj_arr.optString("badgeName");
+							result.badges.add(badge);
+							badge = null;
+						}
+						
 					}
 				}
 				

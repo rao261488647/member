@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.Toast;
 
 /**
  * 自定义日历卡
@@ -30,7 +31,8 @@ public class CalendarCard extends View {
 	private Paint mTextPaint; // 绘制文本的画笔
 	private int mViewWidth; // 视图的宽度
 	private int mViewHeight; // 视图的高度
-	private int mCellSpace; // 单元格间距
+	private int mCellHorSpace; // 单元格间距
+	private int mCellVerSpace; // 单元格间距
 	private Row rows[] = new Row[TOTAL_ROW]; // 行数组，每个元素代表一行
 	private static CustomDate mShowDate; // 自定义的日期，包括year,month,day
 	private OnCellClickListener mCellClickListener; // 单元格点击回调事件
@@ -41,11 +43,11 @@ public class CalendarCard extends View {
 	private float mDownX;
 	private float mDownY;
 	//已经被选中的
-	private Set<Point> set_point = new HashSet<Point>();
+	
 	//已选中的日期数量
-	private int num_selected = 0;
+//	private int num_selected = 0;
 	
-	
+	public static final int FLAG_DATE_FULL = 0x00;
 
 	/**
 	 * 单元格点击的回调接口
@@ -57,6 +59,8 @@ public class CalendarCard extends View {
 		void clickDate(CustomDate date,boolean isContain); // 回调点击的日期
 
 		void changeDate(CustomDate date); // 回调滑动ViewPager改变的日期
+		
+		void attempAddDateFailed(int flag);
 	}
 
 	public CalendarCard(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -73,14 +77,16 @@ public class CalendarCard extends View {
 		super(context);
 		init(context);
 	}
-
-	public CalendarCard(Context context, OnCellClickListener listener) {
+	private Set<ClickPoint> set_point;
+	public CalendarCard(Context context, OnCellClickListener listener,Set<ClickPoint> set_point) {
 		super(context);
 		this.mCellClickListener = listener;
+		this.set_point = set_point;
 		init(context);
 	}
 
 	private void init(Context context) {
+		
 		mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -148,12 +154,15 @@ public class CalendarCard extends View {
 								State.REACHED_DAY, i, j);
 						rows[j].cells[i].isClickable = false;
 					}
-					for(Point point:set_point){
-						rows[point.y].cells[point.x] = new Cell(CustomDate.modifiDayForObject(
-								new CustomDate(mShowDate.year, mShowDate.month, 
-										point.y*TOTAL_COL+point.x-DateUtil.getWeekDayFromDate(mShowDate.year, mShowDate.month)+1),
-								point.y*TOTAL_COL+point.x-DateUtil.getWeekDayFromDate(mShowDate.year, mShowDate.month)+1), 
-								State.SELECTED_DAY, point.x, point.y);
+					for(ClickPoint point:set_point){
+						CustomDate customDate = new CustomDate(mShowDate.year, mShowDate.month, 
+								point.point.y*TOTAL_COL+point.point.x-DateUtil.getWeekDayFromDate(mShowDate.year, mShowDate.month)+1);
+						if(!point.date.equals(customDate))
+							continue;
+						rows[point.point.y].cells[point.point.x] = new Cell(CustomDate.modifiDayForObject(customDate
+								,
+								point.point.y*TOTAL_COL+point.point.x-DateUtil.getWeekDayFromDate(mShowDate.year, mShowDate.month)+1), 
+								State.SELECTED_DAY, point.point.x, point.point.y);
 					}
 
 					// 过去一个月
@@ -192,11 +201,13 @@ public class CalendarCard extends View {
 		super.onSizeChanged(w, h, oldw, oldh);
 		mViewWidth = w;
 		mViewHeight = h;
-		mCellSpace = Math.min(mViewHeight / TOTAL_ROW, mViewWidth / TOTAL_COL);
+		mCellHorSpace = mViewWidth / TOTAL_COL;
+		mCellVerSpace = mViewHeight / TOTAL_ROW;
+//		mCellSpace = Math.min(mViewHeight / TOTAL_ROW, mViewWidth / TOTAL_COL);
 		if (!callBackCellSpace) {
 			callBackCellSpace = true;
 		}
-		mTextPaint.setTextSize(mCellSpace / 3);
+		mTextPaint.setTextSize(mCellHorSpace / 3);
 	}
 
 	@Override
@@ -210,15 +221,13 @@ public class CalendarCard extends View {
 			float disX = event.getX() - mDownX;
 			float disY = event.getY() - mDownY;
 			if (Math.abs(disX) < touchSlop && Math.abs(disY) < touchSlop) {
-				int col = (int) (mDownX / mCellSpace);
-				int row = (int) (mDownY / mCellSpace);
+				int col = (int) (mDownX / mCellHorSpace);
+				int row = (int) (mDownY / mCellVerSpace);
 				if(rows[row].cells[col].isClickable){
 					measureClickCell(col, row);
 				}
 				
 			}
-			break;
-		default:
 			break;
 		}
 
@@ -246,20 +255,23 @@ public class CalendarCard extends View {
 			
 			boolean isContain = false;
 			Point mPoint = new Point(col,row);
+			ClickPoint clickPoint = new ClickPoint();
+			clickPoint.point = mPoint;
+			clickPoint.date = date;
 			//设置点击的位置
-			for(Point point:set_point){
-				if(mPoint.equals(point)){
+			for(ClickPoint point:set_point){
+				if(clickPoint.equals(point)){
 					isContain = true;
 					set_point.remove(point);
-					num_selected --;
 					break;
 				}
 			}
 			if(!isContain){
-				if(num_selected >= 0 && num_selected < 6){
-					set_point.add(new Point(col, row));
-					num_selected ++;
-				}
+				if(set_point.size() < 6){
+//					set_point.add(new Point(col, row));
+					set_point.add(clickPoint);
+				}else
+					mCellClickListener.attempAddDateFailed(FLAG_DATE_FULL);
 				
 			}
 			mCellClickListener.clickDate(date,isContain);
@@ -323,9 +335,10 @@ public class CalendarCard extends View {
 //						(float) ((j + 0.5) * mCellSpace), mCellSpace / 3,
 //						mCirclePaint);
 				mTextPaint.setColor(Color.parseColor("#ababab"));
-				canvas.drawCircle((float) (mCellSpace * (i + 0.5)),
-						(float) ((j + 0.8) * mCellSpace), mCellSpace / 20,
+				canvas.drawCircle((float) (mCellHorSpace * (i + 0.5)),
+						(float) ((j + 0.8) * mCellVerSpace), mCellVerSpace / 20,
 						mPointPaint);
+//				canvas.drawRect(0, 0, mViewWidth, mViewHeight, mPointPaint);
 				break;
 			case CURRENT_MONTH_DAY: // 当前月日期
 				mTextPaint.setColor(Color.parseColor("#ababab"));
@@ -343,8 +356,8 @@ public class CalendarCard extends View {
 				break;
 			case SELECTED_DAY:
 				mTextPaint.setColor(Color.parseColor("#6d6d6d"));
-				canvas.drawCircle((float) (mCellSpace * (i + 0.5)),
-						(float) ((j + 0.5) * mCellSpace), mCellSpace / 3,
+				canvas.drawCircle((float) (mCellHorSpace * (i + 0.5)),
+						(float) ((j + 0.37) * mCellVerSpace), (float)(mCellVerSpace / 2.5),
 						mCirclePaint);
 				break;
 			case BOOKED_DAY:
@@ -362,12 +375,13 @@ public class CalendarCard extends View {
 			}
 			
 			canvas.drawText(content,
-					(float) ((i + 0.5) * mCellSpace - mTextPaint
+					(float) ((i + 0.5) * mCellHorSpace - mTextPaint
 							.measureText(content) / 2), (float) ((j + 0.7)
-							* mCellSpace - mTextPaint
+							* mCellVerSpace - mTextPaint
 							.measureText(content, 0, 1) / 2), mTextPaint);
 		}
 	}
+	
 
 	/**
 	 * 
