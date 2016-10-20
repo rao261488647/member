@@ -41,7 +41,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 					tv_coach_collection,tv_coach_content_info;
 	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor,iv_coach_cover,
 					iv_icon_coach_train,iv_icon_coach_act,iv_icon_coach_referee;
-	private RatingBar rb_booking_one;
+//	private RatingBar rb_booking_one;
 	private LinearLayout ll_coach_picture;
 	private FrameLayout fl_coach_video_cover;
 	private String collect = "";
@@ -69,7 +69,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_icon_coach_train = (ImageView) findViewById(R.id.iv_icon_coach_train);
 		iv_icon_coach_act = (ImageView) findViewById(R.id.iv_icon_coach_act);
 		iv_icon_coach_referee = (ImageView) findViewById(R.id.iv_icon_coach_referee);
-		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
+//		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
 		ll_coach_picture = (LinearLayout) findViewById(R.id.ll_coach_picture);
 		fl_coach_video_cover = (FrameLayout) findViewById(R.id.fl_coach_video_cover);
 	}
@@ -178,7 +178,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 				iv_coach_cover.setColorFilter(0x30000000);
 				tv_level_coach.setText(object.levelName);
 				tv_price_num.setText("¥"+object.trainfee);
-				rb_booking_one.setRating(object.goal);
+//				rb_booking_one.setRating(object.goal);
 				tv_name_coach.setText(object.coachName);
 				tv_coach_content_info.setText(object.specialty);
 				tv_skifield_info.setText(object.areaName);

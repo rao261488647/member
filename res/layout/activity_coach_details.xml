@@ -3,7 +3,7 @@
     xmlns:round="http://schemas.android.com/apk/res/com.frame.member"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_f3" 
+    android:background="@color/gray_f3"
     android:focusableInTouchMode="true" >
 
     <ScrollView
@@ -23,13 +23,14 @@
             <RelativeLayout
                 android:id="@+id/rl_cover_coach"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                >
-                <ImageView android:id="@+id/iv_coach_cover"
+                android:layout_height="250dp" >
+
+                <ImageView
+                    android:id="@+id/iv_coach_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/coach_cover"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coach_cover" />
 
                 <com.frame.member.widget.RoundImageView
                     android:id="@+id/iv_coach_profile"
@@ -71,6 +72,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_level_coach"
                     android:src="@drawable/icon_train_2x" />
+
                 <ImageView
                     android:id="@+id/iv_icon_coach_act"
                     android:layout_width="15dp"
@@ -79,6 +81,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/iv_icon_coach_train"
                     android:src="@drawable/icon_act_2x" />
+
                 <ImageView
                     android:id="@+id/iv_icon_coach_referee"
                     android:layout_width="15dp"
@@ -177,7 +180,8 @@
                         android:textColor="@color/gray_a6"
                         android:textSize="13sp" />
 
-                    <RatingBar
+                    <!--
+                        <RatingBar
                         android:id="@+id/rb_booking_one"
                         style="@style/roomRatingBar"
                         android:layout_width="wrap_content"
@@ -188,6 +192,14 @@
                         android:isIndicator="true"
                         android:numStars="5"
                         android:rating="4" />
+                    -->
+
+                    <com.frame.member.widget.MyRantingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp" />
                 </RelativeLayout>
 
                 <View
@@ -285,8 +297,8 @@
                 <FrameLayout
                     android:id="@+id/fl_coach_video_cover"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" 
-                    android:visibility="gone">
+                    android:layout_height="200dp"
+                    android:visibility="gone" >
 
                     <ImageView
                         android:id="@+id/iv_coach_video_cover"
@@ -302,18 +314,23 @@
                         android:src="@drawable/icon_play_2x" />
                 </FrameLayout>
 
-                <!-- <ImageView
+                <!--
+                     <ImageView
                     android:id="@+id/iv_coach_picture"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/coach_skill_picture_1" /> -->
-                <LinearLayout android:id="@+id/ll_coach_picture"
+                    android:src="@drawable/coach_skill_picture_1" />
+                -->
+
+                <LinearLayout
+                    android:id="@+id/ll_coach_picture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical" >
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -392,9 +409,9 @@
                     android:id="@+id/lv_member_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:divider="@color/gray_f3"
-                    android:dividerHeight="2dp"
-                    android:background="@color/white" >
+                    android:dividerHeight="2dp" >
                 </com.frame.member.widget.MyListView>
             </LinearLayout>
         </LinearLayout>
