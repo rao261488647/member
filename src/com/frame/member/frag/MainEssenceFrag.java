@@ -112,9 +112,9 @@ public class MainEssenceFrag extends BaseFrag implements OnClickListener {
 		BaseParser parser = new MainEssenceParser();
 		HttpRequest request = new HttpRequestImpl(getActivity(), 
 				AppConstants.APP_SORT_STUDENT +"/indexbest", parser);
-//		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
-//		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
-//		request.addParam("memberUserId","89"); //写死
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
+		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
+		request.addParam("memberUserId","89"); //写死
 		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack);
 		

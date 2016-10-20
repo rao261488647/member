@@ -20,16 +20,13 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frame.member.R;
 import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
-import com.frame.member.Parsers.CommonParser;
 import com.frame.member.Parsers.NoBackParser;
 import com.frame.member.Utils.CommonUtil;
-import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity;
@@ -37,7 +34,6 @@ import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.VideoPlayActivity;
 import com.frame.member.bean.BaseBean;
-import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MainEssenceBean.EssenceInfo;
 import com.frame.member.bean.MainEssenceBean.EssenceStudent;
 import com.frame.member.bean.MainEssenceBean.EssenceUser;
@@ -116,17 +112,44 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
 		.disPlayImageDef(user.appHeadThumbnail, holder.user_head);
         holder.user_level.setText("LV"+user.memberGrade);
         
+        //设置点赞样式
+        if(!TextUtils.isEmpty(item.praiseAuthor) && "1".equals(item.praiseAuthor)){
+        	holder.zan.setImageResource(R.drawable.zan_2x);
+        	holder.zan.setTag("0");
+        }else{
+        	holder.zan.setImageResource(R.drawable.un_zan_2x);
+        	holder.zan.setTag("1");
+        }
+        
         //设置关注按钮样式
         if(!TextUtils.isEmpty(user.followAuthor) && "1".equals(user.followAuthor)){
-        	holder.user_guanzhu.setBackgroundResource(R.drawable.shape_solid_yellow);
+        	holder.user_guanzhu.setBackgroundResource(R.drawable.shape_my_button_order_yello_bg_corner);
         	holder.user_guanzhu.setTextColor(0xff505050);
+        	holder.user_guanzhu.setText("已关注");
+        	holder.user_guanzhu.setPadding(15, 10, 15, 10);
+        	holder.user_guanzhu.setTag("0");
+        }else{
+        	holder.user_guanzhu.setBackgroundResource(R.drawable.shape_my_button_order_yello_corner);
+        	holder.user_guanzhu.setTextColor(R.color.yellow_FFD700);
+        	holder.user_guanzhu.setText("+关注");
+        	holder.user_guanzhu.setPadding(20, 10, 20, 10);
+        	holder.user_guanzhu.setTag("1");
         }
+        //点赞按钮单击事件
+        holder.zan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toPaiseFriends(item, user.friendId, item.subjectId, v);
+			}
+		});
+        
         //关注按钮增加点击事件
         holder.user_guanzhu.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				toAttention(user.friendId,v);
+				toAttention(user,v);
 			}
 		});
         
@@ -238,18 +261,19 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
         }).start();  
     }
   //关注// 关注\取消关注friends接口
-	private void toAttention(String friendId, final View v) {
-		int status;
-		if ("已关注".equals(((TextView) v).getText().toString())) {
-			status = 0;
-		} else {
-			status = 1;
-		}
+	private void toAttention(final EssenceUser user, final View v) {
+		String status = (String) v.getTag();
+//		if ("已关注".equals(((TextView) v).getText().toString())) {
+//			status = 0;
+//		} else {
+//			status = 1;
+//		}
 		BaseParser<BaseBean> parser = new NoBackParser();
 		HttpRequestImpl request = new HttpRequestImpl(context, AppConstants.APP_SORT_STUDENT + "/followfriend", parser);
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
-				.addParam("friendId", friendId).addParam("status", "" + status)
+				.addParam("friendId", user.friendId).addParam("status", status)
 				.addParam("token", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_TOKEN, ""));
+		request.addParam("memberUserId","89"); //写死
 		DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
 
 			@Override
@@ -257,16 +281,27 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
 				if (object != null) {
 					// Toast.makeText(context, object.message,
 					// Toast.LENGTH_SHORT).show();
-					if ("已关注".equals(((TextView) v).getText().toString())) {
-						((TextView) v).setText("+关注");
-						((TextView) v).setBackgroundResource(R.drawable.shape_my_button_order_yello_corner);
-						((TextView) v).setTextColor(0xffe8ce39);
-						((BaseActivity) context).showToast("取消关注成功！");
+//					if ("已关注".equals(((TextView) v).getText().toString())) {
+//						((TextView) v).setText("+关注");
+//						((TextView) v).setBackgroundResource(R.drawable.shape_my_button_order_yello_corner);
+//						((TextView) v).setTextColor(0xffe8ce39);
+//						((TextView) v).setPadding(15, 10, 15, 10);
+//						((BaseActivity) context).showToast("取消关注成功！");
+//					} else {
+//						((TextView) v).setText("已关注");
+//						((TextView) v).setBackgroundResource(R.drawable.shape_my_button_order_yello_bg_corner);
+//						((TextView) v).setTextColor(0xff505050);
+//						((TextView) v).setPadding(15, 10, 15, 10);
+//						((BaseActivity) context).showToast("关注成功！");
+//					}
+					if ("1".equals(user.followAuthor)) {
+						user.followAuthor = "0";
+						notifyDataSetChanged();
+						((BaseActivity)context).showToast("取消关注成功！");
 					} else {
-						((TextView) v).setText("已关注");
-						((TextView) v).setBackgroundResource(R.drawable.shape_solid_yellow);
-						((TextView) v).setTextColor(0xff505050);
-						((BaseActivity) context).showToast("关注成功！");
+						user.followAuthor = "1";
+						notifyDataSetChanged();
+						((BaseActivity)context).showToast("关注成功！");
 					}
 				}
 			}
@@ -274,7 +309,42 @@ public class MainEssenceAdapter extends BaseSwipListAdapter {
 		((BaseActivity) context).getDataFromServer(request, false, callBack);
 
 	}
-    
+	// 点赞雪友
+		private void toPaiseFriends(final EssenceInfo essence,String friendId, String subjectId, final View v) {
+			String status = (String) v.getTag();
+//			if (R.drawable.zan_2x == (Integer) v.getTag()) {
+//				status = 0;
+//			} else {
+//				status = 1;
+//			}
+			BaseParser<BaseBean> parser = new NoBackParser();
+			HttpRequestImpl request = new HttpRequestImpl(context, AppConstants.APP_SORT_STUDENT + "/praisefriend", parser);
+			request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_MEMBERUSERID, ""))
+					.addParam("friendId", friendId).addParam("status",  status).addParam("subjectId", subjectId)
+					.addParam("token", (String) SPUtils.getAppSpUtil().get(context, SPUtils.KEY_TOKEN, ""));
+			request.addParam("memberUserId","89"); //写死
+			DataCallback<BaseBean> callBack = new DataCallback<BaseBean>() {
+
+				@Override
+				public void processData(BaseBean object, RequestResult result) {
+					if (object != null) {
+						int cur_praise = essence.praiseNum;
+						if ("1".equals(essence.praiseAuthor)) {
+							essence.praiseAuthor = "0";
+							essence.praiseNum = --cur_praise;
+							notifyDataSetChanged();
+							((BaseActivity)context).showToast("取消点赞成功！");
+						} else {
+							essence.praiseAuthor = "1";
+							essence.praiseNum = ++cur_praise ;
+							notifyDataSetChanged();
+							((BaseActivity)context).showToast("点赞成功！");
+						}
+					}
+				}
+			};
+			((BaseActivity) context).getDataFromServer(request, false, callBack);
+		}
     @Override
     public boolean getSwipEnableByPosition(int position) {
         if(position % 2 == 0){

@@ -49,27 +49,12 @@ public class NewsDetailActivity extends BaseActivity implements OnClickListener{
 		news_title.setText(title);
 		WebSettings webSettings = news_webview.getSettings();
 //		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		webSettings.setLoadWithOverviewMode(true);
+		webSettings.setJavaScriptEnabled(true);
+		webSettings.setSupportZoom(true);
+		webSettings.setBuiltInZoomControls(true);
 		webSettings.setUseWideViewPort(true); 
-		webSettings.setLoadWithOverviewMode(true); 
-//		webSettings.setLoadWithOverviewMode(true);  
-		  
-		DisplayMetrics metrics = new DisplayMetrics();  
-		  getWindowManager().getDefaultDisplay().getMetrics(metrics);  
-		  int mDensity = metrics.densityDpi;  
-		  Log.d("maomao", "densityDpi = " + mDensity);  
-		  if (mDensity == 240) {   
-		   webSettings.setDefaultZoom(ZoomDensity.FAR);  
-		  } else if (mDensity == 160) {  
-		     webSettings.setDefaultZoom(ZoomDensity.MEDIUM);  
-		  } else if(mDensity == 120) {  
-		   webSettings.setDefaultZoom(ZoomDensity.CLOSE);  
-		  }else if(mDensity == DisplayMetrics.DENSITY_XHIGH){  
-		   webSettings.setDefaultZoom(ZoomDensity.FAR);   
-		  }else if (mDensity == DisplayMetrics.DENSITY_TV){  
-		   webSettings.setDefaultZoom(ZoomDensity.FAR);   
-		  }else{  
-		      webSettings.setDefaultZoom(ZoomDensity.MEDIUM);  
-		  }  
+		webSettings.setDomStorageEnabled(true);
 		news_webview.loadUrl(newsUrl);
 		
 	}

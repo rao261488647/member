@@ -3,6 +3,8 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Text;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +39,9 @@ import com.frame.member.activity.MyBillActivity;
 import com.frame.member.activity.MyCollectActivity;
 import com.frame.member.activity.MyInfoActivity;
 import com.frame.member.activity.MyMsgActivity;
+import com.frame.member.activity.MyOrderActivity;
 import com.frame.member.activity.MyVideosActivity;
+import com.frame.member.activity.NewsDetailActivity;
 import com.frame.member.activity.SettingsActivity;
 import com.frame.member.adapters.MyCenterPagerAdapter;
 import com.frame.member.bean.MyCenterBean.Menu;
@@ -62,6 +66,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 	private RelativeLayout my_layout_collection;//我的收藏
 	private RelativeLayout my_layout_cost;//消费流水
 	private RelativeLayout my_layout_video;//视频
+	private RelativeLayout my_layout_study;//学习
+	private RelativeLayout my_layout_order;//预约
+	private TextView my_center_coach; //我要做教练
 	private ViewPager mPager;  
 	private ArrayList<Fragment> fragmentList; 
 	private int currIndex;//当前页卡编号  
@@ -256,6 +263,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_collection = (RelativeLayout)findViewById(R.id.my_layout_collection);
 		my_layout_cost = (RelativeLayout)findViewById(R.id.my_layout_cost);
 		my_layout_video = (RelativeLayout)findViewById(R.id.my_layout_video);
+		my_layout_study = (RelativeLayout)findViewById(R.id.my_layout_study);
+		my_layout_order = (RelativeLayout)findViewById(R.id.my_layout_order);
+		my_center_coach = (TextView) findViewById(R.id.my_center_coach);
 		
 		grade = (TextView)findViewById(R.id.my_center_grade); //等级
 		point = (TextView)findViewById(R.id.my_center_point);
@@ -287,6 +297,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_collection.setOnClickListener(this);
 		my_layout_cost.setOnClickListener(this);
 		my_layout_video.setOnClickListener(this);
+		my_layout_order.setOnClickListener(this);
+		my_layout_study.setOnClickListener(this);
+		my_center_coach.setOnClickListener(this);
 	}
 	
 	@Override
@@ -318,7 +331,20 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent = new Intent(getActivity(), MyBillActivity.class);
 			this.startActivity(intent);
 			break;
-		
+//		case R.id.my_layout_study: //我的学习
+//			intent = new Intent(getActivity(), MyBillActivity.class);
+//			this.startActivity(intent);
+//			break;
+		case R.id.my_layout_order: //我的预约
+			intent = new Intent(getActivity(), MyOrderActivity.class);
+			this.startActivity(intent);
+			break;
+		case R.id.my_center_coach: //我要做教练
+			intent = new Intent(getActivity(), NewsDetailActivity.class);
+			intent.putExtra("title", "我要做教练");
+			intent.putExtra("newsUrl",AppConstants.MAKE_COACH );
+			this.startActivity(intent);
+			break;
 //		case R.id.rl_my_logout:
 //			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
 //			builder.setTitle("提示");

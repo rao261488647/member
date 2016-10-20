@@ -73,5 +73,7 @@ public class AppConstants {
 	
 	
 	public static final String ACTION_ACT_PUB_SUCC = "action_act_pub_succ";
-
+	
+	
+	public static final String MAKE_COACH = "http://api.flowerski.com/v1/student/becoach"; //我要做教练网页地址
 }

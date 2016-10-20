@@ -21,6 +21,7 @@
         android:layout_marginTop="40dp"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:visibility="invisible"
         android:text="LV.6"
         />
     <TextView 
@@ -32,6 +33,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="40dp"
         android:textColor="@color/white"
+        android:visibility="invisible"
         android:textSize="15sp"
         android:text="1628 积分"
         />

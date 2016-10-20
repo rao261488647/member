@@ -63,7 +63,10 @@ public class HttpRequestImpl implements HttpRequest {
 
 	@Override
 	public String getRequestUri() {
-
+		//因为目前我的预约是走的v2版本的接口，所以要特别处理一下  by ron
+		if("/student/mymeet".equals(do_what)){
+			return AppConstants.URI_DEV + "v2" +do_what;
+		}
 		return AppConstants.URI_DEV + AppConstants.APP_VERSION +do_what;
 	}
 
