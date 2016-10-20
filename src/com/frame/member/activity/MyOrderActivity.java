@@ -68,9 +68,15 @@ public class MyOrderActivity extends BaseActivity {
 	@Override
 	protected void findViewById() {
 	  	//lv_statemetns_list = (ListView) findViewById(R.id.lv_statements_list);
+<<<<<<< HEAD
 		orderNewRl = (LinearLayout) findViewById(R.id.my_order_rl_new);
 		orderOldRl = (LinearLayout) findViewById(R.id.my_order_rl_old);
 		tv_title.setText("我的预约");
+=======
+		orderNewRl = (RelativeLayout) findViewById(R.id.my_order_rl_new);
+		orderOldRl = (RelativeLayout) findViewById(R.id.my_order_rl_old);
+//		tv_title.setText("我的预约");
+>>>>>>> baacf1ed05bd81a865882c61d346f5d60aa84834
 	}
 	
 	/**
@@ -329,6 +335,6 @@ public class MyOrderActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-		iv_title_back.setVisibility(0);
+//		iv_title_back.setVisibility(0);
 	}
 }

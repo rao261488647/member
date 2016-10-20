@@ -346,6 +346,8 @@
              android:screenOrientation="portrait"/>
            <activity android:name=".activity.MemberInfoResultActivity"
              android:screenOrientation="portrait"/>
+           <activity android:name=".activity.MyOrderActivity"
+             android:screenOrientation="portrait"/>
         
     </application>
 
