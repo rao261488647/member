@@ -19,6 +19,8 @@ import com.frame.member.bean.CoachDetailResult.Photo;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.bean.CoachSearchResult.Badges;
 import com.frame.member.widget.MyListView;
+import com.frame.member.widget.MyRantingBar;
+
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -42,6 +44,8 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 	private ImageView iv_coach_profile,iv_coach_video_cover,iv_coach_honor,iv_coach_cover,
 					iv_icon_coach_train,iv_icon_coach_act,iv_icon_coach_referee;
 //	private RatingBar rb_booking_one;
+	
+	private MyRantingBar mMyRantingBar;
 	private LinearLayout ll_coach_picture;
 	private FrameLayout fl_coach_video_cover;
 	private String collect = "";
@@ -70,6 +74,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 		iv_icon_coach_act = (ImageView) findViewById(R.id.iv_icon_coach_act);
 		iv_icon_coach_referee = (ImageView) findViewById(R.id.iv_icon_coach_referee);
 //		rb_booking_one = (RatingBar) findViewById(R.id.rb_booking_one);
+		mMyRantingBar = (MyRantingBar) findViewById(R.id.mMyRantingBar);
 		ll_coach_picture = (LinearLayout) findViewById(R.id.ll_coach_picture);
 		fl_coach_video_cover = (FrameLayout) findViewById(R.id.fl_coach_video_cover);
 	}
@@ -179,6 +184,7 @@ public class CoachDetailActivity extends BaseActivity implements OnClickListener
 				tv_level_coach.setText(object.levelName);
 				tv_price_num.setText("¥"+object.trainfee);
 //				rb_booking_one.setRating(object.goal);
+				mMyRantingBar.setRantCount(object.goal);
 				tv_name_coach.setText(object.coachName);
 				tv_coach_content_info.setText(object.specialty);
 				tv_skifield_info.setText(object.areaName);

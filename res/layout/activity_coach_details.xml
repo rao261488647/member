@@ -195,6 +195,7 @@
                     -->
 
                     <com.frame.member.widget.MyRantingBar
+                        android:id="@+id/mMyRantingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

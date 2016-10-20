@@ -58,35 +58,35 @@ public class MyRantingBar extends LinearLayout implements View.OnClickListener {
 		switch (v.getId()) {
 		case R.id.iv_my_rantingbar_1:
 			rant_count = 1;
-			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected_small);
+			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected);
 			break;
 		case R.id.iv_my_rantingbar_2:
 			rant_count = 2;
-			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected_small);
+			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected);
 			break;
 		case R.id.iv_my_rantingbar_3:
 			rant_count = 3;
-			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected_small);
+			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected);
 			
 			break;
 		case R.id.iv_my_rantingbar_4:
 			rant_count = 4;
-			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_selected_small);
+			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_selected);
 			
 			break;
 		case R.id.iv_my_rantingbar_5:
 			rant_count = 5;
-			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_selected_small);
-			iv_my_rantingbar_5.setImageResource(R.drawable.ratingbar_selected_small);
+			iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_selected);
+			iv_my_rantingbar_5.setImageResource(R.drawable.ratingbar_selected);
 			break;
 		}
 	}
@@ -119,11 +119,11 @@ public class MyRantingBar extends LinearLayout implements View.OnClickListener {
 	}
 	
 	private void clearSelect(){
-		iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_normal_small);
-		iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_normal_small);
-		iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_normal_small);
-		iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_normal_small);
-		iv_my_rantingbar_5.setImageResource(R.drawable.ratingbar_normal_small);
+		iv_my_rantingbar_1.setImageResource(R.drawable.ratingbar_normal);
+		iv_my_rantingbar_2.setImageResource(R.drawable.ratingbar_normal);
+		iv_my_rantingbar_3.setImageResource(R.drawable.ratingbar_normal);
+		iv_my_rantingbar_4.setImageResource(R.drawable.ratingbar_normal);
+		iv_my_rantingbar_5.setImageResource(R.drawable.ratingbar_normal);
 	}
 
 }
