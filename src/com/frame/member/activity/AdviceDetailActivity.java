@@ -156,6 +156,19 @@ public class AdviceDetailActivity extends BaseActivity {
 		lv_booking_pop = (ListView) container_pop.findViewById(R.id.lv_booking_pop);
 		adapter_list = new ArrayAdapter<String>(this, R.layout.item_pop_list, list_str);
 		lv_booking_pop.setAdapter(adapter_list);
+		lv_booking_pop.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String content = list_str.get(position);
+				if("举报".equals(content)){
+					showToast("举报成功");
+					mPop.dismiss();
+				}else if("取消".equals(content)){
+					mPop.dismiss();
+				}
+			}
+		});
 
 		getData();
 		getCoachComments();
