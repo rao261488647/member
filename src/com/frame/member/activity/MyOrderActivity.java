@@ -1,6 +1,9 @@
 package com.frame.member.activity;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.view.View;
@@ -9,8 +12,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.frame.member.R;
 import com.frame.member.AppConstants.AppConstants;
@@ -54,8 +57,10 @@ public class MyOrderActivity extends BaseActivity {
 	
 	private List<OrderCourse> oldOrderCourseList = new ArrayList<OrderCourse>();//往季预约(课程)
 	
-	
-	
+	//往季教练预约，包含往季所属年度， map 的key就是所属年度
+	private List<Map<String,List<OrderTeach>>> teachList = new ArrayList<Map<String,List<OrderTeach>>>();
+	//往季课程预约，包含往季所属年度， map 的key就是所属年度
+	private List<Map<String,List<OrderCourse>>> courseList = new ArrayList<Map<String,List<OrderCourse>>>();
 	
 	private int page;
 	
@@ -68,15 +73,9 @@ public class MyOrderActivity extends BaseActivity {
 	@Override
 	protected void findViewById() {
 	  	//lv_statemetns_list = (ListView) findViewById(R.id.lv_statements_list);
-<<<<<<< HEAD
 		orderNewRl = (LinearLayout) findViewById(R.id.my_order_rl_new);
 		orderOldRl = (LinearLayout) findViewById(R.id.my_order_rl_old);
 		tv_title.setText("我的预约");
-=======
-		orderNewRl = (RelativeLayout) findViewById(R.id.my_order_rl_new);
-		orderOldRl = (RelativeLayout) findViewById(R.id.my_order_rl_old);
-//		tv_title.setText("我的预约");
->>>>>>> baacf1ed05bd81a865882c61d346f5d60aa84834
 	}
 	
 	/**
@@ -149,6 +148,11 @@ public class MyOrderActivity extends BaseActivity {
 						}
 					}
 				}else{
+					String reason = order.season; //获取所属年度
+					Map<String, List<OrderTeach>> teachMap = new HashMap<String, List<OrderTeach>>();
+					Map<String, List<OrderCourse>> courseMap = new HashMap<String, List<OrderCourse>>();
+					oldOrderCourseList.clear(); //用完清理
+					oldOrderTeachList.clear(); //清理
 					for(Order o : orders){
 						if(o.course != null){
 							oldOrderCourseList.add(o.course);
@@ -157,6 +161,10 @@ public class MyOrderActivity extends BaseActivity {
 							oldOrderTeachList.add(o.teach);
 						}
 					}
+					courseMap.put(reason, oldOrderCourseList);
+					teachMap.put(reason, oldOrderTeachList);
+					courseList.add(courseMap);
+					teachList.add(teachMap);
 				}
 			}
 		}
@@ -169,46 +177,12 @@ public class MyOrderActivity extends BaseActivity {
 	@SuppressLint("ResourceAsColor")
 	private void initCurrentNewOrder(){
 		if(currentOrderCourseNewList != null &&currentOrderCourseNewList.size() > 0){
-			ListView lv = new ListView(this);
-			lv.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					
-				}
-			});
-			MyOrderClassAdapter adpater = new MyOrderClassAdapter(this, currentOrderCourseNewList);
-			lv.setAdapter(adpater);
-			orderNewRl.addView(lv);
-			
-			CommonUtil.setListViewHeight(lv);
+			initMyOrderClassAdapter(currentOrderCourseNewList,orderNewRl);
 		}
-		
 		if(currentOrderTeachNewList != null &&currentOrderTeachNewList.size() > 0){
-			
 			//添加分割线
-			RelativeLayout v = new RelativeLayout(this);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,1);
-			params.setMargins(0, 10, 0, 10);
-			v.setLayoutParams(params);
-			v.setBackgroundColor(R.color.black);
-			orderNewRl.addView(v);
-			
-			ListView lv = new ListView(this);
-			lv.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					
-				}
-			});
-			MyOrderCoachAdapter adpater = new MyOrderCoachAdapter(this, currentOrderTeachNewList);
-			lv.setAdapter(adpater);
-			orderNewRl.addView(lv);
-			
-			CommonUtil.setListViewHeight(lv);
+			initSplitLine(orderNewRl);
+			initMyOrderTeachAdapter(currentOrderTeachNewList,orderNewRl);
 		}
 		
 	}
@@ -251,68 +225,141 @@ public class MyOrderActivity extends BaseActivity {
 		
 		//添加历史订单标题
 		if((currentOrderCourseOldList != null && currentOrderCourseOldList.size() > 0) || (currentOrderTeachOldList != null &&currentOrderTeachOldList.size() > 0)){
-			//添加分割线
-			RelativeLayout v = new RelativeLayout(this);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-			v.setLayoutParams(params);
-			v.setBackgroundColor(R.color.gray_ED);
-			
-			TextView tv1= new TextView(this);
-			tv1.setPadding(20, 20, 0, 20);
-//			tv1.setTextColor(R.color.gray_4);
-			tv1.setText("历史订单");
-			tv1.setTextSize(14);
-			v.addView(tv1);
-			orderNewRl.addView(v);
-			
+			initOrderTitle(orderNewRl,"历史订单");
 		}
 		
-		
 		if(currentOrderCourseOldList != null &&currentOrderCourseOldList.size() > 0){
-			ListView lv = new ListView(this);
-			lv.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					
-				}
-			});
-			MyOrderClassAdapter adpater = new MyOrderClassAdapter(this, currentOrderCourseOldList);
-			lv.setAdapter(adpater);
-			orderNewRl.addView(lv);
-			
-			CommonUtil.setListViewHeight(lv);
+			initMyOrderClassAdapter(currentOrderCourseOldList, orderNewRl);
 		}
 		
 		if(currentOrderTeachOldList != null &&currentOrderTeachOldList.size() > 0){
-			
 			//添加分割线
-			RelativeLayout v = new RelativeLayout(this);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,1);
-			params.setMargins(0, 10, 0, 10);
-			v.setLayoutParams(params);
-			v.setBackgroundColor(R.color.black);
-			orderNewRl.addView(v);
-			
-			ListView lv = new ListView(this);
-			lv.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					
-				}
-			});
-			MyOrderCoachAdapter adpater = new MyOrderCoachAdapter(this, currentOrderTeachOldList);
-			lv.setAdapter(adpater);
-			orderNewRl.addView(lv);
-			
-			CommonUtil.setListViewHeight(lv);
+			initSplitLine(orderNewRl);
+			initMyOrderTeachAdapter(currentOrderTeachOldList,orderNewRl);
 		}
 		
 	}
 	
+	/**
+	* <p>Description: 加载往季预约订单</p>
+	* @author raopeng
+	* @date 2016-10-21 上午10:06:00
+	 */
+	@SuppressLint("ResourceAsColor")
+	private void initOldOrder(){
+		boolean isHaveCourse = false;
+		boolean isHaveTeach = false;
+		//往季订单 只有 当教练、课程信息 有一个不为空的时候 才进行加载
+		if((isHaveCourse = (courseList != null && courseList.size() > 0)) || (isHaveTeach = (teachList != null && teachList.size() > 0))){
+			//存在课程预约
+			if(isHaveCourse){
+				for(Map<String, List<OrderCourse>> courseMap : courseList){
+					for(Map.Entry<String, List<OrderCourse>> entry : courseMap.entrySet()){
+						String ckey = entry.getKey();
+						initOrderTitle(orderOldRl, ckey+"年度"); //初始化标题
+						List<OrderCourse> cList = entry.getValue();
+						initMyOrderClassAdapter(cList,orderOldRl); //初始化listview
+						//如果同时存在相同年度的教练订单，需要放到一起
+						if(isHaveTeach){
+							for(Map<String, List<OrderTeach>> teachMap : teachList){
+								List<OrderTeach> tList = teachMap.get(ckey);
+								if(tList != null){
+									initMyOrderTeachAdapter(tList,orderOldRl); //初始化listview
+									//教练添加完后进行移除，因为可能会存在课程与教练数量不一致的情况，如果出现该情况，需要再把剩余的教练加载到列表
+									teachMap.remove(tList); 
+								}
+							}
+						}
+					}
+				}
+				//课程循环完毕，再去看是否有剩余的只有教练，没有课程的年度预约，如果有，继续循环
+				if(teachList != null && teachList.size() > 0){
+					
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	* <p>Description: 初始化年度标题</p>
+	* @author raopeng
+	* @date 2016-10-21 上午10:47:08
+	 */
+	@SuppressLint("ResourceAsColor")
+	private void initOrderTitle(LinearLayout ll,String title){
+		//添加标题
+		RelativeLayout v = new RelativeLayout(this);
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+		v.setLayoutParams(params);
+		v.setBackgroundColor(R.color.gray_ED);
+		
+		TextView tv1= new TextView(this);
+		tv1.setPadding(20, 20, 0, 20);
+		tv1.setText(title);
+		tv1.setTextSize(14);
+		v.addView(tv1);
+		ll.addView(v);
+	}
+	
+	/**
+	* <p>Description: 新建listview通用方法提炼</p>
+	* @author raopeng
+	* @date 2016-10-21 上午10:26:49
+	 */
+	private void initMyOrderClassAdapter(List<OrderCourse> cList,LinearLayout ll){
+		ListView lv = new ListView(this);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+			}
+		});
+		MyOrderClassAdapter adpater = new MyOrderClassAdapter(this, cList);
+		lv.setAdapter(adpater);
+		ll.addView(lv);
+		
+		CommonUtil.setListViewHeight(lv);
+	}
+	/**
+	* <p>Description: 新建listview通用方法提炼</p>
+	* @author raopeng
+	* @date 2016-10-21 上午10:26:49
+	 */
+	private void initMyOrderTeachAdapter(List<OrderTeach> tList,LinearLayout ll){
+		ListView lv = new ListView(this);
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+			}
+		});
+		MyOrderCoachAdapter adpater = new MyOrderCoachAdapter(this, tList);
+		lv.setAdapter(adpater);
+		ll.addView(lv);
+		
+		CommonUtil.setListViewHeight(lv);
+	}
+	
+	/**
+	* <p>Description: 分割线添加通用方法，linearlayout</p>
+	* @author raopeng
+	* @date 2016-10-21 上午10:30:07
+	 */
+	@SuppressLint("ResourceAsColor")
+	private void initSplitLine(LinearLayout ll){
+		//添加分割线
+		RelativeLayout v = new RelativeLayout(this);
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,1);
+		params.setMargins(0, 10, 0, 10);
+		v.setLayoutParams(params);
+		v.setBackgroundColor(R.color.black);
+		ll.addView(v);
+	}
 	
 	/**
 	 * 通知适配器展示数据
