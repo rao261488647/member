@@ -97,6 +97,7 @@
 	    </RelativeLayout>
 	</LinearLayout>
 	<RelativeLayout 
+	    android:id="@+id/rl_clear_cache"
 	    android:layout_width="match_parent"
 	    android:layout_height="45dp"
 	    android:layout_marginTop="15dp"
@@ -120,6 +121,7 @@
             android:src="@drawable/main_icon_jiantou2x"
             />
 	    <TextView 
+	        android:id="@+id/tv_setting_clear_cache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -127,7 +129,7 @@
             android:layout_marginLeft="20sp"
             android:textSize="16sp"
             android:textColor="#929292"
-            android:text="23.5MB"
+            android:text="0MB"
             />
 	</RelativeLayout>
 	<LinearLayout 
@@ -138,6 +140,7 @@
 	    android:background="@color/white"
 	    >
 	    <RelativeLayout 
+	        android:id="@+id/rl_feedback"
 		    android:layout_width="match_parent"
 		    android:layout_height="45dp"
 		    
@@ -166,6 +169,7 @@
             android:layout_marginLeft="10dp"
             android:background="@color/backColor" />
 		<RelativeLayout 
+		    android:id="@+id/rl_phone_me"
 		    android:layout_width="match_parent"
 		    android:layout_height="45dp"
 		    >
@@ -234,6 +238,7 @@
 	    android:layout_marginTop="30dp"
 	    >
 		<TextView 
+		    android:id="@+id/tv_login_out"
 	        android:layout_width="280sp"
 	        android:layout_height="40sp"
 	        android:layout_marginTop="10dp"
@@ -247,3 +252,4 @@
 	</RelativeLayout>
 
 </LinearLayout>
+
