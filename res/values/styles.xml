@@ -121,5 +121,21 @@
     <item name="android:windowNoTitle">true</item><!--无标题-->
     <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
   </style>
+  
+  <style name="AnimFade" parent="@android:style/Animation">
+            <item name="android:windowEnterAnimation">@anim/zoomin</item>
+        	<item name="android:windowExitAnimation">@anim/zoomout</item>
+        </style>
+  <style name="MyDialogStyleBottom">
+        <item name="android:windowAnimationStyle">@style/AnimFade</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 
 </resources>

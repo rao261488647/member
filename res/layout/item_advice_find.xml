@@ -92,7 +92,8 @@
             android:layout_marginLeft="10dp"
             android:textSize="12sp"
             android:textColor="@color/white"
-            android:text="第一天滑雪感觉很不错,看我的动作是不是很帅"/>
+            android:text="第一天滑雪感觉很不错,看我的动作是不是很帅"
+            android:visibility="gone"/>
     </RelativeLayout>
     
     <RelativeLayout android:layout_width="match_parent"

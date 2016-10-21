@@ -283,6 +283,15 @@ public class AdviceDetailActivity extends BaseActivity {
 					}
 				});
 				TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_vedio_cover);
+				iv_vedio_cover.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(AdviceDetailActivity.this,VideoPlayActivity.class);
+						intent.putExtra("video_url", object.videoUrl);
+						startActivity(intent);
+					}
+				});
 				tv_name_person.setText(object.user.memberName);
 				tv_time_release.setText(object.sendTime);
 				tv_member_level.setText("LV." + object.user.memberGrade);

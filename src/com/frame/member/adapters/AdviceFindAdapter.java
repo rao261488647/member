@@ -14,6 +14,7 @@ import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.FriendsSpaceActivity;
+import com.frame.member.activity.VideoPlayActivity;
 import com.frame.member.bean.AdviceFindResult;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.widget.RoundImageView;
@@ -90,6 +91,15 @@ public class AdviceFindAdapter extends BaseAdapter {
 			}
 		});
 		TTApplication.getInstance().disPlayImageDef(result.videoPhoto, holder.iv_vedio_cover);
+//		holder.iv_vedio_cover.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent(context,VideoPlayActivity.class);
+//				intent.putExtra("video_url", result.videoUrl);
+//				context.startActivity(intent);
+//			}
+//		});
 		holder.tv_name_person.setText(result.user.memberName);
 		holder.tv_member_level.setText("LV." + result.user.memberGrade);
 		holder.tv_time_release.setText(result.sendTime);

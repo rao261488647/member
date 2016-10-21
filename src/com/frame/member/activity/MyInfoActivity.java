@@ -1,5 +1,7 @@
 package com.frame.member.activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,9 +16,12 @@ import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.CommonParser;
 import com.frame.member.Parsers.MyBaseInfoParser;
+import com.frame.member.Parsers.NoBackParser;
+import com.frame.member.Utils.BitmapUtil;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MyBaseInfoBean.MyBaseInfoResult;
 import com.frame.member.bean.MyBaseInfoBean.UserInfo;
@@ -29,10 +34,12 @@ import com.ta.utdid2.android.utils.StringUtils;
 public class MyInfoActivity extends BaseActivity implements OnClickListener{
 	BaseParser<MyBaseInfoResult> parser = new MyBaseInfoParser();
 	private RelativeLayout my_info_relative_nick,my_info_relative_name,
-	my_info_relative_sex,my_info_relative_signature,my_info_relative_address;
+	my_info_relative_sex,my_info_relative_signature,my_info_relative_address,rl_profile;
 	private ImageView my_info_img_1,my_info_img_sex;
 	private TextView weixin,nickname,name,sex,birthday,signature,address;
 	private String gender = "男";
+	private Bitmap profile_succ = null;//头像bitmap
+	private String bitmap2StrByBase64;
 	@Override
 	protected void loadViewLayout() {
 		setContentView(R.layout.activity_my_info);
@@ -47,6 +54,7 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 		my_info_relative_sex = (RelativeLayout) findViewById(R.id.my_info_relative_sex);
 		my_info_relative_signature = (RelativeLayout) findViewById(R.id.my_info_relative_signature);
 		my_info_relative_address = (RelativeLayout) findViewById(R.id.my_info_relative_address);
+		rl_profile = (RelativeLayout) findViewById(R.id.rl_profile);
 		my_info_img_1 = (ImageView) findViewById(R.id.my_info_img1); //头像
 		weixin = (TextView) findViewById(R.id.my_info_text_2);
 		nickname = (TextView) findViewById(R.id.my_baseinfo_nickname);
@@ -65,6 +73,7 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 		my_info_relative_sex.setOnClickListener(this);
 		my_info_relative_signature.setOnClickListener(this);
 		my_info_relative_address.setOnClickListener(this);
+		rl_profile.setOnClickListener(this);
 	}
 
 	@Override
@@ -167,6 +176,27 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 		signature.setText(info.memberSign);
 		address.setText(info.address);
 	}
+	//上传头像
+	private void sendProfile(String head){
+		BaseParser<BaseBean> parser = new NoBackParser();
+		HttpRequestImpl request = new HttpRequestImpl(this,
+				AppConstants.APP_SORT_STUDENT+"/mychangehead", parser);
+		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
+				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
+				.addParam("head", head)
+				.addParam("device", "android");
+		DataCallback<BaseBean> callback = new DataCallback<BaseBean>() {
+
+			@Override
+			public void processData(BaseBean object, RequestResult result) {
+				if(object!= null){
+					showToast(object.message);
+					my_info_img_1.setImageBitmap(profile_succ);
+				}
+			}
+		};
+		getDataFromServer(request, callback);
+	}
 	
 	/**
      * 所有的Activity对象的返回值都是由这个方法来接收
@@ -193,6 +223,22 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
         if(resultCode == 1004){
             String result_value = data.getStringExtra("address");
             address.setText(result_value);
+        }
+        if(resultCode == 1005){
+        	String filePath = ProfileImageActivity.PROFILE_PATH;
+			Bitmap bm = BitmapFactory.decodeFile(filePath);
+			if (bm != null) {
+				profile_succ = bm;
+//				Bitmap bitmap = BitmapUtil.toRoundBitmap(bm);
+//				iv_setting_url.setImageBitmap(bm);
+				if(profile_succ == null){
+					bitmap2StrByBase64 = "";
+				}else{
+					bitmap2StrByBase64 = BitmapUtil.Bitmap2StrByBase64(profile_succ);
+				}
+				sendProfile(bitmap2StrByBase64);
+				
+			}
         }
     }
 	@Override
@@ -240,6 +286,11 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 			bundle.putString("signature", signature.getText().toString()); 
 			setResult(1001, this.getIntent().putExtras(bundle)); 
 			this.finish();
+			break;
+		case R.id.rl_profile:
+			Intent intent1 = new Intent(this, ProfileImageActivity.class);
+			intent1.putExtra("key", 1001);
+			startActivityForResult(intent1, 1001);
 			break;
 		default:
 			break;
