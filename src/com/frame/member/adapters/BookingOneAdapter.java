@@ -7,6 +7,7 @@ import com.frame.member.Utils.CommonUtil;
 import com.frame.member.bean.BookingOneResult;
 import com.frame.member.bean.BookingOneResult.Badges;
 import com.frame.member.bean.BookingOneResult.Coach;
+import com.frame.member.widget.MyRantingBar2;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,7 +56,8 @@ public class BookingOneAdapter extends BaseAdapter{
 			holder.tv_name_coach = (TextView) view.findViewById(R.id.tv_name_coach);
 			holder.tv_title_coach = (TextView) view.findViewById(R.id.tv_title_coach);
 			holder.tv_num_meet = (TextView) view.findViewById(R.id.tv_num_meet);
-			holder.rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+//			holder.rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+			holder.myRantingBar = (MyRantingBar2) view.findViewById(R.id.myRantingBar);
 			view.setTag(holder);
 		}else{
 			holder = (ViewHolder) view.getTag();
@@ -68,7 +70,8 @@ public class BookingOneAdapter extends BaseAdapter{
 		holder.tv_title_coach.setText(result.levelName);
 		holder.tv_num_meet.setText("累计被约"+result.meetNum+"次");
 		float goal = result.goal;
-		holder.rb_booking_one.setRating(goal);
+//		holder.rb_booking_one.setRating(goal);
+		holder.myRantingBar.setRantCount((int) goal);
 		//图标逻辑
 		holder.iv_icon_coach_train.setVisibility(View.GONE);
 		holder.iv_icon_coach_act.setVisibility(View.GONE);
@@ -92,7 +95,8 @@ public class BookingOneAdapter extends BaseAdapter{
 	static class ViewHolder{
 		ImageView iv_cover_booking_one,iv_icon_coach_train,iv_icon_coach_act,iv_icon_coach_referee;
 		TextView tv_name_coach,tv_title_coach,tv_num_meet;
-		RatingBar rb_booking_one;
+//		RatingBar rb_booking_one;
+		MyRantingBar2 myRantingBar;
 	}
 
 }

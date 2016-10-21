@@ -16,6 +16,7 @@ import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.bean.OrderResult;
 import com.frame.member.bean.OtoCoachMeetResult;
+import com.frame.member.widget.MyRantingBar;
 import com.frame.member.widget.calendar.CustomDate;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -44,7 +45,8 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 	private GridView gv_days_booking;
 	private TextView tv_weixin_pay,tv_cancel,tv_coach_price_num,tv_coach_name,tv_days_booking;
 	private ImageView iv_coach_profile;
-	private RatingBar rb_booking_one;
+//	private RatingBar rb_booking_one;
+	private MyRantingBar mMyRantingBar;
 	private List<String> list_date = new ArrayList<String>();
 	private OtoCoachMeetResult result_coach;
 	private StringBuffer yuyueDates = new StringBuffer();//预约时间字符串拼接
@@ -63,7 +65,8 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 		tv_coach_price_num = (TextView) view.findViewById(R.id.tv_coach_price_num);
 		tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
 		iv_coach_profile = (ImageView) view.findViewById(R.id.iv_coach_profile);
-		rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+//		rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+		mMyRantingBar = (MyRantingBar) view.findViewById(R.id.mMyRantingBar);
 		tv_coach_name = (TextView) view.findViewById(R.id.tv_coach_name);
 		tv_days_booking = (TextView) view.findViewById(R.id.tv_days_booking);
 		
@@ -81,7 +84,8 @@ public class CoachBookingDialogFrag extends DialogFragment implements OnClickLis
 				R.layout.text_nopadding, 
 				list_date));
 		TTApplication.getInstance().disPlayImageDef(result_coach.headImg, iv_coach_profile);
-		rb_booking_one.setRating(Float.parseFloat(result_coach.coachStar));
+//		rb_booking_one.setRating(Float.parseFloat(result_coach.coachStar));
+		mMyRantingBar.setRantCount((int) Float.parseFloat(result_coach.coachStar));
 		tv_coach_name.setText(result_coach.coachName);
 		tv_coach_price_num.setText("¥"+result_coach.trainfee);
 		tv_days_booking.setText(result_coach.areaName+"-"+

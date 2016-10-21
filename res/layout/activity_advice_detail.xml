@@ -41,7 +41,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/coach_profile"
+                            android:src="@drawable/profile_example_1"
                             round:type="circle" />
 
                         <RelativeLayout

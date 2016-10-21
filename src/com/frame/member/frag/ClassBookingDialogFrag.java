@@ -13,6 +13,7 @@ import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.bean.ClassDetailResult;
 import com.frame.member.bean.OrderResult;
+import com.frame.member.widget.MyRantingBar;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -39,7 +40,8 @@ public class ClassBookingDialogFrag extends DialogFragment implements OnClickLis
 	private TextView tv_weixin_pay,tv_cancel,tv_name_class,tv_coach_name,
 					tv_coach_price_num,tv_days_booking;
 	private ClassDetailResult result_class = new ClassDetailResult();
-	private RatingBar rb_booking_one;
+//	private RatingBar rb_booking_one;
+	private MyRantingBar mMyRantingBar;
 	// IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
     
@@ -56,7 +58,8 @@ public class ClassBookingDialogFrag extends DialogFragment implements OnClickLis
 		tv_coach_name = (TextView) view.findViewById(R.id.tv_coach_name);
 		tv_coach_price_num = (TextView) view.findViewById(R.id.tv_coach_price_num);
 		tv_days_booking = (TextView) view.findViewById(R.id.tv_days_booking);
-		rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+//		rb_booking_one = (RatingBar) view.findViewById(R.id.rb_booking_one);
+		mMyRantingBar = (MyRantingBar) view.findViewById(R.id.mMyRantingBar);
 		
 		result_class = ((ClassDetailActivity)getActivity()).result_class;
 		tv_weixin_pay.setOnClickListener(this);
@@ -70,7 +73,8 @@ public class ClassBookingDialogFrag extends DialogFragment implements OnClickLis
 		tv_coach_price_num.setText("¥"+result_class.planPrice);
 		tv_days_booking.setText(
 				result_class.beginTime+"~"+result_class.overTime+" 共"+result_class.hadDay+"天");
-		rb_booking_one.setRating(result_class.goal);
+//		rb_booking_one.setRating(result_class.goal);
+		mMyRantingBar.setRantCount(result_class.goal);
 		return view;
 	}
 	@Override
