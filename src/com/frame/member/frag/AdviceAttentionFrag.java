@@ -101,13 +101,6 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		states = 2;
-		initData();
-	}
-
-	private void initData() {
-
-		changeViewByStates();
-		
 		getMyAttention();
 	}
 
@@ -179,20 +172,6 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 			ll_content_advice_attention.setVisibility(View.GONE);
 			rl_nothing_background.setVisibility(View.GONE);
 			sv_attention_nobody.setVisibility(View.VISIBLE);
-//			list_coach.clear();
-//			list_coach.add(new AttentionCoachHolder("张教练", "专职导师"));
-//			list_coach.add(new AttentionCoachHolder("李教练", "业内大咖"));
-//			list_coach.add(new AttentionCoachHolder("王教练", "联盟高级"));
-//			list_coach.add(new AttentionCoachHolder("孙教练", "专职导师"));
-//			mAdapter_coach = new AttentionCoachAdapter(mContext, list_coach);
-//			gv_coach_instructor.setAdapter(mAdapter_coach);
-//			list_friends.clear();
-//			list_friends.add(new AttentionFriendsHolder("我石化了", "LV.3"));
-//			list_friends.add(new AttentionFriendsHolder("烫手的山芋", "LV.3"));
-//			list_friends.add(new AttentionFriendsHolder("最强大脑", "LV.3"));
-//			list_friends.add(new AttentionFriendsHolder("暴走漫画", "LV.3"));
-//			mAdapter_friends = new AttentionFriendsAdapter(mContext, list_friends);
-//			lv_attention_friends.setAdapter(mAdapter_friends);
 			getIntroduceAttention();
 			break;
 		case STATES_NOATTENTION:
@@ -208,19 +187,6 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 			ll_content_advice_attention.setVisibility(View.VISIBLE);
 			rl_content_advice_attention.setVisibility(View.VISIBLE);
 			lv_advice_attention.setVisibility(View.VISIBLE);
-			// list_iv_text.clear();
-			// list_iv_text.add(new ImageAndText(R.drawable.coach_profile,
-			// "老李"));
-			// list_iv_text.add(new ImageAndText(R.drawable.coach_profile,
-			// "老孙"));
-			// list_iv_text.add(new ImageAndText(R.drawable.coach_profile,
-			// "老王"));
-			// adapter = new AdviceFollowAdapter(mContext, list_follow);
-			// lv_advice_attention.setAdapter(adapter);
-			getMyAttention();
-			break;
-
-		default:
 			break;
 		}
 	}
@@ -254,6 +220,7 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 					states = STATES_NOATTENTION;
 					changeViewByStates();
 				} else {
+					setStates(STATES_NORMAL);
 					if (page == 1) {
 						list_follow.clear();
 					}
@@ -302,16 +269,14 @@ public class AdviceAttentionFrag extends BaseFrag implements OnClickListener{
 					setMyAttentionProfile(object);
 					tv_attention_num.setText(object.get(0).myfollow_num);
 					if ("0".equals(object.get(0).myfollow_num)) {
-						states = STATES_NOBODY;
-						changeViewByStates();
+						setStates(STATES_NOBODY);
 					} else {
 						// 只要有关注就获取主数据
 						getData();
 					}
 
 				} else {
-					states = STATES_NOBODY;
-					changeViewByStates();
+					setStates(STATES_NOBODY);
 				}
 			}
 		};
