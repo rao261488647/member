@@ -18,6 +18,8 @@ import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.ClassDetailResult;
 import com.frame.member.bean.CoachMembersCommentsResult;
 import com.frame.member.frag.ClassBookingDialogFrag;
+import com.frame.member.widget.MyRantingBar;
+
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +32,8 @@ import android.widget.TextView;
 public class ClassDetailActivity extends BaseActivity implements OnClickListener{
 	private TextView tv_class_meet,tv_class_name,tv_members_price,tv_price_per_day,
 					tv_item_time_num,tv_skifield_info,tv_class_collection;
-	private RatingBar rb_booking_class;
+//	private RatingBar rb_booking_class;
+	private MyRantingBar mMyRantingBar;
 	private ImageView iv_class_vedio_cover;
 	private ListView lv_member_comments;
 	private RelativeLayout rl_class_states;
@@ -55,7 +58,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 		tv_class_collection = (TextView) findViewById(R.id.tv_class_collection);
 		tv_class_states_full = (TextView) findViewById(R.id.tv_class_states_full);
 		tv_class_content_info = (TextView) findViewById(R.id.tv_class_content_info);
-		rb_booking_class = (RatingBar) findViewById(R.id.rb_booking_class);
+//		rb_booking_class = (RatingBar) findViewById(R.id.rb_booking_class);
+		mMyRantingBar = (MyRantingBar) findViewById(R.id.mMyRantingBar);
 		iv_class_vedio_cover = (ImageView) findViewById(R.id.iv_class_vedio_cover);
 		lv_member_comments = (ListView) findViewById(R.id.lv_member_comments);
 		rl_class_states = (RelativeLayout) findViewById(R.id.rl_class_states);
@@ -149,7 +153,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 					sb.append(object.beginTime.replace('-', '.')).append("~")
 						.append(object.overTime.replace('-', '.')).append("  共"+object.hadDay+"天");
 					tv_item_time_num.setText(sb.toString());
-					rb_booking_class.setRating(object.goal);
+//					rb_booking_class.setRating(object.goal);
+					mMyRantingBar.setRantCount(object.goal);
 					TTApplication.getInstance().disPlayImageDef(object.videoPhoto, iv_class_vedio_cover);
 					tv_skifield_info.setText(object.skifieldAddr);
 					if("0".equals(object.collect)){

@@ -172,7 +172,7 @@
                         android:textColor="@color/gray_a6"
                         android:textSize="13sp" />
 
-                    <RatingBar
+                    <!-- <RatingBar
                         android:id="@+id/rb_booking_class"
                         style="@style/roomRatingBar"
                         android:layout_width="wrap_content"
@@ -182,7 +182,15 @@
                         android:layout_marginRight="14dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="4" />
+                        android:rating="4" /> -->
+                       <com.frame.member.widget.MyRantingBar
+                        android:id="@+id/mMyRantingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp"
+                        android:clickable="false" />
                 </RelativeLayout>
 
                 <View

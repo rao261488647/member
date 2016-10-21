@@ -31,14 +31,21 @@
             android:text="张宇"
             android:layout_alignParentLeft="true"/>
             
-            <RatingBar android:id="@+id/rb_booking_one"
+            <!-- <RatingBar android:id="@+id/rb_booking_one"
             android:layout_width="wrap_content"
             android:layout_height="18px"
             style="@style/roomRatingBar"
             android:numStars="5" 
             android:rating="1"
             android:layout_marginLeft="10dp"
-            android:isIndicator="true"/>
+            android:isIndicator="true"/> -->
+            <com.frame.member.widget.MyRantingBar2 
+                android:id="@+id/myRantingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:clickable="false"
+                ></com.frame.member.widget.MyRantingBar2>
             
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content"
