@@ -44,6 +44,7 @@ public class MyOrderBean extends BaseBean {
 		public String date;//时间
 		public String skifield;//滑雪场
 		public String status;//预约状态  未签到  已签到  已过期 等
+		public String isRefund; // 是否退回学费  1 是 0 否
 		public OrderCoach coach; //教练属性
 	}
 	/**
@@ -74,6 +75,7 @@ public class MyOrderBean extends BaseBean {
 		public String courseName;//课程名称
 		public String skifield;//滑雪场
 		public String status;//预约状态  未签到  已签到  已过期 等
+		public String isRefund; // 是否退回学费  1 是 0 否
 	}
 	
 	/**

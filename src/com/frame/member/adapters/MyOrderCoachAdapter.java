@@ -3,6 +3,7 @@ package com.frame.member.adapters;
 import java.text.ParseException;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,8 @@ public class MyOrderCoachAdapter extends BaseSwipListAdapter {
         return position;
     }
 
-    @Override
+    @SuppressLint("ResourceAsColor")
+	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = View.inflate(context,
@@ -63,7 +65,16 @@ public class MyOrderCoachAdapter extends BaseSwipListAdapter {
 		}
         holder.my_order_coach_date.setText(beginTime);
         
-//        holder.my_order_coach_text_3.setText(text)
+        if("1".equals(item.isRefund)){
+        	holder.my_order_coach_text_3.setVisibility(View.VISIBLE);
+        	holder.my_order_coach_text_3.setTextColor(R.color.gray);
+        	
+        }
+        if(!"未签到".equals(item.status) && !"未评价".equals(item.status) && !"未过期".equals(item.status)){
+    		holder.my_order_coach_text_4.setTextColor(R.color.gray);
+    		holder.my_order_coach_text_4.setBackgroundResource(R.drawable.shape_my_button_order_gray_corner);
+    		holder.my_order_coach_text_4.setPadding(10, 10, 10, 10);
+    	}
         holder.my_order_coach_text_4.setText(item.status);
         
         return convertView;

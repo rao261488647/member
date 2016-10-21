@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,7 +29,6 @@ import com.frame.member.adapters.MyOrderCoachAdapter;
 import com.frame.member.bean.MyOrderBean.MyOrder;
 import com.frame.member.bean.MyOrderBean.MyOrderResult;
 import com.frame.member.bean.MyOrderBean.Order;
-import com.frame.member.bean.MyOrderBean.OrderCoach;
 import com.frame.member.bean.MyOrderBean.OrderCourse;
 import com.frame.member.bean.MyOrderBean.OrderTeach;
 /**
@@ -67,7 +67,6 @@ public class MyOrderActivity extends BaseActivity {
 	@Override
 	protected void loadViewLayout() {
 		setContentView(R.layout.activity_my_order);
-		getData();
 	}
 
 	@Override
@@ -104,11 +103,11 @@ public class MyOrderActivity extends BaseActivity {
 				if(null != object){
 					if("200".equals(object.code)){
 						if(object.orderList != null && object.orderList.size() > 0){
-//							notifyAdapter();
 							orderList = object.orderList;
 							assembleList();
 							initCurrentNewOrder();
 							initCurrentOldOrder();
+							initOldOrder();
 						}else{
 							showToast("没有更多的数据！");
 						}
@@ -195,30 +194,30 @@ public class MyOrderActivity extends BaseActivity {
 	@SuppressLint("ResourceAsColor")
 	private void initCurrentOldOrder(){
 		
-		OrderCourse c = new OrderCourse();
-		c.beginTime="2016年10月10日";
-		c.categoryName="指导员培训";
-		c.courseId="1";
-		c.hadDay = 5;
-		c.overTime="2016年10月25日";
-		c.courseName="国职滑雪教练培训班—五级";
-		c.skifield="崇礼 多乐美地滑雪场";
-		c.status="已过期";
-		
-		currentOrderCourseOldList.add(c);
-		currentOrderCourseOldList.add(c);
-		
-		OrderCoach h = new OrderCoach();
-		h.coachHead="http://test.flowerski.com/upload/coach/head/20_20831447167229.jpg";
-		h.coachName="李白";
-		OrderTeach t = new OrderTeach();
-		t.skifield="崇礼 多乐美地滑雪场";
-		t.status="已过期";
-		t.date="2016年12月10日";
-		t.coach = h;
-		
-		currentOrderTeachOldList.add(t);
-		currentOrderTeachOldList.add(t);
+//		OrderCourse c = new OrderCourse();
+//		c.beginTime="2016年10月10日";
+//		c.categoryName="指导员培训";
+//		c.courseId="1";
+//		c.hadDay = 5;
+//		c.overTime="2016年10月25日";
+//		c.courseName="国职滑雪教练培训班—五级";
+//		c.skifield="崇礼 多乐美地滑雪场";
+//		c.status="已过期";
+//		
+//		currentOrderCourseOldList.add(c);
+//		currentOrderCourseOldList.add(c);
+//		
+//		OrderCoach h = new OrderCoach();
+//		h.coachHead="http://test.flowerski.com/upload/coach/head/20_20831447167229.jpg";
+//		h.coachName="李白";
+//		OrderTeach t = new OrderTeach();
+//		t.skifield="崇礼 多乐美地滑雪场";
+//		t.status="已过期";
+//		t.date="2016年12月10日";
+//		t.coach = h;
+//		
+//		currentOrderTeachOldList.add(t);
+//		currentOrderTeachOldList.add(t);
 		
 		
 		
@@ -247,10 +246,10 @@ public class MyOrderActivity extends BaseActivity {
 	 */
 	@SuppressLint("ResourceAsColor")
 	private void initOldOrder(){
-		boolean isHaveCourse = false;
-		boolean isHaveTeach = false;
+		boolean isHaveCourse = courseList != null && courseList.size() > 0;
+		boolean isHaveTeach = teachList != null && teachList.size() > 0;
 		//往季订单 只有 当教练、课程信息 有一个不为空的时候 才进行加载
-		if((isHaveCourse = (courseList != null && courseList.size() > 0)) || (isHaveTeach = (teachList != null && teachList.size() > 0))){
+		if(isHaveCourse || isHaveTeach ){
 			//存在课程预约
 			if(isHaveCourse){
 				for(Map<String, List<OrderCourse>> courseMap : courseList){
@@ -261,12 +260,15 @@ public class MyOrderActivity extends BaseActivity {
 						initMyOrderClassAdapter(cList,orderOldRl); //初始化listview
 						//如果同时存在相同年度的教练订单，需要放到一起
 						if(isHaveTeach){
-							for(Map<String, List<OrderTeach>> teachMap : teachList){
+							Iterator<Map<String, List<OrderTeach>>> it = teachList.iterator();
+							while (it.hasNext()) {
+								Map<String, List<OrderTeach>> teachMap = it.next();
 								List<OrderTeach> tList = teachMap.get(ckey);
 								if(tList != null){
+									initSplitLine(orderOldRl);//分割线
 									initMyOrderTeachAdapter(tList,orderOldRl); //初始化listview
 									//教练添加完后进行移除，因为可能会存在课程与教练数量不一致的情况，如果出现该情况，需要再把剩余的教练加载到列表
-									teachMap.remove(tList); 
+									it.remove();
 								}
 							}
 						}
@@ -274,9 +276,25 @@ public class MyOrderActivity extends BaseActivity {
 				}
 				//课程循环完毕，再去看是否有剩余的只有教练，没有课程的年度预约，如果有，继续循环
 				if(teachList != null && teachList.size() > 0){
-					
+					for(Map<String, List<OrderTeach>> teachMap : teachList){
+						for(Map.Entry<String, List<OrderTeach>> entry : teachMap.entrySet()){
+							String ckey = entry.getKey();
+							initOrderTitle(orderOldRl, ckey+"年度"); //初始化标题
+							List<OrderTeach> tList = entry.getValue();
+							initMyOrderTeachAdapter(tList,orderOldRl); //初始化listview
+						}
+					}
 				}
 				
+			}else{
+				for(Map<String, List<OrderTeach>> teachMap : teachList){
+					for(Map.Entry<String, List<OrderTeach>> entry : teachMap.entrySet()){
+						String tkey = entry.getKey();
+						initOrderTitle(orderOldRl, tkey+"年度"); //初始化标题
+						List<OrderTeach> cList = entry.getValue();
+						initMyOrderTeachAdapter(cList,orderOldRl); //初始化listview
+					}
+				}
 			}
 		}
 	}
@@ -307,14 +325,16 @@ public class MyOrderActivity extends BaseActivity {
 	* @author raopeng
 	* @date 2016-10-21 上午10:26:49
 	 */
-	private void initMyOrderClassAdapter(List<OrderCourse> cList,LinearLayout ll){
+	private void initMyOrderClassAdapter(final List<OrderCourse> cList,LinearLayout ll){
 		ListView lv = new ListView(this);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long arg3) {
+				Intent intent = new Intent(MyOrderActivity.this,ClassDetailActivity.class);
+				intent.putExtra("courseId", cList.get(position).courseId);
+				startActivity(intent);
 			}
 		});
 		MyOrderClassAdapter adpater = new MyOrderClassAdapter(this, cList);
@@ -328,14 +348,16 @@ public class MyOrderActivity extends BaseActivity {
 	* @author raopeng
 	* @date 2016-10-21 上午10:26:49
 	 */
-	private void initMyOrderTeachAdapter(List<OrderTeach> tList,LinearLayout ll){
+	private void initMyOrderTeachAdapter(final List<OrderTeach> tList,LinearLayout ll){
 		ListView lv = new ListView(this);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				
+					int position, long arg3) {
+				Intent intent = new Intent(MyOrderActivity.this,CoachDetailActivity.class);
+				intent.putExtra("coachId", tList.get(position).coach.coachId);
+				startActivity(intent);
 			}
 		});
 		MyOrderCoachAdapter adpater = new MyOrderCoachAdapter(this, tList);
@@ -382,6 +404,7 @@ public class MyOrderActivity extends BaseActivity {
 
 	@Override
 	protected void processLogic() {
-//		iv_title_back.setVisibility(0);
+		iv_title_back.setVisibility(0);
+		getData();
 	}
 }

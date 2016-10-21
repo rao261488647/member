@@ -3,6 +3,7 @@ package com.frame.member.adapters;
 import java.text.ParseException;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,8 @@ public class MyOrderClassAdapter extends BaseSwipListAdapter {
         return position;
     }
 
-    @Override
+    @SuppressLint("ResourceAsColor")
+	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = View.inflate(context,
@@ -71,7 +73,15 @@ public class MyOrderClassAdapter extends BaseSwipListAdapter {
         holder.my_study_class_text_4.setText(beginTime+"-"+endTime);
         holder.my_study_class_text_5.setText(item.courseName);
         holder.my_study_class_text_6.setText(item.skifield);
-//        holder.my_study_class_text_7.setText(item.courseName+"("+item.sdPlate+")");
+        if("1".equals(item.isRefund)){
+        	holder.my_study_class_text_7.setVisibility(View.VISIBLE);
+        	holder.my_study_class_text_7.setTextColor(R.color.gray);
+        }
+        if(!"未签到".equals(item.status) && !"未评价".equals(item.status) && !"未过期".equals(item.status)){
+    		holder.my_study_class_text_8.setTextColor(R.color.gray);
+    		holder.my_study_class_text_8.setBackgroundResource(R.drawable.shape_my_button_order_gray_corner);
+    		holder.my_study_class_text_8.setPadding(10, 10, 10, 10);
+    	}
     	holder.my_study_class_text_8.setText(item.status);
         return convertView;
     }
