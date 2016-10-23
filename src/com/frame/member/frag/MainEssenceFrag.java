@@ -3,11 +3,14 @@ package com.frame.member.frag;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ import com.frame.member.Parsers.MainEssenceParser;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.AdviceDetailActivity;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
@@ -114,7 +118,7 @@ public class MainEssenceFrag extends BaseFrag implements OnClickListener {
 				AppConstants.APP_SORT_STUDENT +"/indexbest", parser);
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_MEMBERUSERID, "")); //用户id 
 		request.addParam("token", (String) SPUtils.getAppSpUtil().get(getActivity(), SPUtils.KEY_TOKEN, ""));
-		request.addParam("memberUserId","89"); //写死
+//		request.addParam("memberUserId","89"); //写死
 		request.addParam("page_size", "10").addParam("page_num", "" + page);
 		((BaseActivity)getActivity()).getDataFromServer(request, false,callBack);
 		
@@ -157,6 +161,16 @@ public class MainEssenceFrag extends BaseFrag implements OnClickListener {
 			adapter = new MainEssenceAdapter(getActivity(),dataList );
 			// 设置适配器
 			pullListView.setAdapter(adapter);
+			pullListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					Intent intent = new Intent(getActivity(), AdviceDetailActivity.class);
+					intent.putExtra("subjectId", dataList.get(position - 1).subjectId);
+					startActivity(intent);
+					
+				}
+			});
 		}else{
 			adapter.notifyDataSetChanged();
 		}

@@ -41,7 +41,7 @@ public class MyCenterHeadOneFrag extends BaseFrag {
         rootView = inflater.inflate(R.layout.frag_my_center_head_1, container, false);//关联布局文件  
         findViewByIds();
         initMyCenterPage();
-        setViewListener();
+//        setViewListener();
         return rootView;  
     }  
 	
@@ -75,29 +75,29 @@ public class MyCenterHeadOneFrag extends BaseFrag {
 				.disPlayImageDef(user.appHeadThumbnail, headimg);
 			}
 			grade.setText("LV "+user.memberGrade);
-			if(user.memberlLevel.equals("0")){
-				level.setText("非会员");
-			}else if(user.memberlLevel.equals("1")){
-				level.setText("VIP绿卡");
-			}else if(user.memberlLevel.equals("2")){
-				level.setText("VIP蓝卡");
-			}else if(user.memberlLevel.equals("3")){
-				level.setText("VIP黑卡");
-			}
+//			if(user.memberlLevel.equals("0")){
+//				level.setText("非会员");
+//			}else if(user.memberlLevel.equals("1")){
+//				level.setText("VIP绿卡");
+//			}else if(user.memberlLevel.equals("2")){
+//				level.setText("VIP蓝卡");
+//			}else if(user.memberlLevel.equals("3")){
+//				level.setText("VIP黑卡");
+//			}
 			point.setText(user.memberPoints+" 积分");
 			if(!StringUtils.isEmpty(user.memberName)){
 				nickname.setText(user.memberName);
 			}
 		}
 	}
-	//设置点击事件
-	private void setViewListener(){
-		level.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(context,MemberInfoActivity.class));
-			}
-		});
-	}
+//	//设置点击事件
+//	private void setViewListener(){
+//		level.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				startActivity(new Intent(context,MemberInfoActivity.class));
+//			}
+//		});
+//	}
 }

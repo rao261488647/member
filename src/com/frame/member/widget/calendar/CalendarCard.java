@@ -1,7 +1,13 @@
 package com.frame.member.widget.calendar;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.frame.member.bean.OtoCoachMeetResult;
+import com.frame.member.bean.OtoCoachMeetResult.Date;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -42,6 +48,8 @@ public class CalendarCard extends View {
 	private Cell mClickCell;
 	private float mDownX;
 	private float mDownY;
+	
+	private ArrayList<OtoCoachMeetResult.Date> list_date = new ArrayList<OtoCoachMeetResult.Date>();
 	//已经被选中的
 	
 	//已选中的日期数量
@@ -102,10 +110,15 @@ public class CalendarCard extends View {
 
 	private void initDate() {
 		mShowDate = new CustomDate();
-		fillDate();
+		fillDate(null);
+	}
+	//根据日期状态进行改变cells状态
+	public void changeCells(ArrayList<Date> list_date){
+			this.list_date = list_date;
+			fillDate(list_date);
 	}
 
-	private void fillDate() {
+	private void fillDate(ArrayList<Date> list_date) {
 		
 		int monthDay = DateUtil.getCurrentMonthDay(); // 今天
 		int lastMonthDays = DateUtil.getMonthDays(mShowDate.year,
@@ -128,25 +141,73 @@ public class CalendarCard extends View {
 				if (position >= firstDayWeek
 						&& position < firstDayWeek + currentMonthDays) {
 					day++;
-					rows[j].cells[i] = new Cell(CustomDate.modifiDayForObject(
-							mShowDate, day), State.CURRENT_MONTH_DAY, i, j);
+						rows[j].cells[i] = new Cell(CustomDate.modifiDayForObject(
+								mShowDate, day), State.CURRENT_MONTH_DAY, i, j);
+						
 					
 					// 今天
 					if (isCurrentMonth && day == monthDay ) {
-						CustomDate date = CustomDate.modifiDayForObject(mShowDate, day);
-						rows[j].cells[i] = new Cell(date, State.TODAY, i, j);
+						if(list_date == null){
+							CustomDate date = CustomDate.modifiDayForObject(mShowDate, day);
+							rows[j].cells[i] = new Cell(date, State.TODAY, i, j);
+						}else{
+							boolean isHave = false;
+							for(Date date:list_date){
+								if("other_had_dates".equals(date.status)){
+									try {
+										java.util.Date date_java = ConverToDate(date.value);
+										if(day == date_java.getDate()){
+											rows[j].cells[i] = new Cell(
+													CustomDate.modifiDayForObject(mShowDate, day),
+													State.TODAY_BOOKED, i, j);
+											rows[j].cells[i].isClickable = false;
+											isHave =true;
+										}
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+							}
+							if(!isHave){
+								CustomDate date = CustomDate.modifiDayForObject(mShowDate, day);
+								rows[j].cells[i] = new Cell(date, State.TODAY, i, j);
+							}
+						}
+						
 					}
 
 					if (isCurrentMonth && day > monthDay) { // 如果比这个月的今天要大，表示还没到
-						rows[j].cells[i] = new Cell(
-								CustomDate.modifiDayForObject(mShowDate, day),
-								State.UNREACH_DAY, i, j);
+						if(list_date == null){
+							rows[j].cells[i] = new Cell(
+									CustomDate.modifiDayForObject(mShowDate, day),
+									State.UNREACH_DAY, i, j);
+						}else{
+							for(Date date:list_date){
+								if("other_had_dates".equals(date.status)){
+									try {
+										java.util.Date date_java = ConverToDate(date.value);
+										if(day == date_java.getDate()){
+											rows[j].cells[i] = new Cell(
+													CustomDate.modifiDayForObject(mShowDate, day),
+													State.REACHED_DAY, i, j);
+											rows[j].cells[i].isClickable = false;
+										}
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+						
 					}
 					if (isCurrentMonth && day < monthDay) { // 如果比这个月的今天要小，表示已经过了
-						rows[j].cells[i] = new Cell(
-								CustomDate.modifiDayForObject(mShowDate, day),
-								State.REACHED_DAY, i, j);
-						rows[j].cells[i].isClickable = false;
+						
+							rows[j].cells[i] = new Cell(
+									CustomDate.modifiDayForObject(mShowDate, day),
+									State.REACHED_DAY, i, j);
+							rows[j].cells[i].isClickable = false;
+						
+						
 					}
 					if(mShowDate.month<DateUtil.getMonth()){  //比今天的月份小的月份
 						rows[j].cells[i] = new Cell(
@@ -185,6 +246,13 @@ public class CalendarCard extends View {
 		}
 		mCellClickListener.changeDate(mShowDate);
 	}
+	
+	 //把字符串转为日期  
+    public static java.util.Date ConverToDate(String strDate) throws Exception  
+    {  
+    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");  
+        return df.parse(strDate);  
+    }  
 
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -276,7 +344,7 @@ public class CalendarCard extends View {
 			}
 			mCellClickListener.clickDate(date,isContain);
 			// 刷新界面	
-			update();
+			update(list_date);
 		}
 	}
 
@@ -340,6 +408,12 @@ public class CalendarCard extends View {
 						mPointPaint);
 //				canvas.drawRect(0, 0, mViewWidth, mViewHeight, mPointPaint);
 				break;
+			case TODAY_BOOKED://今天但已被预约过
+				mTextPaint.setColor(Color.parseColor("#e3e3e3"));
+				canvas.drawCircle((float) (mCellHorSpace * (i + 0.5)),
+						(float) ((j + 0.8) * mCellVerSpace), mCellVerSpace / 20,
+						mPointPaint);
+				break;
 			case CURRENT_MONTH_DAY: // 当前月日期
 				mTextPaint.setColor(Color.parseColor("#ababab"));
 				break;
@@ -388,7 +462,7 @@ public class CalendarCard extends View {
 	 * @author wuwenjie 单元格的状态    今天，当前月日期，过去的月的日期，下个月的日期，已经过了的日期，还未到的日期，被选中的日期，被预约的日期
 	 */
 	enum State {
-		TODAY,CURRENT_MONTH_DAY, PAST_MONTH_DAY, NEXT_MONTH_DAY, REACHED_DAY,UNREACH_DAY, SELECTED_DAY, BOOKED_DAY;
+		TODAY,TODAY_BOOKED,CURRENT_MONTH_DAY, PAST_MONTH_DAY, NEXT_MONTH_DAY, REACHED_DAY,UNREACH_DAY, SELECTED_DAY, BOOKED_DAY;
 	}
 
 	// 从左往右划，上一个月
@@ -399,7 +473,7 @@ public class CalendarCard extends View {
 		} else {
 			mShowDate.month -= 1;
 		}
-		update();
+		update(list_date);
 	}
 
 	// 从右往左划，下一个月
@@ -410,11 +484,11 @@ public class CalendarCard extends View {
 		} else {
 			mShowDate.month += 1;
 		}
-		update();
+		update(list_date);
 	}
 
-	public void update() {
-		fillDate();
+	public void update(ArrayList<Date> list_date) {
+		fillDate(list_date);
 		invalidate();
 	}
 

@@ -156,7 +156,7 @@ public abstract class BaseActivity extends FragmentActivity {
 				showToast(RequestResult.ServerTimeout.toString());
 				callBack.processData(null, RequestResult.ServerTimeout);
 			} else if (msg.what == RequestResult.NoData.ordinal()){
-				showToast(RequestResult.NoData.toString());
+//				showToast(RequestResult.NoData.toString());
 				callBack.processData(null, RequestResult.NoData);
 			}
 		}

@@ -34,6 +34,7 @@ import com.frame.member.Utils.SPUtils;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.activity.MainActivity;
+import com.frame.member.activity.MemberInfoActivity;
 import com.frame.member.activity.ModifyNickNameActivity;
 import com.frame.member.activity.MyBillActivity;
 import com.frame.member.activity.MyCollectActivity;
@@ -132,6 +133,15 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 //						initMyCenterPage(object.user, object.menuList);
 						user = object.user;
 						InitViewPager();
+						if(user.memberlLevel.equals("0")){
+							level.setText("非会员");
+						}else if(user.memberlLevel.equals("1")){
+							level.setText("VIP绿卡");
+						}else if(user.memberlLevel.equals("2")){
+							level.setText("VIP蓝卡");
+						}else if(user.memberlLevel.equals("3")){
+							level.setText("VIP黑卡");
+						}
 					}
 				}
 			}
@@ -271,6 +281,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		point = (TextView)findViewById(R.id.my_center_point);
 		
 		headimg = (ImageView)findViewById(R.id.my_center_headimg);
+		level = (TextView) findViewById(R.id.my_center_level);
 //		Fragment fragment = getFragmentManager().findFragmentByTag(
 //		"android:switcher:"+R.id.my_center_pager+":0");
 //	    if(fragment != null)  // could be null if not instantiated yet
@@ -300,6 +311,7 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 		my_layout_order.setOnClickListener(this);
 		my_layout_study.setOnClickListener(this);
 		my_center_coach.setOnClickListener(this);
+		level.setOnClickListener(this);
 	}
 	
 	@Override
@@ -344,6 +356,9 @@ public class MyCenterFrag extends BaseFrag implements OnClickListener {
 			intent.putExtra("title", "我要做教练");
 			intent.putExtra("newsUrl",AppConstants.MAKE_COACH );
 			this.startActivity(intent);
+			break;
+		case R.id.my_center_level:
+			startActivity(new Intent(getActivity(),MemberInfoActivity.class));
 			break;
 //		case R.id.rl_my_logout:
 //			CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());

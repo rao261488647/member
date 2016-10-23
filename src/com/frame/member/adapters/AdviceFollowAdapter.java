@@ -13,6 +13,7 @@ import com.frame.member.activity.AdviceDetailActivity;
 import com.frame.member.activity.BaseActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
+import com.frame.member.activity.FriendsSpaceActivity;
 import com.frame.member.bean.AdviceFollowResult;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.widget.RoundImageView;
@@ -77,6 +78,15 @@ public class AdviceFollowAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		TTApplication.getInstance().disPlayImageDef(result.user.appHeadThumbnail, holder.iv_person_profile);
+		holder.iv_person_profile.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, FriendsSpaceActivity.class);
+				intent.putExtra("friendId", result.user.friendId);
+				context.startActivity(intent);
+			}
+		});
 		TTApplication.getInstance().disPlayImageDef(result.videoPhoto, holder.iv_vedio_cover);
 		holder.tv_name_person.setText(result.user.memberName);
 		holder.tv_member_level.setText("LV."+result.user.memberGrade);

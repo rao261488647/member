@@ -1,5 +1,6 @@
 package com.frame.member.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import com.frame.member.Parsers.OtoCoachMeetParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
 import com.frame.member.bean.OtoCoachMeetResult;
+import com.frame.member.bean.OtoCoachMeetResult.Date;
 import com.frame.member.bean.OtoCoachMeetResult.SkifieldChoices;
 import com.frame.member.frag.CoachBookingDialogFrag;
 import com.frame.member.widget.calendar.CalendarCard;
@@ -28,6 +30,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +59,8 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 	private CalendarCard[] mShowViews;
 	private CalendarViewAdapter<CalendarCard> adapter;
 	private SildeDirection mDirection = SildeDirection.NO_SILDE;
+	
+	private List<Date> list_date = new ArrayList<Date>();
 
 	enum SildeDirection {
 		RIGHT, LEFT, NO_SILDE;
@@ -110,6 +115,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 			views[i] = new CalendarCard(this, this,set_point);
 		}
 		adapter = new CalendarViewAdapter<CalendarCard>(views);
+		mShowViews = adapter.getAllItems();
 		setViewPager();
 		view_black_filter.setAlpha(0.0f);
 		container_pop = getLayoutInflater().inflate(R.layout.item_booking_pop, null);
@@ -159,6 +165,9 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 						list_field.add(field.skifieldName);
 					}
 					adapter_list.notifyDataSetChanged();
+					list_date.clear();
+					list_date.addAll(object.list_date);
+					mShowViews[498 % 12].changeCells((ArrayList<Date>) list_date);
 					
 				}
 			}
@@ -231,7 +240,7 @@ public class BookingDateActivity extends BaseActivity implements OnCellClickList
 
 	// 更新日历视图
 	private void updateCalendarView(int arg0) {
-		mShowViews = adapter.getAllItems();
+		
 		if (mDirection == SildeDirection.RIGHT) {
 			mShowViews[arg0 % mShowViews.length].rightSlide();
 		} else if (mDirection == SildeDirection.LEFT) {

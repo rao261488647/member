@@ -9,6 +9,8 @@ import com.frame.member.Parsers.AdviceFindParser;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.activity.AdviceDetailActivity;
+import com.frame.member.activity.FriendsSpaceActivity;
 import com.frame.member.activity.BaseActivity.DataCallback;
 import com.frame.member.activity.BaseActivity.RequestResult;
 import com.frame.member.adapters.AdviceFindAdapter;
@@ -25,6 +27,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 
@@ -106,6 +110,15 @@ public class AdviceFindFrag extends BaseFrag{
 				getData();
 			}
 		});
+//		lv_advice_find.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				Intent intent = new Intent(getActivity(), AdviceDetailActivity.class);
+//				intent.putExtra("subjectId", list_find.get(position - 1).subjectId);
+//				startActivity(intent);
+//			}
+//		});
 		
 	}
 	private void getData(){

@@ -37,7 +37,7 @@
         android:textSize="15sp"
         android:text="1628 积分"
         />
-    <TextView 
+    <!-- <TextView 
         android:id="@+id/my_center_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:background="#1E90FF"
         android:textColor="@color/white"
         android:text="VIP蓝卡"
-        />
+        /> -->
     <TextView 
         android:id="@+id/my_center_name"
         android:layout_width="wrap_content"

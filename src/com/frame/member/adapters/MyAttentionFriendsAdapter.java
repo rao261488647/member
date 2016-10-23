@@ -2,6 +2,7 @@ package com.frame.member.adapters;
 
 import java.util.List;
 import com.frame.member.R;
+import com.frame.member.TTApplication;
 import com.frame.member.AppConstants.AppConstants;
 import com.frame.member.Parsers.BaseParser;
 import com.frame.member.Parsers.NoBackParser;
@@ -15,6 +16,7 @@ import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.FollowListResult.Friends;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +87,10 @@ public class MyAttentionFriendsAdapter extends BaseAdapter {
 		holder.tv_member_name.setText(result.memberName);
 		holder.tv_member_level.setText("LV." + result.memberGrade);
 		holder.tv_info_item_detail.setText(result.memberSign);
-
+		holder.iv_member_profile.setImageResource(R.drawable.profile_example_1);
+		if(!TextUtils.isEmpty(result.appHeadThumbnail)){
+			TTApplication.getInstance().disPlayImageDef(result.appHeadThumbnail, holder.iv_member_profile);
+		}
 		return convertView;
 	}
 
