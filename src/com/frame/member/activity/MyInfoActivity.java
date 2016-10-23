@@ -21,6 +21,7 @@ import com.frame.member.Utils.BitmapUtil;
 import com.frame.member.Utils.HttpRequest;
 import com.frame.member.Utils.HttpRequestImpl;
 import com.frame.member.Utils.SPUtils;
+import com.frame.member.Utils.HttpRequest.RequestMethod;
 import com.frame.member.bean.BaseBean;
 import com.frame.member.bean.CommonBean;
 import com.frame.member.bean.MyBaseInfoBean.MyBaseInfoResult;
@@ -180,7 +181,7 @@ public class MyInfoActivity extends BaseActivity implements OnClickListener{
 	private void sendProfile(String head){
 		BaseParser<BaseBean> parser = new NoBackParser();
 		HttpRequestImpl request = new HttpRequestImpl(this,
-				AppConstants.APP_SORT_STUDENT+"/mychangehead", parser);
+				AppConstants.APP_SORT_STUDENT+"/mychangehead", parser, RequestMethod.post);
 		request.addParam("memberUserId", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_MEMBERUSERID, ""))
 				.addParam("token", (String) SPUtils.getAppSpUtil().get(this, SPUtils.KEY_TOKEN, ""))
 				.addParam("head", head)
