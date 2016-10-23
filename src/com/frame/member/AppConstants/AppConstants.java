@@ -46,7 +46,7 @@ public class AppConstants {
 	/*获取当前系统的android系统版本*/
 	public static final String currentapiVersion = "Android " + android.os.Build.VERSION.RELEASE;
 
-	public static boolean isDebugMode = false;
+	public static boolean isDebugMode = true;
 
 	public final static String EXT_PATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath();
