@@ -18,15 +18,20 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/iv_member_profile" >
+        android:layout_toRightOf="@id/iv_member_profile" 
+        android:layout_toLeftOf="@id/tv_attention_button"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:id="@+id/tv_member_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我石化了"
+            android:text="我石化了adsfasdsfasfafaf"
             android:textColor="#4e4e4e"
-            android:textSize="17sp" />
+            android:textSize="16sp" 
+            android:maxWidth="120dp"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/tv_member_level"
@@ -45,12 +50,12 @@
 
         <TextView
             android:id="@+id/tv_info_item_detail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/tv_member_name"
             android:layout_below="@id/tv_member_name"
             android:layout_marginTop="5dp"
-            android:text="人称学疯子"
+            android:text="人称学疯子adfjdsalfasldfsadlfkasfkfadsfadfadsfsdfasf"
             android:textColor="#aaaaaa"
             android:textSize="12sp" />
     </RelativeLayout>

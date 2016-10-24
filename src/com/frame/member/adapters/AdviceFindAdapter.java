@@ -67,6 +67,7 @@ public class AdviceFindAdapter extends BaseAdapter {
 			holder.iv_vedio_cover = (ImageView) convertView.findViewById(R.id.iv_vedio_cover);
 			holder.iv_comments_num = (ImageView) convertView.findViewById(R.id.iv_comments_num);
 			holder.iv_favour_num = (ImageView) convertView.findViewById(R.id.iv_favour_num);
+			holder.iv_play_video = (ImageView) convertView.findViewById(R.id.iv_play_video);
 			holder.tv_name_person = (TextView) convertView.findViewById(R.id.tv_name_person);
 			holder.tv_member_level = (TextView) convertView.findViewById(R.id.tv_member_level);
 			holder.tv_time_release = (TextView) convertView.findViewById(R.id.tv_time_release);
@@ -91,13 +92,14 @@ public class AdviceFindAdapter extends BaseAdapter {
 			}
 		});
 		TTApplication.getInstance().disPlayImageDef(result.videoPhoto, holder.iv_vedio_cover);
-		holder.iv_vedio_cover.setOnClickListener(new OnClickListener() {
+		
+		holder.iv_play_video.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context,VideoPlayActivity.class);
 				intent.putExtra("video_url", result.videoUrl);
-				context.startActivity(intent);
+				context.startActivity(intent);				
 			}
 		});
 		holder.tv_name_person.setText(result.user.memberName);
@@ -251,7 +253,7 @@ public class AdviceFindAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		ImageView iv_person_profile, iv_vedio_cover, iv_comments_num, iv_favour_num;
+		ImageView iv_person_profile, iv_vedio_cover, iv_comments_num, iv_favour_num,iv_play_video;
 		TextView tv_name_person, tv_member_level, tv_time_release, tv_attention_button, tv_vedio_info, tv_favour_num,
 				tv_comments_num;
 		LinearLayout ll_person_favor_profile;

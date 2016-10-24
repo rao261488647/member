@@ -71,7 +71,9 @@
             android:layout_height="20dp"
             android:src="@drawable/icon_review_video"
             android:layout_marginLeft="5dp"/>
-        <ImageView android:layout_width="60dp"
+        <ImageView 
+            android:id="@+id/iv_play_video"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/icon_play_2x"
             android:layout_centerInParent="true"/>
@@ -122,7 +124,7 @@
             android:textSize="11sp"
             android:text="1200"
             android:layout_toLeftOf="@id/iv_comments_num"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"/>
         <ImageView android:id="@+id/iv_favour_num"
             android:layout_width="18dp"
